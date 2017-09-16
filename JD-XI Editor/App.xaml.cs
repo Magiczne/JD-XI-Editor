@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace JD_XI_Editor
+﻿namespace JD_XI_Editor
 {
-    /// <summary>
-    /// Logika interakcji dla klasy App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App
     {
     }
 }
