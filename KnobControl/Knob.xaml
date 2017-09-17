@@ -12,7 +12,7 @@
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Center" 
                          Width="200" Height="200"
-                         Fill="#FFF4F4F5" 
+                         Fill="Transparent"
                          Stroke="Black" 
                          MouseWheel="Ellipse_MouseWheel" 
                          MouseDown="Ellipse_MouseDown" 
@@ -20,6 +20,7 @@
                          MouseUp="Ellipse_MouseUp" />
                 <TextBlock x:Name="DisplayTextBlock" 
                            HorizontalAlignment="Center" 
+                           Text="Magia"
                            VerticalAlignment="Center"
                            TextAlignment="Center" 
                            FontSize="24" 

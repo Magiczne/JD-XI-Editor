@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using JD_XI_Editor.ViewModels;
+using KnobControl;
 using SimpleInjector;
 
 namespace JD_XI_Editor.Bootstrap
@@ -33,7 +34,14 @@ namespace JD_XI_Editor.Bootstrap
             //ContainerInstance.RegisterSingleton<IEventAggregator, EventAggregator>();
             //ContainerInstance.RegisterSingleton<IDialogCoordinator, DialogCoordinator>();
 
+            ContainerInstance.RegisterCollection<TabViewModel>(new []
+            {
+                typeof(AnalogSynthTabViewModel)
+            });
+
             ContainerInstance.Verify();
+
+            ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "DataContextChanged");
         }
 
         /// <summary>

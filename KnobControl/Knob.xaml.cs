@@ -17,21 +17,33 @@ namespace KnobControl
     {
         public event RoutedPropertyChangedEventHandler<double> ValueChanged;
 
+        public static readonly DependencyProperty MinimumColorProperty = DependencyProperty.Register(
+            "MinimumColor",
+            typeof(Color),
+            typeof(Knob));
+
+        public static readonly DependencyProperty MaximumColorProperty = DependencyProperty.Register(
+            "MaximumColor",
+            typeof(Color),
+            typeof(Knob));
+
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
+            "Value",
+            typeof(double),
+            typeof(Knob));
+
         #region Fields
 
         private const double MouseMoveThreshold = 20;
 
-        private Color _colorForMinimum = Colors.Blue;
-        private Color _colorForMaximum = Colors.Red;
         private double _arcStartAngle = -180;
         private double _arcEndAngle = 180;
-        private string _title = "Missing";
-        private string _unit = "hours";
-        private double _value = 7;
+        private string _title = string.Empty;
+        private string _unit = string.Empty;
         private double _minimum;
         private double _maximum = 10;
         private double _step = 1;
-        private double _labelFontSize = 22;
+        private double _labelFontSize = 50;
         private FontFamily _labelFont = new FontFamily("Consolas");
         private readonly Arc _levelIndicatingArc = new Arc();
 
@@ -43,23 +55,23 @@ namespace KnobControl
         #region Properties
 
         [Description("Gets or sets a color for the knob control's minimum value."), Category("Knob Control")]
-        public Color ColorForMinimum
+        public Color MinimumColor
         {
-            get => _colorForMinimum;
+            get => (Color)GetValue(MinimumColorProperty);
             set
             {
-                _colorForMinimum = value;
+                SetValue(MinimumColorProperty, value);
                 Update();
             }
         }
 
         [Description("Gets or sets a color for the knob control's maximum value."), Category("Knob Control")]
-        public Color ColorForMaximum
+        public Color MaximumColor
         {
-            get => _colorForMaximum;
+            get => (Color)GetValue(MaximumColorProperty);
             set
             {
-                _colorForMaximum = value;
+                SetValue(MaximumColorProperty, value);
                 Update();
             }
         }
@@ -110,23 +122,38 @@ namespace KnobControl
             }
         }
 
-        [Description("Gets or sets value for the knob control."), Category("Knob Control")]
+        [Category("Knob Control")]
         public double Value
         {
-            get => _value;
+            get => (double) GetValue(ValueProperty);
             set
             {
-                var oldValue = _value;
-                _value = value;
+                var oldValue = Value;
+                var newValue = Math.Max(Math.Min(value, Maximum), Minimum);
 
-                if (IsLoaded)
-                {
-                    _value = Math.Max(Math.Min(_value, Maximum), Minimum);
-                    OnChanged(new RoutedPropertyChangedEventArgs<double>(oldValue, _value));
-                    Update();
-                }
+                SetValue(ValueProperty, newValue);
+                OnChanged(new RoutedPropertyChangedEventArgs<double>(oldValue, newValue));
+                Update();
             }
         }
+
+        //[Description("Gets or sets value for the knob control."), ]
+        //public double Value
+        //{
+        //    get => _value;
+        //    set
+        //    {
+        //        var oldValue = _value;
+        //        _value = value;
+
+        //        if (IsLoaded)
+        //        {
+        //            _value = Math.Max(Math.Min(_value, Maximum), Minimum);
+        //            OnChanged(new RoutedPropertyChangedEventArgs<double>(oldValue, _value));
+        //            Update();
+        //        }
+        //    }
+        //}
 
         [Description("Gets or sets the minimum value for the knob control. It can not be more than the maximum."), Category("Knob Control")]
         public double Minimum
@@ -202,7 +229,7 @@ namespace KnobControl
             _levelIndicatingArc.Stretch = Stretch.None;
             _levelIndicatingArc.StartAngle = ArcStartAngle;
             _levelIndicatingArc.EndAngle = ArcEndAngle;
-            _levelIndicatingArc.Stroke = Brushes.Red;
+            _levelIndicatingArc.Stroke = Brushes.Green;
             _levelIndicatingArc.IsHitTestVisible = false;
             _levelIndicatingArc.StrokeThickness = 30;
 
@@ -217,14 +244,14 @@ namespace KnobControl
             DisplayTextBlock.Text = string.Empty;
             if (Title.Length > 0)
             {
-                DisplayTextBlock.Text = Title;
+                DisplayTextBlock.Text = Title + '\n';
             }
 
             DisplayTextBlock.FontFamily = LabelFont;
             DisplayTextBlock.FontSize = LabelFontSize;
 
             // for Value Label
-            DisplayTextBlock.Text += "\n" + Value;
+            DisplayTextBlock.Text += Value;
 
             if (Unit.Length > 0)
             {
@@ -238,7 +265,7 @@ namespace KnobControl
             _levelIndicatingArc.EndAngle = newAngle;
 
             var newColorAlpha = 1.0 / (Maximum - Minimum) * (Value - Minimum);
-            var newColor = ColorBlend(ColorForMinimum, ColorForMaximum, newColorAlpha);
+            var newColor = ColorBlend(MinimumColor, MaximumColor, newColorAlpha);
             _levelIndicatingArc.Stroke = new SolidColorBrush(newColor);
         }
 

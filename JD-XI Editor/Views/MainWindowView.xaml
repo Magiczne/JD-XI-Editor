@@ -4,31 +4,30 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      mc:Ignorable="d"
-                      ShowTitleBar="False">
+                      MinWidth="795" MinHeight="730"
+                      Width="795" Height="730"
+                      
+                      mc:Ignorable="d">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Input Device" />
                 <ComboBox Width="150" 
+                          Height="30"
                           ItemsSource="{Binding InputDevices}"
                           DisplayMemberPath="Name" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Output Device" />
                 <ComboBox Width="150"
+                          Height="30"
                           ItemsSource="{Binding OutputDevices}" 
                           DisplayMemberPath="Name" />
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <TabControl>
-            <TabItem Header="Digital Synth 1" />
-            <TabItem Header="Digital Synth 2" />
-            <TabItem Header="Drums" />
-            <TabItem Header="Analog Synth" />
-        </TabControl>
+        <TabControl x:Name="Items" />
     </Grid>
 </controls:MetroWindow>
 

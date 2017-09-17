@@ -93,7 +93,15 @@
     <Compile Include="Models\Enums\TempoSyncNote.cs" />
     <Compile Include="Models\MidiInputDeviceInfo.cs" />
     <Compile Include="Models\MidiOutputDeviceInfo.cs" />
+    <Compile Include="Utils\Enums\EnumHelper.cs" />
+    <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
+    <Compile Include="Utils\Enums\ValueDescription.cs" />
+    <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Abstract\TabViewModel.cs" />
+    <Compile Include="Views\AnalogSynthTabView.xaml.cs">
+      <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +110,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrap\Bootstrapper.cs" />
+    <Page Include="Resources\Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AnalogSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Analog\AnalogFilter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KnobControl\KnobControl.csproj">
+      <Project>{41FFF666-E1DD-4B10-A5EA-305361365435}</Project>
+      <Name>KnobControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

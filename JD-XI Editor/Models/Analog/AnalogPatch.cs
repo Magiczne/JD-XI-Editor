@@ -145,7 +145,7 @@ namespace JD_XI_Editor.Models.Analog
         public AnalogPatch()
         {
             Name = "Init Tone";
-            Common = new AnalogCommon();;
+            Common = new AnalogCommon();
             Oscillator = new AnalogOscillator();
             Lfo = new AnalogLfo();
             Filter = new AnalogFilter();

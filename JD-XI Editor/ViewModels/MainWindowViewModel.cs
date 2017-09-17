@@ -1,21 +1,33 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Caliburn.Micro;
 using Sanford.Multimedia.Midi;
 using JD_XI_Editor.Models;
+// ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels
 {
-    internal sealed class MainWindowViewModel : Screen
+    internal sealed class MainWindowViewModel : Conductor<TabViewModel>.Collection.OneActive
     {
         #region Fields
 
+        /// <summary>
+        /// Input MIDI devices
+        /// </summary>
         private BindableCollection<MidiInputDeviceInfo> _inputDevices;
 
+        /// <summary>
+        /// Output MIDI devices
+        /// </summary>
         private BindableCollection<MidiOutputDeviceInfo> _outputDevices;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// Input MIDI devices
+        /// </summary>
         public BindableCollection<MidiInputDeviceInfo> InputDevices
         {
             get => _inputDevices;
@@ -29,6 +41,9 @@ namespace JD_XI_Editor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Output MIDI devices
+        /// </summary>
         public BindableCollection<MidiOutputDeviceInfo> OutputDevices
         {
             get => _outputDevices;
@@ -44,8 +59,10 @@ namespace JD_XI_Editor.ViewModels
 
         #endregion
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IEnumerable<TabViewModel> tabs)
         {
+            Items.AddRange(tabs);
+
             GetMidiDevices();
         }
 
