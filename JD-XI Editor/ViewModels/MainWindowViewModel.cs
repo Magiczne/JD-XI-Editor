@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Caliburn.Micro;
 using Sanford.Multimedia.Midi;
 using JD_XI_Editor.Models;
+using JD_XI_Editor.ViewModels.Abstract;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels
@@ -68,6 +70,9 @@ namespace JD_XI_Editor.ViewModels
 
         #region Methods
 
+        /// <summary>
+        /// Get input and output MIDI devices
+        /// </summary>
         private void GetMidiDevices()
         {
             var inputDevices = new BindableCollection<MidiInputDeviceInfo>();
@@ -78,9 +83,9 @@ namespace JD_XI_Editor.ViewModels
                 inputDevices.Add(new MidiInputDeviceInfo(InputDevice.GetDeviceCapabilities(i)));
             }
 
-            for (var i = 0; i < OutputDevice.DeviceCount; i++)
+            for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
             {
-                outputDevices.Add(new MidiOutputDeviceInfo(OutputDevice.GetDeviceCapabilities(i)));
+                outputDevices.Add(new MidiOutputDeviceInfo(OutputDeviceBase.GetDeviceCapabilities(i)));
             }
 
             InputDevices = inputDevices;

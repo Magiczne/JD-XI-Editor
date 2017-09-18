@@ -30,6 +30,4 @@
         <TabControl x:Name="Items" />
     </Grid>
 </controls:MetroWindow>
-
-
-
+    

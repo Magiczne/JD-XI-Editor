@@ -1,4 +1,5 @@
 ﻿using JD_XI_Editor.Models.Analog;
+using JD_XI_Editor.ViewModels.Abstract;
 
 namespace JD_XI_Editor.ViewModels
 {

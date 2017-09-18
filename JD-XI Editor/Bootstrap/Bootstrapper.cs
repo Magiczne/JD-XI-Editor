@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using JD_XI_Editor.ViewModels;
+using JD_XI_Editor.ViewModels.Abstract;
 using KnobControl;
 using SimpleInjector;
 
