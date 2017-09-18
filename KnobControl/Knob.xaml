@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="knobUserControl_Loaded">
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Viewbox Stretch="Uniform">
             <Grid x:Name="KnobGrid">
@@ -14,17 +15,23 @@
                          Width="200" Height="200"
                          Fill="Transparent"
                          Stroke="Black" 
-                         MouseWheel="Ellipse_MouseWheel" 
-                         MouseDown="Ellipse_MouseDown" 
-                         MouseMove="Ellipse_MouseMove" 
-                         MouseUp="Ellipse_MouseUp" />
-                <TextBlock x:Name="DisplayTextBlock" 
-                           HorizontalAlignment="Center" 
-                           Text="Magia"
+                         MouseWheel="OnMouseWheel" 
+                         MouseDown="OnMouseDown" 
+                         MouseMove="OnMouseMove" 
+                         MouseUp="OnMouseUp" />
+                <TextBlock HorizontalAlignment="Center" 
+                           Text="{Binding Path=LabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"
                            TextAlignment="Center" 
-                           FontSize="24" 
+                           FontFamily="{Binding Path=LabelFont, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                           FontSize="{Binding Path=LabelFontSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                            IsHitTestVisible="False" />
+                <ed:Arc StartAngle="{Binding Path=ArcStartAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        EndAngle="{Binding Path=CalculatedEndAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stroke="{Binding Path=ArcStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                        Stretch="None"
+                        IsHitTestVisible="False" 
+                        StrokeThickness="30" /> 
             </Grid>
         </Viewbox>
     </Grid>

@@ -42,7 +42,7 @@ namespace JD_XI_Editor.Bootstrap
 
             ContainerInstance.Verify();
 
-            ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "DataContextChanged");
+            ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "ValueChanged");
         }
 
         /// <summary>

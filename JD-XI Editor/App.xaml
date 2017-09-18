@@ -25,6 +25,7 @@
             <Style TargetType="{x:Type knobControl:Knob}">
                 <Setter Property="MinimumColor" Value="{DynamicResource HighlightColor}" />
                 <Setter Property="MaximumColor" Value="{DynamicResource AccentBaseColor}" />
+                <Setter Property="LabelFontSize" Value="50" />
             </Style>
 
             <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MetroCheckBox}">

@@ -1,283 +1,51 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Microsoft.Expression.Shapes;
+using KnobControl.Annotations;
+
+// ReSharper disable PossibleNullReferenceException
 // ReSharper disable InvertIf
 
 namespace KnobControl
 {
     /// Simple WPF/C# Knob Control 
     /// Author: n37jan (n37jan@gmail.com)
+    /// Modifications: Magiczne (michalkamilkleszczynski@gmail.com)
     /// License: BSD License
-    [DefaultEvent("ValueChanged"), DefaultProperty("Value")]
-    public partial class Knob
+    [DefaultEvent("ValueChanged")]
+    [DefaultProperty("Value")]
+    public partial class Knob : INotifyPropertyChanged
     {
-        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
-
-        public static readonly DependencyProperty MinimumColorProperty = DependencyProperty.Register(
-            "MinimumColor",
-            typeof(Color),
-            typeof(Knob));
-
-        public static readonly DependencyProperty MaximumColorProperty = DependencyProperty.Register(
-            "MaximumColor",
-            typeof(Color),
-            typeof(Knob));
-
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            "Value",
-            typeof(double),
-            typeof(Knob));
-
-        #region Fields
-
-        private const double MouseMoveThreshold = 20;
-
-        private double _arcStartAngle = -180;
-        private double _arcEndAngle = 180;
-        private string _title = string.Empty;
-        private string _unit = string.Empty;
-        private double _minimum;
-        private double _maximum = 10;
-        private double _step = 1;
-        private double _labelFontSize = 50;
-        private FontFamily _labelFont = new FontFamily("Consolas");
-        private readonly Arc _levelIndicatingArc = new Arc();
-
-        private bool _isMouseDown;
-        private Point _previousMousePosition;
-
-        #endregion
-
-        #region Properties
-
-        [Description("Gets or sets a color for the knob control's minimum value."), Category("Knob Control")]
-        public Color MinimumColor
-        {
-            get => (Color)GetValue(MinimumColorProperty);
-            set
-            {
-                SetValue(MinimumColorProperty, value);
-                Update();
-            }
-        }
-
-        [Description("Gets or sets a color for the knob control's maximum value."), Category("Knob Control")]
-        public Color MaximumColor
-        {
-            get => (Color)GetValue(MaximumColorProperty);
-            set
-            {
-                SetValue(MaximumColorProperty, value);
-                Update();
-            }
-        }
-
-        [Description("Gets or sets start angle for the level indicating arc. Unit is in degree."), Category("Knob Control")]
-        public double ArcStartAngle
-        {
-            get => _arcStartAngle;
-            set
-            {
-                _arcStartAngle = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets end angle for the level indicating arc. Unit is in degree."), Category("Knob Control")]
-        public double ArcEndAngle
-        {
-            get => _arcEndAngle;
-            set
-            {
-                _arcEndAngle = value;
-
-                Update();
-            }
-        }
-
-        [Description("Gets or sets title for the knob control."), Category("Knob Control")]
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets unit text for the knob control."), Category("Knob Control")]
-        public string Unit
-        {
-            get => _unit;
-            set
-            {
-                _unit = value;
-
-                Update();
-            }
-        }
-
-        [Category("Knob Control")]
-        public double Value
-        {
-            get => (double) GetValue(ValueProperty);
-            set
-            {
-                var oldValue = Value;
-                var newValue = Math.Max(Math.Min(value, Maximum), Minimum);
-
-                SetValue(ValueProperty, newValue);
-                OnChanged(new RoutedPropertyChangedEventArgs<double>(oldValue, newValue));
-                Update();
-            }
-        }
-
-        //[Description("Gets or sets value for the knob control."), ]
-        //public double Value
-        //{
-        //    get => _value;
-        //    set
-        //    {
-        //        var oldValue = _value;
-        //        _value = value;
-
-        //        if (IsLoaded)
-        //        {
-        //            _value = Math.Max(Math.Min(_value, Maximum), Minimum);
-        //            OnChanged(new RoutedPropertyChangedEventArgs<double>(oldValue, _value));
-        //            Update();
-        //        }
-        //    }
-        //}
-
-        [Description("Gets or sets the minimum value for the knob control. It can not be more than the maximum."), Category("Knob Control")]
-        public double Minimum
-        {
-            get => _minimum;
-            set
-            {
-                _minimum = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets the maximum value for the knob control. It can not be less than the maximum."), Category("Knob Control")]
-        public double Maximum
-        {
-            get => _maximum;
-            set
-            {
-                _maximum = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets a step for the knob control."), Category("Knob Control")]
-        public double Step
-        {
-            get => _step;
-            set
-            {
-                _step = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets a font for the knob control."), Category("Knob Control")]
-        public FontFamily LabelFont
-        {
-            get => _labelFont;
-            set
-            {
-                _labelFont = value;
-                Update();
-            }
-        }
-
-        [Description("Gets or sets a font size for the knob control."), Category("Knob Control")]
-        public double LabelFontSize
-        {
-            get => _labelFontSize;
-            set
-            {
-                _labelFontSize = value;
-                Update();
-            }
-        }
-
-        #endregion
-
-        private void OnChanged(RoutedPropertyChangedEventArgs<double> e)
-        {
-            ValueChanged?.Invoke(this, e);
-            Update();
-        }
-
+        /// <summary>
+        ///     Creates new instance of the Knob
+        /// </summary>
         public Knob()
         {
             InitializeComponent();
-            Initialize();
+            KnobGrid.DataContext = this;
         }
 
-        private void Initialize()
+        /// <summary>
+        ///     Method that is invoked on mouse wheel
+        /// </summary>
+        /// <param name="sender">Sedner</param>
+        /// <param name="e">Event args</param>
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            _levelIndicatingArc.Stretch = Stretch.None;
-            _levelIndicatingArc.StartAngle = ArcStartAngle;
-            _levelIndicatingArc.EndAngle = ArcEndAngle;
-            _levelIndicatingArc.Stroke = Brushes.Green;
-            _levelIndicatingArc.IsHitTestVisible = false;
-            _levelIndicatingArc.StrokeThickness = 30;
-
-            KnobGrid.Children.Add(_levelIndicatingArc);
-        }
-
-
-
-        private void Update()
-        {
-            // for Title Label
-            DisplayTextBlock.Text = string.Empty;
-            if (Title.Length > 0)
-            {
-                DisplayTextBlock.Text = Title + '\n';
-            }
-
-            DisplayTextBlock.FontFamily = LabelFont;
-            DisplayTextBlock.FontSize = LabelFontSize;
-
-            // for Value Label
-            DisplayTextBlock.Text += Value;
-
-            if (Unit.Length > 0)
-            {
-                DisplayTextBlock.Text += "[" + Unit + "]";
-            }
-
-            // Update Arc
-            _levelIndicatingArc.StartAngle = ArcStartAngle;
-
-            var newAngle = (ArcEndAngle - ArcStartAngle) / (Maximum - Minimum) * (Value - Minimum) + ArcStartAngle;
-            _levelIndicatingArc.EndAngle = newAngle;
-
-            var newColorAlpha = 1.0 / (Maximum - Minimum) * (Value - Minimum);
-            var newColor = ColorBlend(MinimumColor, MaximumColor, newColorAlpha);
-            _levelIndicatingArc.Stroke = new SolidColorBrush(newColor);
-        }
-
-
-
-        private void Ellipse_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var d = e.Delta / 120.0;    // Mouse wheel 1 click (120 delta) = 1 step
+            var d = e.Delta / 120.0; // Mouse wheel 1 click (120 delta) = 1 step
             Value += d * Step;
         }
 
-        private void Ellipse_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        ///     Method that is invoked on mouse down
+        /// </summary>
+        /// <param name="sender">Sedner</param>
+        /// <param name="e">Event args</param>
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             _isMouseDown = true;
 
@@ -287,11 +55,16 @@ namespace KnobControl
             _previousMousePosition = e.GetPosition(ellipse);
         }
 
-        private void Ellipse_MouseMove(object sender, MouseEventArgs e)
+        /// <summary>
+        ///     Method that is invoked on mouse move, but only if the mouse is down
+        /// </summary>
+        /// <param name="sender">Sedner</param>
+        /// <param name="e">Event args</param>
+        private void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (_isMouseDown)
             {
-                var newMousePosition = e.GetPosition((Ellipse)sender);
+                var newMousePosition = e.GetPosition((Ellipse) sender);
 
                 var dY = _previousMousePosition.Y - newMousePosition.Y;
 
@@ -303,24 +76,470 @@ namespace KnobControl
             }
         }
 
-        private void Ellipse_MouseUp(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        ///     Method that is invoked on mouse up
+        /// </summary>
+        /// <param name="sender">Sedner</param>
+        /// <param name="e">Event args</param>
+        private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             _isMouseDown = false;
             ((Ellipse) sender).ReleaseMouseCapture();
         }
 
+        /// <summary>
+        ///     Blend two colors into one
+        /// </summary>
+        /// <param name="color1">First color</param>
+        /// <param name="color2">Second color</param>
+        /// <param name="alpha">Alpha</param>
+        /// <returns>Blent color</returns>
         private static Color ColorBlend(Color color1, Color color2, double alpha)
         {
-            var r = (byte)(color1.R * (1 - alpha) + color2.R * alpha);
-            var g = (byte)(color1.G * (1 - alpha) + color2.G * alpha);
-            var b = (byte)(color1.B * (1 - alpha) + color2.B * alpha);
+            var r = (byte) (color1.R * (1 - alpha) + color2.R * alpha);
+            var g = (byte) (color1.G * (1 - alpha) + color2.G * alpha);
+            var b = (byte) (color1.B * (1 - alpha) + color2.B * alpha);
 
             return Color.FromRgb(r, g, b);
         }
 
-        private void knobUserControl_Loaded(object sender, RoutedEventArgs e)
+        #region Fields
+
+        private const double MouseMoveThreshold = 20;
+
+        private bool _isMouseDown;
+        private Point _previousMousePosition;
+
+        #endregion
+
+        #region Dependency properties
+
+        public static readonly DependencyProperty MinimumColorProperty = DependencyProperty.Register(
+            "MinimumColor", typeof(Color), typeof(Knob),
+            new FrameworkPropertyMetadata(Brushes.Green.Color, OnMinimumColorPropertyChanged));
+
+        public static readonly DependencyProperty MaximumColorProperty = DependencyProperty.Register(
+            "MaximumColor", typeof(Color), typeof(Knob),
+            new FrameworkPropertyMetadata(Brushes.GreenYellow.Color, OnMaximumColorPropertyChanged));
+
+        public static readonly DependencyProperty ArcStartAngleProperty = DependencyProperty.Register(
+            "ArcStartAngle", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(-180d, OnArcStartAnglePropertyChanged));
+
+        public static readonly DependencyProperty ArcEndAngleProperty = DependencyProperty.Register(
+            "ArcEndAngle", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(180d, OnArcEndAnglePropertyChanged));
+
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+            "Title", typeof(string), typeof(Knob),
+            new FrameworkPropertyMetadata(string.Empty, OnTitlePropertyChanged));
+
+        public static readonly DependencyProperty UnitProperty = DependencyProperty.Register(
+            "Unit", typeof(string), typeof(Knob),
+            new FrameworkPropertyMetadata(string.Empty, OnUnitPropertyChanged));
+
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
+            "Value", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(
+                OnValuePropertyChanged, OnValuePropertyCoerce));
+
+        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
+            "Minumum", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(0d, OnMinimumPropertyChanged, OnMinimumPropertyCoerce));
+
+        public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(
+            "Maximum", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(10d, OnMaximumPropertyChanged, OnMaximumPropertyCoerce));
+
+        public static readonly DependencyProperty StepProperty = DependencyProperty.Register(
+            "Step", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(1d));
+
+        public static readonly DependencyProperty LabelFontProperty = DependencyProperty.Register(
+            "LabelFont", typeof(FontFamily), typeof(Knob),
+            new FrameworkPropertyMetadata(new FontFamily("Consolas"), OnLabelFontPropertyChanged));
+
+        public static readonly DependencyProperty LabelFontSizeProperty = DependencyProperty.Register(
+            "LabelFontSize", typeof(double), typeof(Knob),
+            new FrameworkPropertyMetadata(24d, OnLabelFontSizePropertyChanged));
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Color for the minimum value
+        /// </summary>
+        [Category("Knob")]
+        public Color MinimumColor
         {
-            Update();
+            get => (Color) GetValue(MinimumColorProperty);
+            set => SetValue(MinimumColorProperty, value);
         }
+
+        /// <summary>
+        ///     Color for the maximum value
+        /// </summary>
+        [Category("Knob")]
+        public Color MaximumColor
+        {
+            get => (Color) GetValue(MaximumColorProperty);
+            set => SetValue(MaximumColorProperty, value);
+        }
+
+        /// <summary>
+        ///     Start angle of the arc
+        /// </summary>
+        [Category("Knob")]
+        public double ArcStartAngle
+        {
+            get => (double) GetValue(ArcStartAngleProperty);
+            set => SetValue(ArcStartAngleProperty, value);
+        }
+
+        /// <summary>
+        ///     End angle of the arc
+        /// </summary>
+        [Category("Knob")]
+        public double ArcEndAngle
+        {
+            get => (double) GetValue(ArcEndAngleProperty);
+            set => SetValue(ArcEndAngleProperty, value);
+        }
+
+        /// <summary>
+        /// Knob title
+        /// </summary>
+        [Category("Knob")]
+        public string Title
+        {
+            get => (string) GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
+        }
+        
+        /// <summary>
+        ///     Unit
+        /// </summary>
+        [Category("Knob")]
+        public string Unit
+        {
+            get => (string) GetValue(UnitProperty);
+            set => SetValue(UnitProperty, value);
+        }
+
+        /// <summary>
+        ///     Knob value
+        /// </summary>
+        [Category("Knob")]
+        public double Value
+        {
+            get => (double) GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
+        }
+
+
+        /// <summary>
+        ///     Minimum knob value
+        /// </summary>
+        [Category("Knob")]
+        public double Minimum
+        {
+            get => (double) GetValue(MinimumProperty);
+            set => SetValue(MinimumProperty, value);
+        }
+
+        /// <summary>
+        ///     Maximum knob value
+        /// </summary>
+        [Category("Knob")]
+        public double Maximum
+        {
+            get => (double) GetValue(MaximumProperty);
+            set => SetValue(MaximumProperty, value);
+        }
+
+        /// <summary>
+        ///     Step of the knob
+        /// </summary>
+        [Category("Knob")]
+        public double Step
+        {
+            get => (double) GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
+        }
+
+        /// <summary>
+        ///     Font family of the label
+        /// </summary>
+        [Category("Knob")]
+        public FontFamily LabelFont
+        {
+            get => (FontFamily) GetValue(LabelFontProperty);
+            set => SetValue(LabelFontProperty, value);
+        }
+
+        /// <summary>
+        ///     Font size of the label
+        /// </summary>
+        [Category("Knob")]
+        public double LabelFontSize
+        {
+            get => (double) GetValue(LabelFontSizeProperty);
+            set => SetValue(LabelFontSizeProperty, value);
+        }
+
+        /// <summary>
+        ///     Calculated end angle of arc
+        /// </summary>
+        public double CalculatedEndAngle => (ArcEndAngle - ArcStartAngle) / (Maximum - Minimum) * (Value - Minimum) +
+                                            ArcStartAngle;
+
+        /// <summary>
+        ///     Arc stroke brush
+        /// </summary>
+        public SolidColorBrush ArcStroke
+        {
+            get
+            {
+                var newAlpha = 1.0 / (Maximum - Minimum) * (Value - Minimum);
+                var newColor = ColorBlend(MinimumColor, MaximumColor, newAlpha);
+                return new SolidColorBrush(newColor);
+            }
+        }
+
+        /// <summary>
+        ///     Label text
+        /// </summary>
+        public string LabelText
+        {
+            get
+            {
+                var text = string.Empty;
+
+                if (Title.Length > 0)
+                    text = Title + '\n';
+
+                text += Value;
+
+                if (Unit.Length > 0)
+                    text += $"[{Unit}]";
+
+                return text;
+            }
+        }
+
+        #endregion
+
+        #region Property event handling and callbacks
+
+        /// <summary>
+        ///     An event that is raised when the value changes
+        /// </summary>
+        public event EventHandler ValueChanged;
+
+        /// <summary>
+        ///     Method that is invoked when the value changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+
+            var oldValue = (double) e.OldValue;
+            var newValue = (double) e.NewValue;
+
+            if (Math.Abs(oldValue - newValue) > 0.001)
+            {
+                knob.ValueChanged?.Invoke(knob, EventArgs.Empty);
+
+                knob.OnPropertyChanged(nameof(ArcStroke));
+                knob.OnPropertyChanged(nameof(CalculatedEndAngle));
+                knob.OnPropertyChanged(nameof(LabelText));
+            }
+        }
+
+        /// <summary>
+        ///     Value property coerce callback
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="data">Value</param>
+        /// <returns>Coerced value</returns>
+        private static object OnValuePropertyCoerce(DependencyObject sender, object data)
+        {
+            var knob = (Knob) sender;
+            var value = (double) data;
+
+            if (value < knob.Minimum)
+                value = knob.Minimum;
+
+            if (value > knob.Maximum)
+                value = knob.Maximum;
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the MinimumColor property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnMinimumColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(ArcStroke));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the MaximumColor property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnMaximumColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(ArcStroke));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the ArcStartAngle property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnArcStartAnglePropertyChanged(DependencyObject sender,
+            DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(ArcStartAngle));
+            knob.OnPropertyChanged(nameof(CalculatedEndAngle));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the ArcEndAngle property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnArcEndAnglePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(CalculatedEndAngle));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the Title property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnTitlePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(LabelText));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the Unit property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnUnitPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(LabelText));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the Minimum property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnMinimumPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(ArcStroke));
+            knob.OnPropertyChanged(nameof(CalculatedEndAngle));
+        }
+
+        /// <summary>
+        ///     Minimum property coerce callback
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="data">Value</param>
+        /// <returns>Coerced value</returns>
+        private static object OnMinimumPropertyCoerce(DependencyObject sender, object data)
+        {
+            var knob = (Knob) sender;
+            var value = (double) data;
+
+            if (value > knob.Maximum)
+                value = knob.Maximum;
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the Maximum property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnMaximumPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(ArcStroke));
+            knob.OnPropertyChanged(nameof(CalculatedEndAngle));
+        }
+
+        /// <summary>
+        ///     Maximum property coerce callback
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="data">Value</param>
+        /// <returns>Coerced value</returns>
+        private static object OnMaximumPropertyCoerce(DependencyObject sender, object data)
+        {
+            var knob = (Knob) sender;
+            var value = (double) data;
+
+            if (value < knob.Minimum)
+                value = knob.Minimum;
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the LabelFont property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnLabelFontPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(LabelFont));
+        }
+
+        /// <summary>
+        ///     Method that is invoked when the LabelFontSize property changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        private static void OnLabelFontSizePropertyChanged(DependencyObject sender,
+            DependencyPropertyChangedEventArgs e)
+        {
+            var knob = (Knob) sender;
+            knob.OnPropertyChanged(nameof(LabelFontSize));
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }
