@@ -368,7 +368,7 @@
                 <knobControl:Knob Name="Patch_Amplifier_LevelKeyfollow"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="-63" Maximum="63"
+                                  Minimum="-63" Maximum="63" Step="10"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
                 <TextBlock Text="Level keyfollow" 
                            TextAlignment="Center"
@@ -437,7 +437,7 @@
                 <knobControl:Knob Name="Patch_Filter_CutoffKeyfollow"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="-100" Maximum="100"
+                                  Minimum="-100" Maximum="100" Step="10"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
                 <TextBlock Text="Cutoff keyfollow"
                            TextAlignment="Center"
