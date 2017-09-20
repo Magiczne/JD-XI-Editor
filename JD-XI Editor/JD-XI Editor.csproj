@@ -81,6 +81,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
+    <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Analog\AnalogAmplifier.cs" />
     <Compile Include="Models\Analog\AnalogCommon.cs" />
@@ -170,5 +172,6 @@
       <Name>KnobControl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

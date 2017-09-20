@@ -19,21 +19,17 @@ namespace JD_XI_Editor.Bootstrap
         /// </summary>
         public static readonly Container ContainerInstance = new Container();
 
-        /// <summary>
-        /// Creates an instance of the bootstrapper
-        /// </summary>
+        /// <inheritdoc />
         public Bootstrapper()
         {
             Initialize();
         }
 
-        /// <summary>
-        /// Configure framework and setup IoC container
-        /// </summary>
+        /// <inheritdoc />
         protected override void Configure()
         {
             ContainerInstance.Register<IWindowManager, WindowManager>();
-            //ContainerInstance.RegisterSingleton<IEventAggregator, EventAggregator>();
+            ContainerInstance.RegisterSingleton<IEventAggregator, EventAggregator>();
             //ContainerInstance.RegisterSingleton<IDialogCoordinator, DialogCoordinator>();
 
             ContainerInstance.Register<AnalogPatchManager, AnalogPatchManager>();
@@ -49,21 +45,13 @@ namespace JD_XI_Editor.Bootstrap
             ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "ValueChanged");
         }
 
-        /// <summary>
-        /// Add custom behavior to execute after the application starts
-        /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="e">The args</param>
+        /// <inheritdoc />
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<MainWindowViewModel>();
         }
 
-        /// <summary>
-        /// Get all instances of the service
-        /// </summary>
-        /// <param name="service">The service to locate</param>
-        /// <returns>The located services</returns>
+        /// <inheritdoc />
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
             IServiceProvider provider = ContainerInstance;
@@ -72,21 +60,13 @@ namespace JD_XI_Editor.Bootstrap
             return services ?? Enumerable.Empty<object>();
         }
 
-        /// <summary>
-        /// Get instance of the service
-        /// </summary>
-        /// <param name="service">The service to locate</param>
-        /// <param name="key">The key to locate</param>
-        /// <returns>The located service</returns>
+        /// <inheritdoc />
         protected override object GetInstance(Type service, string key)
         {
             return ContainerInstance.GetInstance(service);
         }
 
-        /// <summary>
-        /// Tell the framework where to find assemblies to inspect
-        /// </summary>
-        /// <returns>List of assemblies to inspect</returns>
+        /// <inheritdoc />
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
             return new[]
@@ -95,10 +75,7 @@ namespace JD_XI_Editor.Bootstrap
             };
         }
 
-        /// <summary>
-        /// Provide injection
-        /// </summary>
-        /// <param name="instance">Instance to perform injection on</param>
+        /// <inheritdoc />
         protected override void BuildUp(object instance)
         {
             var registration = ContainerInstance.GetRegistration(instance.GetType(), true);

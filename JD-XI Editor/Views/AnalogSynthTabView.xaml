@@ -26,29 +26,28 @@
         <ColumnDefinition Width="280" />
     </Grid.ColumnDefinitions>
 
+    <Button Name="InitPatch"
+            Grid.Row="0" Grid.Column="0"
+            Margin="5 0 0 0"
+            Content="Init Patch"
+            Style="{StaticResource AccentedSquareButtonStyle}" />
     <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
           HorizontalAlignment="Right">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="105" />
             <ColumnDefinition Width="105" />
-            <ColumnDefinition Width="105" />
         </Grid.ColumnDefinitions>
-        <Button Name="InitPatch"
+        <Button Name="Dump" 
                 Grid.Column="0"
                 Margin="0 0 5 0"
-                Content="Init Patch"
-                Style="{StaticResource AccentedSquareButtonStyle}" />
-        <Button Name="Dump" 
-                Grid.Column="1"
-                Margin="0 0 5 0"
                 Content="Force dump"
+                IsEnabled="{Binding CanDump}"
                 Style="{StaticResource AccentedSquareButtonStyle}" />
-        <!-- TODO -->
-        <!--<Button Grid.Column="2" 
+        <Button Grid.Column="1" 
                 Margin="0 0 5 0"
                 Content="Force read" 
-                IsEnabled="False"
-                Style="{StaticResource AccentedSquareButtonStyle}" />-->
+                IsEnabled="{Binding CanRead}"
+                Style="{StaticResource AccentedSquareButtonStyle}" />
     </Grid>
 
     <!-- Common -->

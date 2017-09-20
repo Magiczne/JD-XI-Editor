@@ -15,6 +15,7 @@
                 <ComboBox Width="150" 
                           Height="30"
                           ItemsSource="{Binding InputDevices}"
+                          SelectedIndex="{Binding SelectedInputDeviceId}"
                           DisplayMemberPath="Name" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -22,7 +23,7 @@
                 <ComboBox Width="150"
                           Height="30"
                           ItemsSource="{Binding OutputDevices}" 
-                          SelectedIndex="{Binding SelectedOutputDevice}"
+                          SelectedIndex="{Binding SelectedOutputDeviceId}"
                           DisplayMemberPath="Name" />
             </StackPanel>
         </controls:WindowCommands>

@@ -1,34 +1,85 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using Sanford.Multimedia.Midi;
+using JD_XI_Editor.Events;
 using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Abstract;
+using Sanford.Multimedia.Midi;
 
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels
 {
-    //TODO: Maybe find a better way to store selected input and output device
-    internal sealed class MainWindowViewModel : Conductor<TabViewModel>.Collection.OneActive
+    internal sealed class MainWindowViewModel
+        : Conductor<TabViewModel>.Collection.OneActive
     {
+        public MainWindowViewModel(IEnumerable<TabViewModel> tabs, IEventAggregator eventAggregator)
+        {
+            DisplayName = "JD-XI Editor";
+
+            Items.AddRange(tabs);
+            _eventAggregator = eventAggregator;
+
+            GetMidiDevices();
+        }
+
+        #region Methods
+
+        /// <summary>
+        ///     Get input and output MIDI devices
+        /// </summary>
+        private void GetMidiDevices()
+        {
+            var inputDevices = new BindableCollection<MidiInputDeviceInfo>();
+            var outputDevices = new BindableCollection<MidiOutputDeviceInfo>();
+
+            for (var i = 0; i < InputDevice.DeviceCount; i++)
+                inputDevices.Add(new MidiInputDeviceInfo(InputDevice.GetDeviceCapabilities(i)));
+
+            for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
+                outputDevices.Add(new MidiOutputDeviceInfo(OutputDeviceBase.GetDeviceCapabilities(i)));
+
+            InputDevices = inputDevices;
+            OutputDevices = outputDevices;
+
+            SelectedInputDeviceId = -1;
+            SelectedOutputDeviceId = -1;
+        }
+
+        #endregion
+
         #region Fields
 
         /// <summary>
-        /// Input MIDI devices
+        ///     Event aggregator instance
+        /// </summary>
+        private readonly IEventAggregator _eventAggregator;
+
+        /// <summary>
+        ///     Input MIDI devices
         /// </summary>
         private BindableCollection<MidiInputDeviceInfo> _inputDevices;
 
         /// <summary>
-        /// Output MIDI devices
+        ///     Selected input device ID
+        /// </summary>
+        private int _selectedInputDeviceId;
+
+        /// <summary>
+        ///     Output MIDI devices
         /// </summary>
         private BindableCollection<MidiOutputDeviceInfo> _outputDevices;
+
+        /// <summary>
+        ///     Selected output device ID
+        /// </summary>
+        private int _selectedOutputDeviceId;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Input MIDI devices
+        ///     Input MIDI devices
         /// </summary>
         public BindableCollection<MidiInputDeviceInfo> InputDevices
         {
@@ -44,12 +95,23 @@ namespace JD_XI_Editor.ViewModels
         }
 
         /// <summary>
-        /// Selected Output Device
+        ///     Selected input device ID
         /// </summary>
-        public static int SelectedInputDevice { get; set; } = -1;
+        public int SelectedInputDeviceId
+        {
+            get => _selectedInputDeviceId;
+            set
+            {
+                if (value != _selectedInputDeviceId)
+                {
+                    _selectedInputDeviceId = value;
+                    _eventAggregator.PublishOnUIThread(new InputDeviceChangedEventArgs(_selectedInputDeviceId));
+                }
+            }
+        }
 
         /// <summary>
-        /// Output MIDI devices
+        ///     Output MIDI devices
         /// </summary>
         public BindableCollection<MidiOutputDeviceInfo> OutputDevices
         {
@@ -65,42 +127,19 @@ namespace JD_XI_Editor.ViewModels
         }
 
         /// <summary>
-        /// Selected Output Device
+        ///     Selected Output Device
         /// </summary>
-        public static int SelectedOutputDevice { get; set; } = -1;
-
-        #endregion
-
-        public MainWindowViewModel(IEnumerable<TabViewModel> tabs)
+        public int SelectedOutputDeviceId
         {
-            DisplayName = "JD-XI Editor";
-            Items.AddRange(tabs);
-
-            GetMidiDevices();
-        }
-
-        #region Methods
-
-        /// <summary>
-        /// Get input and output MIDI devices
-        /// </summary>
-        private void GetMidiDevices()
-        {
-            var inputDevices = new BindableCollection<MidiInputDeviceInfo>();
-            var outputDevices = new BindableCollection<MidiOutputDeviceInfo>();
-
-            for (var i = 0; i < InputDevice.DeviceCount; i++)
+            get => _selectedOutputDeviceId;
+            set
             {
-                inputDevices.Add(new MidiInputDeviceInfo(InputDevice.GetDeviceCapabilities(i)));
+                if (value != _selectedOutputDeviceId)
+                {
+                    _selectedOutputDeviceId = value;
+                    _eventAggregator.PublishOnUIThread(new OutputDeviceChangedEventArgs(_selectedOutputDeviceId));
+                }
             }
-
-            for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
-            {
-                outputDevices.Add(new MidiOutputDeviceInfo(OutputDeviceBase.GetDeviceCapabilities(i)));
-            }
-
-            InputDevices = inputDevices;
-            OutputDevices = outputDevices;
         }
 
         #endregion
