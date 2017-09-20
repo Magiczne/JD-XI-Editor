@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogOscillator : PropertyChangedBase
+    internal class Oscillator : PropertyChangedBase
     {
         #region Fields 
 
@@ -227,9 +227,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of AnalogOscillator
+        /// Creates new instance of Oscillator
         /// </summary>
-        public AnalogOscillator()
+        public Oscillator()
         {
             Shape = AnalogOscillatorShape.Saw;
             PulseWidth = 0;

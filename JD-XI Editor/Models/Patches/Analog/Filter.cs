@@ -4,7 +4,7 @@
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogFilter : PropertyChangedBase
+    internal class Filter : PropertyChangedBase
     {
         #region Fields
 
@@ -163,9 +163,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of AnalogFilter
+        /// Creates new instance of Filter
         /// </summary>
-        public AnalogFilter()
+        public Filter()
         {
             On = true;
             Cutoff = 127;

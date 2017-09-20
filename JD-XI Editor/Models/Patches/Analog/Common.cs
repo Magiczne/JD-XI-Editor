@@ -4,7 +4,7 @@
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogCommon : PropertyChangedBase
+    internal class Common : PropertyChangedBase
     {
         #region Fields
 
@@ -144,7 +144,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         /// Creates new instance of AnalogCommon
         /// </summary>
-        public AnalogCommon()
+        public Common()
         {
             Portamento = false;
             Legato = false;

@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogLfo : PropertyChangedBase
+    internal class Lfo : PropertyChangedBase
     {
         #region Fields
 
@@ -290,9 +290,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of AnalogLfo
+        /// Creates new instance of Lfo
         /// </summary>
-        public AnalogLfo()
+        public Lfo()
         {
             Shape = LfoShape.Triangle;
             Rate = 53;
