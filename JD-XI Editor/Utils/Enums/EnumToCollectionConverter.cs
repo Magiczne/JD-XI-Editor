@@ -19,6 +19,9 @@ namespace JD_XI_Editor.Utils.Enums
         /// <returns>All enum values</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             return EnumHelper.GetAllValuesAndDescriptions(value.GetType());
         }
 
@@ -32,7 +35,7 @@ namespace JD_XI_Editor.Utils.Enums
         /// <returns>null</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new MethodAccessException("EnumToCollectionConverter is a one way converter");
         }
 
         /// <summary>
