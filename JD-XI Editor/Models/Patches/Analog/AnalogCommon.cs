@@ -1,7 +1,8 @@
 ﻿using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
-namespace JD_XI_Editor.Models.Analog
+namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class AnalogCommon : PropertyChangedBase
     {
@@ -139,6 +140,7 @@ namespace JD_XI_Editor.Models.Analog
 
         #endregion
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates new instance of AnalogCommon
         /// </summary>

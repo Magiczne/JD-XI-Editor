@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using JD_XI_Editor.Models.Analog;
+using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Managers

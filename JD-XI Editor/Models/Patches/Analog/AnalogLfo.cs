@@ -1,8 +1,9 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums;
+
 // ReSharper disable InvertIf
 
-namespace JD_XI_Editor.Models.Analog
+namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class AnalogLfo : PropertyChangedBase
     {
@@ -287,6 +288,7 @@ namespace JD_XI_Editor.Models.Analog
 
         #endregion
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates new instance of AnalogLfo
         /// </summary>

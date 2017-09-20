@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
-namespace JD_XI_Editor.Models.Analog
+namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class AnalogPatch : PropertyChangedBase
     {
@@ -144,6 +143,7 @@ namespace JD_XI_Editor.Models.Analog
 
         #endregion
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates new instance of AnalogPatch
         /// </summary>

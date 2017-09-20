@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
-using JD_XI_Editor.Models.Analog;
 using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.ViewModels.Abstract;
 using Sanford.Multimedia.Midi;
 
