@@ -16,7 +16,7 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         /// <param name="patch">Analog patch</param>
         /// <returns>Bytes of the sysex event</returns>
-        public byte[] GetPatchMidiData(AnalogPatch patch)
+        public byte[] GetPatchMidiData(Patch patch)
         {
             var patchBytes = patch.GetBytes();
 

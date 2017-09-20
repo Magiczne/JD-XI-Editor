@@ -19,7 +19,7 @@ namespace JD_XI_Editor.ViewModels
             _manager = manager;
 
             DisplayName = "Analog Synth";
-            Patch = new AnalogPatch();
+            Patch = new Patch();
             Patch.PropertyChanged += (sender, args) =>
             {
                 Dump();
@@ -42,7 +42,7 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         ///     Patch model
         /// </summary>
-        public AnalogPatch Patch { get; }
+        public Patch Patch { get; }
 
         /// <summary>
         ///     Pulse Width Enabled

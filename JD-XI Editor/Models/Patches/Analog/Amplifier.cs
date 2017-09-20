@@ -4,7 +4,7 @@
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogAmplifier : PropertyChangedBase
+    internal class Amplifier : PropertyChangedBase
     {
         #region Fields
 
@@ -100,9 +100,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of AnalogAmplifier
+        /// Creates new instance of Amplifier
         /// </summary>
-        public AnalogAmplifier()
+        public Amplifier()
         {
             Level = 127;
             LevelKeyfollow = 0;

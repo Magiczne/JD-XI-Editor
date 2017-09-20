@@ -7,7 +7,7 @@ using Caliburn.Micro;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class AnalogPatch : PropertyChangedBase
+    internal class Patch : PropertyChangedBase
     {
         #region Fields
 
@@ -19,27 +19,27 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Common
         /// </summary>
-        private AnalogCommon _common;
+        private Common _common;
 
         /// <summary>
         ///     Oscillator
         /// </summary>
-        private AnalogOscillator _oscillator;
+        private Oscillator _oscillator;
 
         /// <summary>
         ///     LFO
         /// </summary>
-        private AnalogLfo _lfo;
+        private Lfo _lfo;
 
         /// <summary>
         ///     Filter (Low Pass)
         /// </summary>
-        private AnalogFilter _filter;
+        private Filter _filter;
 
         /// <summary>
         ///     Amplifier
         /// </summary>
-        private AnalogAmplifier _amplifier;
+        private Amplifier _amplifier;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Common
         /// </summary>
-        public AnalogCommon Common
+        public Common Common
         {
             get => _common;
             set
@@ -80,7 +80,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Oscillator
         /// </summary>
-        public AnalogOscillator Oscillator
+        public Oscillator Oscillator
         {
             get => _oscillator;
             set
@@ -96,7 +96,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     LFO
         /// </summary>
-        public AnalogLfo Lfo
+        public Lfo Lfo
         {
             get => _lfo;
             set
@@ -112,7 +112,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Filter (Low Pass)
         /// </summary>
-        public AnalogFilter Filter
+        public Filter Filter
         {
             get => _filter;
             set
@@ -128,7 +128,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Amplifier
         /// </summary>
-        public AnalogAmplifier Amplifier
+        public Amplifier Amplifier
         {
             get => _amplifier;
             set
@@ -147,14 +147,14 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         /// Creates new instance of AnalogPatch
         /// </summary>
-        public AnalogPatch()
+        public Patch()
         {
             Name = "Init Tone";
-            Common = new AnalogCommon();
-            Oscillator = new AnalogOscillator();
-            Lfo = new AnalogLfo();
-            Filter = new AnalogFilter();
-            Amplifier = new AnalogAmplifier();
+            Common = new Common();
+            Oscillator = new Oscillator();
+            Lfo = new Lfo();
+            Filter = new Filter();
+            Amplifier = new Amplifier();
 
             Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
             Oscillator.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Oscillator));
