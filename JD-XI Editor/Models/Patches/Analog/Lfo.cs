@@ -32,7 +32,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         /// Tempo synchronization base note
         /// </summary>
-        private TempoSyncNote _tempoSyncNote;
+        private SyncNote _syncNote;
 
         /// <summary>
         /// Pitch depth
@@ -145,14 +145,14 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         /// Tempo synchronization base note
         /// </summary>
-        public TempoSyncNote SyncNote
+        public SyncNote SyncNote
         {
-            get => _tempoSyncNote;
+            get => _syncNote;
             set
             {
-                if (value != _tempoSyncNote)
+                if (value != _syncNote)
                 {
-                    _tempoSyncNote = value;
+                    _syncNote = value;
                     NotifyOfPropertyChange(nameof(SyncNote));
                 }
             }
@@ -298,7 +298,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
             Rate = 53;
             FadeTime = 0;
             TempoSync = false;
-            SyncNote = TempoSyncNote.SixteenthNote;
+            SyncNote = SyncNote.SixteenthNote;
             PitchDepth = 0;
             FilterDepth = 0;
             AmpDepth = 0;
@@ -319,7 +319,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
             Rate = 53;
             FadeTime = 0;
             TempoSync = false;
-            SyncNote = TempoSyncNote.SixteenthNote;
+            SyncNote = SyncNote.SixteenthNote;
             PitchDepth = 0;
             FilterDepth = 0;
             AmpDepth = 0;
