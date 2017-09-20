@@ -73,6 +73,7 @@ namespace JD_XI_Editor.ViewModels
 
         public MainWindowViewModel(IEnumerable<TabViewModel> tabs)
         {
+            DisplayName = "JD-XI Editor";
             Items.AddRange(tabs);
 
             GetMidiDevices();
