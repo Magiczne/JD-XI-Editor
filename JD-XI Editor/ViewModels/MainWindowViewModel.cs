@@ -46,7 +46,7 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         /// Selected Output Device
         /// </summary>
-        public static int SelectedInputDevice { get; set; } = 0;
+        public static int SelectedInputDevice { get; set; } = -1;
 
         /// <summary>
         /// Output MIDI devices
@@ -67,7 +67,7 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         /// Selected Output Device
         /// </summary>
-        public static int SelectedOutputDevice { get; set; } = 0;
+        public static int SelectedOutputDevice { get; set; } = -1;
 
         #endregion
 
