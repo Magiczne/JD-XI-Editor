@@ -2,13 +2,13 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    internal enum LfoShape
+    internal enum LfoShape : byte
     {
         [Description("Triangle")]
-        Triangle,
+        Triangle = 0x00,
 
         [Description("Sine")]
-        Sine,
+        Sine = 0x01,
 
         [Description("Sawtooth")]
         Saw,

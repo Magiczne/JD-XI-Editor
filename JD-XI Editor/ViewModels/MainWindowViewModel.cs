@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Sanford.Multimedia.Midi;
 using JD_XI_Editor.Models;
@@ -9,6 +8,7 @@ using JD_XI_Editor.ViewModels.Abstract;
 
 namespace JD_XI_Editor.ViewModels
 {
+    //TODO: Maybe find a better way to store selected input and output device
     internal sealed class MainWindowViewModel : Conductor<TabViewModel>.Collection.OneActive
     {
         #region Fields
@@ -44,6 +44,11 @@ namespace JD_XI_Editor.ViewModels
         }
 
         /// <summary>
+        /// Selected Output Device
+        /// </summary>
+        public static int SelectedInputDevice { get; set; } = 0;
+
+        /// <summary>
         /// Output MIDI devices
         /// </summary>
         public BindableCollection<MidiOutputDeviceInfo> OutputDevices
@@ -58,6 +63,11 @@ namespace JD_XI_Editor.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Selected Output Device
+        /// </summary>
+        public static int SelectedOutputDevice { get; set; } = 0;
 
         #endregion
 

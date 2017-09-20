@@ -5,12 +5,12 @@ namespace JD_XI_Editor.Models.Enums
     internal enum AnalogOscillatorShape
     {
         [Description("Sawtooth")]
-        Saw,
+        Saw = 0x00,
 
         [Description("Triangle")]
-        Triangle,
+        Triangle = 0x01,
 
         [Description("Square")]
-        Square
+        Square = 0x02
     }
 }

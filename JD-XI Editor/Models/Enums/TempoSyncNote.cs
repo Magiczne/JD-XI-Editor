@@ -2,66 +2,66 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    internal enum TempoSyncNote
+    internal enum TempoSyncNote : byte
     {
         [Description("16")]
-        SixteenWholeNotes,      
+        SixteenWholeNotes = 0x00,
 
         [Description("12")]
-        TwelveWholeNotes,       
+        TwelveWholeNotes = 0x01,
 
         [Description("8")]
-        OctupleWholeNote,       
+        OctupleWholeNote,
 
         [Description("4")]
-        QuadrupleWholeNote,     
+        QuadrupleWholeNote,
 
         [Description("2")]
-        DoubleWholeNote,        
+        DoubleWholeNote,
 
         [Description("1")]
-        WholeNote,              
+        WholeNote,
 
         [Description("3/4")]
-        ThreeFourths,           
+        ThreeFourths,
 
         [Description("2/3")]
-        TwoThirds,              
+        TwoThirds,
 
         [Description("1/2")]
-        HalfNote,               
+        HalfNote,
 
         [Description("3/8")]
-        ThreeEights,            
+        ThreeEights,
 
         [Description("1/3")]
-        OneThird,               
+        OneThird,
 
         [Description("1/4")]
-        QuarterNote,            
+        QuarterNote,
 
         [Description("3/16")]
-        ThreeSixteenths,        
+        ThreeSixteenths,
 
         [Description("1/6")]
-        OneSixth,               
+        OneSixth,
 
         [Description("1/8")]
-        EightNote,              
+        EightNote,
 
         [Description("3/32")]
-        ThreeThirtyTwos,        
+        ThreeThirtyTwos,
 
         [Description("1/12")]
-        OneTwelve,              
+        OneTwelve,
 
         [Description("1/16")]
-        SixteenthNote,          
+        SixteenthNote,
 
         [Description("1/24")]
-        OneTwentyFourth,        
+        OneTwentyFourth,
 
         [Description("1/32")]
-        ThirtySecondNote        
+        ThirtySecondNote
     }
 }

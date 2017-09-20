@@ -27,6 +27,11 @@ namespace KnobControl
         {
             InitializeComponent();
             KnobGrid.DataContext = this;
+
+            IsEnabledChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(ArcStroke));
+            };
         }
 
         /// <summary>
@@ -301,9 +306,14 @@ namespace KnobControl
         {
             get
             {
-                var newAlpha = 1.0 / (Maximum - Minimum) * (Value - Minimum);
-                var newColor = ColorBlend(MinimumColor, MaximumColor, newAlpha);
-                return new SolidColorBrush(newColor);
+                if (IsEnabled)
+                {
+                    var newAlpha = 1.0 / (Maximum - Minimum) * (Value - Minimum);
+                    var newColor = ColorBlend(MinimumColor, MaximumColor, newAlpha);
+                    return new SolidColorBrush(newColor);
+                }
+
+                return Brushes.Gray;
             }
         }
 

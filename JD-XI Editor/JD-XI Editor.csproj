@@ -93,9 +93,12 @@
     <Compile Include="Models\Enums\TempoSyncNote.cs" />
     <Compile Include="Models\MidiInputDeviceInfo.cs" />
     <Compile Include="Models\MidiOutputDeviceInfo.cs" />
+    <Compile Include="Managers\AnalogPatchManager.cs" />
+    <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
     <Compile Include="Utils\Enums\ValueDescription.cs" />
+    <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Abstract\TabViewModel.cs" />

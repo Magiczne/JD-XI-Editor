@@ -306,5 +306,61 @@ namespace JD_XI_Editor.Models.Analog
             AmpModControl = 0;
             RateModControl = 18;
         }
+
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            Shape = LfoShape.Triangle;
+            Rate = 53;
+            FadeTime = 0;
+            TempoSync = false;
+            SyncNote = TempoSyncNote.SixteenthNote;
+            PitchDepth = 0;
+            FilterDepth = 0;
+            AmpDepth = 0;
+            KeyTrigger = true;
+            PitchModControl = 16;
+            FilterModControl = 0;
+            AmpModControl = 0;
+            RateModControl = 18;
+        }
+
+        /// <summary>
+        /// Get bytes for Lfo section
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetLfoSectionBytes()
+        {
+            return new[]
+            {
+                (byte) Shape,
+                (byte) Rate,
+                (byte) FadeTime,
+                (byte) (TempoSync ? 0x01 : 0x00),
+                (byte) SyncNote,
+                (byte) (PitchDepth + 64),
+                (byte) (FilterDepth + 64),
+                (byte) (AmpDepth + 64),
+                (byte) (KeyTrigger ? 0x01 : 0x00)
+            };
+        }
+
+        /// <summary>
+        /// Get bytes for Lfo Mod Ctrl section
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetLfoModSectionBytes()
+        {
+            return new[]
+            {
+                (byte) (PitchModControl + 64),
+                (byte) (FilterModControl + 64),
+                (byte) (AmpModControl + 64),
+                (byte) (RateModControl + 64)
+            };
+        }
     }
 }

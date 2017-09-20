@@ -151,5 +151,35 @@ namespace JD_XI_Editor.Models.Analog
             PitchBendRangeUp = 2;
             PitchBendRangeDown = 2;
         }
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            Portamento = false;
+            Legato = false;
+            PortamentoTime = 20;
+            OctaveShift = 0;
+            PitchBendRangeUp = 2;
+            PitchBendRangeDown = 2;
+        }
+
+        /// <summary>
+        /// Get bytes
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) (Portamento ? 0x01 : 0x00),
+                (byte) PortamentoTime,
+                (byte) (Legato ? 0x01 : 0x00),
+                (byte) (OctaveShift + 64),
+                (byte) PitchBendRangeUp,
+                (byte) PitchBendRangeDown
+            };
+        }
     }
 }

@@ -240,5 +240,43 @@ namespace JD_XI_Editor.Models.Analog
             EnvelopeDepth = 0;
             EnvelopeVelocitySensitivity = 0;
         }
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            Shape = AnalogOscillatorShape.Saw;
+            PulseWidth = 0;
+            PulseWidthModDepth = 0;
+            SubOsc = SubOscillatorStatus.Off;
+            Pitch = 0;
+            Detune = 0;
+            Attack = 0;
+            Decay = 0;
+            EnvelopeDepth = 0;
+            EnvelopeVelocitySensitivity = 0;
+        }
+
+        /// <summary>
+        /// Get bytes
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Shape,
+                (byte) (Pitch + 64),
+                (byte) (Detune + 64),
+                (byte) PulseWidth,
+                (byte) PulseWidthModDepth,
+                (byte) (EnvelopeVelocitySensitivity + 64),
+                (byte) Attack,
+                (byte) Decay,
+                (byte) (EnvelopeDepth + 64),
+                (byte) SubOsc,
+            };
+        }
     }
 }

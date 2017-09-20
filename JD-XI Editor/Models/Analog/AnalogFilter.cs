@@ -172,6 +172,43 @@ namespace JD_XI_Editor.Models.Analog
             Envelope = new Adsr(0, 0, 127, 0);
             EnvelopeDepth = 0;
             EnvelopeVelocitySensitivity = 0;
+
+            Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
+        }
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            On = true;
+            Cutoff = 127;
+            Resonance = 0;
+            CutoffKeyfollow = 0;
+            Envelope.Set(0, 0, 127, 0);
+            EnvelopeDepth = 0;
+            EnvelopeVelocitySensitivity = 0;
+        }
+
+        /// <summary>
+        /// Get bytes
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) (On ? 0x01 : 0x00),
+                (byte) Cutoff,
+                (byte) (CutoffKeyfollow / 10 + 64),
+                (byte) Resonance,
+                (byte) (EnvelopeVelocitySensitivity + 64),
+                (byte) Envelope.Attack,
+                (byte) Envelope.Decay,
+                (byte) Envelope.Sustain,
+                (byte) Envelope.Release,
+                (byte) (EnvelopeDepth + 64)
+            };
         }
     }
 }

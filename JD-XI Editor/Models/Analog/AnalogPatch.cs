@@ -1,4 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using Caliburn.Micro;
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Analog
@@ -150,6 +155,55 @@ namespace JD_XI_Editor.Models.Analog
             Lfo = new AnalogLfo();
             Filter = new AnalogFilter();
             Amplifier = new AnalogAmplifier();
+
+            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
+            Oscillator.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Oscillator));
+            Lfo.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Lfo));
+            Filter.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Filter));
+            Amplifier.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Amplifier));
+        }
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            Name = "Init Tone";
+            Common.Reset();
+            Oscillator.Reset();
+            Lfo.Reset();
+            Filter.Reset();
+            Amplifier.Reset();
+        }
+
+        /// <summary>
+        /// Get patch byte data
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            var bytes = new List<byte>();
+
+            var nameBytes = Encoding.ASCII.GetBytes(Name);
+            bytes.AddRange(nameBytes);
+            bytes.AddRange(Enumerable.Repeat<byte>(0x20, 12 - nameBytes.Length));
+            bytes.Add(0x00);    //Reserve
+
+            bytes.AddRange(Lfo.GetLfoSectionBytes());
+
+            bytes.AddRange(Oscillator.GetBytes());
+
+            bytes.AddRange(Filter.GetBytes());
+
+            bytes.AddRange(Amplifier.GetBytes());
+
+            bytes.AddRange(Common.GetBytes());
+            bytes.Add(0x00);    //Reserve
+
+            bytes.AddRange(Lfo.GetLfoModSectionBytes());
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 4));   //Reserve
+
+            return bytes.ToArray();
         }
     }
 }

@@ -106,6 +106,37 @@ namespace JD_XI_Editor.Models.Analog
             LevelKeyfollow = 0;
             LevelVelSensitivity = 0;
             Envelope = new Adsr(0, 0, 127, 0);
+
+            Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
+        }
+
+        /// <summary>
+        /// Reset data to initial patch
+        /// </summary>
+        public void Reset()
+        {
+            Level = 127;
+            LevelKeyfollow = 0;
+            LevelVelSensitivity = 0;
+            Envelope.Set(0, 0, 127, 0);
+        }
+
+        /// <summary>
+        /// Get bytes
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Level,
+                (byte) (LevelKeyfollow / 10 + 64),
+                (byte) (LevelVelSensitivity + 64),
+                (byte) Envelope.Attack,
+                (byte) Envelope.Decay,
+                (byte) Envelope.Sustain,
+                (byte) Envelope.Release
+            };
         }
     }
 }

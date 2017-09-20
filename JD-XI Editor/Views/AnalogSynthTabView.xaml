@@ -6,8 +6,13 @@
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:enums="clr-namespace:JD_XI_Editor.Utils.Enums"
+      xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
       mc:Ignorable="d">
+    <Grid.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Grid.Resources>
     <Grid.RowDefinitions>
+        <RowDefinition Height="30" />
         <RowDefinition Height="150" />
         <RowDefinition Height="170" />
         <RowDefinition Height="185" />
@@ -21,8 +26,33 @@
         <ColumnDefinition Width="280" />
     </Grid.ColumnDefinitions>
 
+    <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
+          HorizontalAlignment="Right">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="105" />
+            <ColumnDefinition Width="105" />
+            <ColumnDefinition Width="105" />
+        </Grid.ColumnDefinitions>
+        <Button Name="InitPatch"
+                Grid.Column="0"
+                Margin="0 0 5 0"
+                Content="Init Patch"
+                Style="{StaticResource AccentedSquareButtonStyle}" />
+        <Button Name="Dump" 
+                Grid.Column="1"
+                Margin="0 0 5 0"
+                Content="Force dump"
+                Style="{StaticResource AccentedSquareButtonStyle}" />
+        <!-- TODO -->
+        <!--<Button Grid.Column="2" 
+                Margin="0 0 5 0"
+                Content="Force read" 
+                IsEnabled="False"
+                Style="{StaticResource AccentedSquareButtonStyle}" />-->
+    </Grid>
+
     <!-- Common -->
-    <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
               Height="140"
               VerticalAlignment="Top"
               Header="Common">
@@ -144,7 +174,7 @@
     </GroupBox>
     
     <!-- Oscillator -->
-    <GroupBox Grid.Row="1" Grid.Column="0"
+    <GroupBox Grid.Row="2" Grid.Column="0"
               Height="160"
               VerticalAlignment="Top"
               Header="Oscillator">
@@ -196,7 +226,7 @@
     </GroupBox>
     
     <!-- Pitch Envelope -->
-    <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+    <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
               Height="160"
               VerticalAlignment="Top"
               Header="Pitch Envelope">
@@ -272,7 +302,7 @@
     </GroupBox>
     
     <!-- Amplifier Envelope -->
-    <GroupBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"
+    <GroupBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
               VerticalAlignment="Top"
               Height="160"
               Header="Amplifier envelope">
@@ -389,7 +419,7 @@
     </GroupBox>
     
     <!-- Filter -->
-    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+    <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
               Height="175"
               VerticalAlignment="Top"
               Header="Low Pass Filter">
@@ -447,7 +477,7 @@
     </GroupBox>
     
     <!-- Filter Envelope -->
-    <GroupBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+    <GroupBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
               VerticalAlignment="Top"
               Height="175"
               Header="Filter envelope">
@@ -554,7 +584,7 @@
     </GroupBox>
 
     <!-- LFO -->
-    <GroupBox Grid.Row="2" Grid.Column="4"
+    <GroupBox Grid.Row="3" Grid.Column="4"
               VerticalAlignment="Top"
               Height="175"
               Header="Low frequency oscillator">
@@ -596,12 +626,14 @@
                       VerticalAlignment="Top" 
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
+                      IsEnabled="{Binding Patch.Lfo.TempoSync}"
                       ItemsSource="{Binding Path=Patch.Lfo.SyncNote, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Lfo.SyncNote}" />
 
             <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_Rate"
+                <knobControl:Knob Name="Patch_Lfo_Rate" 
+                                  IsEnabled="{Binding Path=Patch.Lfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
@@ -624,7 +656,7 @@
             </StackPanel>
         </Grid>
     </GroupBox>
-    <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"
+    <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5"
               Header="Low frequency oscillator control">
         <Grid>
             <Grid.RowDefinitions>
