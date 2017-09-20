@@ -100,6 +100,7 @@
                 <knobControl:Knob Name="Patch_Common_PortamentoTime"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
+                                  IsEnabled="{Binding Patch.Common.Portamento}"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
                 <TextBlock Text="Portamento time"
@@ -218,6 +219,7 @@
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
+                                  IsEnabled="{Binding IsPulseWidthEnabled}"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
                 <TextBlock Text="Pulse Width"
                            TextAlignment="Center" />

@@ -1,5 +1,6 @@
 ﻿using JD_XI_Editor.Managers;
 using JD_XI_Editor.Models.Analog;
+using JD_XI_Editor.Models.Enums;
 using JD_XI_Editor.ViewModels.Abstract;
 using Sanford.Multimedia.Midi;
 
@@ -19,6 +20,11 @@ namespace JD_XI_Editor.ViewModels
         /// </summary>
         public AnalogPatch Patch { get; }
 
+        /// <summary>
+        /// Pulse Width Enabled
+        /// </summary>
+        public bool IsPulseWidthEnabled => Patch.Oscillator.Shape == AnalogOscillatorShape.Square;
+
         #endregion
 
         #region Methods
@@ -28,9 +34,12 @@ namespace JD_XI_Editor.ViewModels
             var data = _manager.GetPatchMidiData(Patch);
             var msg = new SysExMessage(data);
 
-            using (var output = new OutputDevice(MainWindowViewModel.SelectedOutputDevice))
+            if (MainWindowViewModel.SelectedOutputDevice != -1)
             {
-                output.Send(msg);
+                using (var output = new OutputDevice(MainWindowViewModel.SelectedOutputDevice))
+                {
+                    output.Send(msg);
+                }
             }
         }
 
@@ -56,6 +65,10 @@ namespace JD_XI_Editor.ViewModels
             Patch.PropertyChanged += (sender, args) =>
             {
                 Dump();
+                if (args.PropertyName == nameof(Patch.Oscillator))
+                {
+                    NotifyOfPropertyChange(nameof(IsPulseWidthEnabled));
+                }
             };
         }
     }
