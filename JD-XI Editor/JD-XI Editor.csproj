@@ -84,18 +84,39 @@
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Models\ADSR.cs" />
-    <Compile Include="Models\Analog\AnalogAmplifier.cs" />
-    <Compile Include="Models\Analog\AnalogCommon.cs" />
-    <Compile Include="Models\Analog\AnalogLfo.cs" />
-    <Compile Include="Models\Analog\AnalogOscillator.cs" />
-    <Compile Include="Models\Analog\AnalogPatch.cs" />
+    <Compile Include="Models\Enums\DigitalPatchCategory.cs" />
+    <Compile Include="Models\Enums\DigitalFilterType.cs" />
+    <Compile Include="Models\Enums\DigitalOscillatorShape.cs" />
+    <Compile Include="Models\Enums\EnvelopeLoopMode.cs" />
+    <Compile Include="Models\Enums\FilterSlope.cs" />
+    <Compile Include="Models\Enums\PcmWave.cs" />
+    <Compile Include="Models\Enums\WaveGain.cs" />
+    <Compile Include="Models\Enums\PortamentoMode.cs" />
+    <Compile Include="Models\Enums\UnisonSize.cs" />
+    <Compile Include="Models\Enums\WaveVariation.cs" />
+    <Compile Include="Models\Patches\Analog\Amplifier.cs" />
+    <Compile Include="Models\Patches\Analog\Common.cs" />
+    <Compile Include="Models\Patches\Analog\Lfo.cs" />
+    <Compile Include="Models\Patches\Analog\Oscillator.cs" />
+    <Compile Include="Models\Patches\Analog\Patch.cs" />
     <Compile Include="Models\Enums\AnalogOscillatorShape.cs" />
     <Compile Include="Models\Enums\LFOShape.cs" />
     <Compile Include="Models\Enums\SubOscillatorStatus.cs" />
-    <Compile Include="Models\Enums\TempoSyncNote.cs" />
+    <Compile Include="Models\Enums\SyncNote.cs" />
     <Compile Include="Models\MidiInputDeviceInfo.cs" />
     <Compile Include="Models\MidiOutputDeviceInfo.cs" />
     <Compile Include="Managers\AnalogPatchManager.cs" />
+    <Compile Include="Models\Patches\Digital\Aftertouch.cs" />
+    <Compile Include="Models\Patches\Digital\Amplifier.cs" />
+    <Compile Include="Models\Patches\Digital\Common.cs" />
+    <Compile Include="Models\Patches\Digital\Filter.cs" />
+    <Compile Include="Models\Patches\Digital\Lfo.cs" />
+    <Compile Include="Models\Patches\Digital\Modifiers.cs" />
+    <Compile Include="Models\Patches\Digital\ModLfo.cs" />
+    <Compile Include="Models\Patches\Digital\Oscillator.cs" />
+    <Compile Include="Models\Patches\Digital\Other.cs" />
+    <Compile Include="Models\Patches\Digital\Partial.cs" />
+    <Compile Include="Models\Patches\Digital\Patch.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
@@ -164,7 +185,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Analog\AnalogFilter.cs" />
+    <Compile Include="Models\Patches\Analog\Filter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KnobControl\KnobControl.csproj">

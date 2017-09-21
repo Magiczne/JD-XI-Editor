@@ -2,7 +2,7 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    internal enum SubOscillatorStatus
+    internal enum SubOscillatorStatus : byte
     {
         [Description("Off")]
         Off = 0x00,
