@@ -4,7 +4,7 @@
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Patch : PropertyChangedBase
+    internal class Patch : PropertyChangedBase, IPatch
     {
         /// <inheritdoc />
         /// <summary>
@@ -25,9 +25,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Modifiers.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Modifiers));
         }
 
-        /// <summary>
-        ///     Reste data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Common.Reset();

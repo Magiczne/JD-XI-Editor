@@ -3,7 +3,6 @@ using JD_XI_Editor.Managers;
 using JD_XI_Editor.Models.Enums;
 using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.ViewModels.Abstract;
-using Sanford.Multimedia.Midi;
 
 namespace JD_XI_Editor.ViewModels
 {
@@ -53,28 +52,17 @@ namespace JD_XI_Editor.ViewModels
 
         #region Methods
 
-        /// <summary>
-        ///     Dump data to device
-        /// </summary>
-        public void Dump()
+        /// <inheritdoc />
+        public override void Dump()
         {
-            var data = _manager.GetPatchMidiData(Patch);
-            var msg = new SysExMessage(data);
-
-            // ReSharper disable once InvertIf
             if (SelectedOutputDeviceId != -1)
             {
-                using (var output = new OutputDevice(SelectedOutputDeviceId))
-                {
-                    output.Send(msg);
-                }
+                _manager.Dump(Patch, SelectedOutputDeviceId);
             }
         }
 
-        /// <summary>
-        ///     Reset patch to initial state
-        /// </summary>
-        public void InitPatch()
+        /// <inheritdoc />
+        public override void InitPatch()
         {
             Patch.Reset();
         }

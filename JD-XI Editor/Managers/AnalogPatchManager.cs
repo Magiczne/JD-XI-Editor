@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.Utils;
+using Sanford.Multimedia.Midi;
 
 namespace JD_XI_Editor.Managers
 {
-    internal class AnalogPatchManager
+    internal class AnalogPatchManager : IPatchManager
     {
         /// <summary>
         ///     Address offset
@@ -16,7 +18,7 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         /// <param name="patch">Analog patch</param>
         /// <returns>Bytes of the sysex event</returns>
-        public byte[] GetPatchMidiData(Patch patch)
+        private static byte[] GetPatchMidiData(Patch patch)
         {
             var patchBytes = patch.GetBytes();
 
@@ -27,6 +29,17 @@ namespace JD_XI_Editor.Managers
             bytes.Add(SysExUtils.CalculateChecksum(patchBytes, AddressOffset));
             bytes.Add(0xF7);
             return bytes.ToArray();
+        }
+
+        /// <inheritdoc />
+        public void Dump(IPatch analogPatch, int deviceId)
+        {
+            var data = GetPatchMidiData((Patch) analogPatch);
+
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(new SysExMessage(data));
+            }
         }
     }
 }

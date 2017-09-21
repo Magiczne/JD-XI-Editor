@@ -17,6 +17,16 @@ namespace JD_XI_Editor.ViewModels.Abstract
             EventAggregator.Subscribe(this);
         }
 
+        /// <summary>
+        ///     Dump data to device
+        /// </summary>
+        public abstract void Dump();
+
+        /// <summary>
+        ///     Reset patch to initial state
+        /// </summary>
+        public abstract void InitPatch();
+
         #region Fields
 
         /// <summary>

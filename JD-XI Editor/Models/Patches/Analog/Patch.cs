@@ -7,7 +7,7 @@ using Caliburn.Micro;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class Patch : PropertyChangedBase
+    internal class Patch : PropertyChangedBase, IPatch
     {
         /// <inheritdoc />
         /// <summary>
@@ -29,9 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
             Amplifier.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Amplifier));
         }
 
-        /// <summary>
-        /// Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Name = "Init Tone";
