@@ -15,29 +15,32 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// </summary>
         public Patch()
         {
-            Name = "Init Tone";
-            Common = new Common();
-            Oscillator = new Oscillator();
+            Name = "Init Tone";            
             Lfo = new Lfo();
+            Oscillator = new Oscillator();            
             Filter = new Filter();
             Amplifier = new Amplifier();
+            Common = new Common();
+            LfoModControl = new LfoModControl();
 
-            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
-            Oscillator.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Oscillator));
             Lfo.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Lfo));
+            Oscillator.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Oscillator));
             Filter.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Filter));
             Amplifier.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Amplifier));
+            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
+            LfoModControl.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(LfoModControl));
         }
 
         /// <inheritdoc />
         public void Reset()
         {
-            Name = "Init Tone";
-            Common.Reset();
-            Oscillator.Reset();
+            Name = "Init Tone"; 
             Lfo.Reset();
+            Oscillator.Reset();
             Filter.Reset();
             Amplifier.Reset();
+            Common.Reset();
+            LfoModControl.Reset();
         }
 
         /// <summary>
