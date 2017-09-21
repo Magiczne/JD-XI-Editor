@@ -8,6 +8,7 @@ using JD_XI_Editor.Managers;
 using JD_XI_Editor.ViewModels;
 using JD_XI_Editor.ViewModels.Abstract;
 using KnobControl;
+using MahApps.Metro.Controls;
 using SimpleInjector;
 
 namespace JD_XI_Editor.Bootstrap
@@ -44,6 +45,8 @@ namespace JD_XI_Editor.Bootstrap
             ContainerInstance.Verify();
 
             ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "ValueChanged");
+            ConventionManager.AddElementConvention<ToggleSwitch>(ToggleSwitch.IsCheckedProperty, "IsChecked",
+                "DataContextChanged");
         }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers;
+// ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
@@ -17,6 +18,8 @@ namespace JD_XI_Editor.ViewModels.Abstract
             EventAggregator.Subscribe(this);
 
             PatchManager = patchManager;
+
+            AutoSync = true;
         }
 
         /// <summary>
@@ -42,6 +45,11 @@ namespace JD_XI_Editor.ViewModels.Abstract
         protected IPatchManager PatchManager;
 
         /// <summary>
+        ///     Auto syncrhonization
+        /// </summary>
+        private bool _autoSync;
+
+        /// <summary>
         ///     Selected input device ID
         /// </summary>
         private int _selectedInputDeviceId;
@@ -55,13 +63,26 @@ namespace JD_XI_Editor.ViewModels.Abstract
 
         #region Properties
 
+        public bool AutoSync
+        {
+            get => _autoSync;
+            set
+            {
+                if (value != _autoSync)
+                {
+                    _autoSync = value;
+                    NotifyOfPropertyChange(nameof(AutoSync));
+                }
+            }
+        }
+
         /// <summary>
         ///     Input device ID
         /// </summary>
         public int SelectedInputDeviceId
         {
             get => _selectedInputDeviceId;
-            private set
+            set
             {
                 if (value != _selectedInputDeviceId)
                 {
@@ -78,7 +99,7 @@ namespace JD_XI_Editor.ViewModels.Abstract
         public int SelectedOutputDeviceId
         {
             get => _selectedOutputDeviceId;
-            private set
+            set
             {
                 if (value != _selectedOutputDeviceId)
                 {

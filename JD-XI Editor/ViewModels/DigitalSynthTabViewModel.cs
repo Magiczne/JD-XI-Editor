@@ -19,7 +19,8 @@ namespace JD_XI_Editor.ViewModels
             Patch = new Patch();
             Patch.PropertyChanged += (sender, args) =>
             {
-                Dump();
+                if (AutoSync)
+                    Dump();
             };
         }
 

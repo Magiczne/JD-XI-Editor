@@ -31,6 +31,10 @@
             Margin="5 0 0 0"
             Content="Init Patch"
             Style="{StaticResource AccentedSquareButtonStyle}" />
+    <controls:ToggleSwitch Name="AutoSync" 
+                           Grid.Row="0" Grid.Column="2"
+                           Margin="0 -5 0 0"
+                           OnLabel="Auto Sync" OffLabel="Auto Sync" />
     <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
           HorizontalAlignment="Right">
         <Grid.ColumnDefinitions>
