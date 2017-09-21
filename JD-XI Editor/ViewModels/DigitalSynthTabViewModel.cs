@@ -1,28 +1,25 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
-using JD_XI_Editor.Models.Enums;
-using JD_XI_Editor.Models.Patches.Analog;
+using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
 
 namespace JD_XI_Editor.ViewModels
 {
-    internal sealed class AnalogSynthTabViewModel : TabViewModel
+    internal sealed class DigitalSynthTabViewModel : TabViewModel
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Creates new instance of AnalogSynthTabViewModel
+        ///     Creates new instance of DigitalSynthTabViewModel
         /// </summary>
         // ReSharper disable once SuggestBaseTypeForParameter
-        public AnalogSynthTabViewModel(IEventAggregator eventAggregator, AnalogPatchManager patchManager)
-            : base(eventAggregator, patchManager)
+        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalPatchManager manager) 
+            : base(eventAggregator, manager)
         {
-            DisplayName = "Analog Synth";
+            DisplayName = "Digital Synth 1";
             Patch = new Patch();
             Patch.PropertyChanged += (sender, args) =>
             {
                 Dump();
-                if (args.PropertyName == nameof(Patch.Oscillator))
-                    NotifyOfPropertyChange(nameof(IsPulseWidthEnabled));
             };
         }
 
@@ -32,11 +29,6 @@ namespace JD_XI_Editor.ViewModels
         ///     Patch model
         /// </summary>
         public Patch Patch { get; }
-
-        /// <summary>
-        ///     Pulse Width Enabled
-        /// </summary>
-        public bool IsPulseWidthEnabled => Patch.Oscillator.Shape == AnalogOscillatorShape.Square;
 
         #endregion
 

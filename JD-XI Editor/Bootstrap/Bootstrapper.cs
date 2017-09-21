@@ -37,7 +37,8 @@ namespace JD_XI_Editor.Bootstrap
 
             ContainerInstance.RegisterCollection<TabViewModel>(new []
             {
-                typeof(AnalogSynthTabViewModel)
+                typeof(AnalogSynthTabViewModel),
+                typeof(DigitalSynthTabViewModel)
             });
 
             ContainerInstance.Verify();

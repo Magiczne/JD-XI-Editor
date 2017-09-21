@@ -83,6 +83,8 @@
     </ApplicationDefinition>
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
+    <Compile Include="Managers\DigitalPatchManager.cs" />
+    <Compile Include="Managers\IPatchManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\DigitalPatchCategory.cs" />
     <Compile Include="Models\Enums\DigitalFilterType.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="Models\Patches\Digital\Other.cs" />
     <Compile Include="Models\Patches\Digital\Partial.cs" />
     <Compile Include="Models\Patches\Digital\Patch.cs" />
+    <Compile Include="Models\Patches\IPatch.cs" />
     <Compile Include="Models\Patches\IPatchPart.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
@@ -125,10 +128,14 @@
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\DigitalSynthTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Abstract\TabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DigitalSynthTabView.xaml.cs">
+      <DependentUpon>DigitalSynthTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
@@ -146,11 +153,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Styles\SimpleTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\TextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnalogSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DigitalSynthTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

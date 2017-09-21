@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Events;
+using JD_XI_Editor.Managers;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
@@ -10,11 +11,12 @@ namespace JD_XI_Editor.ViewModels.Abstract
         /// <summary>
         ///     Creates new instance of TabViewModel
         /// </summary>
-        /// <param name="eventAggregator"></param>
-        protected TabViewModel(IEventAggregator eventAggregator)
+        protected TabViewModel(IEventAggregator eventAggregator, IPatchManager patchManager)
         {
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
+
+            PatchManager = patchManager;
         }
 
         /// <summary>
@@ -33,6 +35,11 @@ namespace JD_XI_Editor.ViewModels.Abstract
         ///     Event aggregator instance
         /// </summary>
         protected IEventAggregator EventAggregator;
+
+        /// <summary>
+        ///     Patch manager
+        /// </summary>
+        protected IPatchManager PatchManager;
 
         /// <summary>
         ///     Selected input device ID
