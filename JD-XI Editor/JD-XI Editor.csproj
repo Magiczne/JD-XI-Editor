@@ -97,6 +97,7 @@
     <Compile Include="Models\Patches\Analog\Amplifier.cs" />
     <Compile Include="Models\Patches\Analog\Common.cs" />
     <Compile Include="Models\Patches\Analog\Lfo.cs" />
+    <Compile Include="Models\Patches\Analog\LfoModControl.cs" />
     <Compile Include="Models\Patches\Analog\Oscillator.cs" />
     <Compile Include="Models\Patches\Analog\Patch.cs" />
     <Compile Include="Models\Enums\AnalogOscillatorShape.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Models\Patches\Digital\Other.cs" />
     <Compile Include="Models\Patches\Digital\Partial.cs" />
     <Compile Include="Models\Patches\Digital\Patch.cs" />
+    <Compile Include="Models\Patches\IPatchPart.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />

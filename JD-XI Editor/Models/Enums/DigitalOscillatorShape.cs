@@ -2,7 +2,7 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    public enum DigitalOscillatorShape : byte
+    internal enum DigitalOscillatorShape : byte
     {
         [Description("Sawtooth")]
         Saw = 0x00,

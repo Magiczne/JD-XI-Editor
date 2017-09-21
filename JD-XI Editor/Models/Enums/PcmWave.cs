@@ -2,7 +2,7 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    internal enum PcmWave : int
+    internal enum PcmWave
     {
         [Description("000: Off")]
         Off = 0x00,

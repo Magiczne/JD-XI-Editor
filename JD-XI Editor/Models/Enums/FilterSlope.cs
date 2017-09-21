@@ -2,7 +2,7 @@
 
 namespace JD_XI_Editor.Models.Enums
 {
-    public enum FilterSlope
+    internal enum FilterSlope : byte
     {
         [Description("-12 dB")]
         NegativeTwelve = 0x00,

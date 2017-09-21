@@ -4,7 +4,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    public class Oscillator : PropertyChangedBase, IPatchPart
+    internal class Oscillator : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>

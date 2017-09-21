@@ -1,6 +1,6 @@
 ﻿namespace JD_XI_Editor.Models.Patches
 {
-    public interface IPatchPart
+    internal interface IPatchPart
     {
         /// <summary>
         ///     Reset data to initial path
