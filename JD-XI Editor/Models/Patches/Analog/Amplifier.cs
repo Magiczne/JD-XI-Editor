@@ -4,27 +4,65 @@
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class Amplifier : PropertyChangedBase
+    internal class Amplifier : PropertyChangedBase, IPatchPart
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Amplifier
+        /// </summary>
+        public Amplifier()
+        {
+            Level = 127;
+            LevelKeyfollow = 0;
+            LevelVelSensitivity = 0;
+            Envelope = new Adsr(0, 0, 127, 0);
+
+            Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Level = 127;
+            LevelKeyfollow = 0;
+            LevelVelSensitivity = 0;
+            Envelope.Set(0, 0, 127, 0);
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Level,
+                (byte) (LevelKeyfollow / 10 + 64),
+                (byte) (LevelVelSensitivity + 64),
+                (byte) Envelope.Attack,
+                (byte) Envelope.Decay,
+                (byte) Envelope.Sustain,
+                (byte) Envelope.Release
+            };
+        }
+
         #region Fields
 
         /// <summary>
-        /// Level
+        ///     Level
         /// </summary>
         private int _level;
 
         /// <summary>
-        /// Level keyfollow
+        ///     Level keyfollow
         /// </summary>
         private int _levelKeyfollow;
 
         /// <summary>
-        /// Level velocity sensitivity
+        ///     Level velocity sensitivity
         /// </summary>
         private int _levelVelSensitivity;
 
         /// <summary>
-        /// Envelope
+        ///     Envelope
         /// </summary>
         private Adsr _envelope;
 
@@ -33,7 +71,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         #region Properties
 
         /// <summary>
-        /// Level
+        ///     Level
         /// </summary>
         public int Level
         {
@@ -49,7 +87,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Level keyfollow
+        ///     Level keyfollow
         /// </summary>
         public int LevelKeyfollow
         {
@@ -65,7 +103,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Level velocity sensitivity
+        ///     Level velocity sensitivity
         /// </summary>
         public int LevelVelSensitivity
         {
@@ -81,7 +119,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Envelope
+        ///     Envelope
         /// </summary>
         public Adsr Envelope
         {
@@ -97,48 +135,5 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #endregion
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Creates new instance of Amplifier
-        /// </summary>
-        public Amplifier()
-        {
-            Level = 127;
-            LevelKeyfollow = 0;
-            LevelVelSensitivity = 0;
-            Envelope = new Adsr(0, 0, 127, 0);
-
-            Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
-        }
-
-        /// <summary>
-        /// Reset data to initial patch
-        /// </summary>
-        public void Reset()
-        {
-            Level = 127;
-            LevelKeyfollow = 0;
-            LevelVelSensitivity = 0;
-            Envelope.Set(0, 0, 127, 0);
-        }
-
-        /// <summary>
-        /// Get bytes
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetBytes()
-        {
-            return new[]
-            {
-                (byte) Level,
-                (byte) (LevelKeyfollow / 10 + 64),
-                (byte) (LevelVelSensitivity + 64),
-                (byte) Envelope.Attack,
-                (byte) Envelope.Decay,
-                (byte) Envelope.Sustain,
-                (byte) Envelope.Release
-            };
-        }
     }
 }

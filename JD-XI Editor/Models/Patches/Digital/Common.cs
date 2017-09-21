@@ -3,11 +3,12 @@ using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Common : PropertyChangedBase
+    internal class Common : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -15,35 +16,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Common()
         {
-            Name = "Init Tone";
-            ToneLevel = 100;
-            Portamento = false;
-            PortamentoTime = 20;
-            Mono = false;
-            OctaveShift = 0;
-            PitchBendRangeUp = 2;
-            PitchBendRangeDown = 2;
-
-            PartialOneSwitch = true;
-            PartialTwoSwitch = false;
-            PartialThreeSwitch = false;
-            PartialOneSelect = true;
-            PartialTwoSelect = false;
-            PartialThreeSelect = false;
-
-            Ring = false;
-            Unison = false;
-            PortamentoMode = PortamentoMode.Legato;
-            Legato = true;
-            AnalogFeel = 0;
-            WaveShape = 0;
-            ToneCategory = Category.FxAndOther;
-            UnisonSize = UnisonSize.Eight;
+            Reset();
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Name = "Init Tone";
@@ -72,10 +48,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             UnisonSize = UnisonSize.Eight;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -85,7 +58,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             bytes.AddRange(Enumerable.Repeat<byte>(0x20, 12 - nameBytes.Length));
 
             bytes.Add((byte) ToneLevel);
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));   //TODO: check 3 weird + 2 normal reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5)); //TODO: check 3 weird + 2 normal reserve
 
             bytes.AddRange(new[]
             {
@@ -107,24 +80,24 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) (Ring ? 0x01 : 0x00)
             });
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 14));  //Reserve
-            bytes.Add((byte) (Unison ? 0x01: 0x00));
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 2));   //Reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 14)); //Reserve
+            bytes.Add((byte) (Unison ? 0x01 : 0x00));
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 2)); //Reserve
             bytes.AddRange(new[]
             {
                 (byte) PortamentoMode,
                 (byte) (Legato ? 0x01 : 0x00),
-                (byte) 0x00,    //Reserve
+                (byte) 0x00, //Reserve
                 (byte) AnalogFeel,
                 (byte) WaveShape,
                 (byte) ToneCategory
             });
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));   //TODO: check 3 weird + 2 normal reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5)); //TODO: check 3 weird + 2 normal reserve
 
             bytes.Add((byte) UnisonSize);
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 3));   //Reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 3)); //Reserve
 
             //TODO: Check length -> should be 0x40
 
@@ -206,7 +179,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Ring switch
         /// </summary>
-        private bool _ring;   //CARE 0->Off, 2->On
+        private bool _ring; //CARE 0->Off, 2->On
 
         /// <summary>
         ///     Unison switch

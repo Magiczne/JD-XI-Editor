@@ -1,9 +1,10 @@
 ﻿using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Aftertouch : PropertyChangedBase
+    internal class Aftertouch : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -11,31 +12,25 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Aftertouch()
         {
-            CutoffAftertouchSensitivity = 9;
-            LevelAftertouchSensitivity = 10;
+            Reset();
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             CutoffAftertouchSensitivity = 9;
             LevelAftertouchSensitivity = 10;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]
             {
                 (byte) (CutoffAftertouchSensitivity + 64),
                 (byte) (LevelAftertouchSensitivity + 64),
-                0x00,   //Reserve
-                0x00    //Reserve
+                0x00, //Reserve
+                0x00 //Reserve
             };
         }
 

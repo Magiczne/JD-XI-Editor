@@ -4,8 +4,43 @@
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class Common : PropertyChangedBase
+    internal class Common : PropertyChangedBase, IPatchPart
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of AnalogCommon
+        /// </summary>
+        public Common()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Portamento = false;
+            Legato = false;
+            PortamentoTime = 20;
+            OctaveShift = 0;
+            PitchBendRangeUp = 2;
+            PitchBendRangeDown = 2;
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) (Portamento ? 0x01 : 0x00),
+                (byte) PortamentoTime,
+                (byte) (Legato ? 0x01 : 0x00),
+                (byte) (OctaveShift + 64),
+                (byte) PitchBendRangeUp,
+                (byte) PitchBendRangeDown,
+                (byte) 0x00     //Reserve
+            };
+        }
+
         #region Fields
 
         /// <summary>
@@ -139,49 +174,5 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #endregion
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Creates new instance of AnalogCommon
-        /// </summary>
-        public Common()
-        {
-            Portamento = false;
-            Legato = false;
-            PortamentoTime = 20;
-            OctaveShift = 0;
-            PitchBendRangeUp = 2;
-            PitchBendRangeDown = 2;
-        }
-
-        /// <summary>
-        /// Reset data to initial patch
-        /// </summary>
-        public void Reset()
-        {
-            Portamento = false;
-            Legato = false;
-            PortamentoTime = 20;
-            OctaveShift = 0;
-            PitchBendRangeUp = 2;
-            PitchBendRangeDown = 2;
-        }
-
-        /// <summary>
-        /// Get bytes
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetBytes()
-        {
-            return new[]
-            {
-                (byte) (Portamento ? 0x01 : 0x00),
-                (byte) PortamentoTime,
-                (byte) (Legato ? 0x01 : 0x00),
-                (byte) (OctaveShift + 64),
-                (byte) PitchBendRangeUp,
-                (byte) PitchBendRangeDown
-            };
-        }
     }
 }

@@ -5,8 +5,48 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class Lfo : PropertyChangedBase
+    internal class Lfo : PropertyChangedBase, IPatchPart
     {
+        /// <inheritdoc />
+        /// <summary>
+        /// Creates new instance of Lfo
+        /// </summary>
+        public Lfo()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Shape = LfoShape.Triangle;
+            Rate = 53;
+            FadeTime = 0;
+            TempoSync = false;
+            SyncNote = SyncNote.SixteenthNote;
+            PitchDepth = 0;
+            FilterDepth = 0;
+            AmpDepth = 0;
+            KeyTrigger = true;
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Shape,
+                (byte) Rate,
+                (byte) FadeTime,
+                (byte) (TempoSync ? 0x01 : 0x00),
+                (byte) SyncNote,
+                (byte) (PitchDepth + 64),
+                (byte) (FilterDepth + 64),
+                (byte) (AmpDepth + 64),
+                (byte) (KeyTrigger ? 0x01 : 0x00)
+            };
+        }
+
         #region Fields
 
         /// <summary>
@@ -53,26 +93,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// Is key trigger on
         /// </summary>
         private bool _keyTrigger;
-
-        /// <summary>
-        /// Pitch modulation control
-        /// </summary>
-        private int _pitchModControl;
-
-        /// <summary>
-        /// Filter modulation control
-        /// </summary>
-        private int _filterModControl;
-
-        /// <summary>
-        /// Amplifier modulation control
-        /// </summary>
-        private int _ampModControl;
-
-        /// <summary>
-        /// Rate modulation control
-        /// </summary>
-        private int _rateModControl;
 
         #endregion
 
@@ -222,147 +242,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
             }
         }
 
-        /// <summary>
-        /// Pitch modulation control
-        /// </summary>
-        public int PitchModControl
-        {
-            get => _pitchModControl;
-            set
-            {
-                if (value != _pitchModControl)
-                {
-                    _pitchModControl = value;
-                    NotifyOfPropertyChange(nameof(PitchModControl));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Filter modulation control
-        /// </summary>
-        public int FilterModControl
-        {
-            get => _filterModControl;
-            set
-            {
-                if (value != _filterModControl)
-                {
-                    _filterModControl = value;
-                    NotifyOfPropertyChange(nameof(FilterModControl));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Amplifier modulation control
-        /// </summary>
-        public int AmpModControl
-        {
-            get => _ampModControl;
-            set
-            {
-                if (value != _ampModControl)
-                {
-                    _ampModControl = value;
-                    NotifyOfPropertyChange(nameof(AmpModControl));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Rate modulation control
-        /// </summary>
-        public int RateModControl
-        {
-            get => _rateModControl;
-            set
-            {
-                if (value != _rateModControl)
-                {
-                    _rateModControl = value;
-                    NotifyOfPropertyChange(nameof(RateModControl));
-                }
-            }
-        }
-
         #endregion
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Creates new instance of Lfo
-        /// </summary>
-        public Lfo()
-        {
-            Shape = LfoShape.Triangle;
-            Rate = 53;
-            FadeTime = 0;
-            TempoSync = false;
-            SyncNote = SyncNote.SixteenthNote;
-            PitchDepth = 0;
-            FilterDepth = 0;
-            AmpDepth = 0;
-            KeyTrigger = true;
-            PitchModControl = 16;
-            FilterModControl = 0;
-            AmpModControl = 0;
-            RateModControl = 18;
-        }
-
-
-        /// <summary>
-        /// Reset data to initial patch
-        /// </summary>
-        public void Reset()
-        {
-            Shape = LfoShape.Triangle;
-            Rate = 53;
-            FadeTime = 0;
-            TempoSync = false;
-            SyncNote = SyncNote.SixteenthNote;
-            PitchDepth = 0;
-            FilterDepth = 0;
-            AmpDepth = 0;
-            KeyTrigger = true;
-            PitchModControl = 16;
-            FilterModControl = 0;
-            AmpModControl = 0;
-            RateModControl = 18;
-        }
-
-        /// <summary>
-        /// Get bytes for Lfo section
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetLfoSectionBytes()
-        {
-            return new[]
-            {
-                (byte) Shape,
-                (byte) Rate,
-                (byte) FadeTime,
-                (byte) (TempoSync ? 0x01 : 0x00),
-                (byte) SyncNote,
-                (byte) (PitchDepth + 64),
-                (byte) (FilterDepth + 64),
-                (byte) (AmpDepth + 64),
-                (byte) (KeyTrigger ? 0x01 : 0x00)
-            };
-        }
-
-        /// <summary>
-        /// Get bytes for Lfo Mod Ctrl section
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetLfoModSectionBytes()
-        {
-            return new[]
-            {
-                (byte) (PitchModControl + 64),
-                (byte) (FilterModControl + 64),
-                (byte) (AmpModControl + 64),
-                (byte) (RateModControl + 64)
-            };
-        }
     }
 }

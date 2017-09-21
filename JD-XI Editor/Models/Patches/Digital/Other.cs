@@ -4,7 +4,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Other : PropertyChangedBase
+    internal class Other : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -20,9 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             AmpLevelKeyfollow = 0;
         }
 
-        /// <summary>
-        ///     Reset
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             WaveGain = WaveGain.Zero;
@@ -33,10 +31,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             AmpLevelKeyfollow = 0;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

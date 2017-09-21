@@ -4,7 +4,7 @@
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Amplifier : PropertyChangedBase
+    internal class Amplifier : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -20,9 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Level = 100;
@@ -31,10 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Panorama = 0;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

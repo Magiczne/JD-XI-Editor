@@ -1,10 +1,11 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class ModLfo : PropertyChangedBase
+    internal class ModLfo : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -12,20 +13,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public ModLfo()
         {
-            Shape = LfoShape.Triangle;
-            Rate = 88;
-            TempoSync = false;
-            SyncNote = SyncNote.SixteenthNote;
-            PulseWidthShift = 127;
-            PitchDepth = 16;
-            FilterDepth = 0;
-            AmpDepth = 0;
-            PanDepth = 0;
+            Reset();
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Shape = LfoShape.Triangle;
@@ -39,10 +30,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             PanDepth = 0;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -52,7 +40,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) (TempoSync ? 0x01 : 0x00),
                 (byte) SyncNote,
                 (byte) PulseWidthShift,
-                (byte) 0x00,    //Reserve
+                (byte) 0x00, //Reserve
                 (byte) (PitchDepth + 64),
                 (byte) (FilterDepth + 64),
                 (byte) (AmpDepth + 64),

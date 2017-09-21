@@ -4,7 +4,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    public class Oscillator : PropertyChangedBase
+    public class Oscillator : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -12,20 +12,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Oscillator()
         {
-            Shape = DigitalOscillatorShape.Saw;
-            WaveVariation = WaveVariation.A;
-            Pitch = 0;
-            Detune = 0;
-            PulseWidth = 0;
-            PulseWidthModDepth = 0;
-            Attack = 0;
-            Decay = 0;
-            EnvelopeDepth = 0;
+            Reset();
         }
         
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Shape = DigitalOscillatorShape.Saw;
@@ -39,10 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             EnvelopeDepth = 0;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

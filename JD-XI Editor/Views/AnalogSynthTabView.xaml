@@ -726,7 +726,7 @@
 
             <StackPanel Grid.Column="5" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_AmpModControl"
+                <knobControl:Knob Name="Patch_LfoModControl_AmpModControl"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
@@ -737,7 +737,7 @@
             </StackPanel>
             <StackPanel Grid.Column="6" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_PitchModControl"
+                <knobControl:Knob Name="Patch_LfoModControl_PitchModControl"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
@@ -748,7 +748,7 @@
             </StackPanel>
             <StackPanel Grid.Column="7" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_FilterModControl"
+                <knobControl:Knob Name="Patch_LfoModControl_FilterModControl"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
@@ -759,7 +759,7 @@
             </StackPanel>
             <StackPanel Grid.Column="8" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_RateModControl"
+                <knobControl:Knob Name="Patch_LfoModControl_RateModControl"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"

@@ -1,10 +1,11 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Filter : PropertyChangedBase
+    internal class Filter : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -24,9 +25,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Type = DigitalFilterType.LowPassFilter;
@@ -39,10 +38,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             EnvelopeDepth = 0;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -140,7 +136,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Cutoff
+        ///     Cutoff
         /// </summary>
         public int Cutoff
         {
@@ -156,7 +152,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Cutoff keyfollow
+        ///     Cutoff keyfollow
         /// </summary>
         public int CutoffKeyfollow
         {
@@ -172,7 +168,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Envelope velocity sensitivity
+        ///     Envelope velocity sensitivity
         /// </summary>
         public int EnvelopeVelocitySensitivity
         {
@@ -188,7 +184,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Resonance
+        ///     Resonance
         /// </summary>
         public int Resonance
         {
@@ -204,7 +200,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Envelope
+        ///     Envelope
         /// </summary>
         public Adsr Envelope
         {
@@ -220,7 +216,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Envelope depth
+        ///     Envelope depth
         /// </summary>
         public int EnvelopeDepth
         {

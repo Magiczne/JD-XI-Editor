@@ -5,7 +5,7 @@ using Caliburn.Micro;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Partial : PropertyChangedBase
+    internal class Partial : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -30,9 +30,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Other.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Other));
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Oscillator.Reset();
@@ -44,10 +42,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Other.Reset();
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();

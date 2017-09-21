@@ -1,13 +1,13 @@
-﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Caliburn.Micro;
+using JD_XI_Editor.Models.Enums;
 
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Modifiers : PropertyChangedBase
+    internal class Modifiers : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -15,17 +15,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Modifiers()
         {
-            AttackTimeIntervalSensitivity = 0;
-            ReleaseTimeIntervalSensitivity = 0;
-            PortamentoTimeIntervalSensitivity = 0;
-            EnvelopeLoopMode = EnvelopeLoopMode.Off;
-            EnvelopeLoopSyncNote = SyncNote.QuarterNote;
-            ChromaticPortamento = false;
+            Reset();
         }
 
-        /// <summary>
-        ///     Reset patch to initial data
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             AttackTimeIntervalSensitivity = 0;
@@ -36,10 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             ChromaticPortamento = false;
         }
 
-        /// <summary>
-        ///     Get bytes
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>(new[]
@@ -52,7 +42,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) EnvelopeLoopSyncNote,
                 (byte) (ChromaticPortamento ? 0x01 : 0x00)
             });
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 30));  //Reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 30)); //Reserve
 
             return bytes.ToArray();
         }
@@ -60,7 +50,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         #region Fields
 
         /// <summary>
-        ///      Attack Time Interval Sensitivity
+        ///     Attack Time Interval Sensitivity
         /// </summary>
         private int _attackTimeIntervalSensitivity;
 
@@ -85,7 +75,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         private SyncNote _envelopeLoopSyncNote;
 
         /// <summary>
-        ///      Envelope Loop Sync Note 
+        ///     Envelope Loop Sync Note
         /// </summary>
         private bool _chromaticPortamento;
 
@@ -94,7 +84,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         #region Properties
 
         /// <summary>
-        ///      Attack Time Interval Sensitivity
+        ///     Attack Time Interval Sensitivity
         /// </summary>
         public int AttackTimeIntervalSensitivity
         {
@@ -174,7 +164,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        ///      Envelope Loop Sync Note 
+        ///     Envelope Loop Sync Note
         /// </summary>
         public bool ChromaticPortamento
         {

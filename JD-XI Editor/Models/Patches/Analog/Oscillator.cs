@@ -5,57 +5,99 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
-    internal class Oscillator : PropertyChangedBase
+    internal class Oscillator : PropertyChangedBase, IPatchPart
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Oscillator
+        /// </summary>
+        public Oscillator()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Shape = AnalogOscillatorShape.Saw;
+            PulseWidth = 0;
+            PulseWidthModDepth = 0;
+            SubOsc = SubOscillatorStatus.Off;
+            Pitch = 0;
+            Detune = 0;
+            Attack = 0;
+            Decay = 0;
+            EnvelopeDepth = 0;
+            EnvelopeVelocitySensitivity = 0;
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Shape,
+                (byte) (Pitch + 64),
+                (byte) (Detune + 64),
+                (byte) PulseWidth,
+                (byte) PulseWidthModDepth,
+                (byte) (EnvelopeVelocitySensitivity + 64),
+                (byte) Attack,
+                (byte) Decay,
+                (byte) (EnvelopeDepth + 64),
+                (byte) SubOsc
+            };
+        }
+
         #region Fields 
 
         /// <summary>
-        /// Shape
+        ///     Shape
         /// </summary>
         private AnalogOscillatorShape _shape;
 
         /// <summary>
-        /// Pulse width
+        ///     Pulse width
         /// </summary>
         private int _pulseWidth;
 
         /// <summary>
-        /// Pulse width modulation depth
+        ///     Pulse width modulation depth
         /// </summary>
         private int _pulseWidthModDepth;
 
         /// <summary>
-        /// Sub oscillator
+        ///     Sub oscillator
         /// </summary>
         private SubOscillatorStatus _subOsc;
 
         /// <summary>
-        /// Pitch
+        ///     Pitch
         /// </summary>
         private int _pitch;
 
         /// <summary>
-        /// Detune
+        ///     Detune
         /// </summary>
         private int _detune;
 
         /// <summary>
-        /// Attack
+        ///     Attack
         /// </summary>
         private int _attack;
 
         /// <summary>
-        /// Decay
+        ///     Decay
         /// </summary>
         private int _decay;
 
         /// <summary>
-        /// Envelope depth
+        ///     Envelope depth
         /// </summary>
         private int _envelopeDepth;
 
         /// <summary>
-        /// Envelope velocity sensitivity
+        ///     Envelope velocity sensitivity
         /// </summary>
         private int _envelopeVelocitySensitivity;
 
@@ -64,7 +106,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         #region Properties
 
         /// <summary>
-        /// Shape
+        ///     Shape
         /// </summary>
         public AnalogOscillatorShape Shape
         {
@@ -80,7 +122,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Pulse width
+        ///     Pulse width
         /// </summary>
         public int PulseWidth
         {
@@ -96,7 +138,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Pulse width modulation depth
+        ///     Pulse width modulation depth
         /// </summary>
         public int PulseWidthModDepth
         {
@@ -112,7 +154,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Sub oscillator
+        ///     Sub oscillator
         /// </summary>
         public SubOscillatorStatus SubOsc
         {
@@ -128,7 +170,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Pitch
+        ///     Pitch
         /// </summary>
         public int Pitch
         {
@@ -144,7 +186,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Detune
+        ///     Detune
         /// </summary>
         public int Detune
         {
@@ -160,7 +202,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Attack
+        ///     Attack
         /// </summary>
         public int Attack
         {
@@ -176,7 +218,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Decay
+        ///     Decay
         /// </summary>
         public int Decay
         {
@@ -192,7 +234,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Envelope depth
+        ///     Envelope depth
         /// </summary>
         public int EnvelopeDepth
         {
@@ -208,7 +250,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Envelope velocity sensitivity
+        ///     Envelope velocity sensitivity
         /// </summary>
         public int EnvelopeVelocitySensitivity
         {
@@ -224,61 +266,5 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #endregion
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Creates new instance of Oscillator
-        /// </summary>
-        public Oscillator()
-        {
-            Shape = AnalogOscillatorShape.Saw;
-            PulseWidth = 0;
-            PulseWidthModDepth = 0;
-            SubOsc = SubOscillatorStatus.Off;
-            Pitch = 0;
-            Detune = 0;
-            Attack = 0;
-            Decay = 0;
-            EnvelopeDepth = 0;
-            EnvelopeVelocitySensitivity = 0;
-        }
-
-        /// <summary>
-        /// Reset data to initial patch
-        /// </summary>
-        public void Reset()
-        {
-            Shape = AnalogOscillatorShape.Saw;
-            PulseWidth = 0;
-            PulseWidthModDepth = 0;
-            SubOsc = SubOscillatorStatus.Off;
-            Pitch = 0;
-            Detune = 0;
-            Attack = 0;
-            Decay = 0;
-            EnvelopeDepth = 0;
-            EnvelopeVelocitySensitivity = 0;
-        }
-
-        /// <summary>
-        /// Get bytes
-        /// </summary>
-        /// <returns></returns>
-        public byte[] GetBytes()
-        {
-            return new[]
-            {
-                (byte) Shape,
-                (byte) (Pitch + 64),
-                (byte) (Detune + 64),
-                (byte) PulseWidth,
-                (byte) PulseWidthModDepth,
-                (byte) (EnvelopeVelocitySensitivity + 64),
-                (byte) Attack,
-                (byte) Decay,
-                (byte) (EnvelopeDepth + 64),
-                (byte) SubOsc,
-            };
-        }
     }
 }

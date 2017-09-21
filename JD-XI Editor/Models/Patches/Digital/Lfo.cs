@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Enums;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
-    internal class Lfo : PropertyChangedBase
+    internal class Lfo : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>
@@ -13,21 +13,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Lfo()
         {
-            Shape = LfoShape.Triangle;
-            Rate = 81;
-            TempoSync = false;
-            SyncNote = SyncNote.SixteenthNote;
-            FadeTime = 0;
-            KeyTrigger = false;
-            PitchDepth = 0;
-            FilterDepth = 0;
-            AmpDepth = 0;
-            PanDepth = 0;
+            Reset();
         }
 
-        /// <summary>
-        ///     Reset data to initial patch
-        /// </summary>
+        /// <inheritdoc />
         public void Reset()
         {
             Shape = LfoShape.Triangle;
@@ -42,10 +31,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             PanDepth = 0;
         }
 
-        /// <summary>
-        ///     Get bytes for Lfo section
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
