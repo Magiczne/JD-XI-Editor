@@ -8,19 +8,19 @@ namespace JD_XI_Editor.Models.Enums
         Saw = 0x00,
 
         [Description("Square")]
-        Square = 0x02,
+        Square = 0x01,
 
         [Description("Pulse wave square")]
-        PulseWaveSquare = 0x03,
+        PulseWaveSquare = 0x02,
 
         [Description("Triangle")]
-        Triangle = 0x04,
+        Triangle = 0x03,
 
         [Description("Sine")]
-        Sine = 0x05,
+        Sine = 0x04,
 
         [Description("Noise")]
-        Noise = 0x06,
+        Noise = 0x05,
 
         [Description("Super-Saw")]
         SuperSaw = 0x06,
