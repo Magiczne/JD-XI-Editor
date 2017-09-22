@@ -20,6 +20,7 @@ namespace KnobControl
     [DefaultProperty("Value")]
     public partial class Knob : INotifyPropertyChanged
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of the Knob
         /// </summary>
@@ -42,7 +43,18 @@ namespace KnobControl
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var d = e.Delta / 120.0; // Mouse wheel 1 click (120 delta) = 1 step
-            Value += d * Step;
+            var toAdd = (int) d * Step;
+
+            if (Value + toAdd > Maximum)
+            {
+                Value = Maximum;
+                return;
+            }
+
+            if (Value == Maximum && Value + toAdd > Maximum)
+                return;
+
+            Value += toAdd;
         }
 
         /// <summary>
@@ -75,8 +87,19 @@ namespace KnobControl
 
                 if (Math.Abs(dY) > MouseMoveThreshold)
                 {
-                    Value += Math.Sign(dY) * Step;
+                    var toAdd = Math.Sign(dY) * Step;
                     _previousMousePosition = newMousePosition;
+
+                    if (Value + toAdd > Maximum)
+                    {
+                        Value = Maximum;
+                        return;
+                    }
+
+                    if (Value == Maximum && Value + toAdd > Maximum)
+                        return;
+
+                    Value += toAdd;
                 }
             }
         }
@@ -144,21 +167,21 @@ namespace KnobControl
             new FrameworkPropertyMetadata(string.Empty, OnUnitPropertyChanged));
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            "Value", typeof(double), typeof(Knob),
+            "Value", typeof(int), typeof(Knob),
             new FrameworkPropertyMetadata(
                 OnValuePropertyChanged, OnValuePropertyCoerce));
 
         public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
-            "Minumum", typeof(double), typeof(Knob),
-            new FrameworkPropertyMetadata(0d, OnMinimumPropertyChanged, OnMinimumPropertyCoerce));
+            "Minumum", typeof(int), typeof(Knob),
+            new FrameworkPropertyMetadata(0, OnMinimumPropertyChanged, OnMinimumPropertyCoerce));
 
         public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(
-            "Maximum", typeof(double), typeof(Knob),
-            new FrameworkPropertyMetadata(10d, OnMaximumPropertyChanged, OnMaximumPropertyCoerce));
+            "Maximum", typeof(int), typeof(Knob),
+            new FrameworkPropertyMetadata(10, OnMaximumPropertyChanged, OnMaximumPropertyCoerce));
 
         public static readonly DependencyProperty StepProperty = DependencyProperty.Register(
-            "Step", typeof(double), typeof(Knob),
-            new FrameworkPropertyMetadata(1d));
+            "Step", typeof(int), typeof(Knob),
+            new FrameworkPropertyMetadata(1));
 
         public static readonly DependencyProperty LabelFontProperty = DependencyProperty.Register(
             "LabelFont", typeof(FontFamily), typeof(Knob),
@@ -236,9 +259,9 @@ namespace KnobControl
         ///     Knob value
         /// </summary>
         [Category("Knob")]
-        public double Value
+        public int Value
         {
-            get => (double) GetValue(ValueProperty);
+            get => (int) GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
 
@@ -247,9 +270,9 @@ namespace KnobControl
         ///     Minimum knob value
         /// </summary>
         [Category("Knob")]
-        public double Minimum
+        public int Minimum
         {
-            get => (double) GetValue(MinimumProperty);
+            get => (int) GetValue(MinimumProperty);
             set => SetValue(MinimumProperty, value);
         }
 
@@ -257,9 +280,9 @@ namespace KnobControl
         ///     Maximum knob value
         /// </summary>
         [Category("Knob")]
-        public double Maximum
+        public int Maximum
         {
-            get => (double) GetValue(MaximumProperty);
+            get => (int) GetValue(MaximumProperty);
             set => SetValue(MaximumProperty, value);
         }
 
@@ -267,9 +290,9 @@ namespace KnobControl
         ///     Step of the knob
         /// </summary>
         [Category("Knob")]
-        public double Step
+        public int Step
         {
-            get => (double) GetValue(StepProperty);
+            get => (int) GetValue(StepProperty);
             set => SetValue(StepProperty, value);
         }
 
@@ -356,10 +379,10 @@ namespace KnobControl
         {
             var knob = (Knob) sender;
 
-            var oldValue = (double) e.OldValue;
-            var newValue = (double) e.NewValue;
+            var oldValue = (int) e.OldValue;
+            var newValue = (int) e.NewValue;
 
-            if (Math.Abs(oldValue - newValue) > 0.001)
+            if (oldValue != newValue)
             {
                 knob.ValueChanged?.Invoke(knob, EventArgs.Empty);
 
@@ -378,7 +401,7 @@ namespace KnobControl
         private static object OnValuePropertyCoerce(DependencyObject sender, object data)
         {
             var knob = (Knob) sender;
-            var value = (double) data;
+            var value = (int) data;
 
             if (value < knob.Minimum)
                 value = knob.Minimum;
@@ -478,7 +501,7 @@ namespace KnobControl
         private static object OnMinimumPropertyCoerce(DependencyObject sender, object data)
         {
             var knob = (Knob) sender;
-            var value = (double) data;
+            var value = (int) data;
 
             if (value > knob.Maximum)
                 value = knob.Maximum;
@@ -507,7 +530,7 @@ namespace KnobControl
         private static object OnMaximumPropertyCoerce(DependencyObject sender, object data)
         {
             var knob = (Knob) sender;
-            var value = (double) data;
+            var value = (int) data;
 
             if (value < knob.Minimum)
                 value = knob.Minimum;
