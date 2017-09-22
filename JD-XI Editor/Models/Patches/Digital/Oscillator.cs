@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Enums.Digital;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Digital
@@ -18,7 +19,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <inheritdoc />
         public void Reset()
         {
-            Shape = DigitalOscillatorShape.Saw;
+            Shape = OscillatorShape.Saw;
             WaveVariation = WaveVariation.A;
             Pitch = 0;
             Detune = 0;
@@ -52,7 +53,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Shape
         /// </summary>
-        private DigitalOscillatorShape _shape;
+        private OscillatorShape _shape;
 
         /// <summary>
         ///     Wave variation
@@ -101,7 +102,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Shape
         /// </summary>
-        public DigitalOscillatorShape Shape
+        public OscillatorShape Shape
         {
             get => _shape;
             set

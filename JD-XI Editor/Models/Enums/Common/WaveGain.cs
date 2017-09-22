@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums
+namespace JD_XI_Editor.Models.Enums.Common
 {
     internal enum WaveGain : byte
     {

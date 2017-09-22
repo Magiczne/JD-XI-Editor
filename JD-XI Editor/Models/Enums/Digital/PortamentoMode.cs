@@ -1,4 +1,4 @@
-﻿namespace JD_XI_Editor.Models.Enums
+﻿namespace JD_XI_Editor.Models.Enums.Digital
 {
     internal enum PortamentoMode : byte
     {

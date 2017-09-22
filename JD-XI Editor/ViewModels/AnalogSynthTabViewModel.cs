@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
-using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Enums.Analog;
 using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.ViewModels.Abstract;
 
@@ -38,7 +38,7 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         ///     Pulse Width Enabled
         /// </summary>
-        public bool IsPulseWidthEnabled => Patch.Oscillator.Shape == AnalogOscillatorShape.Square;
+        public bool IsPulseWidthEnabled => Patch.Oscillator.Shape == OscillatorShape.Square;
 
         #endregion
 
@@ -48,9 +48,7 @@ namespace JD_XI_Editor.ViewModels
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1)
-            {
                 PatchManager.Dump(Patch, SelectedOutputDeviceId);
-            }
         }
 
         /// <inheritdoc />

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Enums.Digital;
 
 // ReSharper disable InvertIf
 

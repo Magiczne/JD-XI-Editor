@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Enums.Analog;
 
 // ReSharper disable InvertIf
 
@@ -19,7 +19,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <inheritdoc />
         public void Reset()
         {
-            Shape = AnalogOscillatorShape.Saw;
+            Shape = OscillatorShape.Saw;
             PulseWidth = 0;
             PulseWidthModDepth = 0;
             SubOsc = SubOscillatorStatus.Off;
@@ -54,7 +54,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Shape
         /// </summary>
-        private AnalogOscillatorShape _shape;
+        private OscillatorShape _shape;
 
         /// <summary>
         ///     Pulse width
@@ -108,7 +108,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Shape
         /// </summary>
-        public AnalogOscillatorShape Shape
+        public OscillatorShape Shape
         {
             get => _shape;
             set

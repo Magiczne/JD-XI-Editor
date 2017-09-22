@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums;
+using JD_XI_Editor.Models.Enums.Digital;
 
 // ReSharper disable InvertIf
 
@@ -13,7 +13,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Filter()
         {
-            Type = DigitalFilterType.LowPassFilter;
+            Type = FilterType.LowPassFilter;
             Slope = FilterSlope.NegativeTwentyFour;
             Cutoff = 127;
             CutoffKeyfollow = 0;
@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <inheritdoc />
         public void Reset()
         {
-            Type = DigitalFilterType.LowPassFilter;
+            Type = FilterType.LowPassFilter;
             Slope = FilterSlope.NegativeTwentyFour;
             Cutoff = 127;
             CutoffKeyfollow = 0;
@@ -62,7 +62,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Filter type
         /// </summary>
-        private DigitalFilterType _type;
+        private FilterType _type;
 
         /// <summary>
         ///     Filter slope
@@ -106,7 +106,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Filter type
         /// </summary>
-        public DigitalFilterType Type
+        public FilterType Type
         {
             get => _type;
             set

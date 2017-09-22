@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
 
@@ -12,15 +13,19 @@ namespace JD_XI_Editor.ViewModels
         ///     Creates new instance of DigitalSynthTabViewModel
         /// </summary>
         // ReSharper disable once SuggestBaseTypeForParameter
-        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalPatchManager manager) 
+        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalPatchManager manager)
             : base(eventAggregator, manager)
         {
             DisplayName = "Digital Synth 1";
             Patch = new Patch();
             Patch.PropertyChanged += (sender, args) =>
             {
+                //TODO: Dump only some parts of the patch if changed
                 if (AutoSync)
                     Dump();
+
+                if (args.PropertyName == nameof(Patch.Modifiers))
+                    NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };
         }
 
@@ -31,6 +36,11 @@ namespace JD_XI_Editor.ViewModels
         /// </summary>
         public Patch Patch { get; }
 
+        /// <summary>
+        ///     Is envelope loop sync note combo box enabled
+        /// </summary>
+        public bool IsEnvelopeLoopSyncNoteEnabled => Patch.Modifiers.EnvelopeLoopMode == EnvelopeLoopMode.TempoSync;
+
         #endregion
 
         #region Methods
@@ -39,9 +49,7 @@ namespace JD_XI_Editor.ViewModels
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1)
-            {
                 PatchManager.Dump(Patch, SelectedOutputDeviceId);
-            }
         }
 
         /// <inheritdoc />
