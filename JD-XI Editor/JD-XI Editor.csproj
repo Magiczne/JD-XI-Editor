@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\CachedTabControl.cs" />
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
@@ -156,11 +157,19 @@
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\DigitalPartialsEditorViewModel.cs" />
+    <Compile Include="ViewModels\DigitalPartialViewModel.cs" />
     <Compile Include="ViewModels\DigitalSynthTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Abstract\TabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DigitalPartialsEditorView.xaml.cs">
+      <DependentUpon>DigitalPartialsEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DigitalPartialView.xaml.cs">
+      <DependentUpon>DigitalPartialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DigitalSynthTabView.xaml.cs">
       <DependentUpon>DigitalSynthTabView.xaml</DependentUpon>
@@ -173,11 +182,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrap\Bootstrapper.cs" />
+    <Page Include="Resources\Styles\CachedMetroTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\SimpleCachedTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +207,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnalogSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DigitalPartialsEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DigitalPartialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

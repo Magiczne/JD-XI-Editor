@@ -19,6 +19,9 @@
                 <ResourceDictionary Source="Resources/Styles/SimpleTabControl.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBox.xaml" />
                 
+                <ResourceDictionary Source="Resources/Styles/SimpleCachedTabControl.xaml" />
+                <ResourceDictionary Source="Resources/Styles/CachedMetroTabControl.xaml" />
+                
                 <ResourceDictionary>
                     <!-- ReSharper disable once InconsistentNaming -->
                     <bootstrap:Bootstrapper x:Key="bootstrapper"></bootstrap:Bootstrapper>

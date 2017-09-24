@@ -1,18 +1,19 @@
-﻿<controls:MetroWindow x:Class="JD_XI_Editor.Views.MainWindowView"
+﻿<mahapps:MetroWindow x:Class="JD_XI_Editor.Views.MainWindowView"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
                       MinWidth="795" MinHeight="755"
                       Width="795" Height="755"
-                      
+
                       mc:Ignorable="d">
-    <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands>
+    <mahapps:MetroWindow.RightWindowCommands>
+        <mahapps:WindowCommands>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Input Device" />
-                <ComboBox Width="150" 
+                <ComboBox Width="150"
                           Height="30"
                           ItemsSource="{Binding InputDevices}"
                           SelectedIndex="{Binding SelectedInputDeviceId}"
@@ -22,14 +23,15 @@
                 <Label Content="Output Device" />
                 <ComboBox Width="150"
                           Height="30"
-                          ItemsSource="{Binding OutputDevices}" 
+                          ItemsSource="{Binding OutputDevices}"
                           SelectedIndex="{Binding SelectedOutputDeviceId}"
                           DisplayMemberPath="Name" />
             </StackPanel>
-        </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
+        </mahapps:WindowCommands>
+    </mahapps:MetroWindow.RightWindowCommands>
     <Grid>
-        <TabControl x:Name="Items" />
+        <controls:CachedTabControl x:Name="Items"
+                                    Style="{StaticResource CachedMetroTabControl}"
+                                    IsSynchronizedWithCurrentItem="True" />
     </Grid>
-</controls:MetroWindow>
-    
+</mahapps:MetroWindow>

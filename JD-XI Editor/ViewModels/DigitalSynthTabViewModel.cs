@@ -17,7 +17,10 @@ namespace JD_XI_Editor.ViewModels
             : base(eventAggregator, manager)
         {
             DisplayName = "Digital Synth 1";
+
             Patch = new Patch();
+            Editor = new DigitalPartialsEditorViewModel(Patch);
+
             Patch.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
@@ -60,6 +63,8 @@ namespace JD_XI_Editor.ViewModels
         ///     Patch model
         /// </summary>
         public Patch Patch { get; }
+
+        public DigitalPartialsEditorViewModel Editor { get; }
 
         /// <summary>
         ///     Is envelope loop sync note combo box enabled
