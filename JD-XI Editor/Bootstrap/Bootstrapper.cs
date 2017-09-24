@@ -43,10 +43,6 @@ namespace JD_XI_Editor.Bootstrap
             });
 
             ContainerInstance.Verify();
-
-            ConventionManager.AddElementConvention<Knob>(Knob.ValueProperty, "Value", "ValueChanged");
-            ConventionManager.AddElementConvention<ToggleSwitch>(ToggleSwitch.IsCheckedProperty, "IsChecked",
-                "DataContextChanged");
         }
 
         /// <inheritdoc />

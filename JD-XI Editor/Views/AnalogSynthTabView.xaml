@@ -30,25 +30,25 @@
             Margin="5 0 0 0"
             Content="Init Patch"
             Style="{StaticResource AccentedSquareButtonStyle}" />
-    <controls:ToggleSwitch Name="AutoSync" 
-                           Grid.Row="0" Grid.Column="2"
+    <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
                            Margin="0 -5 0 0"
-                           OnLabel="Auto Sync" OffLabel="Auto Sync" />
+                           OnLabel="Auto Sync" OffLabel="Auto Sync"
+                           IsChecked="{Binding AutoSync}" />
     <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
           HorizontalAlignment="Right">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="105" />
             <ColumnDefinition Width="105" />
         </Grid.ColumnDefinitions>
-        <Button Name="Dump" 
+        <Button Name="Dump"
                 Grid.Column="0"
                 Margin="0 0 5 0"
                 Content="Force dump"
                 IsEnabled="{Binding CanDump}"
                 Style="{StaticResource AccentedSquareButtonStyle}" />
-        <Button Grid.Column="1" 
+        <Button Grid.Column="1"
                 Margin="0 0 5 0"
-                Content="Force read" 
+                Content="Force read"
                 IsEnabled="{Binding CanRead}"
                 Style="{StaticResource AccentedSquareButtonStyle}" />
     </Grid>
@@ -80,31 +80,30 @@
             <Label Grid.Column="0" Grid.Row="0"
                    VerticalAlignment="Top"
                    Content="Patch name: " />
-            <TextBox Name="Patch_Name"
-                     MaxLength="12"
+            <TextBox MaxLength="12"
                      Grid.Column="0" Grid.Row="1"
                      VerticalAlignment="Top"
-                     Margin="0 0 5 0" />
+                     Margin="0 0 5 0" 
+                     Text="{Binding Patch.Name}" />
 
-            <CheckBox Name="Patch_Common_Portamento"
-                      Grid.Column="1" Grid.Row="0"
+            <CheckBox Grid.Column="1" Grid.Row="0"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Portamento" />
-            <CheckBox Name="Patch_Common_Legato"
-                      Grid.Column="1" Grid.Row="1"
+                      Content="Portamento"
+                      IsChecked="{Binding Patch.Common.Portamento}" />
+            <CheckBox Grid.Column="1" Grid.Row="1"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Legato" />
+                      Content="Legato"
+                      IsChecked="{Binding Patch.Common.Legato}" />
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PortamentoTime"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
-                                  IsEnabled="{Binding Patch.Common.Portamento}"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.PortamentoTime}" />
                 <TextBlock Text="Portamento time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -112,11 +111,11 @@
 
             <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_OctaveShift"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-3" Maximum="3"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.OctaveShift}" />
                 <TextBlock Text="Octave 
                            shift"
                            TextAlignment="Center"
@@ -125,11 +124,11 @@
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PitchBendRangeUp"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.PitchBendRangeUp}" />
                 <TextBlock Text="PB Range
                            Up"
                            TextAlignment="Center"
@@ -138,11 +137,11 @@
 
             <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PitchBendRangeDown"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.PitchBendRangeDown}" />
                 <TextBlock Text="PB Range 
                            Down"
                            TextAlignment="Center"
@@ -151,11 +150,11 @@
 
             <StackPanel Grid.Column="6" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_Pitch"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-24" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Oscillator.Pitch}" />
                 <TextBlock Text="Pitch (semitones)"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -163,11 +162,11 @@
 
             <StackPanel Grid.Column="7" Grid.Row="0" Grid.RowSpan="2"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_Detune"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-50" Maximum="50"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Oscillator.Detune}" />
                 <TextBlock Text="Detune 
                            (cents)"
                            TextAlignment="Center"
@@ -175,7 +174,7 @@
             </StackPanel>
         </Grid>
     </GroupBox>
-    
+
     <!-- Oscillator -->
     <GroupBox Grid.Row="2" Grid.Column="0"
               Height="160"
@@ -205,30 +204,30 @@
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Oscillator.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Oscillator.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Oscillator.Shape}" />
             <ComboBox Grid.Column="0" Grid.Row="3"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Oscillator.SubOsc, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Oscillator.SubOsc, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Oscillator.SubOsc}" />
 
             <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_PulseWidth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding IsPulseWidthEnabled}"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  Value="{Binding Patch.Oscillator.PulseWidth}" />
                 <TextBlock Text="Pulse Width"
                            TextAlignment="Center" />
             </StackPanel>
         </Grid>
     </GroupBox>
-    
+
     <!-- Pitch Envelope -->
     <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
               Height="160"
@@ -261,31 +260,31 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Oscillator.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Oscillator.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Oscillator.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Oscillator.Decay}" />
 
-            <TextBox Name="Patch_Oscillator_Attack"
-                     Grid.Column="0" Grid.Row="2"
+            <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Oscillator_Decay"
-                     Grid.Column="1" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Oscillator.Attack}" />
+            <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Oscillator.Decay}" />
 
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_EnvelopeDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Oscillator.EnvelopeDepth}" />
                 <TextBlock Text="Depth"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -293,18 +292,18 @@
 
             <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_EnvelopeVelocitySensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Oscillator.EnvelopeVelocitySensitivity}" />
                 <TextBlock Text="Velocity Sensitivity"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </GroupBox>
-    
+
     <!-- Amplifier Envelope -->
     <GroupBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
               VerticalAlignment="Top"
@@ -349,79 +348,79 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Amplifier.Envelope.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Amplifier.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Amplifier.Envelope.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Amplifier.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Amplifier.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Amplifier.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Amplifier.Envelope.Release, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Amplifier.Envelope.Release}" />
 
-            <TextBox Name="Patch_Amplifier_Envelope_Attack"
-                     Grid.Column="0" Grid.Row="2"
+            <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Amplifier_Envelope_Decay"
-                     Grid.Column="1" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Amplifier.Envelope.Attack}" />
+            <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Amplifier_Envelope_Sustain"
-                     Grid.Column="2" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Amplifier.Envelope.Decay}" />
+            <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Amplifier_Envelope_Release"
-                     Grid.Column="3" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Amplifier.Envelope.Sustain}" />
+            <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Amplifier.Envelope.Release}" />
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Amplifier_Level"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
-                <TextBlock Text="Level" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Amplifier.Level}" />
+                <TextBlock Text="Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Amplifier_LevelKeyfollow"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63" Step="10"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
-                <TextBlock Text="Level keyfollow" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Amplifier.LevelKeyfollow}" />
+                <TextBlock Text="Level keyfollow"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="6" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Amplifier_LevelVelSensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
-                <TextBlock Text="Level velocity sensitivity" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Amplifier.LevelVelSensitivity}" />
+                <TextBlock Text="Level velocity sensitivity"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </GroupBox>
-    
+
     <!-- Filter -->
     <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
               Height="175"
@@ -440,15 +439,15 @@
 
             <controls:ToggleSwitch Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                                    OnLabel="On" OffLabel="Off"
-                                   IsChecked="{Binding Path=Patch.Filter.On, UpdateSourceTrigger=PropertyChanged}" />
+                                   IsChecked="{Binding Patch.Filter.On}" />
 
             <StackPanel Grid.Column="0" Grid.Row="1"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Filter_Cutoff"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Filter.Cutoff}" />
                 <TextBlock Text="Cutoff"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -456,11 +455,11 @@
 
             <StackPanel Grid.Column="1" Grid.Row="1"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Filter_Resonance"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Filter.Resonance}" />
                 <TextBlock Text="Resonance"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -468,18 +467,18 @@
 
             <StackPanel Grid.Column="2" Grid.Row="1"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Filter_CutoffKeyfollow"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-100" Maximum="100" Step="10"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Filter.CutoffKeyfollow}" />
                 <TextBlock Text="Cutoff keyfollow"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </GroupBox>
-    
+
     <!-- Filter Envelope -->
     <GroupBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
               VerticalAlignment="Top"
@@ -523,51 +522,51 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Filter.Envelope.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Filter.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Filter.Envelope.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Filter.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Filter.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Filter.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127"
-                    Value="{Binding Path=Patch.Filter.Envelope.Release, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Patch.Filter.Envelope.Release}" />
 
-            <TextBox Name="Patch_Filter_Envelope_Attack"
-                     Grid.Column="0" Grid.Row="2"
+            <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Filter_Envelope_Decay"
-                     Grid.Column="1" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Filter.Envelope.Attack}" />
+            <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Filter_Envelope_Sustain"
-                     Grid.Column="2" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Filter.Envelope.Decay}" />
+            <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
-            <TextBox Name="Patch_Filter_Envelope_Release"
-                     Grid.Column="3" Grid.Row="2"
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Filter.Envelope.Sustain}" />
+            <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" />
+                     VerticalAlignment="Bottom"
+                     Text="{Binding Patch.Filter.Envelope.Release}" />
 
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Filter_EnvelopeDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Filter.EnvelopeDepth}" />
                 <TextBlock Text="Depth"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -575,11 +574,11 @@
 
             <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Filter_EnvelopeVelocitySensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Filter.EnvelopeVelocitySensitivity}" />
                 <TextBlock Text="Velocity Sensitivity"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -614,34 +613,34 @@
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Lfo.Shape}" />
 
-            <CheckBox Name="Patch_Lfo_KeyTrigger" 
-                      Grid.Column="0" Grid.Row="2"
+            <CheckBox Grid.Column="0" Grid.Row="2"
                       VerticalAlignment="Top"
-                      Content="Key trigger" />
+                      Content="Key trigger"
+                      IsChecked="{Binding Patch.Lfo.KeyTrigger}" />
 
-            <CheckBox Name="Patch_Lfo_TempoSync" 
-                      Grid.Column="0" Grid.Row="3"
+            <CheckBox Grid.Column="0" Grid.Row="3"
                       VerticalAlignment="Top"
-                      Content="Tempo sync" />
-            <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" 
-                      VerticalAlignment="Top" 
+                      Content="Tempo sync"
+                      IsChecked="{Binding Patch.Lfo.TempoSync}" />
+            <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding Patch.Lfo.TempoSync}"
-                      ItemsSource="{Binding Path=Patch.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Lfo.SyncNote}" />
 
             <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_Rate" 
-                                  IsEnabled="{Binding Path=Patch.Lfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding Patch.Lfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
+                                  Value="{Binding Patch.Lfo.Rate}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -649,11 +648,11 @@
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="5"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_FadeTime"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Lfo.FadeTime}" />
                 <TextBlock Text="Fade Time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -680,11 +679,11 @@
 
             <StackPanel Grid.Column="0" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_AmpDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Lfo.AmpDepth}" />
                 <TextBlock Text="Amplifier 
                            Depth"
                            TextAlignment="Center"
@@ -692,11 +691,11 @@
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_PitchDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Lfo.PitchDepth}" />
                 <TextBlock Text="Pitch 
                            Depth"
                            TextAlignment="Center"
@@ -704,11 +703,11 @@
             </StackPanel>
             <StackPanel Grid.Column="2" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Lfo_FilterDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Lfo.FilterDepth}" />
                 <TextBlock Text="Filter 
                            Depth"
                            TextAlignment="Center"
@@ -716,11 +715,11 @@
             </StackPanel>
             <StackPanel Grid.Column="3" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Oscillator_PulseWidthModDepth"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Oscillator.PulseWidthModDepth}" />
                 <TextBlock Text="Pulse With 
                            Mod Depth"
                            TextAlignment="Center"
@@ -729,44 +728,44 @@
 
             <StackPanel Grid.Column="5" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_LfoModControl_AmpModControl"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.LfoModControl.AmpModControl}" />
                 <TextBlock Text="Amplifier Mod Control"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="6" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_LfoModControl_PitchModControl"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.LfoModControl.PitchModControl}" />
                 <TextBlock Text="Pitch Mod Control"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="7" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_LfoModControl_FilterModControl"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.LfoModControl.FilterModControl}" />
                 <TextBlock Text="Filter Mod Control"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="8" Grid.Row="0"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_LfoModControl_RateModControl"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.LfoModControl.RateModControl}" />
                 <TextBlock Text="Rate Mod Control"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

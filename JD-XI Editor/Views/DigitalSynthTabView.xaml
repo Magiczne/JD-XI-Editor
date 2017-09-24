@@ -27,10 +27,10 @@
             Margin="5 0 0 0"
             Content="Init Patch"
             Style="{StaticResource AccentedSquareButtonStyle}" />
-    <controls:ToggleSwitch Name="AutoSync"
-                           Grid.Row="0" Grid.Column="2"
+    <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
                            Margin="0 -5 0 0"
-                           OnLabel="Auto Sync" OffLabel="Auto Sync" />
+                           OnLabel="Auto Sync" OffLabel="Auto Sync" 
+                           IsChecked="{Binding AutoSync}" />
     <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
           HorizontalAlignment="Right">
         <Grid.ColumnDefinitions>
@@ -93,19 +93,19 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Common.ToneCategory, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Common.ToneCategory, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.ToneCategory}" />
 
-            <CheckBox Name="Patch_Common_Mono"
-                      Grid.Column="1" Grid.Row="0"
+            <CheckBox Grid.Column="1" Grid.Row="0"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Mono" />
-            <CheckBox Name="Patch_Common_Ring"
-                      Grid.Column="1" Grid.Row="1"
+                      Content="Mono" 
+                      IsChecked="{Binding Patch.Common.Mono}" />
+            <CheckBox Grid.Column="1" Grid.Row="1"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Ring" />
+                      Content="Ring" 
+                      IsChecked="{Binding Patch.Common.Ring}" />
             <CheckBox Name="Patch_Common_Unison"
                       Grid.Column="1" Grid.Row="2"
                       VerticalAlignment="Top"
@@ -118,19 +118,19 @@
                       DisplayMemberPath="Description"
                       ToolTip="Unison size"
                       IsEnabled="{Binding Patch.Common.Unison}"
-                      ItemsSource="{Binding Path=Patch.Common.UnisonSize, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Common.UnisonSize, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.UnisonSize}" />
 
-            <CheckBox Name="Patch_Common_Legato"
-                      Grid.Column="2" Grid.Row="0"
+            <CheckBox Grid.Column="2" Grid.Row="0"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Legato" />
-            <CheckBox Name="Patch_Common_Portamento"
-                      Grid.Row="1" Grid.Column="2"
+                      Content="Legato" 
+                      IsChecked="{Binding Patch.Common.Legato}" />
+            <CheckBox Grid.Row="1" Grid.Column="2"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Portamento" />
+                      Content="Portamento" 
+                      IsChecked="{Binding Patch.Common.Portamento}" />
             <ComboBox Grid.Row="2" Grid.Column="2"
                       Margin="0 0 5 0"
                       VerticalAlignment="Top"
@@ -138,22 +138,23 @@
                       DisplayMemberPath="Description"
                       ToolTip="Portamento mode"
                       IsEnabled="{Binding Patch.Common.Portamento}"
-                      ItemsSource="{Binding Path=Patch.Common.PortamentoMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Common.PortamentoMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.PortamentoMode}" />
-            <CheckBox Name="Patch_Modifiers_ChromaticPortamento"
-                      Grid.Row="3" Grid.Column="2"
+            <CheckBox Grid.Row="3" Grid.Column="2"
                       Content="Chromatic Port."
                       ToolTip="Chromatic Portamento"
-                      IsEnabled="{Binding Patch.Common.Portamento}" />
+                      IsEnabled="{Binding Patch.Common.Portamento}"
+                      IsChecked="{Binding Patch.Modifiers.ChromaticPortamento}" />
 
             <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="4"
                         Orientation="Vertical">
                 <knobControl:Knob Name="Patch_Common_PortamentoTime"
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
-                                  IsEnabled="{Binding Patch.Common.Portamento}"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding Patch.Common.Portamento}"
+                                  Value="{Binding Patch.Common.PortamentoTime}" />
                 <TextBlock Text="Portamento time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -161,11 +162,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_ToneLevel"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.Common.ToneLevel}" />
                 <TextBlock Text="Tone 
                            Level"
                            TextAlignment="Center"
@@ -174,11 +175,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="5" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_AnalogFeel"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.Common.AnalogFeel}" />
                 <TextBlock Text="Analog
                            Feel"
                            TextAlignment="Center"
@@ -187,11 +188,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="6" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_WaveShape"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.WaveShape}" />
                 <TextBlock Text="Wave 
                            Shape"
                            TextAlignment="Center"
@@ -200,11 +201,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="7" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_OctaveShift"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-3" Maximum="3"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.OctaveShift}" />
                 <TextBlock Text="Octave 
                            shift"
                            TextAlignment="Center"
@@ -213,11 +214,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="8" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PitchBendRangeUp"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.Common.PitchBendRangeUp}" />
                 <TextBlock Text="PB Range
                            Up"
                            TextAlignment="Center"
@@ -226,11 +227,11 @@
 
             <StackPanel Grid.Row="0" Grid.Column="9" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PitchBendRangeDown"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.Common.PitchBendRangeDown}" />
                 <TextBlock Text="PB Range 
                            Down"
                            TextAlignment="Center"
@@ -251,15 +252,15 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <controls:ToggleSwitch Name="Patch_Common_PartialOneSwitch"
-                                   Grid.Row="0"
-                                   Header="Partial 1" />
-            <controls:ToggleSwitch Name="Patch_Common_PartialTwoSwitch"
-                                   Grid.Row="1"
-                                   Header="Partial 2" />
-            <controls:ToggleSwitch Name="Patch_Common_PartialThreeSwitch"
-                                   Grid.Row="2"
-                                   Header="Partial 3" />
+            <controls:ToggleSwitch Grid.Row="0"
+                                   Header="Partial 1"
+                                   IsChecked="{Binding Patch.Common.PartialOneSwitch}" />
+            <controls:ToggleSwitch Grid.Row="1"
+                                   Header="Partial 2"
+                                   IsChecked="{Binding Patch.Common.PartialTwoSwitch}" />
+            <controls:ToggleSwitch Grid.Row="2"
+                                   Header="Partial 3"
+                                   IsChecked="{Binding Patch.Common.PartialThreeSwitch}" />
         </Grid>
     </GroupBox>
 
@@ -296,15 +297,15 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Patch.Modifiers.EnvelopeLoopMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopMode}" />
             <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
                       ToolTip="Envelope Loop Synchronization Note"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      IsEnabled="{Binding IsEnvelopeLoopSyncNoteEnabled, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopSyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      IsEnabled="{Binding IsEnvelopeLoopSyncNoteEnabled}"
+                      ItemsSource="{Binding Patch.Modifiers.EnvelopeLoopSyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopSyncNote}" />
 
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
@@ -313,11 +314,11 @@
             <StackPanel Grid.Row="4" Grid.Column="0"
                         ToolTip="Atack Time Interval Sensitivity"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Modifiers_AttackTimeIntervalSensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.ModifiersAttackTimeIntervalSensitivity}" />
                 <TextBlock Text="Attack"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -325,11 +326,11 @@
             <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
                         ToolTip="Release Time Interval Sensitivity"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Modifiers_ReleaseTimeIntervalSensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  Value="{Binding Patch.Modifiers.ReleaseTimeIntervalSensitivity}" />
                 <TextBlock Text="Release"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -337,12 +338,12 @@
             <StackPanel Grid.Row="4" Grid.Column="3"
                         ToolTip="Portamento Time Interval Sensitivity"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Modifiers_PortamentoTimeIntervalSensitivity"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  IsEnabled="{Binding Patch.Common.Portamento, UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding Patch.Common.Portamento}"
+                                  Value="{Binding Patch.Modifiers.PortamentoTimeIntervalSensitivity}" />
                 <TextBlock Text="Portamento"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

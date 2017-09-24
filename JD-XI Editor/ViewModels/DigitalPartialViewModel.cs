@@ -33,22 +33,6 @@ namespace JD_XI_Editor.ViewModels
                 }
             };
 
-            Partial.Lfo.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == nameof(Partial.Lfo.TempoSync))
-                {
-                    NotifyOfPropertyChange(nameof(LfoRateEnabled));
-                }
-            };
-
-            Partial.ModLfo.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == nameof(Partial.ModLfo.TempoSync))
-                {
-                    NotifyOfPropertyChange(nameof(ModLfoRateEnabled));
-                }
-            };
-
             Partial.Filter.PropertyChanged += (sender, args) =>
             {
                 switch (args.PropertyName)
@@ -198,16 +182,6 @@ namespace JD_XI_Editor.ViewModels
         ///     PCM wave selected
         /// </summary>
         public bool PcmWaveSelected => Partial.Oscillator.Shape == OscillatorShape.Pcm;
-
-        /// <summary>
-        ///     LFO Rate knob enabled
-        /// </summary>
-        public bool LfoRateEnabled => !Partial.Lfo.TempoSync;
-
-        /// <summary>
-        ///     Modulation wheel LFO Rate knob enabled
-        /// </summary>
-        public bool ModLfoRateEnabled => !Partial.ModLfo.TempoSync;
 
         /// <summary>
         ///     Is filter on

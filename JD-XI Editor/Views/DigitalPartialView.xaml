@@ -6,6 +6,9 @@
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
       mc:Ignorable="d">
+    <Grid.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition Height="290" />
         <RowDefinition Height="150" />
@@ -52,7 +55,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Partial.Oscillator.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.Oscillator.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Oscillator.Shape}" />
             <Label Grid.Row="2" Grid.Column="0"
                    VerticalAlignment="Top"
@@ -86,7 +89,7 @@
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding PcmWaveSelected}"
-                      ItemsSource="{Binding Path=Partial.Other.WaveNumber, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.Other.WaveNumber, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Other.WaveNumber}" />
             <Label Grid.Row="6" Grid.Column="0"
                    VerticalAlignment="Top"
@@ -128,7 +131,7 @@
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding PulseSquareWaveSelected}"
-                                  Value="{Binding Path=Partial.Oscillator.PulseWidth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Oscillator.PulseWidth}" />
                 <TextBlock Text="Pulse
                                        Width"
                            TextAlignment="Center"
@@ -141,7 +144,7 @@
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding PulseSquareWaveSelected}"
-                                  Value="{Binding Partial.ModLfo.PulseWidthShift, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.ModLfo.PulseWidthShift}" />
                 <TextBlock Text="Pulse Width
                                        Shift"
                            TextAlignment="Center"
@@ -154,7 +157,7 @@
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding SuperWaveSelected}"
-                                  Value="{Binding Partial.Other.SuperSawDetune, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Other.SuperSawDetune}" />
                 <TextBlock Text="Super Saw
                                        Detune"
                            TextAlignment="Center"
@@ -167,7 +170,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-64" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Amplifier.Panorama, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Amplifier.Panorama}" />
                 <TextBlock Text="Panorama"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -178,7 +181,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-24" Maximum="24"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.Oscillator.Pitch, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Oscillator.Pitch}" />
                 <TextBlock Text="Pitch"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -189,7 +192,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-50" Maximum="50"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Oscillator.Detune, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Oscillator.Detune}" />
                 <TextBlock Text="Detune"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -229,22 +232,22 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Oscillator.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Oscillator.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Oscillator.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Oscillator.Decay}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Oscillator.Attack, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Oscillator.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Oscillator.Decay, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Oscillator.Decay, Mode=OneWay}" />
 
             <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
                         Orientation="Vertical">
@@ -252,7 +255,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Oscillator.EnvelopeDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Oscillator.EnvelopeDepth}" />
                 <TextBlock Text="Depth"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -281,7 +284,7 @@
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.Aftertouch.CutoffAftertouchSensitivity, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Aftertouch.CutoffAftertouchSensitivity}" />
                 <TextBlock Text="Filter Cutoff 
                                        Sensitivity"
                            TextAlignment="Center"
@@ -293,7 +296,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Aftertouch.LevelAftertouchSensitivity, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Aftertouch.LevelAftertouchSensitivity}" />
                 <TextBlock Text="Amp Level 
                                        Sensitivity"
                            TextAlignment="Center"
@@ -331,26 +334,26 @@
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"                       
-                      ItemsSource="{Binding Path=Partial.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Lfo.Shape}" />
 
             <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
                       Content="Tempo sync" 
-                      IsChecked="{Binding Partial.Lfo.TempoSync, UpdateSourceTrigger=PropertyChanged}" />
+                      IsChecked="{Binding Partial.Lfo.TempoSync}" />
             <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                       Margin="0 0 5 0"
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding Partial.Lfo.TempoSync}"
-                      ItemsSource="{Binding Path=Partial.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Lfo.SyncNote}" />
 
             <CheckBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
                       Content="Key trigger" 
-                      IsChecked="{Binding Partial.Lfo.KeyTrigger, UpdateSourceTrigger=PropertyChanged}" />
+                      IsChecked="{Binding Partial.Lfo.KeyTrigger}" />
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="5"
                         Orientation="Vertical">
@@ -358,8 +361,8 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  IsEnabled="{Binding LfoRateEnabled}"
-                                  Value="{Binding Partial.Lfo.Rate, UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding Partial.Lfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
+                                  Value="{Binding Partial.Lfo.Rate}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -370,7 +373,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Lfo.FadeTime, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Lfo.FadeTime}" />
                 <TextBlock Text="Fade Time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -382,7 +385,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Lfo.PitchDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Lfo.PitchDepth}" />
                 <TextBlock Text="Pitch 
                                        Depth"
                            TextAlignment="Center"
@@ -395,7 +398,7 @@
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.Lfo.FilterDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Lfo.FilterDepth}" />
                 <TextBlock Text="Filter 
                                        Depth"
                            TextAlignment="Center"
@@ -407,7 +410,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.Lfo.AmpDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Lfo.AmpDepth}" />
                 <TextBlock Text="Amplifier 
                                        Depth"
                            TextAlignment="Center"
@@ -419,7 +422,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Lfo.PanDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Lfo.PanDepth}" />
                 <TextBlock Text="Panorama 
                                        Depth"
                            TextAlignment="Center"
@@ -459,19 +462,19 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description" 
-                      ItemsSource="{Binding Path=Partial.ModLfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.ModLfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.ModLfo.Shape}" />
 
             <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                       VerticalAlignment="Top"
                       Content="Tempo sync"
-                      IsChecked="{Binding Partial.ModLfo.TempoSync, UpdateSourceTrigger=PropertyChanged}" />
+                      IsChecked="{Binding Partial.ModLfo.TempoSync}" />
             <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"         
                       IsEnabled="{Binding Partial.ModLfo.TempoSync}"
-                      ItemsSource="{Binding Path=Partial.ModLfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.ModLfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.ModLfo.SyncNote}" />
 
             <StackPanel Grid.Column="4" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2"
@@ -480,8 +483,8 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  IsEnabled="{Binding ModLfoRateEnabled}"
-                                  Value="{Binding Partial.ModLfo.Rate, UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding Partial.ModLfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
+                                  Value="{Binding Partial.ModLfo.Rate}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -492,8 +495,8 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  IsEnabled="{Binding ModLfoRateEnabled}"
-                                  Value="{Binding Partial.Other.ModLfoRateControl, UpdateSourceTrigger=PropertyChanged}" />
+                                  IsEnabled="{Binding Partial.ModLfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
+                                  Value="{Binding Partial.Other.ModLfoRateControl}" />
                 <TextBlock Text="Rate Control"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -505,7 +508,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="64"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.ModLfo.PanDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.ModLfo.PanDepth}" />
                 <TextBlock Text="Panorama
                                            Depth"
                            TextAlignment="Center"
@@ -518,7 +521,7 @@
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding PulseSquareWaveSelected}"
-                                  Value="{Binding Partial.Oscillator.PulseWidthModDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Oscillator.PulseWidthModDepth}" />
                 <TextBlock Text="Pulse Width
                                            Depth"
                            TextAlignment="Center"
@@ -530,7 +533,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.ModLfo.PitchDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.ModLfo.PitchDepth}" />
                 <TextBlock Text="Pitch
                                            Depth"
                            TextAlignment="Center"
@@ -543,7 +546,7 @@
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.ModLfo.FilterDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.ModLfo.FilterDepth}" />
                 <TextBlock Text="Filter
                                            Depth"
                            TextAlignment="Center"
@@ -555,7 +558,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.ModLfo.AmpDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.ModLfo.AmpDepth}" />
                 <TextBlock Text="Amplifier
                                            Depth"
                            TextAlignment="Center"
@@ -592,7 +595,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description" 
-                      ItemsSource="{Binding Path=Partial.Filter.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Partial.Filter.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Filter.Type}" />
 
             <Label Grid.Row="0" Grid.Column="1"
@@ -608,12 +611,12 @@
                              VerticalAlignment="Top"
                              Content="-12"
                              IsEnabled="{Binding FilterOn}"
-                             IsChecked="{Binding SlopeNegativeTwelveSelected, UpdateSourceTrigger=PropertyChanged}" />
+                             IsChecked="{Binding SlopeNegativeTwelveSelected}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
                              Content="-24" 
                              IsEnabled="{Binding FilterOn}"
-                             IsChecked="{Binding SlopeNegativeTwentyFourSelected, UpdateSourceTrigger=PropertyChanged}" />
+                             IsChecked="{Binding SlopeNegativeTwentyFourSelected}" />
             </Grid>
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
@@ -623,7 +626,7 @@
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.Filter.Cutoff, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Filter.Cutoff}" />
                 <TextBlock Text="Cutoff"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -635,7 +638,7 @@
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.Filter.Resonance, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Filter.Resonance}" />
                 <TextBlock Text="Resonance"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -647,7 +650,7 @@
                                   Minimum="-100" Maximum="100" Step="10"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
                                   IsEnabled="{Binding FilterOn}"
-                                  Value="{Binding Partial.Filter.CutoffKeyfollow, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Filter.CutoffKeyfollow}" />
                 <TextBlock Text="Cutoff keyfollow"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -658,7 +661,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.Other.HpfCutoff, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Other.HpfCutoff}" />
                 <TextBlock Text="High Pass
                                        Filter Cutoff"
                            TextAlignment="Center"
@@ -710,42 +713,42 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Filter.Envelope.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Filter.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Filter.Envelope.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Filter.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Filter.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Filter.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Filter.Envelope.Release, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Filter.Envelope.Release}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Filter.Envelope.Attack, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Filter.Envelope.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Filter.Envelope.Decay, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Filter.Envelope.Decay, Mode=OneWay}" />
             <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom"
-                     Text="{Binding Partial.Filter.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Filter.Envelope.Sustain, Mode=OneWay}" />
             <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Filter.Envelope.Release, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Filter.Envelope.Release, Mode=OneWay}" />
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
@@ -753,7 +756,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.Filter.EnvelopeDepth, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Filter.EnvelopeDepth}" />
                 <TextBlock Text="Depth"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -764,7 +767,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding Partial.Filter.EnvelopeVelocitySensitivity, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Filter.EnvelopeVelocitySensitivity}" />
                 <TextBlock Text="Velocity Sensitivity"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -816,42 +819,42 @@
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Amplifier.Envelope.Attack, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Amplifier.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Amplifier.Envelope.Decay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Amplifier.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Amplifier.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Amplifier.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
                     Maximum="127" 
-                    Value="{Binding Partial.Amplifier.Envelope.Release, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding Partial.Amplifier.Envelope.Release}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Amplifier.Envelope.Attack, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Amplifier.Envelope.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Amplifier.Envelope.Decay, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Amplifier.Envelope.Decay, Mode=OneWay}" />
             <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Amplifier.Envelope.Sustain, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Amplifier.Envelope.Sustain, Mode=OneWay}" />
             <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
                      VerticalAlignment="Bottom" 
-                     Text="{Binding Partial.Amplifier.Envelope.Release, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                     Text="{Binding Partial.Amplifier.Envelope.Release, Mode=OneWay}" />
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
                         Orientation="Vertical">
@@ -859,7 +862,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Amplifier.Level, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Amplifier.Level}" />
                 <TextBlock Text="Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -870,7 +873,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63" Step="10"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Other.AmpLevelKeyfollow, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Other.AmpLevelKeyfollow}" />
                 <TextBlock Text="Level keyfollow"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -881,7 +884,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Partial.Amplifier.LevelVelSensitivity, UpdateSourceTrigger=PropertyChanged}" />
+                                  Value="{Binding Partial.Amplifier.LevelVelSensitivity}" />
                 <TextBlock Text="Level velocity sensitivity"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
