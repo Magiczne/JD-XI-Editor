@@ -153,7 +153,7 @@
     <Compile Include="Models\Patches\IPatchPart.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
-    <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
+    <Compile Include="Utils\Converters\EnumToCollectionConverter.cs" />
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />

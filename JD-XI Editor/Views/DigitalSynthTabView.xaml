@@ -5,7 +5,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-      xmlns:enums="clr-namespace:JD_XI_Editor.Utils.Enums"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
       mc:Ignorable="d">
     <Grid.RowDefinitions>
@@ -94,7 +93,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Common.ToneCategory, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Common.ToneCategory, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.ToneCategory}" />
 
             <CheckBox Name="Patch_Common_Mono"
@@ -119,7 +118,7 @@
                       DisplayMemberPath="Description"
                       ToolTip="Unison size"
                       IsEnabled="{Binding Patch.Common.Unison}"
-                      ItemsSource="{Binding Path=Patch.Common.UnisonSize, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Common.UnisonSize, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.UnisonSize}" />
 
             <CheckBox Name="Patch_Common_Legato"
@@ -139,7 +138,7 @@
                       DisplayMemberPath="Description"
                       ToolTip="Portamento mode"
                       IsEnabled="{Binding Patch.Common.Portamento}"
-                      ItemsSource="{Binding Path=Patch.Common.PortamentoMode, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Common.PortamentoMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.PortamentoMode}" />
             <CheckBox Name="Patch_Modifiers_ChromaticPortamento"
                       Grid.Row="3" Grid.Column="2"
@@ -297,7 +296,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopMode, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopMode}" />
             <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
@@ -305,7 +304,7 @@
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding IsEnvelopeLoopSyncNoteEnabled, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopSyncNote, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Modifiers.EnvelopeLoopSyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopSyncNote}" />
 
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"

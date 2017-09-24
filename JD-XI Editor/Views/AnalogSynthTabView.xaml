@@ -5,7 +5,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-      xmlns:enums="clr-namespace:JD_XI_Editor.Utils.Enums"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
       mc:Ignorable="d">
     <Grid.Resources>
@@ -206,14 +205,14 @@
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Oscillator.Shape, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Oscillator.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Oscillator.Shape}" />
             <ComboBox Grid.Column="0" Grid.Row="3"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Oscillator.SubOsc, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Oscillator.SubOsc, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Oscillator.SubOsc}" />
 
             <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4"
@@ -615,7 +614,7 @@
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
-                      ItemsSource="{Binding Path=Patch.Lfo.Shape, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Lfo.Shape}" />
 
             <CheckBox Name="Patch_Lfo_KeyTrigger" 
@@ -632,7 +631,7 @@
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding Patch.Lfo.TempoSync}"
-                      ItemsSource="{Binding Path=Patch.Lfo.SyncNote, Converter={enums:EnumToCollectionConverter}, Mode=OneTime}"
+                      ItemsSource="{Binding Path=Patch.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Lfo.SyncNote}" />
 
             <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="5"

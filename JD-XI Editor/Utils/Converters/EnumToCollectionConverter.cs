@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
+using JD_XI_Editor.Utils.Enums;
 
-namespace JD_XI_Editor.Utils.Enums
+namespace JD_XI_Editor.Utils.Converters
 {
     [ValueConversion(typeof(Enum), typeof(IEnumerable<ValueDescription>))]
     public class EnumToCollectionConverter : MarkupExtension, IValueConverter
