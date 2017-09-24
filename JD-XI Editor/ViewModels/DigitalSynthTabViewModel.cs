@@ -20,10 +20,35 @@ namespace JD_XI_Editor.ViewModels
             Patch = new Patch();
             Patch.PropertyChanged += (sender, args) =>
             {
-                //TODO: Dump only some parts of the patch if changed
-                if (AutoSync)
-                    Dump();
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var digitalPatchManager = (IDigitalPatchManager) PatchManager;
 
+                    // ReSharper disable once SwitchStatementMissingSomeCases
+                    switch (args.PropertyName)
+                    {
+                        case nameof(Patch.Common):
+                            digitalPatchManager.DumpCommon(Patch, SelectedOutputDeviceId);
+                            break;
+
+                        case nameof(Patch.Modifiers):
+                            digitalPatchManager.DumpModifiers(Patch, SelectedOutputDeviceId);
+                            break;
+
+                        case nameof(Patch.PartialOne):
+                            digitalPatchManager.DumpPartialOne(Patch, SelectedOutputDeviceId);
+                            break;
+
+                        case nameof(Patch.PartialTwo):
+                            digitalPatchManager.DumpPartialTwo(Patch, SelectedOutputDeviceId);
+                            break;
+
+                        case nameof(Patch.PartialThree):
+                            digitalPatchManager.DumpPartialThree(Patch, SelectedOutputDeviceId);
+                            break;
+                    }
+                }
+                    
                 if (args.PropertyName == nameof(Patch.Modifiers))
                     NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };

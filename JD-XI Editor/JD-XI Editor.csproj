@@ -84,6 +84,7 @@
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
+    <Compile Include="Managers\IDigitalPatchManager.cs" />
     <Compile Include="Managers\IPatchManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\Digital\Category.cs" />
@@ -149,9 +150,6 @@
     <Compile Include="Models\Patches\DrumKit\Patch.cs" />
     <Compile Include="Models\Patches\IPatch.cs" />
     <Compile Include="Models\Patches\IPatchPart.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
@@ -188,10 +186,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\TextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
