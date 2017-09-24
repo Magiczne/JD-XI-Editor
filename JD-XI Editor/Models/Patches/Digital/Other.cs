@@ -14,12 +14,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Other()
         {
-            WaveGain = WaveGain.Zero;
-            WaveNumber = PcmWave.SyncSweep;
-            HpfCutoff = 0;
-            SuperSawDetune = 0;
-            ModLfoRateControl = 18;
-            AmpLevelKeyfollow = 0;
+            Reset();
         }
 
         /// <inheritdoc />

@@ -26,7 +26,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             Amplifier.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Amplifier));
             Lfo.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Lfo));
             ModLfo.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(ModLfo));
-            Aftertouch.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Lfo));
+            Aftertouch.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Aftertouch));
             Other.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Other));
         }
 

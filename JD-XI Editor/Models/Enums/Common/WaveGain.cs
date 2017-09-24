@@ -14,6 +14,6 @@ namespace JD_XI_Editor.Models.Enums.Common
         PositiveSix = 0x02,
 
         [Description("12")]
-        PositiveTvelwe = 0x03
+        PositiveTwelve = 0x03
     }
 }
