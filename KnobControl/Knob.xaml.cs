@@ -32,6 +32,8 @@ namespace KnobControl
             IsEnabledChanged += (sender, args) =>
             {
                 OnPropertyChanged(nameof(ArcStroke));
+
+                Opacity = IsEnabled ? 1 : 0.5;
             };
         }
 
