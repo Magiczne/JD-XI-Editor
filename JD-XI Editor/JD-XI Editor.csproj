@@ -86,26 +86,38 @@
     <Compile Include="Managers\DigitalPatchManager.cs" />
     <Compile Include="Managers\IPatchManager.cs" />
     <Compile Include="Models\ADSR.cs" />
-    <Compile Include="Models\Enums\DigitalPatchCategory.cs" />
-    <Compile Include="Models\Enums\DigitalFilterType.cs" />
-    <Compile Include="Models\Enums\DigitalOscillatorShape.cs" />
-    <Compile Include="Models\Enums\EnvelopeLoopMode.cs" />
-    <Compile Include="Models\Enums\FilterSlope.cs" />
-    <Compile Include="Models\Enums\PcmWave.cs" />
-    <Compile Include="Models\Enums\WaveGain.cs" />
-    <Compile Include="Models\Enums\PortamentoMode.cs" />
-    <Compile Include="Models\Enums\UnisonSize.cs" />
-    <Compile Include="Models\Enums\WaveVariation.cs" />
+    <Compile Include="Models\Enums\Digital\Category.cs" />
+    <Compile Include="Models\Enums\Digital\FilterType.cs" />
+    <Compile Include="Models\Enums\Digital\OscillatorShape.cs" />
+    <Compile Include="Models\Enums\Digital\EnvelopeLoopMode.cs" />
+    <Compile Include="Models\Enums\Digital\FilterSlope.cs" />
+    <Compile Include="Models\Enums\Digital\PcmWave.cs" />
+    <Compile Include="Models\Enums\Common\WaveGain.cs" />
+    <Compile Include="Models\Enums\Digital\PortamentoMode.cs" />
+    <Compile Include="Models\Enums\Digital\UnisonSize.cs" />
+    <Compile Include="Models\Enums\Digital\WaveVariation.cs" />
+    <Compile Include="Models\Enums\DrumKit\AlternatePan.cs" />
+    <Compile Include="Models\Enums\DrumKit\AssignType.cs" />
+    <Compile Include="Models\Enums\DrumKit\EnvelopeMode.cs" />
+    <Compile Include="Models\Enums\DrumKit\FilterType.cs" />
+    <Compile Include="Models\Enums\DrumKit\FxmWaveColor.cs" />
+    <Compile Include="Models\Enums\DrumKit\MuteGroup.cs" />
+    <Compile Include="Models\Enums\DrumKit\NotePitch.cs" />
+    <Compile Include="Models\Enums\DrumKit\OutputAssign.cs" />
+    <Compile Include="Models\Enums\DrumKit\RandomPitchDepth.cs" />
+    <Compile Include="Models\Enums\DrumKit\VelocityCurve.cs" />
+    <Compile Include="Models\Enums\DrumKit\Wave.cs" />
+    <Compile Include="Models\Enums\DrumKit\WmtVelocityControl.cs" />
     <Compile Include="Models\Patches\Analog\Amplifier.cs" />
     <Compile Include="Models\Patches\Analog\Common.cs" />
     <Compile Include="Models\Patches\Analog\Lfo.cs" />
     <Compile Include="Models\Patches\Analog\LfoModControl.cs" />
     <Compile Include="Models\Patches\Analog\Oscillator.cs" />
     <Compile Include="Models\Patches\Analog\Patch.cs" />
-    <Compile Include="Models\Enums\AnalogOscillatorShape.cs" />
-    <Compile Include="Models\Enums\LFOShape.cs" />
-    <Compile Include="Models\Enums\SubOscillatorStatus.cs" />
-    <Compile Include="Models\Enums\SyncNote.cs" />
+    <Compile Include="Models\Enums\Analog\OscillatorShape.cs" />
+    <Compile Include="Models\Enums\Common\LFOShape.cs" />
+    <Compile Include="Models\Enums\Analog\SubOscillatorStatus.cs" />
+    <Compile Include="Models\Enums\Common\SyncNote.cs" />
     <Compile Include="Models\MidiInputDeviceInfo.cs" />
     <Compile Include="Models\MidiOutputDeviceInfo.cs" />
     <Compile Include="Managers\AnalogPatchManager.cs" />
@@ -120,8 +132,26 @@
     <Compile Include="Models\Patches\Digital\Other.cs" />
     <Compile Include="Models\Patches\Digital\Partial.cs" />
     <Compile Include="Models\Patches\Digital\Patch.cs" />
+    <Compile Include="Models\Patches\DrumKit\Common.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Amplifier.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Assign.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Basic.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Envelope.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Expression.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Other.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Partial.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Pitch.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\TVA.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\TVF.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Output.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Wmt\VelocityControl.cs" />
+    <Compile Include="Models\Patches\DrumKit\Partial\Wmt\Wmt.cs" />
+    <Compile Include="Models\Patches\DrumKit\Patch.cs" />
     <Compile Include="Models\Patches\IPatch.cs" />
     <Compile Include="Models\Patches\IPatchPart.cs" />
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Enums\EnumToCollectionConverter.cs" />
@@ -158,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
