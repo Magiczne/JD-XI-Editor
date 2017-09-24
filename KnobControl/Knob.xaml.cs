@@ -168,8 +168,7 @@ namespace KnobControl
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value", typeof(int), typeof(Knob),
-            new FrameworkPropertyMetadata(
-                OnValuePropertyChanged, OnValuePropertyCoerce));
+            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValuePropertyChanged, OnValuePropertyCoerce));
 
         public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
             "Minumum", typeof(int), typeof(Knob),
