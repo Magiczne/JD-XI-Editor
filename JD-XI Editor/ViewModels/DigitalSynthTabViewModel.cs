@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
@@ -27,8 +26,6 @@ namespace JD_XI_Editor.ViewModels
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
                     var digitalPatchManager = (IDigitalPatchManager) PatchManager;
-
-                    MessageBox.Show(args.PropertyName);
 
                     // ReSharper disable once SwitchStatementMissingSomeCases
                     switch (args.PropertyName)
