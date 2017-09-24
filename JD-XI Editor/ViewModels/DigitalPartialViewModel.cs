@@ -17,11 +17,50 @@ namespace JD_XI_Editor.ViewModels
 
             Partial.Oscillator.PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(Partial.Oscillator.WaveVariation))
+                switch (args.PropertyName)
                 {
-                    NotifyOfPropertyChange(nameof(VariationASelected));
-                    NotifyOfPropertyChange(nameof(VariationBSelected));
-                    NotifyOfPropertyChange(nameof(VariationCSelected));
+                    case nameof(Partial.Oscillator.WaveVariation):
+                        NotifyOfPropertyChange(nameof(VariationASelected));
+                        NotifyOfPropertyChange(nameof(VariationBSelected));
+                        NotifyOfPropertyChange(nameof(VariationCSelected));
+                        break;
+
+                    case nameof(Partial.Oscillator.Shape):
+                        NotifyOfPropertyChange(nameof(PulseSquareWaveSelected));
+                        NotifyOfPropertyChange(nameof(SuperSawSelected));
+                        NotifyOfPropertyChange(nameof(PcmWaveSelected));
+                        break;
+                }
+            };
+
+            Partial.Lfo.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Partial.Lfo.TempoSync))
+                {
+                    NotifyOfPropertyChange(nameof(LfoRateEnabled));
+                }
+            };
+
+            Partial.ModLfo.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Partial.ModLfo.TempoSync))
+                {
+                    NotifyOfPropertyChange(nameof(ModLfoRateEnabled));
+                }
+            };
+
+            Partial.Filter.PropertyChanged += (sender, args) =>
+            {
+                switch (args.PropertyName)
+                {
+                    case nameof(Partial.Filter.Slope):
+                        NotifyOfPropertyChange(nameof(SlopeNegativeTwelveSelected));
+                        NotifyOfPropertyChange(nameof(SlopeNegativeTwentyFourSelected));
+                        break;
+
+                    case nameof(Partial.Filter.Type):
+                        NotifyOfPropertyChange(nameof(FilterOn));
+                        break;
                 }
             };
 
@@ -33,15 +72,6 @@ namespace JD_XI_Editor.ViewModels
                     NotifyOfPropertyChange(nameof(WaveGainZeroSelected));
                     NotifyOfPropertyChange(nameof(WaveGainPositiveSixSelected));
                     NotifyOfPropertyChange(nameof(WaveGainPositiveTwelveSelected));
-                }
-            };
-
-            Partial.Filter.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == nameof(Partial.Filter.Slope))
-                {
-                    NotifyOfPropertyChange(nameof(SlopeNegativeTwelveSelected));
-                    NotifyOfPropertyChange(nameof(SlopeNegativeTwentyFourSelected));
                 }
             };
         }
@@ -153,6 +183,36 @@ namespace JD_XI_Editor.ViewModels
             get => Partial.Filter.Slope == FilterSlope.NegativeTwentyFour;
             set => Partial.Filter.Slope = value ? FilterSlope.NegativeTwentyFour : Partial.Filter.Slope;
         }
+
+        /// <summary>
+        ///     Pulse wave selected
+        /// </summary>
+        public bool PulseSquareWaveSelected => Partial.Oscillator.Shape == OscillatorShape.PulseWaveSquare;
+
+        /// <summary>
+        ///     Super saw selected
+        /// </summary>
+        public bool SuperSawSelected => Partial.Oscillator.Shape == OscillatorShape.SuperSaw;
+
+        /// <summary>
+        ///     PCM wave selected
+        /// </summary>
+        public bool PcmWaveSelected => Partial.Oscillator.Shape == OscillatorShape.Pcm;
+
+        /// <summary>
+        ///     LFO Rate knob enabled
+        /// </summary>
+        public bool LfoRateEnabled => !Partial.Lfo.TempoSync;
+
+        /// <summary>
+        ///     Modulation wheel LFO Rate knob enabled
+        /// </summary>
+        public bool ModLfoRateEnabled => !Partial.ModLfo.TempoSync;
+
+        /// <summary>
+        ///     Is filter on
+        /// </summary>
+        public bool FilterOn => Partial.Filter.Type != FilterType.Off;
 
         #endregion
     }

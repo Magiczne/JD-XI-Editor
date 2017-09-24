@@ -341,7 +341,8 @@
                                   Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding Patch.Common.Portamento, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Portamento"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

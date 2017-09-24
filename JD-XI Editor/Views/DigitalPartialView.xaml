@@ -85,6 +85,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
+                      IsEnabled="{Binding PcmWaveSelected}"
                       ItemsSource="{Binding Path=Partial.Other.WaveNumber, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Other.WaveNumber}" />
             <Label Grid.Row="6" Grid.Column="0"
@@ -101,18 +102,22 @@
                 <RadioButton Grid.Column="0"
                              VerticalAlignment="Top"
                              Content="-6"  
+                             IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainNegativeSixSelected}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
                              Content="0" 
+                             IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainZeroSelected}" />
                 <RadioButton Grid.Column="2"
                              VerticalAlignment="Top"
                              Content="+6" 
+                             IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainPositiveSixSelected}" />
                 <RadioButton Grid.Column="3"
                              VerticalAlignment="Top"
                              Content="+12"
+                             IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainPositiveTwelveSelected}" />
             </Grid>
 
@@ -122,6 +127,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding PulseSquareWaveSelected}"
                                   Value="{Binding Path=Partial.Oscillator.PulseWidth, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Pulse
                                        Width"
@@ -134,6 +140,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding PulseSquareWaveSelected}"
                                   Value="{Binding Partial.ModLfo.PulseWidthShift, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Pulse Width
                                        Shift"
@@ -146,6 +153,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding SuperWaveSelected}"
                                   Value="{Binding Partial.Other.SuperSawDetune, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Super Saw
                                        Detune"
@@ -272,6 +280,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Aftertouch.CutoffAftertouchSensitivity, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Filter Cutoff 
                                        Sensitivity"
@@ -334,6 +343,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
+                      IsEnabled="{Binding Partial.Lfo.TempoSync}"
                       ItemsSource="{Binding Path=Partial.Lfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Lfo.SyncNote}" />
 
@@ -348,6 +358,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding LfoRateEnabled}"
                                   Value="{Binding Partial.Lfo.Rate, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"
@@ -383,6 +394,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Lfo.FilterDepth, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Filter 
                                        Depth"
@@ -458,6 +470,7 @@
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"         
+                      IsEnabled="{Binding Partial.ModLfo.TempoSync}"
                       ItemsSource="{Binding Path=Partial.ModLfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.ModLfo.SyncNote}" />
 
@@ -467,6 +480,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding ModLfoRateEnabled}"
                                   Value="{Binding Partial.ModLfo.Rate, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"
@@ -478,6 +492,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding ModLfoRateEnabled}"
                                   Value="{Binding Partial.Other.ModLfoRateControl, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Rate Control"
                            TextAlignment="Center"
@@ -502,6 +517,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding PulseSquareWaveSelected}"
                                   Value="{Binding Partial.Oscillator.PulseWidthModDepth, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Pulse Width
                                            Depth"
@@ -526,6 +542,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.ModLfo.FilterDepth, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Filter
                                            Depth"
@@ -590,10 +607,12 @@
                 <RadioButton Grid.Column="0"
                              VerticalAlignment="Top"
                              Content="-12"
+                             IsEnabled="{Binding FilterOn}"
                              IsChecked="{Binding SlopeNegativeTwelveSelected, UpdateSourceTrigger=PropertyChanged}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
                              Content="-24" 
+                             IsEnabled="{Binding FilterOn}"
                              IsChecked="{Binding SlopeNegativeTwentyFourSelected, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 
@@ -603,6 +622,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Filter.Cutoff, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Cutoff"
                            TextAlignment="Center"
@@ -614,6 +634,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Filter.Resonance, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Resonance"
                            TextAlignment="Center"
@@ -625,6 +646,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-100" Maximum="100" Step="10"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Filter.CutoffKeyfollow, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="Cutoff keyfollow"
                            TextAlignment="Center"
