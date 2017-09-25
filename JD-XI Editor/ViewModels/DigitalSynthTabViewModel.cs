@@ -31,23 +31,23 @@ namespace JD_XI_Editor.ViewModels
                     switch (args.PropertyName)
                     {
                         case nameof(Patch.Common):
-                            digitalPatchManager.DumpCommon(Patch, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.Modifiers):
-                            digitalPatchManager.DumpModifiers(Patch, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpModifiers(Patch.Modifiers, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialOne):
-                            digitalPatchManager.DumpPartialOne(Patch, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialOne, 1, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialTwo):
-                            digitalPatchManager.DumpPartialTwo(Patch, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialTwo, 2, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialThree):
-                            digitalPatchManager.DumpPartialThree(Patch, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialThree, 3, SelectedOutputDeviceId);
                             break;
                     }
                 }

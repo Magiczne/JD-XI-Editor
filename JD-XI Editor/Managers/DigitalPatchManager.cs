@@ -39,7 +39,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for partial
         /// </summary>
-        private static byte[] GetPartialSysexData(Partial partial, short partialNumber)
+        private static byte[] GetPartialSysexData(Partial partial, int partialNumber)
         {
             var patchBytes = partial.GetBytes();
             var key = $"Partial{partialNumber}";
@@ -93,10 +93,9 @@ namespace JD_XI_Editor.Managers
         }
 
         /// <inheritdoc />
-        public void DumpCommon(IPatch patch, int deviceId)
+        public void DumpCommon(Common common, int deviceId)
         {
-            var digitalPatch = (Patch)patch;
-            var data = GetCommonSysexData(digitalPatch.Common);
+            var data = GetCommonSysexData(common);
 
             using (var output = new OutputDevice(deviceId))
             {
@@ -105,10 +104,9 @@ namespace JD_XI_Editor.Managers
         }
 
         /// <inheritdoc />
-        public void DumpPartialOne(IPatch patch, int deviceId)
+        public void DumpPartial(Partial partial, int partialNumber, int deviceId)
         {
-            var digitalPatch = (Patch)patch;
-            var data = GetPartialSysexData(digitalPatch.PartialOne, 1);
+            var data = GetPartialSysexData(partial, partialNumber);
 
             using (var output = new OutputDevice(deviceId))
             {
@@ -117,34 +115,9 @@ namespace JD_XI_Editor.Managers
         }
 
         /// <inheritdoc />
-        public void DumpPartialTwo(IPatch patch, int deviceId)
+        public void DumpModifiers(Modifiers modifiers, int deviceId)
         {
-            var digitalPatch = (Patch)patch;
-            var data = GetPartialSysexData(digitalPatch.PartialTwo, 2);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(data));
-            }
-        }
-
-        /// <inheritdoc />
-        public void DumpPartialThree(IPatch patch, int deviceId)
-        {
-            var digitalPatch = (Patch)patch;
-            var data = GetPartialSysexData(digitalPatch.PartialThree, 3);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(data));
-            }
-        }
-
-        /// <inheritdoc />
-        public void DumpModifiers(IPatch patch, int deviceId)
-        {
-            var digitalPatch = (Patch)patch;
-            var data = GetModifiersSysexData(digitalPatch.Modifiers);
+            var data = GetModifiersSysexData(modifiers);
 
             using (var output = new OutputDevice(deviceId))
             {

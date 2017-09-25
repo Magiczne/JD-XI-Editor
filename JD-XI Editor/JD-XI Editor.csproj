@@ -86,6 +86,7 @@
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
     <Compile Include="Managers\IDigitalPatchManager.cs" />
+    <Compile Include="Managers\IDrumKitPatchManager.cs" />
     <Compile Include="Managers\IPatchManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\Digital\Category.cs" />
