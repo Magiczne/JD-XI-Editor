@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Events;
+using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Abstract;
 using Sanford.Multimedia.Midi;
@@ -12,11 +13,16 @@ namespace JD_XI_Editor.ViewModels
     internal sealed class MainWindowViewModel
         : Conductor<TabViewModel>.Collection.OneActive
     {
-        public MainWindowViewModel(IEnumerable<TabViewModel> tabs, IEventAggregator eventAggregator)
+        public MainWindowViewModel(IEventAggregator eventAggregator)
         {
             DisplayName = "JD-XI Editor";
 
-            Items.AddRange(tabs);
+            Items.AddRange(new List<TabViewModel>
+            {
+                new AnalogSynthTabViewModel(eventAggregator),
+                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.First),
+                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second)
+            });
             _eventAggregator = eventAggregator;
 
             GetMidiDevices();

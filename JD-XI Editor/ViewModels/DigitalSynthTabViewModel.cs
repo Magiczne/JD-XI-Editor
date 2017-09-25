@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
@@ -13,10 +14,10 @@ namespace JD_XI_Editor.ViewModels
         ///     Creates new instance of DigitalSynthTabViewModel
         /// </summary>
         // ReSharper disable once SuggestBaseTypeForParameter
-        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalPatchManager manager)
-            : base(eventAggregator, manager)
+        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalSynth synth)
+            : base(eventAggregator, new DigitalPatchManager(synth))
         {
-            DisplayName = "Digital Synth 1";
+            DisplayName = synth == DigitalSynth.First ? "Digital Synth 1" : "Digital Synth 2";
 
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);
@@ -39,15 +40,15 @@ namespace JD_XI_Editor.ViewModels
                             break;
 
                         case nameof(Patch.PartialOne):
-                            digitalPatchManager.DumpPartial(Patch.PartialOne, 1, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialOne, DigitalPartial.First, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialTwo):
-                            digitalPatchManager.DumpPartial(Patch.PartialTwo, 2, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialTwo, DigitalPartial.Second, SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialThree):
-                            digitalPatchManager.DumpPartial(Patch.PartialThree, 3, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialThree, DigitalPartial.Third, SelectedOutputDeviceId);
                             break;
                     }
                 }

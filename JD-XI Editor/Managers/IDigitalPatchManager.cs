@@ -1,4 +1,5 @@
-﻿using JD_XI_Editor.Models.Patches.Digital;
+﻿using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Models.Patches.Digital;
 
 namespace JD_XI_Editor.Managers
 {
@@ -12,7 +13,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Dump partial
         /// </summary>
-        void DumpPartial(Partial partial, int partialNumber, int deviceId);
+        void DumpPartial(Partial partial, DigitalPartial partialNumber, int deviceId);
 
         /// <summary>
         ///     Dump modifiers sysex frame

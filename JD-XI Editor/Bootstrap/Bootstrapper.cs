@@ -4,9 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
-using JD_XI_Editor.Managers;
 using JD_XI_Editor.ViewModels;
-using JD_XI_Editor.ViewModels.Abstract;
 using SimpleInjector;
 
 namespace JD_XI_Editor.Bootstrap
@@ -30,15 +28,6 @@ namespace JD_XI_Editor.Bootstrap
             ContainerInstance.Register<IWindowManager, WindowManager>();
             ContainerInstance.RegisterSingleton<IEventAggregator, EventAggregator>();
             //ContainerInstance.RegisterSingleton<IDialogCoordinator, DialogCoordinator>();
-
-            ContainerInstance.Register<AnalogPatchManager, AnalogPatchManager>();
-
-
-            ContainerInstance.RegisterCollection<TabViewModel>(new []
-            {
-                typeof(AnalogSynthTabViewModel),
-                typeof(DigitalSynthTabViewModel)
-            });
 
             ContainerInstance.Verify();
         }

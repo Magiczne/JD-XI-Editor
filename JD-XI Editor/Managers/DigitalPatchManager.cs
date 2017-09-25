@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.Utils;
@@ -8,30 +9,49 @@ namespace JD_XI_Editor.Managers
 {
     internal class DigitalPatchManager : IDigitalPatchManager
     {
-        /// <summary>
-        ///     Address offsets
-        /// </summary>
-        private static readonly Dictionary<string, byte[]> AddressOffsets = new Dictionary<string, byte[]>
+        public DigitalPatchManager(DigitalSynth synthNumber)
         {
-            {"Common", new byte[] {0x19, 0x01, 0x00, 0x00}},
-            {"Partial1", new byte[] {0x19, 0x01, 0x20, 0x00}},
-            {"Partial2", new byte[] {0x19, 0x01, 0x21, 0x00}},
-            {"Partial3", new byte[] {0x19, 0x01, 0x22, 0x00}},
-            {"Modifiers", new byte[] {0x19, 0x01, 0x50, 0x00}}
-        };
+            _synthNumber = synthNumber;
+        }
+
+        #region Fields
+
+        /// <summary>
+        ///     Digital synth number
+        /// </summary>
+        private readonly DigitalSynth _synthNumber;
+
+        /// <summary>
+        ///     Common address offset
+        /// </summary>
+        private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
+
+        /// <summary>
+        ///     Partial address offset
+        /// </summary>
+        private byte[] PartialAddressOffset(DigitalPartial partial) => new byte[] { 0x19, (byte)_synthNumber, (byte)partial, 0x00 };
+
+        /// <summary>
+        ///     Modifiers address offset
+        /// </summary>
+        private byte[] ModifiersAddressOffset => new byte[] { 0x19, (byte) _synthNumber, 0x50, 0x00 };
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         ///     Get sysex data for common
         /// </summary>
-        private static byte[] GetCommonSysexData(Common common)
+        private byte[] GetCommonSysexData(Common common)
         {
             var patchBytes = common.GetBytes();
 
             var bytes = new List<byte>();
             bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(AddressOffsets["Common"]);
+            bytes.AddRange(CommonAddressOffset);
             bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, AddressOffsets["Common"]));
+            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, CommonAddressOffset));
             bytes.Add(0xF7);
             return bytes.ToArray();
         }
@@ -39,16 +59,16 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for partial
         /// </summary>
-        private static byte[] GetPartialSysexData(Partial partial, int partialNumber)
+        private byte[] GetPartialSysexData(Partial partial, DigitalPartial partialNumber)
         {
             var patchBytes = partial.GetBytes();
-            var key = $"Partial{partialNumber}";
+            var offset = PartialAddressOffset(partialNumber);
 
             var bytes = new List<byte>();
             bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(AddressOffsets[key]);
+            bytes.AddRange(offset);
             bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, AddressOffsets[key]));
+            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, offset));
             bytes.Add(0xF7);
             return bytes.ToArray();
         }
@@ -56,18 +76,20 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for modifiers
         /// </summary>
-        private static byte[] GetModifiersSysexData(Modifiers modifiers)
+        private byte[] GetModifiersSysexData(Modifiers modifiers)
         {
             var patchBytes = modifiers.GetBytes();
 
             var bytes = new List<byte>();
             bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(AddressOffsets["Modifiers"]);
+            bytes.AddRange(ModifiersAddressOffset);
             bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, AddressOffsets["Modifiers"]));
+            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, ModifiersAddressOffset));
             bytes.Add(0xF7);
             return bytes.ToArray();
         }
+
+        #endregion
 
         #region IDigitalPatchManager
 
@@ -77,9 +99,9 @@ namespace JD_XI_Editor.Managers
             var digitalPatch = (Patch)patch;
 
             var commonData = GetCommonSysexData(digitalPatch.Common);
-            var partial1Data = GetPartialSysexData(digitalPatch.PartialOne, 1);
-            var partial2Data = GetPartialSysexData(digitalPatch.PartialTwo, 2);
-            var partial3Data = GetPartialSysexData(digitalPatch.PartialThree, 3);
+            var partial1Data = GetPartialSysexData(digitalPatch.PartialOne, DigitalPartial.First);
+            var partial2Data = GetPartialSysexData(digitalPatch.PartialTwo, DigitalPartial.Second);
+            var partial3Data = GetPartialSysexData(digitalPatch.PartialThree, DigitalPartial.Third);
             var modifiersData = GetModifiersSysexData(digitalPatch.Modifiers);
 
             using (var output = new OutputDevice(deviceId))
@@ -104,7 +126,7 @@ namespace JD_XI_Editor.Managers
         }
 
         /// <inheritdoc />
-        public void DumpPartial(Partial partial, int partialNumber, int deviceId)
+        public void DumpPartial(Partial partial, DigitalPartial partialNumber, int deviceId)
         {
             var data = GetPartialSysexData(partial, partialNumber);
 

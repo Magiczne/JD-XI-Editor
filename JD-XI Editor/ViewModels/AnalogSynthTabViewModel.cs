@@ -13,8 +13,8 @@ namespace JD_XI_Editor.ViewModels
         ///     Creates new instance of AnalogSynthTabViewModel
         /// </summary>
         // ReSharper disable once SuggestBaseTypeForParameter
-        public AnalogSynthTabViewModel(IEventAggregator eventAggregator, AnalogPatchManager patchManager)
-            : base(eventAggregator, patchManager)
+        public AnalogSynthTabViewModel(IEventAggregator eventAggregator)
+            : base(eventAggregator, new AnalogPatchManager())
         {
             DisplayName = "Analog Synth";
             Patch = new Patch();

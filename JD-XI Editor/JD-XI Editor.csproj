@@ -85,6 +85,8 @@
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
+    <Compile Include="Managers\Enums\DigitalPartial.cs" />
+    <Compile Include="Managers\Enums\DigitalSynthNumber.cs" />
     <Compile Include="Managers\IDigitalPatchManager.cs" />
     <Compile Include="Managers\IDrumKitPatchManager.cs" />
     <Compile Include="Managers\IPatchManager.cs" />
