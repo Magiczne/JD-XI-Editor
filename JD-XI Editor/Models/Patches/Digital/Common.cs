@@ -58,7 +58,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             bytes.AddRange(Enumerable.Repeat<byte>(0x20, 12 - nameBytes.Length));
 
             bytes.Add((byte) ToneLevel);
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5)); //TODO: check 3 weird + 2 normal reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));
 
             bytes.AddRange(new[]
             {
@@ -93,13 +93,11 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) ToneCategory
             });
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5)); //TODO: check 3 weird + 2 normal reserve
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));
 
             bytes.Add((byte) UnisonSize);
 
             bytes.AddRange(Enumerable.Repeat<byte>(0x00, 3)); //Reserve
-
-            //TODO: Check length -> should be 0x40
 
             return bytes.ToArray();
         }

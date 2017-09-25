@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.DrumKit
@@ -9,9 +10,16 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
     internal class Common : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
+        public Common()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            Name = "Init sound";
+            Level = 127;
         }
 
         /// <inheritdoc />

@@ -37,7 +37,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) (((int) WaveNumber >> 24) & 0xFF),
                 (byte) (((int) WaveNumber >> 16) & 0xFF),
                 (byte) (((int) WaveNumber >> 8) & 0xFF),
-                (byte) ((int) WaveNumber & 0xFF),           //Wave number splitted, TODO: Check
+                (byte) ((int) WaveNumber & 0xFF),           //Wave number splitted
                 (byte) HpfCutoff,
                 (byte) SuperSawDetune,
                 (byte) (ModLfoRateControl + 64),
