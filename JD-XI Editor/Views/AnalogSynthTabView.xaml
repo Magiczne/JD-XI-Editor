@@ -6,6 +6,8 @@
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:cal="http://www.caliburnproject.org"
       mc:Ignorable="d">
     <Grid.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -25,11 +27,16 @@
         <ColumnDefinition Width="280" />
     </Grid.ColumnDefinitions>
 
-    <Button Name="InitPatch"
-            Grid.Row="0" Grid.Column="0"
+    <Button Grid.Row="0" Grid.Column="0"
             Margin="5 0 0 0"
             Content="Init Patch"
-            Style="{StaticResource AccentedSquareButtonStyle}" />
+            Style="{StaticResource AccentedSquareButtonStyle}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Click">
+                <cal:ActionMessage MethodName="InitPatch" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Button>
     <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
                            Margin="0 -5 0 0"
                            OnLabel="Auto Sync" OffLabel="Auto Sync"
@@ -40,12 +47,18 @@
             <ColumnDefinition Width="105" />
             <ColumnDefinition Width="105" />
         </Grid.ColumnDefinitions>
-        <Button Name="Dump"
-                Grid.Column="0"
+        <Button Grid.Column="0"
                 Margin="0 0 5 0"
                 Content="Force dump"
                 IsEnabled="{Binding CanDump}"
-                Style="{StaticResource AccentedSquareButtonStyle}" />
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Dump" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <!-- TODO: Hookup action -->
         <Button Grid.Column="1"
                 Margin="0 0 5 0"
                 Content="Force read"

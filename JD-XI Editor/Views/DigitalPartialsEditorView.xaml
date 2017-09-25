@@ -3,5 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:JD_XI_Editor.Controls">
     <controls:CachedTabControl x:Name="Items"
-                Style="{StaticResource SimpleCachedTabControl}" />
+                               Style="{StaticResource SimpleCachedTabControl}" />
 </UserControl>

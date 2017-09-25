@@ -6,6 +6,8 @@
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:cal="http://www.caliburnproject.org"
       mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="30" />
@@ -22,11 +24,16 @@
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
-    <Button Name="InitPatch"
-            Grid.Row="0" Grid.Column="0"
+    <Button Grid.Row="0" Grid.Column="0"
             Margin="5 0 0 0"
             Content="Init Patch"
-            Style="{StaticResource AccentedSquareButtonStyle}" />
+            Style="{StaticResource AccentedSquareButtonStyle}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Click">
+                <cal:ActionMessage MethodName="InitPatch" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Button>
     <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
                            Margin="0 -5 0 0"
                            OnLabel="Auto Sync" OffLabel="Auto Sync" 
@@ -37,12 +44,18 @@
             <ColumnDefinition Width="105" />
             <ColumnDefinition Width="105" />
         </Grid.ColumnDefinitions>
-        <Button Name="Dump"
-                Grid.Column="0"
+        <Button Grid.Column="0"
                 Margin="0 0 5 0"
                 Content="Force dump"
                 IsEnabled="{Binding CanDump}"
-                Style="{StaticResource AccentedSquareButtonStyle}" />
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Dump" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <!-- TODO: Hookup -->
         <Button Grid.Column="1"
                 Margin="0 0 5 0"
                 Content="Force read"
@@ -80,11 +93,11 @@
             <Label Grid.Column="0" Grid.Row="0"
                    VerticalAlignment="Top"
                    Content="Patch name: " />
-            <TextBox Name="Patch_Common_Name"
-                     MaxLength="12"
+            <TextBox MaxLength="12"
                      Grid.Column="0" Grid.Row="1"
                      VerticalAlignment="Top"
-                     Margin="0 0 5 0" />
+                     Margin="0 0 5 0" 
+                     Text="{Binding Patch.Common.Name}" />
             <Label Grid.Column="0" Grid.Row="2"
                    VerticalAlignment="Top"
                    Content="Category:" />
@@ -106,11 +119,11 @@
                       Margin="0 0 5 0"
                       Content="Ring" 
                       IsChecked="{Binding Patch.Common.Ring}" />
-            <CheckBox Name="Patch_Common_Unison"
-                      Grid.Column="1" Grid.Row="2"
+            <CheckBox Grid.Column="1" Grid.Row="2"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Unison" />
+                      Content="Unison"
+                      IsChecked="{Binding Patch.Common.Unison}" />
             <ComboBox Grid.Row="3" Grid.Column="1"
                       Margin="0 0 5 0"
                       VerticalAlignment="Top"
@@ -148,8 +161,7 @@
 
             <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="4"
                         Orientation="Vertical">
-                <knobControl:Knob Name="Patch_Common_PortamentoTime"
-                                  Height="65" Width="65"
+                <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
@@ -351,7 +363,7 @@
         </Grid>
     </GroupBox>
 
-    <ContentControl Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
-                    Margin="5"
-                    Name="Editor" />
+    <ContentControl x:Name="Editor"
+                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
+                    Margin="5" />
 </Grid>

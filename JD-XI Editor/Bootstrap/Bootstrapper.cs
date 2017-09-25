@@ -7,8 +7,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.ViewModels;
 using JD_XI_Editor.ViewModels.Abstract;
-using KnobControl;
-using MahApps.Metro.Controls;
 using SimpleInjector;
 
 namespace JD_XI_Editor.Bootstrap
