@@ -26,9 +26,12 @@
             </StackPanel>
         </mahapps:WindowCommands>
     </mahapps:MetroWindow.RightWindowCommands>
-    <Grid>
+    <Grid Margin="5">
         <controls:CachedTabControl x:Name="Items"
+                                   Padding="10 0 0 0"
                                    IsSynchronizedWithCurrentItem="True"
+                                   TabStripPlacement="Left"
+                                   mahapps:TabControlHelper.Underlined="TabItems"
                                    Style="{StaticResource CachedMetroTabControl}" />
     </Grid>
 </mahapps:MetroWindow>

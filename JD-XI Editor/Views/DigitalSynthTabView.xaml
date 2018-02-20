@@ -10,7 +10,7 @@
       xmlns:cal="http://www.caliburnproject.org"
       mc:Ignorable="d">
     <Grid.RowDefinitions>
-        <RowDefinition Height="30" />
+        <RowDefinition Height="40" />
         <RowDefinition Height="165" />
         <RowDefinition Height="235" />
         <RowDefinition Height="230" />
@@ -25,7 +25,7 @@
     </Grid.ColumnDefinitions>
 
     <Button Grid.Row="0" Grid.Column="0"
-            Margin="5 0 0 0"
+            Height="35" VerticalAlignment="Top"
             Content="Init Patch"
             Style="{StaticResource AccentedSquareButtonStyle}">
         <i:Interaction.Triggers>
@@ -35,7 +35,8 @@
         </i:Interaction.Triggers>
     </Button>
     <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                           Margin="0 -5 0 0"
+                           Width="150" Height="35" 
+                           VerticalAlignment="Top" HorizontalAlignment="Left"
                            OnLabel="Auto Sync" OffLabel="Auto Sync" 
                            IsChecked="{Binding AutoSync}" />
     <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"
@@ -45,7 +46,7 @@
             <ColumnDefinition Width="105" />
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0"
-                Margin="0 0 5 0"
+                Margin="0 0 5 0" Height="35" VerticalAlignment="Top"
                 Content="Force dump"
                 IsEnabled="{Binding CanDump}"
                 Style="{StaticResource AccentedSquareButtonStyle}">
@@ -57,7 +58,7 @@
         </Button>
         <!-- TODO: Hookup -->
         <Button Grid.Column="1"
-                Margin="0 0 5 0"
+                Height="35" VerticalAlignment="Top"
                 Content="Force read"
                 IsEnabled="{Binding CanRead}"
                 Style="{StaticResource AccentedSquareButtonStyle}" />
@@ -364,6 +365,6 @@
     </GroupBox>
 
     <ContentControl x:Name="Editor"
-                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
-                    Margin="5" />
+                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4" 
+                    Margin="10 0 0 0" />
 </Grid>
