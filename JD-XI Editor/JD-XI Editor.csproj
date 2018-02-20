@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\CachedTabControl.cs" />
+    <Compile Include="Controls\ExternalHyperlink.cs" />
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
@@ -200,8 +201,10 @@
     <Compile Include="ViewModels\DigitalPartialsEditorViewModel.cs" />
     <Compile Include="ViewModels\DigitalPartialViewModel.cs" />
     <Compile Include="ViewModels\DigitalSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\EffectsTabViewModel.cs" />
+    <Compile Include="ViewModels\HomeTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\Abstract\TabViewModel.cs" />
+    <Compile Include="ViewModels\Abstract\PatchTabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,12 @@
     </Compile>
     <Compile Include="Views\DigitalSynthTabView.xaml.cs">
       <DependentUpon>DigitalSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsTabView.xaml.cs">
+      <DependentUpon>EffectsTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeTabView.xaml.cs">
+      <DependentUpon>HomeTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
@@ -263,6 +272,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DigitalSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EffectsTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

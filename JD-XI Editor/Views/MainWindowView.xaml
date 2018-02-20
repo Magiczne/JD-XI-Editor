@@ -6,7 +6,7 @@
                      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
                      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
                      mc:Ignorable="d"
-                     SizeToContent="WidthAndHeight">
+                     SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <mahapps:MetroWindow.RightWindowCommands>
         <mahapps:WindowCommands>
             <StackPanel Orientation="Horizontal">
@@ -30,7 +30,7 @@
                                    Padding="10 0 0 0"
                                    IsSynchronizedWithCurrentItem="True"
                                    TabStripPlacement="Left"
-                                   mahapps:TabControlHelper.Underlined="TabItems"
+                                   mahapps:TabControlHelper.Underlined="TabPanel"
                                    Style="{StaticResource CachedMetroTabControl}" />
     </Grid>
 </mahapps:MetroWindow>

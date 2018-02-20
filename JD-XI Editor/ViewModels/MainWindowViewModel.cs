@@ -3,7 +3,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
-using JD_XI_Editor.ViewModels.Abstract;
 using Sanford.Multimedia.Midi;
 
 // ReSharper disable InvertIf
@@ -11,17 +10,18 @@ using Sanford.Multimedia.Midi;
 namespace JD_XI_Editor.ViewModels
 {
     internal sealed class MainWindowViewModel
-        : Conductor<TabViewModel>.Collection.OneActive
+        : Conductor<Screen>.Collection.OneActive
     {
         public MainWindowViewModel(IEventAggregator eventAggregator)
         {
             DisplayName = "JD-XI Editor";
 
-            Items.AddRange(new List<TabViewModel>
+            Items.AddRange(new List<Screen>
             {
+                new HomeTabViewModel(),
                 new AnalogSynthTabViewModel(eventAggregator),
                 new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.First),
-                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second)
+                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second),
             });
             _eventAggregator = eventAggregator;
 

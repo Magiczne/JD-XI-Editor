@@ -5,14 +5,14 @@ using JD_XI_Editor.Managers;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
-    internal abstract class TabViewModel
+    internal abstract class PatchTabViewModel
         : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
     {
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of TabViewModel
         /// </summary>
-        protected TabViewModel(IEventAggregator eventAggregator, IPatchManager patchManager)
+        protected PatchTabViewModel(IEventAggregator eventAggregator, IPatchManager patchManager)
         {
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);

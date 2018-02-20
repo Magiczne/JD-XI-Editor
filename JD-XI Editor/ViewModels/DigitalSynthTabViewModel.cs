@@ -7,7 +7,7 @@ using JD_XI_Editor.ViewModels.Abstract;
 
 namespace JD_XI_Editor.ViewModels
 {
-    internal sealed class DigitalSynthTabViewModel : TabViewModel
+    internal sealed class DigitalSynthTabViewModel : PatchTabViewModel
     {
         /// <inheritdoc />
         /// <summary>
