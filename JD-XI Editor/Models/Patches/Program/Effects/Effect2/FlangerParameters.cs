@@ -1,5 +1,7 @@
-﻿using JD_XI_Editor.Models.Enums.Effects.Common;
+﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Enums.Effects.Common;
 using JD_XI_Editor.Models.Enums.Effects.Flanger;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -26,7 +28,23 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Rate));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Depth));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Feedback));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Manual));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(DryWetBalance));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 24; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields

@@ -18,6 +18,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         /// <inheritdoc />
         public void Reset()
         {
+            On = true;
             Level = 0;
         }
 
@@ -26,13 +27,18 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         {
             return new byte[]
             {
-                0x00, // Reserve
+                (byte) (On ? 0x01 : 0x00),
                 (byte) Level,
                 0x00 // Reserve
             };
         }
 
         #region Fields
+
+        /// <summary>
+        ///     Is delay on
+        /// </summary>
+        private bool _on;
 
         /// <summary>
         ///     Level
@@ -42,6 +48,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         #endregion
 
         #region Properties
+
+        /// <summary>
+        ///     Is delay on
+        /// </summary>
+        public bool On
+        {
+            get => _on;
+            set
+            {
+                if (value != _on)
+                {
+                    _on = value;
+                    NotifyOfPropertyChange(nameof(On));
+                }
+            }
+        }
 
         /// <summary>
         ///     Level

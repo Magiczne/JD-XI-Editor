@@ -1,6 +1,8 @@
-﻿namespace JD_XI_Editor.Models.Patches
+﻿using System.ComponentModel;
+
+namespace JD_XI_Editor.Models.Patches
 {
-    internal interface IPatchPart
+    internal interface IPatchPart : INotifyPropertyChanged
     {
         /// <summary>
         ///     Reset data to initial path

@@ -2,8 +2,7 @@
 {
     internal enum Mode : byte
     {
-        // TODO: Values
-        Rate,
-        Note
+        Rate = 0x00,
+        Note = 0x01
     }
 }

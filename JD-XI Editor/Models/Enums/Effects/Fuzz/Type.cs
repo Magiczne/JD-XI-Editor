@@ -2,8 +2,8 @@
 {
     internal enum Type : byte
     {
-        Zero,
-        One,
+        Zero = 0x00,
+        One = 0x01,
         Two,
         Three,
         Four,

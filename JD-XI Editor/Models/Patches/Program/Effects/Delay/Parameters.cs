@@ -1,5 +1,8 @@
-﻿using JD_XI_Editor.Models.Enums.Effects.Common;
+﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Enums.Effects.Common;
 using JD_XI_Editor.Models.Enums.Effects.Delay;
+using JD_XI_Editor.Utils;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
@@ -18,7 +21,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         /// <inheritdoc />
         public sealed override void Reset()
         {
-            On = true;
             Type = Type.Pan;
             Mode = Mode.Note;
             Note = Note.ThreeSixteenths;
@@ -33,15 +35,26 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));    // 0x04
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode));    // 0x08
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Time));           // 0x0C
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));    // 0x10
+            bytes.AddRange(ByteUtils.NumberTo4Packets(TapTime));        // 0x14
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Feedback));       // 0x18
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp));  // 0x1C
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));          // 0x20
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 16; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields
-
-        /// <summary>
-        ///     Is delay on
-        /// </summary>
-        private bool _on;
 
         /// <summary>
         ///     Threshold
@@ -96,22 +109,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///     Is delay on
-        /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
 
         /// <summary>
         ///     Threshold

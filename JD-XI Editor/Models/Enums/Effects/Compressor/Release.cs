@@ -4,9 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Effects.Compressor
 {
     internal enum Release : byte
     {
-        //TODO: Values
-        [Description("0.05")] ZeroPoint05,
-        [Description("0.07")] ZeroPoint07,
+        [Description("0.05")] ZeroPoint05 = 0x00,
+        [Description("0.07")] ZeroPoint07 = 0x01,
         [Description("0.1")] ZeroPoint1,
         [Description("0.5")] ZeroPoint5,
         [Description("1")] One,

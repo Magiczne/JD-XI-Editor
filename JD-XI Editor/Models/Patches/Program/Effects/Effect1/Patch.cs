@@ -1,11 +1,11 @@
-﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums.Effects;
+﻿using JD_XI_Editor.Models.Enums.Effects;
+using JD_XI_Editor.Models.Patches.Program.Abstract;
 
-// ReSharper disable InvertIf
+// ReSharper disable SwitchStatementMissingSomeCases
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
-    internal class Patch : PropertyChangedBase, IPatch
+    internal class Patch : EffectPatch
     {
         /// <inheritdoc />
         /// <summary>
@@ -20,7 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             {
                 if (args.PropertyName == nameof(BasicData.Type))
                 {
-                    switch (Basic.Type)
+                    switch (((BasicData) Basic).Type)
                     {
                         case EffectType.Thru:
                             Parameters = new ThruEffectParameters();
@@ -42,68 +42,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
                             break;
                     }
 
-                    Parameters.PropertyChanged += (paramSender, paramArgs) => NotifyOfPropertyChange(nameof(Parameters));
+                    Parameters.PropertyChanged +=
+                        (paramSender, paramArgs) => NotifyOfPropertyChange(nameof(Parameters));
                 }
 
                 NotifyOfPropertyChange(nameof(Basic));
             };
         }
-
-        /// <inheritdoc />
-        public void Reset()
-        {
-            Basic.Reset();
-            Parameters.Reset();
-        }
-
-        #region Fields
-
-        /// <summary>
-        ///     Basic effect patch data
-        /// </summary>
-        private BasicData _basic;
-
-        /// <summary>
-        ///     Effect parameters
-        /// </summary>
-        private EffectParameters _parameters;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Basic Data
-        /// </summary>
-        public BasicData Basic
-        {
-            get => _basic;
-            set
-            {
-                if (value != _basic)
-                {
-                    _basic = value;
-                    NotifyOfPropertyChange(nameof(Basic));
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Effect parameters
-        /// </summary>
-        public EffectParameters Parameters
-        {
-            get => _parameters;
-            set
-            {
-                if (value != _parameters)
-                {
-                    _parameters = value;
-                    NotifyOfPropertyChange(nameof(Parameters));
-                }
-            }
-        }
-
-        #endregion
     }
 }

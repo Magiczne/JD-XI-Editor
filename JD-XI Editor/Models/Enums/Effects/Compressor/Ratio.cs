@@ -4,9 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Effects.Compressor
 {
     internal enum Ratio : byte
     {
-        //TODO: Values
-        [Description("1:1")] OneToOne,
-        [Description("2:1")] TwoToOne,
+        [Description("1:1")] OneToOne = 0x00,
+        [Description("2:1")] TwoToOne = 0x01,
         [Description("3:1")] ThreeToOne,
         [Description("4:1")] FourToOne,
         [Description("5:1")] FiveToOne,

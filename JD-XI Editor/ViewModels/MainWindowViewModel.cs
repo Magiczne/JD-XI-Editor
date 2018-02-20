@@ -19,9 +19,11 @@ namespace JD_XI_Editor.ViewModels
             Items.AddRange(new List<Screen>
             {
                 new HomeTabViewModel(),
-                new AnalogSynthTabViewModel(eventAggregator),
                 new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.First),
                 new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second),
+                // TODO: Drums
+                new AnalogSynthTabViewModel(eventAggregator),
+                new EffectsTabViewModel(eventAggregator)
             });
             _eventAggregator = eventAggregator;
 

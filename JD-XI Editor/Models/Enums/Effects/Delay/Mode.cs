@@ -1,9 +1,8 @@
 ﻿namespace JD_XI_Editor.Models.Enums.Effects.Delay
 {
-    internal enum Mode
+    internal enum Mode : byte
     {
-        //TODO: Values
-        Time,
-        Note
+        Time = 0x00,
+        Note = 0x01
     }
 }

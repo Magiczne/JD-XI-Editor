@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -26,7 +28,19 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Rate));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Bit));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Filter));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 28; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields

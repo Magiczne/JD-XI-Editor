@@ -89,10 +89,13 @@
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
+    <Compile Include="Managers\EffectsPatchManager.cs" />
     <Compile Include="Managers\Enums\DigitalPartial.cs" />
     <Compile Include="Managers\Enums\DigitalSynthNumber.cs" />
+    <Compile Include="Managers\Enums\Effect.cs" />
     <Compile Include="Managers\IDigitalPatchManager.cs" />
     <Compile Include="Managers\IDrumKitPatchManager.cs" />
+    <Compile Include="Managers\IEffectsPatchManager.cs" />
     <Compile Include="Managers\IPatchManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\Digital\Category.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Models\Patches\DrumKit\Partial\Wmt\VelocityControl.cs" />
     <Compile Include="Models\Patches\DrumKit\Partial\Wmt\Wmt.cs" />
     <Compile Include="Models\Patches\DrumKit\Patch.cs" />
+    <Compile Include="Models\Patches\Program\Abstract\EffectPatch.cs" />
     <Compile Include="Models\Patches\Program\Effects\Delay\BasicData.cs" />
     <Compile Include="Models\Patches\Program\Effects\Delay\Parameters.cs" />
     <Compile Include="Models\Patches\Program\Effects\Delay\Patch.cs" />
@@ -186,12 +190,14 @@
     <Compile Include="Models\Patches\Program\Effects\Effect2\RingModulationParameters.cs" />
     <Compile Include="Models\Patches\Program\Effects\Effect2\SlicerParameters.cs" />
     <Compile Include="Models\Patches\Program\Effects\EffectParameters.cs" />
+    <Compile Include="Models\Patches\Program\Effects\Patch.cs" />
     <Compile Include="Models\Patches\Program\Effects\Reverb\BasicData.cs" />
     <Compile Include="Models\Patches\IPatch.cs" />
     <Compile Include="Models\Patches\IPatchPart.cs" />
     <Compile Include="Models\Patches\Program\Effects\Reverb\Parameters.cs" />
     <Compile Include="Models\Patches\Program\Effects\Reverb\Patch.cs" />
     <Compile Include="Models\Patches\Program\Effects\ThruEffectParameters.cs" />
+    <Compile Include="Utils\ByteUtils.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Converters\EnumToCollectionConverter.cs" />

@@ -2,11 +2,10 @@
 
 namespace JD_XI_Editor.Models.Enums.Effects.Common
 {
-    internal enum HfDamp
+    internal enum HfDamp : byte
     {
-        //TODO: Values
-        [Description("200 Hz")] Damp200,
-        [Description("250 Hz")] Damp250,
+        [Description("200 Hz")] Damp200 = 0x00,
+        [Description("250 Hz")] Damp250 = 0x01,
         [Description("315 Hz")] Damp315,
         [Description("400 Hz")] Damp400,
         [Description("500 Hz")] Damp500,

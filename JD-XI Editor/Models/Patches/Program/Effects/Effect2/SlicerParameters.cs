@@ -1,4 +1,6 @@
-﻿using JD_XI_Editor.Models.Enums.Effects.Common;
+﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Enums.Effects.Common;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -6,11 +8,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class SlicerParameters : EffectParameters
     {
+        /// <summary>
+        ///     Creates new instance of Slicer Parameters
+        /// </summary>
         public SlicerParameters()
         {
             Reset();
         }
 
+        /// <inheritdoc />
         public sealed override void Reset()
         {
             TimingPattern = 0;
@@ -20,9 +26,23 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Level = 127;
         }
 
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets(TimingPattern));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Attack));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(TriggerLevel));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 27; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields

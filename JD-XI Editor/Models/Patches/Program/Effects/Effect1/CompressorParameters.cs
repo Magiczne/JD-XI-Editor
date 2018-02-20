@@ -1,5 +1,7 @@
-﻿using JD_XI_Editor.Models.Enums.Common;
+﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Effects.Compressor;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -26,7 +28,26 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Threshold));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Ratio));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Attack));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Release));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Sidechain));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainLevel));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) SidechainNote));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainTime));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainRelease));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainSync));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 21; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields

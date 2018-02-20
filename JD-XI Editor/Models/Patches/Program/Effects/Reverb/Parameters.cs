@@ -1,5 +1,7 @@
-﻿using JD_XI_Editor.Models.Enums.Effects.Common;
+﻿using System.Collections.Generic;
+using JD_XI_Editor.Models.Enums.Effects.Common;
 using JD_XI_Editor.Models.Enums.Effects.Reverb;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -19,7 +21,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         /// <inheritdoc />
         public sealed override void Reset()
         {
-            On = true;
             Type = Type.Hall1;
             Time = 80;
             HfDamp = HfDamp.Damp5000;
@@ -29,15 +30,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Time));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 20; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields
-
-        /// <summary>
-        ///     Is delay on
-        /// </summary>
-        private bool _on;
 
         /// <summary>
         ///     Type
@@ -62,22 +70,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///     Is delay on
-        /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
 
         /// <summary>
         ///     Type

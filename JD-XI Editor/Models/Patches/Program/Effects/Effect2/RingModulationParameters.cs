@@ -1,14 +1,21 @@
 ﻿// ReSharper disable InvertIf
 
+using System.Collections.Generic;
+using JD_XI_Editor.Utils;
+
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class RingModulationParameters : EffectParameters
     {
+        /// <summary>
+        ///     Creates new instance of Ring Modulation Parameters
+        /// </summary>
         public RingModulationParameters()
         {
             Reset();
         }
 
+        /// <inheritdoc />
         public sealed override void Reset()
         {
             Frequency = 60;
@@ -17,9 +24,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Level = 127;
         }
 
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            var bytes = new List<byte>();
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Frequency));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Sensitivity));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(DryWetBalance));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+
+            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
+            for (var i = 0; i < 28; i++)
+            {
+                bytes.AddRange(reserve);
+            }
+
+            return bytes.ToArray();
         }
 
         #region Fields
