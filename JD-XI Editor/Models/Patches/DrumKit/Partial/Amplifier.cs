@@ -1,5 +1,5 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 // ReSharper disable InvertIf

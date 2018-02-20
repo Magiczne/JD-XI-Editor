@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.DrumKit
+namespace JD_XI_Editor.Models.Enums.Common
 {
     internal enum NotePitch : byte
     {
