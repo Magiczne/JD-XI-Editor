@@ -12,10 +12,10 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="290" />
         <RowDefinition Height="150" />
-        <RowDefinition Height="170" />
+        <RowDefinition Height="160" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="375" />
+        <ColumnDefinition Width="365" />
         <ColumnDefinition Width="50" />
         <ColumnDefinition Width="110" />
         <ColumnDefinition Width="105" />
@@ -203,7 +203,7 @@
     <!-- Pitch envelope -->
     <GroupBox Grid.Row="0" Grid.Column="2"
               Width="100" Height="280"
-              VerticalAlignment="Top"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Pitch Env">
         <Grid>
             <Grid.RowDefinitions>
@@ -266,7 +266,7 @@
     <!-- Aftertouch -->
     <GroupBox Grid.Row="0" Grid.Column="3"
               Width="95" Height="280"
-              VerticalAlignment="Top"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Aftertouch">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -307,7 +307,7 @@
 
     <!-- LFO -->
     <GroupBox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"
-              VerticalAlignment="Top"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Width="365" Height="280"
               Header="Low frequency oscillator">
         <Grid VerticalAlignment="Top">
@@ -569,8 +569,8 @@
 
     <!-- Filter -->
     <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"
-              Width="630" Height="140"
-              VerticalAlignment="Top"
+              Width="630" Height="140" Margin="0"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Filter">
         <Grid>
             <Grid.RowDefinitions>
@@ -673,7 +673,7 @@
     <!-- Filter Envelope -->
     <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"
               Width="275" Height="160"
-              VerticalAlignment="Top"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Filter envelope">
         <Grid>
             <Grid.RowDefinitions>
@@ -777,8 +777,8 @@
 
     <!-- Amplifier -->
     <GroupBox Grid.Row="2" Grid.Column="5"
-              Width="345" Height="160"
-              VerticalAlignment="Top"
+              Width="345" Height="160" 
+              VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Amplifier">
         <Grid>
             <Grid.RowDefinitions>

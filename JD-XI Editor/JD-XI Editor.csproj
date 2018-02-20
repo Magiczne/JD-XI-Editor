@@ -222,6 +222,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrap\Bootstrapper.cs" />
+    <Page Include="Resources\Styles\Accent\JDXICrimson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\CachedMetroTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -6,8 +6,7 @@
                      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
                      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
                      mc:Ignorable="d"
-                     MinWidth="795" MinHeight="755"
-                     Width="795" Height="755">
+                     SizeToContent="WidthAndHeight">
     <mahapps:MetroWindow.RightWindowCommands>
         <mahapps:WindowCommands>
             <StackPanel Orientation="Horizontal">
