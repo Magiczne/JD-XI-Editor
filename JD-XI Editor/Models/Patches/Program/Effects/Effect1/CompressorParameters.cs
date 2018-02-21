@@ -9,8 +9,16 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
     internal class CompressorParameters : EffectParameters
     {
+        /// <summary>
+        ///     Creates new instance of Compressor parameters
+        /// </summary>
+        public CompressorParameters()
+        {
+            Reset();
+        }
+
         /// <inheritdoc />
-        public override void Reset()
+        public sealed override void Reset()
         {
             Threshold = 40;
             Ratio = Ratio.FourToOne;

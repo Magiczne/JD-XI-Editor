@@ -4,7 +4,7 @@
     {
         public enum Offset
         {
-            None = 0x00,
+            None = 0,
             EffectOffset = 0x8000
         }
 
@@ -14,10 +14,10 @@
 
             return new[]
             {
-                (byte) ((value >> 24) & 0xFF),
-                (byte) ((value >> 16) & 0xFF),
-                (byte) ((value >> 8) & 0xFF),
-                (byte) (value & 0xFF)
+                (byte) ((value >> 12) & 0xF),
+                (byte) ((value >> 8) & 0xF),
+                (byte) ((value >> 4) & 0xF),
+                (byte) (value & 0xF)
             };
         }
 

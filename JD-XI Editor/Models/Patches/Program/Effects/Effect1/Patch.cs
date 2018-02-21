@@ -13,8 +13,14 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// </summary>
         public Patch()
         {
+            var thruEffectParameters = new ThruEffectParameters();
+            DistortionParameters = new DistortionParameters();
+            FuzzParameters = new FuzzParameters();
+            CompressorParameters = new CompressorParameters();
+            BitCrusherParameters = new BitCrusherParameters();
+
             Basic = new BasicData();
-            Parameters = new ThruEffectParameters();
+            Parameters = thruEffectParameters;
 
             Basic.PropertyChanged += (sender, args) =>
             {
@@ -23,22 +29,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
                     switch (((BasicData) Basic).Type)
                     {
                         case Effect1Type.Thru:
-                            Parameters = new ThruEffectParameters();
+                            Parameters = thruEffectParameters;
                             break;
                         case Effect1Type.Distortion:
-                            Parameters = new DistortionParameters();
+                            Parameters = DistortionParameters;
                             break;
                         case Effect1Type.Fuzz:
-                            Parameters = new FuzzParameters();
+                            Parameters = FuzzParameters;
                             break;
                         case Effect1Type.Compressor:
-                            Parameters = new CompressorParameters();
+                            Parameters = CompressorParameters;
                             break;
                         case Effect1Type.BitCrusher:
-                            Parameters = new BitCrusherParameters();
+                            Parameters = BitCrusherParameters;
                             break;
                         default:
-                            Parameters = new ThruEffectParameters();
+                            Parameters = thruEffectParameters;
                             break;
                     }
 
@@ -49,5 +55,29 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
                 NotifyOfPropertyChange(nameof(Basic));
             };
         }
+
+        #region Properties
+
+        /// <summary>
+        ///     Distortion parameters
+        /// </summary>
+        public DistortionParameters DistortionParameters { get; }
+
+        /// <summary>
+        ///     Fuzz parameters
+        /// </summary>
+        public FuzzParameters FuzzParameters { get; }
+
+        /// <summary>
+        ///     Compressor parameters
+        /// </summary>
+        public CompressorParameters CompressorParameters { get; }
+
+        /// <summary>
+        ///     Bit crusher parameters
+        /// </summary>
+        public BitCrusherParameters BitCrusherParameters { get; }
+
+        #endregion
     }
 }

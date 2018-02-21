@@ -7,8 +7,6 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Dump data to device
         /// </summary>
-        /// <param name="patch">Patch model</param>
-        /// <param name="deviceId">Output device id</param>
         void Dump(IPatch patch, int deviceId);
     }
 }

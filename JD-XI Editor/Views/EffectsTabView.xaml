@@ -9,51 +9,1158 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:cal="http://www.caliburnproject.org"
       mc:Ignorable="d">
+    <Grid.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
-        <RowDefinition Height="165" />
-        <RowDefinition Height="235" />
-        <RowDefinition Height="165" />
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="235" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="150" />
-        <ColumnDefinition Width="110" />
-        <ColumnDefinition Width="110" />
+        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="260" />
+        <ColumnDefinition Width="260" />
+        <ColumnDefinition Width="270" />
     </Grid.ColumnDefinitions>
 
-    <Button Grid.Row="0" Grid.Column="0"
-            Height="35" VerticalAlignment="Top"
-            Content="Reset effects"
-            Style="{StaticResource AccentedSquareButtonStyle}">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Click">
-                <cal:ActionMessage MethodName="InitPatch" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-    </Button>
-    <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                           Width="150" Height="35" 
-                           VerticalAlignment="Top" HorizontalAlignment="Right"
-                           OnLabel="Auto Sync" OffLabel="Auto Sync" 
-                           IsChecked="{Binding AutoSync}" />
-    <Button Grid.Column="3" Grid.Row="0"
-            Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
-            Content="Force dump"
-            IsEnabled="{Binding CanDump}"
-            Style="{StaticResource AccentedSquareButtonStyle}">
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Click">
-                <cal:ActionMessage MethodName="Dump" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-    </Button>
-    <!-- TODO: Hookup -->
-    <Button Grid.Column="4" Grid.Row="0"
-            Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
-            Content="Force read"
-            IsEnabled="{Binding CanRead}"
-            Style="{StaticResource AccentedSquareButtonStyle}" />
+    <!-- Header buttons -->
+    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="235" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="110" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0"
+                Height="35" VerticalAlignment="Top"
+                Content="Reset effects"
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="InitPatch" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
+                               Width="150" Height="35"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               OnLabel="Auto Sync" OffLabel="Auto Sync"
+                               IsChecked="{Binding AutoSync}" />
+        <Button Grid.Column="3" Grid.Row="0"
+                Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
+                Content="Force dump"
+                IsEnabled="{Binding CanDump}"
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Dump" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <!-- TODO: Hookup -->
+        <Button Grid.Column="4" Grid.Row="0"
+                Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
+                Content="Force read"
+                IsEnabled="{Binding CanRead}"
+                Style="{StaticResource AccentedSquareButtonStyle}" />
+    </Grid>
+
+    <!-- Effect 1 -->
+    <Grid Grid.Row="1" Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0"
+                  Header="Effect 1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="105" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Basic.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Basic.DelaySendLevel}" />
+                        <TextBlock Text="Delay Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Basic.ReverbSendLevel}" />
+                        <TextBlock Text="Reverb Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Output Assign:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.Basic.OutputAssign, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Basic.OutputAssign}" />
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Effect Type:" />
+                <ComboBox Grid.Row="2" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.Basic.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Basic.Type}" />
+            </Grid>
+        </GroupBox>
+
+        <!-- Distortion -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Distortion" 
+                  IsEnabled="{Binding Path=IsDistortionSelected}"
+                  Visibility="{Binding Path=IsDistortionSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Effect Type:" />
+                <ComboBox Grid.Row="0" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.DistortionParameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.Type}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Drive}" />
+                        <TextBlock Text="Drive"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Presence}" />
+                        <TextBlock Text="Presence"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!-- Fuzz -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Fuzz"       
+                  IsEnabled="{Binding Path=IsFuzzSelected}"
+                  Visibility="{Binding Path=IsFuzzSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Effect Type:" />
+                <ComboBox Grid.Row="0" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.FuzzParameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.Type}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Drive}" />
+                        <TextBlock Text="Drive"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.Presence}" />
+                        <TextBlock Text="Presence"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!-- Compressor -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Compressor"       
+                  IsEnabled="{Binding Path=IsCompressorSelected}"
+                  Visibility="{Binding Path=IsCompressorSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="105" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Level}" />
+                    <TextBlock Text="Level"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Threshold}" />
+                    <TextBlock Text="Threshold"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Ratio:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.CompressorParameters.Ratio, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.Ratio}" />
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Attack:" />
+                <ComboBox Grid.Row="2" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.CompressorParameters.Attack, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.Attack}" />
+
+                <Label Grid.Row="3" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Release:" />
+                <ComboBox Grid.Row="3" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.CompressorParameters.Release, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.Release}" />
+
+                <!-- Sidechain controls -->
+                <controls:ToggleSwitch Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0 0 -5 0"
+                                       VerticalAlignment="Top"
+                                       OnLabel="Sidechain" OffLabel="Sidechain"
+                                       IsChecked="{Binding Effect1.Parameters.Sidechain}" />
+
+                <CheckBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                          VerticalAlignment="Top"
+                          Content="Synchronization" 
+                          IsChecked="{Binding Effect1.Parameters.SidechainSync}" />
+
+                <Label Grid.Row="6" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Note:" />
+                <ComboBox Grid.Row="6" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect1.CompressorParameters.SidechainNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect1.Parameters.SidechainNote}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+    
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="60" Maximum="1000" Unit="ms"
+                                          LabelFontSize="40"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.SidechainTime}" />
+                        <TextBlock Text="Sidechain Time"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.SidechainRelease}" />
+                        <TextBlock Text="Sidechain Release"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect1.Parameters.SidechainLevel}" />
+                        <TextBlock Text="Sidechain Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        
+        <!-- Bit Crusher -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Bit Crusher"       
+                  IsEnabled="{Binding Path=IsBitCrusherSelected}"
+                  Visibility="{Binding Path=IsBitCrusherSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Level}" />
+                    <TextBlock Text="Level"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Rate}" />
+                    <TextBlock Text="Rate"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Bit}" />
+                    <TextBlock Text="Bit"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect1.Parameters.Filter}" />
+                    <TextBlock Text="Filter"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+    <!-- Effect 2 -->
+    <Grid Grid.Row="1" Grid.Column="1"
+          Margin="10 0 0 0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0"
+                  Header="Effect 2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="105" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Basic.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Basic.DelaySendLevel}" />
+                        <TextBlock Text="Delay Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Basic.ReverbSendLevel}" />
+                        <TextBlock Text="Reverb Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+
+                <Label Grid.Row="2" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Effect Type:" />
+                <ComboBox Grid.Row="2" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.Basic.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Basic.Type}" />
+            </Grid>
+        </GroupBox>
+        
+        <!-- Flanger -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Flanger" 
+                  IsEnabled="{Binding Path=IsFlangerSelected}"
+                  Visibility="{Binding Path=IsFlangerSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="105" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Mode:" />
+                <ComboBox Grid.Row="0" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.FlangerParameters.Mode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.Mode}" />
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Note:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.FlangerParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.Note}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Rate}" />
+                        <TextBlock Text="Rate"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Depth}" />
+                        <TextBlock Text="Depth"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Feedback}" />
+                        <TextBlock Text="Feedback"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Manual}" />
+                        <TextBlock Text="Manual"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="100"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.DryWetBalance}" />
+                        <TextBlock Text="Dry/Wet Balance"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!-- Phaser -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Phaser" 
+                  IsEnabled="{Binding Path=IsPhaserSelected}"
+                  Visibility="{Binding Path=IsPhaserSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Mode:" />
+                <ComboBox Grid.Row="0" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.PhaserParameters.Mode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.Mode}" />
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Note:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.PhaserParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.Note}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Rate}" />
+                        <TextBlock Text="Rate"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Depth}" />
+                        <TextBlock Text="Depth"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Resonance}" />
+                        <TextBlock Text="Resonance"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Column="0" Grid.Row="3"
+                            Margin="0 5 0 0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.Manual}" />
+                    <TextBlock Text="Manual"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="3"
+                            Margin="0 5 0 0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.Level}" />
+                    <TextBlock Text="Level"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Ring Modulation -->
+        <GroupBox Grid.Row="1"
+                  Margin="0 10 0 0"
+                  Header="Ring Modulation"       
+                  IsEnabled="{Binding Path=IsRingModSelected}"
+                  Visibility="{Binding Path=IsRingModSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.Frequency}" />
+                    <TextBlock Text="Frequency"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.Sensitivity}" />
+                    <TextBlock Text="Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="100"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.DryWetBalance}" />
+                    <TextBlock Text="Dry/Wet Balance"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Effect2.Parameters.Level}" />
+                    <TextBlock Text="Level"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- Slicer -->
+        <GroupBox Grid.Row="2"
+                  Margin="0 10 0 0"
+                  Header="Slicer" 
+                  IsEnabled="{Binding Path=IsSlicerSelected}"
+                  Visibility="{Binding Path=IsSlicerSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="85" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Timing Pattern:" />
+                <ComboBox Grid.Row="0" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.SlicerParameters.TimingPattern, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.TimingPattern}" />
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Top"
+                       Content="Note:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Effect2.SlicerParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Effect2.Parameters.Note}" />
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                      Margin="0 5 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Attack}" />
+                        <TextBlock Text="Attack"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.TriggerLevel}" />
+                        <TextBlock Text="Trigger Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Effect2.Parameters.Level}" />
+                        <TextBlock Text="Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+    <!-- Delay -->
+    <GroupBox Grid.Row="1" Grid.Column="2"
+              Margin="10 0 0 0"
+              Header="Delay">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="85" />
+                <RowDefinition Height="85" />
+            </Grid.RowDefinitions>
+
+            <!-- TODO: Delay.BasicData.Level ??? -->
+            <controls:ToggleSwitch Grid.Row="0" Grid.Column="1"
+                                   Margin="0 0 -5 0"
+                                   VerticalAlignment="Top"
+                                   IsChecked="{Binding Delay.Basic.On}" />
+
+            <Label Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="Type:" />
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Delay.Parameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Delay.Parameters.Type}" />
+
+            <Label Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="Mode:" />
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Delay.Parameters.Mode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Delay.Parameters.Mode}" />
+
+            <Label Grid.Row="3" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="Note:" />
+            <ComboBox Grid.Row="3" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Delay.Parameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Delay.Parameters.Note}" />
+
+            <Label Grid.Row="4" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="HF Damp:" ToolTip="High Frequency Damp" />
+            <ComboBox Grid.Row="4" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Delay.Parameters.HfDamp, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Delay.Parameters.HfDamp}" />
+
+            <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"
+                  Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="2600" Unit="ms"
+                                      LabelFontSize="40"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Delay.Parameters.Time}" />
+                    <TextBlock Text="Time"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="1"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="100" Unit="%"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Delay.Parameters.TapTime}" />
+                    <TextBlock Text="Tap Time"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="2"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="98" Unit="%"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Delay.Parameters.Feedback}" />
+                    <TextBlock Text="Feedback"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Column="0" Grid.Row="6"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Delay.Parameters.ReverbSendLevel}" />
+                <TextBlock Text="Reverb Send Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="6"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Delay.Parameters.Level}" />
+                <TextBlock Text="Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+
+    <!-- Reverb -->
+    <GroupBox Grid.Row="1" Grid.Column="3"
+              Margin="10 0 0 0"
+              Header="Reverb">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="85" />
+            </Grid.RowDefinitions>
+
+            <!-- TODO: Reverb.BasicData.Level ??? -->
+            <controls:ToggleSwitch Grid.Row="0" Grid.Column="1"
+                                   Margin="0 0 -5 0"
+                                   VerticalAlignment="Top"
+                                   IsChecked="{Binding Reverb.Basic.On}" />
+
+            <Label Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="Type:" />
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Reverb.Parameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Reverb.Parameters.Type}" />
+
+            <Label Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="HF Damp:"
+                   ToolTip="High Frequency Damp" />
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Reverb.Parameters.HfDamp, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Reverb.Parameters.HfDamp}" />
+
+            <StackPanel Grid.Column="0" Grid.Row="3"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Reverb.Parameters.Time}" />
+                <TextBlock Text="Time"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="3"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Reverb.Parameters.Level}" />
+                <TextBlock Text="Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </GroupBox>
 </Grid>

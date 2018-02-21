@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Effects.Common;
+using JD_XI_Editor.Models.Enums.Effects.Slicer;
 using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
@@ -19,7 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// <inheritdoc />
         public sealed override void Reset()
         {
-            TimingPattern = 0;
+            TimingPattern = TimingPattern.Zero;
             Note = Note.One;
             Attack = 39;
             TriggerLevel = 50;
@@ -30,7 +31,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
-            bytes.AddRange(ByteUtils.NumberTo4Packets(TimingPattern));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) TimingPattern));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Attack));
             bytes.AddRange(ByteUtils.NumberTo4Packets(TriggerLevel));
@@ -50,7 +51,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// <summary>
         ///     Timing Pattern
         /// </summary>
-        private int _timingPattern;
+        private TimingPattern _timingPattern;
 
         /// <summary>
         ///     Note
@@ -77,6 +78,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         #region Properties
 
         /// <summary>
+        ///     Timing Pattern
+        /// </summary>
+        public TimingPattern TimingPattern
+        {
+            get => _timingPattern;
+            set
+            {
+                if (value != _timingPattern)
+                {
+                    _timingPattern = value;
+                    NotifyOfPropertyChange(nameof(TimingPattern));
+                }
+            }
+        }
+
+        /// <summary>
         ///     Note
         /// </summary>
         public Note Note
@@ -88,22 +105,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
                 {
                     _note = value;
                     NotifyOfPropertyChange(nameof(Note));
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Timing Pattern
-        /// </summary>
-        public int TimingPattern
-        {
-            get => _timingPattern;
-            set
-            {
-                if (value != _timingPattern)
-                {
-                    _timingPattern = value;
-                    NotifyOfPropertyChange(nameof(TimingPattern));
                 }
             }
         }

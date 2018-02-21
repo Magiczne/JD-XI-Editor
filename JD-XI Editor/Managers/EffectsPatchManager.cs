@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
@@ -25,8 +26,14 @@ namespace JD_XI_Editor.Managers
         {
             var patchBytes = new List<byte>();
             patchBytes.AddRange(patch.Basic.GetBytes());
-            patchBytes.AddRange(Enumerable.Repeat<byte>(0x00, 12)); // Reserve
+
+            if (effect == Effect.Effect1 || effect == Effect.Effect2)
+            {
+                patchBytes.AddRange(Enumerable.Repeat<byte>(0x00, 12)); // Reserve
+            }
+
             patchBytes.AddRange(patch.Parameters.GetBytes());
+
 
             var bytes = new List<byte>();
             bytes.AddRange(SysExUtils.Header);
@@ -56,12 +63,12 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
-            var effectsPatch = (Patch) patch;
+            var effectPatch = (Patch) patch;
 
-            var effect1Data = GetSysexDataForPatch(effectsPatch.Effect1, Effect.Effect1);
-            var effect2Data = GetSysexDataForPatch(effectsPatch.Effect2, Effect.Effect2);
-            var delayData = GetSysexDataForPatch(effectsPatch.Delay, Effect.Delay);
-            var reverbData = GetSysexDataForPatch(effectsPatch.Reverb, Effect.Reverb);
+            var effect1Data = GetSysexDataForPatch(effectPatch.Effect1, Effect.Effect1);
+            var effect2Data = GetSysexDataForPatch(effectPatch.Effect2, Effect.Effect2);
+            var delayData = GetSysexDataForPatch(effectPatch.Delay, Effect.Delay);
+            var reverbData = GetSysexDataForPatch(effectPatch.Reverb, Effect.Reverb);
 
             using (var output = new OutputDevice(deviceId))
             {

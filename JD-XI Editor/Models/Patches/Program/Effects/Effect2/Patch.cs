@@ -13,6 +13,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// </summary>
         public Patch()
         {
+            var thruEffectParameters = new ThruEffectParameters();
+            FlangerParameters = new FlangerParameters();
+            PhaserParameters = new PhaserParameters();
+            RingModulationParameters = new RingModulationParameters();
+            SlicerParameters = new SlicerParameters();
+
             Basic = new BasicData();
             Parameters = new ThruEffectParameters();
 
@@ -23,19 +29,19 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
                     switch (((BasicData) Basic).Type)
                     {
                         case Effect2Type.Thru:
-                            Parameters = new ThruEffectParameters();
+                            Parameters = thruEffectParameters;
                             break;
                         case Effect2Type.Flanger:
-                            Parameters = new FlangerParameters();
+                            Parameters = FlangerParameters;
                             break;
                         case Effect2Type.Phaser:
-                            Parameters = new PhaserParameters();
+                            Parameters = PhaserParameters;
                             break;
                         case Effect2Type.RingMod:
-                            Parameters = new RingModulationParameters();
+                            Parameters = RingModulationParameters;
                             break;
                         case Effect2Type.Slicer:
-                            Parameters = new SlicerParameters();
+                            Parameters = SlicerParameters;
                             break;
                         default:
                             Parameters = new ThruEffectParameters();
@@ -49,5 +55,29 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
                 NotifyOfPropertyChange(nameof(Basic));
             };
         }
+
+        #region Properties
+
+        /// <summary>
+        ///     Flanger parameters
+        /// </summary>
+        public FlangerParameters FlangerParameters { get; }
+
+        /// <summary>
+        ///     Phaser parameters
+        /// </summary>
+        public PhaserParameters PhaserParameters { get; }
+
+        /// <summary>
+        ///     Ring Modulation parameters
+        /// </summary>
+        public RingModulationParameters RingModulationParameters { get; }
+
+        /// <summary>
+        ///     Slicer paremeters
+        /// </summary>
+        public SlicerParameters SlicerParameters { get; }
+
+        #endregion
     }
 }

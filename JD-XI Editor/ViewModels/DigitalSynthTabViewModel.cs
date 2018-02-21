@@ -22,7 +22,7 @@ namespace JD_XI_Editor.ViewModels
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);
 
-            Patch.PropertyChanged += (sender, args) =>
+            PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
@@ -53,7 +53,7 @@ namespace JD_XI_Editor.ViewModels
                     }
                 }
                     
-                if (args.PropertyName == nameof(Patch.Modifiers))
+                if (args.PropertyName == nameof(Modifiers))
                     NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };
         }

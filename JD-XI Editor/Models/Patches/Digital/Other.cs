@@ -34,10 +34,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
             return new[]
             {
                 (byte) WaveGain,
-                (byte) (((int) WaveNumber >> 24) & 0xFF),
-                (byte) (((int) WaveNumber >> 16) & 0xFF),
-                (byte) (((int) WaveNumber >> 8) & 0xFF),
-                (byte) ((int) WaveNumber & 0xFF),           //Wave number splitted
+                (byte) (((int) WaveNumber >> 12) & 0xF),
+                (byte) (((int) WaveNumber >> 8) & 0xF),
+                (byte) (((int) WaveNumber >> 4) & 0xF),
+                (byte) ((int) WaveNumber & 0xF),           //Wave number splitted
                 (byte) HpfCutoff,
                 (byte) SuperSawDetune,
                 (byte) (ModLfoRateControl + 64),
