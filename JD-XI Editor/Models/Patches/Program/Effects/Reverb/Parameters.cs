@@ -31,16 +31,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Time));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 20; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(20));
 
             return bytes.ToArray();
         }

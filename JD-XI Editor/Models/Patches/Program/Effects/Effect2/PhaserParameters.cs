@@ -29,6 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Rate));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
@@ -36,12 +37,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             bytes.AddRange(ByteUtils.NumberTo4Packets(Resonance));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Manual));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 25; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(25));
 
             return bytes.ToArray();
         }

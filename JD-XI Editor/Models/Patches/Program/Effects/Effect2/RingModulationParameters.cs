@@ -28,16 +28,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets(Frequency));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Sensitivity));
             bytes.AddRange(ByteUtils.NumberTo4Packets(DryWetBalance));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 28; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
 
             return bytes.ToArray();
         }

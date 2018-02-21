@@ -36,6 +36,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));    // 0x04
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode));    // 0x08
             bytes.AddRange(ByteUtils.NumberTo4Packets(Time));           // 0x0C
@@ -44,12 +45,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             bytes.AddRange(ByteUtils.NumberTo4Packets(Feedback));       // 0x18
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp));  // 0x1C
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));          // 0x20
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 16; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(16));
 
             return bytes.ToArray();
         }

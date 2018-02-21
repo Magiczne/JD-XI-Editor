@@ -37,6 +37,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets(Threshold));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Ratio));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Attack));
@@ -48,12 +49,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainTime));
             bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainRelease));
             bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainSync));
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 21; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(21));
 
             return bytes.ToArray();
         }

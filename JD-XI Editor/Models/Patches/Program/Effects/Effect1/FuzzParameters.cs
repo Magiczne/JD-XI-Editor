@@ -32,16 +32,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Drive));
             bytes.AddRange(ByteUtils.NumberTo4Packets((byte)Type));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Presence));
-
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 28; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
 
             return bytes.ToArray();
         }
