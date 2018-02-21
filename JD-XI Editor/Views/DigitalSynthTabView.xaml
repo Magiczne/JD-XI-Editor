@@ -334,7 +334,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  Value="{Binding Patch.ModifiersAttackTimeIntervalSensitivity}" />
+                                  Value="{Binding Patch.Modifiers.AttackTimeIntervalSensitivity}" />
                 <TextBlock Text="Attack"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

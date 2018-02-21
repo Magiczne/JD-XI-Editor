@@ -156,7 +156,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                                  IsEnabled="{Binding SuperWaveSelected}"
+                                  IsEnabled="{Binding SuperSawSelected}"
                                   Value="{Binding Partial.Other.SuperSawDetune}" />
                 <TextBlock Text="Super Saw
                                        Detune"
