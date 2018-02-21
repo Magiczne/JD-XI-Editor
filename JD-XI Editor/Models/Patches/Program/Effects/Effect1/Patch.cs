@@ -22,19 +22,19 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
                 {
                     switch (((BasicData) Basic).Type)
                     {
-                        case EffectType.Thru:
+                        case Effect1Type.Thru:
                             Parameters = new ThruEffectParameters();
                             break;
-                        case EffectType.Distortion:
+                        case Effect1Type.Distortion:
                             Parameters = new DistortionParameters();
                             break;
-                        case EffectType.Fuzz:
+                        case Effect1Type.Fuzz:
                             Parameters = new FuzzParameters();
                             break;
-                        case EffectType.Compressor:
+                        case Effect1Type.Compressor:
                             Parameters = new CompressorParameters();
                             break;
-                        case EffectType.BitCrusher:
+                        case Effect1Type.BitCrusher:
                             Parameters = new BitCrusherParameters();
                             break;
                         default:

@@ -36,7 +36,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         #region Fields
 
         /// <summary>
-        ///     Is delay on
+        ///     Is reverb on
         /// </summary>
         private bool _on;
 

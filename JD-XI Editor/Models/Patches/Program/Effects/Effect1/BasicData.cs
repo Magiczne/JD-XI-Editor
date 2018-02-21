@@ -19,7 +19,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public void Reset()
         {
-            Type = EffectType.Thru;
+            Type = Effect1Type.Thru;
             Level = 127;
             DelaySendLevel = 50;
             ReverbSendLevel = 50;
@@ -44,7 +44,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <summary>
         ///     Effect Type
         /// </summary>
-        private EffectType _type;
+        private Effect1Type _type;
 
         /// <summary>
         ///     Level
@@ -73,7 +73,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <summary>
         ///     Effect Type
         /// </summary>
-        public EffectType Type
+        public Effect1Type Type
         {
             get => _type;
             set

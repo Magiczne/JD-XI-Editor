@@ -22,19 +22,19 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
                 {
                     switch (((BasicData) Basic).Type)
                     {
-                        case EffectType.Thru:
+                        case Effect2Type.Thru:
                             Parameters = new ThruEffectParameters();
                             break;
-                        case EffectType.Flanger:
+                        case Effect2Type.Flanger:
                             Parameters = new FlangerParameters();
                             break;
-                        case EffectType.Phaser:
+                        case Effect2Type.Phaser:
                             Parameters = new PhaserParameters();
                             break;
-                        case EffectType.RingMod:
+                        case Effect2Type.RingMod:
                             Parameters = new RingModulationParameters();
                             break;
-                        case EffectType.Slicer:
+                        case Effect2Type.Slicer:
                             Parameters = new SlicerParameters();
                             break;
                         default:
