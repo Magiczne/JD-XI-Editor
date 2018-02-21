@@ -174,11 +174,11 @@ namespace KnobControl
 
         public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
             "Minumum", typeof(int), typeof(Knob),
-            new FrameworkPropertyMetadata(0, OnMinimumPropertyChanged, OnMinimumPropertyCoerce));
+            new FrameworkPropertyMetadata(0, OnMinimumPropertyChanged));
 
         public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register(
             "Maximum", typeof(int), typeof(Knob),
-            new FrameworkPropertyMetadata(10, OnMaximumPropertyChanged, OnMaximumPropertyCoerce));
+            new FrameworkPropertyMetadata(10, OnMaximumPropertyChanged));
 
         public static readonly DependencyProperty StepProperty = DependencyProperty.Register(
             "Step", typeof(int), typeof(Knob),
@@ -494,23 +494,6 @@ namespace KnobControl
         }
 
         /// <summary>
-        ///     Minimum property coerce callback
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="data">Value</param>
-        /// <returns>Coerced value</returns>
-        private static object OnMinimumPropertyCoerce(DependencyObject sender, object data)
-        {
-            var knob = (Knob) sender;
-            var value = (int) data;
-
-            if (value > knob.Maximum)
-                value = knob.Maximum;
-
-            return value;
-        }
-
-        /// <summary>
         ///     Method that is invoked when the Maximum property changes
         /// </summary>
         /// <param name="sender">Sender</param>
@@ -520,23 +503,6 @@ namespace KnobControl
             var knob = (Knob) sender;
             knob.OnPropertyChanged(nameof(ArcStroke));
             knob.OnPropertyChanged(nameof(CalculatedEndAngle));
-        }
-
-        /// <summary>
-        ///     Maximum property coerce callback
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="data">Value</param>
-        /// <returns>Coerced value</returns>
-        private static object OnMaximumPropertyCoerce(DependencyObject sender, object data)
-        {
-            var knob = (Knob) sender;
-            var value = (int) data;
-
-            if (value < knob.Minimum)
-                value = knob.Minimum;
-
-            return value;
         }
 
         /// <summary>
