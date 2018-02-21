@@ -19,6 +19,12 @@
                          MouseDown="OnMouseDown" 
                          MouseMove="OnMouseMove" 
                          MouseUp="OnMouseUp" />
+                <ed:Arc StartAngle="{Binding Path=ArcStartAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        EndAngle="{Binding Path=CalculatedEndAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stroke="{Binding Path=ArcStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                        Stretch="None"
+                        IsHitTestVisible="False" 
+                        StrokeThickness="30" />
                 <TextBlock HorizontalAlignment="Center" 
                            Text="{Binding Path=LabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"
@@ -26,12 +32,6 @@
                            FontFamily="{Binding Path=LabelFont, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            FontSize="{Binding Path=LabelFontSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                            IsHitTestVisible="False" />
-                <ed:Arc StartAngle="{Binding Path=ArcStartAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        EndAngle="{Binding Path=CalculatedEndAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Stroke="{Binding Path=ArcStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
-                        Stretch="None"
-                        IsHitTestVisible="False" 
-                        StrokeThickness="30" /> 
             </Grid>
         </Viewbox>
     </Grid>

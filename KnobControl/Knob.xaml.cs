@@ -356,7 +356,7 @@ namespace KnobControl
                 text += Value;
 
                 if (Unit.Length > 0)
-                    text += $"[{Unit}]";
+                    text += Unit;
 
                 return text;
             }
