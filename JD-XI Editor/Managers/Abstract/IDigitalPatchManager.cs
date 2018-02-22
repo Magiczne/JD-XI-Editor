@@ -1,7 +1,7 @@
 ﻿using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches.Digital;
 
-namespace JD_XI_Editor.Managers
+namespace JD_XI_Editor.Managers.Abstract
 {
     internal interface IDigitalPatchManager : IPatchManager
     {

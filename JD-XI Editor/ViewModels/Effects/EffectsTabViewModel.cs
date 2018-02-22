@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.ViewModels.Abstract;
 using EffectPatch = JD_XI_Editor.Models.Patches.Program.Effects.Patch;

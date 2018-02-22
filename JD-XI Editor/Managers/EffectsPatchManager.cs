@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program.Abstract;

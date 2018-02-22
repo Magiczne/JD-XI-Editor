@@ -1,6 +1,6 @@
 ﻿using JD_XI_Editor.Models.Patches.DrumKit;
 
-namespace JD_XI_Editor.Managers
+namespace JD_XI_Editor.Managers.Abstract
 {
     internal interface IDrumKitPatchManager : IPatchManager
     {

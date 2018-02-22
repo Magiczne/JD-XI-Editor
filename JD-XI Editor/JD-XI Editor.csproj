@@ -140,9 +140,11 @@
     <Compile Include="Models\Enums\Program\VocalEffect\AutoPitch\Key.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\AutoPitch\Note.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\AutoPitch\Octave.cs" />
+    <Compile Include="Models\Enums\Program\VocalEffect\EffectNumber.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\OutputAssign.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\AutoPitch\Scale.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\AutoPitch\Type.cs" />
+    <Compile Include="Models\Enums\Program\VocalEffect\Part.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\Type.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\Vocoder\Envelope.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\Vocoder\HighPassFilter.cs" />
