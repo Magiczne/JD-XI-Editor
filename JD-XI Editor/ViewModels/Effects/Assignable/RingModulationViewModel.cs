@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public RingModulationParameters RingModulationParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of RingModulationViewModel
+        /// </summary>
         public RingModulationViewModel(RingModulationParameters parameters)
         {
             RingModulationParameters = parameters;

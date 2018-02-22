@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public SlicerParameters SlicerParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of SlicerViewModel
+        /// </summary>
         public SlicerViewModel(SlicerParameters parameters)
         {
             SlicerParameters = parameters;

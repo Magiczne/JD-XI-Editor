@@ -16,6 +16,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public bool IsRateModeSelected => FlangerParameters.Mode == Mode.Rate;
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of FlangerViewModel
+        /// </summary>
         public FlangerViewModel(FlangerParameters parameters)
         {
             FlangerParameters = parameters;

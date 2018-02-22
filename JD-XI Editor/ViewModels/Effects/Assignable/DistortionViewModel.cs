@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public DistortionParameters DistortionParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of DistortionViewModel
+        /// </summary>
         public DistortionViewModel(DistortionParameters parameters)
         {
             DistortionParameters = parameters;

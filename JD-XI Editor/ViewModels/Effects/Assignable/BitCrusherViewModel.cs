@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public BitCrusherParameters BitCrusherParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of BitCrusherViewModel
+        /// </summary>
         public BitCrusherViewModel(BitCrusherParameters parameters)
         {
             BitCrusherParameters = parameters;

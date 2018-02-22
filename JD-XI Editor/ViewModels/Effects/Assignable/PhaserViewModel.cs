@@ -16,6 +16,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public bool IsRateModeSelected => PhaserParameters.Mode == Mode.Rate;
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of PhaserViewModel
+        /// </summary>
         public PhaserViewModel(PhaserParameters parameters)
         {
             PhaserParameters = parameters;

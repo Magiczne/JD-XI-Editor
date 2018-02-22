@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public FuzzParameters FuzzParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of FuzzViewModel
+        /// </summary>
         public FuzzViewModel(FuzzParameters parameters)
         {
             FuzzParameters = parameters;

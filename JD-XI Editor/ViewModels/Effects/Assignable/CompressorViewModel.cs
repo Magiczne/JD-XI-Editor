@@ -10,6 +10,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public CompressorParameters CompressorParameters { get; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of CompressorViewModel
+        /// </summary>
         public CompressorViewModel(CompressorParameters parameters)
         {
             CompressorParameters = parameters;
