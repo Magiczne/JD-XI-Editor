@@ -106,11 +106,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// </summary>
         private int _resonanceVelocitySensitivity;
 
-        /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Envelope _envelope;
-
         #endregion
 
         #region Properties
@@ -214,18 +209,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     Envelope
         /// </summary>
-        public Envelope Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        public Envelope Envelope { get; }
 
         #endregion
     }

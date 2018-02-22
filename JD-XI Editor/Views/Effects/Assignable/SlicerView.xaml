@@ -1,4 +1,4 @@
-﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.Assignable.SlicerView" 
+﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.Assignable.SlicerView"
           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
@@ -17,27 +17,27 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Content="Timing Pattern:" />
+               VerticalAlignment="Top"
+               Content="Timing Pattern:" />
         <ComboBox Grid.Row="0" Grid.Column="1"
-                      VerticalAlignment="Top"
-                      SelectedValuePath="Value"
-                      DisplayMemberPath="Description"
-                      ItemsSource="{Binding SlicerParameters.TimingPattern, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding SlicerParameters.TimingPattern}" />
+                  VerticalAlignment="Top"
+                  SelectedValuePath="Value"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding SlicerParameters.TimingPattern, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                  SelectedValue="{Binding SlicerParameters.TimingPattern}" />
 
         <Label Grid.Row="1" Grid.Column="0"
-                   VerticalAlignment="Top"
-                   Content="Note:" />
+               VerticalAlignment="Top"
+               Content="Note:" />
         <ComboBox Grid.Row="1" Grid.Column="1"
-                      VerticalAlignment="Top"
-                      SelectedValuePath="Value"
-                      DisplayMemberPath="Description"
-                      ItemsSource="{Binding SlicerParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding SlicerParameters.Note}" />
+                  VerticalAlignment="Top"
+                  SelectedValuePath="Value"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding SlicerParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                  SelectedValue="{Binding SlicerParameters.Note}" />
 
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
-                  Margin="0 5 0 0">
+              Margin="0 5 0 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -45,37 +45,37 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0"
-                            Orientation="Vertical">
+                        Orientation="Vertical">
                 <knobControl:Knob Height="65" Width="65"
-                                      ArcEndAngle="150" ArcStartAngle="-150"
-                                      Minimum="0" Maximum="127"
-                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                      Value="{Binding SlicerParameters.Attack}" />
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding SlicerParameters.Attack}" />
                 <TextBlock Text="Attack"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="1"
-                            Orientation="Vertical">
+                        Orientation="Vertical">
                 <knobControl:Knob Height="65" Width="65"
-                                      ArcEndAngle="150" ArcStartAngle="-150"
-                                      Minimum="0" Maximum="127"
-                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                      Value="{Binding SlicerParameters.TriggerLevel}" />
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding SlicerParameters.TriggerLevel}" />
                 <TextBlock Text="Trigger Level"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
             </StackPanel>
             <StackPanel Grid.Column="2"
-                            Orientation="Vertical">
+                        Orientation="Vertical">
                 <knobControl:Knob Height="65" Width="65"
-                                      ArcEndAngle="150" ArcStartAngle="-150"
-                                      Minimum="0" Maximum="127"
-                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                      Value="{Binding SlicerParameters.Level}" />
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding SlicerParameters.Level}" />
                 <TextBlock Text="Level"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </Grid>

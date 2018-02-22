@@ -2,7 +2,7 @@
 {
     internal enum Mode : byte
     {
-        Time = 0x00,
-        Note = 0x01
+        Time = 0x0,
+        Note = 0x1
     }
 }

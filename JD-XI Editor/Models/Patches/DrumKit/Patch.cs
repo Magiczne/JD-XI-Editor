@@ -14,6 +14,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             Common = new Common();
             Partials = new Dictionary<string, Partial.Partial>();
             InitPartials();
+
+            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
         }
 
         /// <inheritdoc />
@@ -51,55 +53,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             }
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Common
-        /// </summary>
-        private Common _common;
-
-        /// <summary>
-        ///     Partials
-        /// </summary>
-        private Dictionary<string, Partial.Partial> _partials;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Common
         /// </summary>
-        public Common Common
-        {
-            get => _common;
-            set
-            {
-                if (value != _common)
-                {
-                    _common = value;
-                    _common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
-
-                    NotifyOfPropertyChange(nameof(Common));
-                }
-            }
-        }
+        public Common Common { get; }
 
         /// <summary>
         ///     Partials
         /// </summary>
-        public Dictionary<string, Partial.Partial> Partials
-        {
-            get => _partials;
-            set
-            {
-                if (value != _partials)
-                {
-                    _partials = value;
-                    NotifyOfPropertyChange(nameof(Partials));
-                }
-            }
-        }
+        public Dictionary<string, Partial.Partial> Partials { get; }
 
         #endregion
     }

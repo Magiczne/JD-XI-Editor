@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class BitCrusherViewModel : Screen
     {
-        /// <summary>
-        ///     Bit Crusher parameters
-        /// </summary>
-        public BitCrusherParameters BitCrusherParameters { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of BitCrusherViewModel
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         {
             BitCrusherParameters = parameters;
         }
+
+        /// <summary>
+        ///     Bit Crusher parameters
+        /// </summary>
+        public BitCrusherParameters BitCrusherParameters { get; }
     }
 }

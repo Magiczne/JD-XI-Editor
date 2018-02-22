@@ -11,7 +11,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
 
                 <ResourceDictionary Source="Resources/Styles/Accent/JDXICrimson.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
@@ -19,13 +20,13 @@
                 <ResourceDictionary Source="Resources/Styles/ComboBox.xaml" />
                 <ResourceDictionary Source="Resources/Styles/SimpleTabControl.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBox.xaml" />
-                
+
                 <ResourceDictionary Source="Resources/Styles/SimpleCachedTabControl.xaml" />
                 <ResourceDictionary Source="Resources/Styles/CachedMetroTabControl.xaml" />
-                
+
                 <ResourceDictionary>
                     <!-- ReSharper disable once InconsistentNaming -->
-                    <bootstrap:Bootstrapper x:Key="bootstrapper"></bootstrap:Bootstrapper>
+                    <bootstrap:Bootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 

@@ -6,15 +6,15 @@
       xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="600">
-    <TextBlock Text="Roland JD-XI Patch Editor" 
+    <TextBlock Text="Roland JD-XI Patch Editor"
                HorizontalAlignment="Center" VerticalAlignment="Center"
                FontSize="45" />
 
-    <TextBlock FlowDirection="RightToLeft" 
+    <TextBlock FlowDirection="RightToLeft"
                HorizontalAlignment="Right" VerticalAlignment="Bottom"
                Padding="0 15 0 0">
         Created by Michał "Magiczne" Kleszczyński <LineBreak />
-        <controls:ExternalHyperlink NavigateUri="https://github.com/Magiczne" >
+        <controls:ExternalHyperlink NavigateUri="https://github.com/Magiczne">
             https://github.com/Magiczne
         </controls:ExternalHyperlink>
     </TextBlock>

@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Digital
 {
     internal enum PcmWave
     {
-        [Description("000: Off")] Off = 0x00,
-        [Description("001: Calculator Saw")] CalcSaw = 0x01,
+        [Description("000: Off")] Off = 0x0,
+        [Description("001: Calculator Saw")] CalcSaw = 0x1,
         [Description("002: Distorded Sawtooth Wavetooth")] DistordedSaw,
         [Description("003: GR-300 Sawtooth")] Gr300Saw,
         [Description("004: Lead Wave 1")] LeadWave1,

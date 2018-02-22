@@ -9,7 +9,7 @@ namespace JD_XI_Editor.Utils.Enums
     public static class EnumHelper
     {
         /// <summary>
-        /// Get description for the enum field
+        ///     Get description for the enum field
         /// </summary>
         /// <param name="eValue"></param>
         /// <returns></returns>
@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Utils.Enums
         }
 
         /// <summary>
-        /// Get all values and descriptions of enum
+        ///     Get all values and descriptions of enum
         /// </summary>
         /// <param name="t">Type</param>
         /// <returns>Collection of pair of Value and Description</returns>

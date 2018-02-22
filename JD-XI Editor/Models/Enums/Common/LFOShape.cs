@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Common
 {
     internal enum LfoShape : byte
     {
-        [Description("Triangle")] Triangle = 0x00,
-        [Description("Sine")] Sine = 0x01,
+        [Description("Triangle")] Triangle = 0x0,
+        [Description("Sine")] Sine = 0x1,
         [Description("Sawtooth")] Saw,
         [Description("Square")] Square,
         [Description("Sample & Hold")] SampleAndHold,

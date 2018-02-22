@@ -4,13 +4,13 @@ namespace JD_XI_Editor.Models.Enums.Digital
 {
     internal enum OscillatorShape : byte
     {
-        [Description("Sawtooth")] Saw = 0x00,
-        [Description("Square")] Square = 0x01,
-        [Description("Pulse wave square")] PulseWaveSquare = 0x02,
-        [Description("Triangle")] Triangle = 0x03,
-        [Description("Sine")] Sine = 0x04,
-        [Description("Noise")] Noise = 0x05,
-        [Description("Super-Saw")] SuperSaw = 0x06,
-        [Description("PCM")] Pcm = 0x07
+        [Description("Sawtooth")] Saw = 0x0,
+        [Description("Square")] Square = 0x1,
+        [Description("Pulse wave square")] PulseWaveSquare,
+        [Description("Triangle")] Triangle,
+        [Description("Sine")] Sine,
+        [Description("Noise")] Noise,
+        [Description("Super-Saw")] SuperSaw,
+        [Description("PCM")] Pcm
     }
 }

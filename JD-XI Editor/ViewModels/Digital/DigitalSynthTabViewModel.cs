@@ -40,19 +40,22 @@ namespace JD_XI_Editor.ViewModels.Digital
                             break;
 
                         case nameof(Patch.PartialOne):
-                            digitalPatchManager.DumpPartial(Patch.PartialOne, DigitalPartial.First, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialOne, DigitalPartial.First,
+                                SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialTwo):
-                            digitalPatchManager.DumpPartial(Patch.PartialTwo, DigitalPartial.Second, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialTwo, DigitalPartial.Second,
+                                SelectedOutputDeviceId);
                             break;
 
                         case nameof(Patch.PartialThree):
-                            digitalPatchManager.DumpPartial(Patch.PartialThree, DigitalPartial.Third, SelectedOutputDeviceId);
+                            digitalPatchManager.DumpPartial(Patch.PartialThree, DigitalPartial.Third,
+                                SelectedOutputDeviceId);
                             break;
                     }
                 }
-                    
+
                 if (args.PropertyName == nameof(Modifiers))
                     NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };

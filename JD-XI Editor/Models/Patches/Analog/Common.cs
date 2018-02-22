@@ -38,7 +38,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 (byte) (OctaveShift + 64),
                 (byte) PitchBendRangeUp,
                 (byte) PitchBendRangeDown,
-                (byte) 0x00     //Reserve
+                (byte) 0x00 //Reserve
             };
         }
 

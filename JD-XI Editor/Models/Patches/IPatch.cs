@@ -7,6 +7,10 @@
         /// </summary>
         void Reset();
 
+        /// <summary>
+        ///     Get bytes of the patch
+        /// </summary>
+        /// <returns>Bytes</returns>
         byte[] GetBytes();
     }
 }

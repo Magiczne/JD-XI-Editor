@@ -54,7 +54,7 @@
                               ArcEndAngle="150" ArcStartAngle="-150"
                               Minimum="0" Maximum="127"
                               HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                              Value="{Binding Patch.Parameters.Time}" 
+                              Value="{Binding Patch.Parameters.Time}"
                               IsEnabled="{Binding Patch.Basic.On}" />
             <TextBlock Text="Time"
                        TextAlignment="Center"
@@ -67,7 +67,7 @@
                               ArcEndAngle="150" ArcStartAngle="-150"
                               Minimum="0" Maximum="127"
                               HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                              Value="{Binding Patch.Parameters.Level}" 
+                              Value="{Binding Patch.Parameters.Level}"
                               IsEnabled="{Binding Patch.Basic.On}" />
             <TextBlock Text="Level"
                        TextAlignment="Center"

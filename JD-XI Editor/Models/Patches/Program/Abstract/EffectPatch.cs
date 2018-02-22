@@ -17,53 +17,17 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
         /// <inheritdoc />
         public abstract byte[] GetBytes();
 
-        #region Fields
-
-        /// <summary>
-        ///     Basic effect patch data
-        /// </summary>
-        private IPatchPart _basic;
-
-        /// <summary>
-        ///     Delay parameters
-        /// </summary>
-        private EffectParameters _parameters;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Basic Data
         /// </summary>
-        public IPatchPart Basic
-        {
-            get => _basic;
-            set
-            {
-                if (value != _basic)
-                {
-                    _basic = value;
-                    NotifyOfPropertyChange(nameof(Basic));
-                }
-            }
-        }
+        public IPatchPart Basic { get; protected set; }
 
         /// <summary>
         ///     Delay parameters
         /// </summary>
-        public EffectParameters Parameters
-        {
-            get => _parameters;
-            set
-            {
-                if (value != _parameters)
-                {
-                    _parameters = value;
-                    NotifyOfPropertyChange(nameof(Parameters));
-                }
-            }
-        }
+        public EffectParameters Parameters { get; protected set; }
 
         #endregion
     }

@@ -3,7 +3,7 @@
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
           xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
-          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl" 
+          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
           Style="{StaticResource MetroGroupBox}"
           Header="Delay">
     <Grid>
@@ -38,7 +38,7 @@
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding Patch.Parameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding Patch.Parameters.Type}" 
+                  SelectedValue="{Binding Patch.Parameters.Type}"
                   IsEnabled="{Binding Patch.Basic.On}" />
 
         <Label Grid.Row="2" Grid.Column="0"
@@ -63,7 +63,7 @@
                   SelectedValue="{Binding Patch.Parameters.Note}">
             <ComboBox.IsEnabled>
                 <MultiBinding Converter="{StaticResource BooleanAndConverter}">
-                    <Binding Path="NoteModeSelected"  />
+                    <Binding Path="NoteModeSelected" />
                     <Binding Path="Patch.Basic.On" />
                 </MultiBinding>
             </ComboBox.IsEnabled>
@@ -77,7 +77,7 @@
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding Patch.Parameters.HfDamp, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding Patch.Parameters.HfDamp}" 
+                  SelectedValue="{Binding Patch.Parameters.HfDamp}"
                   IsEnabled="{Binding Patch.Basic.On}" />
 
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"
@@ -98,7 +98,7 @@
                                   Value="{Binding Patch.Parameters.Time}">
                     <knobControl:Knob.IsEnabled>
                         <MultiBinding Converter="{StaticResource BooleanAndConverter}">
-                            <Binding Path="TimeModeSelected"  />
+                            <Binding Path="TimeModeSelected" />
                             <Binding Path="Patch.Basic.On" />
                         </MultiBinding>
                     </knobControl:Knob.IsEnabled>

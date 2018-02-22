@@ -6,16 +6,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class FlangerViewModel : Screen
     {
-        /// <summary>
-        ///     Flanger parameters
-        /// </summary>
-        public FlangerParameters FlangerParameters { get; }
-
-        /// <summary>
-        ///     Is Rate Mode Selected
-        /// </summary>
-        public bool IsRateModeSelected => FlangerParameters.Mode == Mode.Rate;
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of FlangerViewModel
@@ -29,5 +19,15 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
                 NotifyOfPropertyChange(nameof(IsRateModeSelected));
             };
         }
+
+        /// <summary>
+        ///     Flanger parameters
+        /// </summary>
+        public FlangerParameters FlangerParameters { get; }
+
+        /// <summary>
+        ///     Is Rate Mode Selected
+        /// </summary>
+        public bool IsRateModeSelected => FlangerParameters.Mode == Mode.Rate;
     }
 }

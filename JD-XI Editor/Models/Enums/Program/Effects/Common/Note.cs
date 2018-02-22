@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Program.Effects.Common
 {
     internal enum Note : byte
     {
-        [Description("1/96")] OneNinetySixth = 0x00,
-        [Description("1/64")] OneSixtyFourth = 0x01,
+        [Description("1/96")] OneNinetySixth = 0x0,
+        [Description("1/64")] OneSixtyFourth = 0x1,
         [Description("1/48")] OneFortyEight,
         [Description("1/32")] OneThirtySecond,
         [Description("1/24")] OneTwentyFourth,

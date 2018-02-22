@@ -15,7 +15,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         {
             Reset();
         }
-        
+
         /// <inheritdoc />
         public void Reset()
         {
@@ -37,7 +37,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             {
                 (byte) Shape,
                 (byte) WaveVariation,
-                (byte) 0x00,    //Reserve
+                (byte) 0x00, //Reserve
                 (byte) (Pitch + 64),
                 (byte) (Detune + 64),
                 (byte) PulseWidthModDepth,
@@ -132,7 +132,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Pitch
+        ///     Pitch
         /// </summary>
         public int Pitch
         {
@@ -148,7 +148,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Detune
+        ///     Detune
         /// </summary>
         public int Detune
         {
@@ -164,7 +164,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Pulse width
+        ///     Pulse width
         /// </summary>
         public int PulseWidth
         {
@@ -180,7 +180,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Pulse width modulation depth
+        ///     Pulse width modulation depth
         /// </summary>
         public int PulseWidthModDepth
         {
@@ -196,7 +196,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Attack
+        ///     Attack
         /// </summary>
         public int Attack
         {
@@ -212,7 +212,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Decay
+        ///     Decay
         /// </summary>
         public int Decay
         {
@@ -228,7 +228,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <summary>
-        /// Envelope depth
+        ///     Envelope depth
         /// </summary>
         public int EnvelopeDepth
         {

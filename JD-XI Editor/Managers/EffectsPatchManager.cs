@@ -13,7 +13,10 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Offset for specified effect
         /// </summary>
-        private static IEnumerable<byte> EffectOffset(Effect effect) => new byte[] {0x18, 0x00, (byte) effect, 0x00};
+        private static IEnumerable<byte> EffectOffset(Effect effect)
+        {
+            return new byte[] {0x18, 0x00, (byte) effect, 0x00};
+        }
 
         #region Methods
 

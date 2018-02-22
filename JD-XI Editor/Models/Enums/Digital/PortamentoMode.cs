@@ -2,7 +2,7 @@
 {
     internal enum PortamentoMode : byte
     {
-        Normal = 0x00,
-        Legato = 0x01
+        Normal = 0x0,
+        Legato = 0x1
     }
 }

@@ -34,7 +34,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
                 (byte) Level,
                 (byte) DelaySendLevel,
                 (byte) ReverbSendLevel,
-                0x00    //Reserve
+                0x00 //Reserve
             };
         }
 

@@ -2,8 +2,8 @@
 {
     internal enum WmtVelocityControl : byte
     {
-        Off = 0x00,
-        On = 0x01,
-        Random = 0x02
+        Off = 0x0,
+        On = 0x1,
+        Random
     }
 }

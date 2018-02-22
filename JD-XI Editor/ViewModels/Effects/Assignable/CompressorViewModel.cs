@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class CompressorViewModel : Screen
     {
-        /// <summary>
-        ///     Compressor parameters
-        /// </summary>
-        public CompressorParameters CompressorParameters { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of CompressorViewModel
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         {
             CompressorParameters = parameters;
         }
+
+        /// <summary>
+        ///     Compressor parameters
+        /// </summary>
+        public CompressorParameters CompressorParameters { get; }
     }
 }

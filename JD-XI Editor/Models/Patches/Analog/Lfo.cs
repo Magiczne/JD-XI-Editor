@@ -10,7 +10,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of Lfo
+        ///     Creates new instance of Lfo
         /// </summary>
         public Lfo()
         {
@@ -44,54 +44,54 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 (byte) (PitchDepth + 64),
                 (byte) (FilterDepth + 64),
                 (byte) (AmpDepth + 64),
-                ByteUtils.BooleanToByte(KeyTrigger),
+                ByteUtils.BooleanToByte(KeyTrigger)
             };
         }
 
         #region Fields
 
         /// <summary>
-        /// LFO shape
+        ///     LFO shape
         /// </summary>
         private LfoShape _shape;
 
         /// <summary>
-        /// Rate
+        ///     Rate
         /// </summary>
         private int _rate;
 
         /// <summary>
-        /// Fade time
+        ///     Fade time
         /// </summary>
         private int _fadeTime;
 
         /// <summary>
-        /// Is tempo synchronization on
+        ///     Is tempo synchronization on
         /// </summary>
         private bool _tempoSync;
 
         /// <summary>
-        /// Tempo synchronization base note
+        ///     Tempo synchronization base note
         /// </summary>
         private SyncNote _syncNote;
 
         /// <summary>
-        /// Pitch depth
+        ///     Pitch depth
         /// </summary>
         private int _pitchDepth;
 
         /// <summary>
-        /// Filter depth
+        ///     Filter depth
         /// </summary>
         private int _filterDepth;
 
         /// <summary>
-        /// Amplifier depth
+        ///     Amplifier depth
         /// </summary>
         private int _ampDepth;
 
         /// <summary>
-        /// Is key trigger on
+        ///     Is key trigger on
         /// </summary>
         private bool _keyTrigger;
 
@@ -100,7 +100,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         #region Properties
 
         /// <summary>
-        /// LFO shape
+        ///     LFO shape
         /// </summary>
         public LfoShape Shape
         {
@@ -116,7 +116,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Rate
+        ///     Rate
         /// </summary>
         public int Rate
         {
@@ -132,7 +132,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Fade time
+        ///     Fade time
         /// </summary>
         public int FadeTime
         {
@@ -148,7 +148,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Is tempo synchronization on
+        ///     Is tempo synchronization on
         /// </summary>
         public bool TempoSync
         {
@@ -164,7 +164,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Tempo synchronization base note
+        ///     Tempo synchronization base note
         /// </summary>
         public SyncNote SyncNote
         {
@@ -180,7 +180,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Pitch depth
+        ///     Pitch depth
         /// </summary>
         public int PitchDepth
         {
@@ -196,7 +196,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Filter depth
+        ///     Filter depth
         /// </summary>
         public int FilterDepth
         {
@@ -212,7 +212,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Amplifier depth
+        ///     Amplifier depth
         /// </summary>
         public int AmpDepth
         {
@@ -228,7 +228,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Is key trigger on
+        ///     Is key trigger on
         /// </summary>
         public bool KeyTrigger
         {

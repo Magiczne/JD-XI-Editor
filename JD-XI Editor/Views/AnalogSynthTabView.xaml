@@ -47,9 +47,9 @@
             </i:Interaction.Triggers>
         </Button>
         <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                               Width="150" Height="35" 
+                               Width="150" Height="35"
                                VerticalAlignment="Top" HorizontalAlignment="Right"
-                               OnLabel="Auto Sync" OffLabel="Auto Sync" 
+                               OnLabel="Auto Sync" OffLabel="Auto Sync"
                                IsChecked="{Binding AutoSync}" />
         <Button Grid.Column="3" Grid.Row="0"
                 Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
@@ -100,7 +100,7 @@
             <TextBox MaxLength="12"
                      Grid.Column="0" Grid.Row="1"
                      VerticalAlignment="Top"
-                     Margin="0 0 5 0" 
+                     Margin="0 0 5 0"
                      Text="{Binding Patch.Name}" />
 
             <CheckBox Grid.Column="1" Grid.Row="0"

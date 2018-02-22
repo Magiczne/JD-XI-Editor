@@ -1,29 +1,58 @@
 ﻿using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models
 {
     internal class Adsr : PropertyChangedBase
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Create new instance of ADSR
+        /// </summary>
+        /// <param name="attack">Attack</param>
+        /// <param name="decay">Decay</param>
+        /// <param name="sustain">Sustain</param>
+        /// <param name="release">Release</param>
+        public Adsr(int attack, int decay, int sustain, int release)
+        {
+            Set(attack, decay, sustain, release);
+        }
+
+        /// <summary>
+        ///     Set all params at once
+        /// </summary>
+        /// <param name="attack">Attack</param>
+        /// <param name="decay">Decay</param>
+        /// <param name="sustain">Sustain</param>
+        /// <param name="release">Release</param>
+        public void Set(int attack, int decay, int sustain, int release)
+        {
+            Attack = attack;
+            Decay = decay;
+            Sustain = sustain;
+            Release = release;
+        }
+
         #region Fields
 
         /// <summary>
-        /// Attack
+        ///     Attack
         /// </summary>
         private int _attack;
 
         /// <summary>
-        /// Decay
+        ///     Decay
         /// </summary>
         private int _decay;
 
         /// <summary>
-        /// Sustain
+        ///     Sustain
         /// </summary>
         private int _sustain;
 
         /// <summary>
-        /// Release
+        ///     Release
         /// </summary>
         private int _release;
 
@@ -32,7 +61,7 @@ namespace JD_XI_Editor.Models
         #region Properties
 
         /// <summary>
-        /// Attack
+        ///     Attack
         /// </summary>
         public int Attack
         {
@@ -48,7 +77,7 @@ namespace JD_XI_Editor.Models
         }
 
         /// <summary>
-        /// Decay
+        ///     Decay
         /// </summary>
         public int Decay
         {
@@ -64,7 +93,7 @@ namespace JD_XI_Editor.Models
         }
 
         /// <summary>
-        /// Sustain
+        ///     Sustain
         /// </summary>
         public int Sustain
         {
@@ -80,7 +109,7 @@ namespace JD_XI_Editor.Models
         }
 
         /// <summary>
-        /// Release
+        ///     Release
         /// </summary>
         public int Release
         {
@@ -95,34 +124,6 @@ namespace JD_XI_Editor.Models
             }
         }
 
-
         #endregion
-
-        /// <summary>
-        /// Create new instance of ADSR
-        /// </summary>
-        /// <param name="attack">Attack</param>
-        /// <param name="decay">Decay</param>
-        /// <param name="sustain">Sustain</param>
-        /// <param name="release">Release</param>
-        public Adsr(int attack, int decay, int sustain, int release)
-        {
-            Set(attack, decay, sustain, release);
-        }
-
-        /// <summary>
-        /// Set all params at once
-        /// </summary>
-        /// <param name="attack">Attack</param>
-        /// <param name="decay">Decay</param>
-        /// <param name="sustain">Sustain</param>
-        /// <param name="release">Release</param>
-        public void Set(int attack, int decay, int sustain, int release)
-        {
-            Attack = attack;
-            Decay = decay;
-            Sustain = sustain;
-            Release = release;
-        }
     }
 }

@@ -76,7 +76,7 @@
         </Grid>
     </GroupBox>
 
-    <ContentControl x:Name="ActiveItem" 
+    <ContentControl x:Name="ActiveItem"
                     Grid.Row="1"
                     Margin="0 10 0 0" />
 </Grid>

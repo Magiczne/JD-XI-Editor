@@ -58,158 +58,42 @@ namespace JD_XI_Editor.Models.Patches.Digital
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Oscillator
-        /// </summary>
-        private Oscillator _oscillator;
-
-        /// <summary>
-        ///     Filter
-        /// </summary>
-        private Filter _filter;
-
-        /// <summary>
-        ///     Amplifier
-        /// </summary>
-        private Amplifier _amplifier;
-
-        /// <summary>
-        ///     LFO
-        /// </summary>
-        private Lfo _lfo;
-
-        /// <summary>
-        ///     Mod LFO
-        /// </summary>
-        private ModLfo _modLfo;
-
-        /// <summary>
-        ///     Aftertouch
-        /// </summary>
-        private Aftertouch _aftertouch;
-
-        /// <summary>
-        ///     Misc data
-        /// </summary>
-        private Other _other;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Oscillator
         /// </summary>
-        public Oscillator Oscillator
-        {
-            get => _oscillator;
-            set
-            {
-                if (value != _oscillator)
-                {
-                    _oscillator = value;
-                    NotifyOfPropertyChange(nameof(Oscillator));
-                }
-            }
-        }
+        public Oscillator Oscillator { get; }
 
         /// <summary>
         ///     Filter
         /// </summary>
-        public Filter Filter
-        {
-            get => _filter;
-            set
-            {
-                if (value != _filter)
-                {
-                    _filter = value;
-                    NotifyOfPropertyChange(nameof(Filter));
-                }
-            }
-        }
+        public Filter Filter { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
-        public Amplifier Amplifier
-        {
-            get => _amplifier;
-            set
-            {
-                if (value != _amplifier)
-                {
-                    _amplifier = value;
-                    NotifyOfPropertyChange(nameof(Amplifier));
-                }
-            }
-        }
+        public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     LFO
         /// </summary>
-        public Lfo Lfo
-        {
-            get => _lfo;
-            set
-            {
-                if (value != _lfo)
-                {
-                    _lfo = value;
-                    NotifyOfPropertyChange(nameof(Lfo));
-                }
-            }
-        }
+        public Lfo Lfo { get; }
 
         /// <summary>
         ///     Mod LFO
         /// </summary>
-        public ModLfo ModLfo
-        {
-            get => _modLfo;
-            set
-            {
-                if (value != _modLfo)
-                {
-                    _modLfo = value;
-                    NotifyOfPropertyChange(nameof(ModLfo));
-                }
-            }
-        }
+        public ModLfo ModLfo { get; }
 
         /// <summary>
         ///     Aftertouch
         /// </summary>
-        public Aftertouch Aftertouch
-        {
-            get => _aftertouch;
-            set
-            {
-                if (value != _aftertouch)
-                {
-                    _aftertouch = value;
-                    NotifyOfPropertyChange(nameof(Aftertouch));
-                }
-            }
-        }
+        public Aftertouch Aftertouch { get; }
 
         /// <summary>
         ///     Misc data
         /// </summary>
-        public Other Other
-        {
-            get => _other;
-            set
-            {
-                if (value != _other)
-                {
-                    _other = value;
-                    NotifyOfPropertyChange(nameof(Other));
-                }
-            }
-        }
+        public Other Other { get; }
 
         #endregion
     }

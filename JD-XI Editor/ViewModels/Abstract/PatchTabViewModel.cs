@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels.Abstract

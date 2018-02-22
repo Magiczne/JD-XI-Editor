@@ -2,7 +2,7 @@
 {
     internal enum AssignType : byte
     {
-        Multi = 0x00,
-        Single = 0x01
+        Multi = 0x0,
+        Single = 0x1
     }
 }

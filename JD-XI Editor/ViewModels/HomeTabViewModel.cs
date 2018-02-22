@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 
 namespace JD_XI_Editor.ViewModels
 {

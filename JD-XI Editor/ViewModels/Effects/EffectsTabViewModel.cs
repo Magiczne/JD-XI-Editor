@@ -19,6 +19,54 @@ namespace JD_XI_Editor.ViewModels.Effects
         /// </summary>
         private readonly EffectPatch _patch;
 
+        public EffectsTabViewModel(IEventAggregator eventAggregator)
+            : base(eventAggregator, new EffectsPatchManager())
+        {
+            DisplayName = "Effects";
+
+            _patch = new EffectPatch();
+            Effect1 = new Effect1ViewModel(_patch.Effect1);
+            Effect2 = new Effect2ViewModel(_patch.Effect2);
+            Delay = new DelayViewModel(_patch.Delay);
+            Reverb = new ReverbViewModel(_patch.Reverb);
+
+            _patch.Effect1.PropertyChanged += (sender, args) =>
+            {
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var effectsPatchManager = (IEffectsPatchManager) PatchManager;
+                    effectsPatchManager.DumpEffect(_patch.Effect1, Effect.Effect1, SelectedOutputDeviceId);
+                }
+            };
+
+            _patch.Effect2.PropertyChanged += (sender, args) =>
+            {
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var effectsPatchManager = (IEffectsPatchManager) PatchManager;
+                    effectsPatchManager.DumpEffect(_patch.Effect2, Effect.Effect2, SelectedOutputDeviceId);
+                }
+            };
+
+            _patch.Delay.PropertyChanged += (sender, args) =>
+            {
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var effectsPatchManager = (IEffectsPatchManager) PatchManager;
+                    effectsPatchManager.DumpEffect(_patch.Delay, Effect.Delay, SelectedOutputDeviceId);
+                }
+            };
+
+            _patch.Reverb.PropertyChanged += (sender, args) =>
+            {
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var effectsPatchManager = (IEffectsPatchManager) PatchManager;
+                    effectsPatchManager.DumpEffect(_patch.Reverb, Effect.Reverb, SelectedOutputDeviceId);
+                }
+            };
+        }
+
         /// <summary>
         ///     Effect 1 View Model
         /// </summary>
@@ -39,61 +87,10 @@ namespace JD_XI_Editor.ViewModels.Effects
         /// </summary>
         public ReverbViewModel Reverb { get; }
 
-        public EffectsTabViewModel(IEventAggregator eventAggregator)
-            : base(eventAggregator, new EffectsPatchManager())
-        {
-            DisplayName = "Effects";
-
-            _patch = new EffectPatch();
-            Effect1 = new Effect1ViewModel(_patch.Effect1);
-            Effect2 = new Effect2ViewModel(_patch.Effect2);
-            Delay = new DelayViewModel(_patch.Delay);
-            Reverb = new ReverbViewModel(_patch.Reverb);
-
-            _patch.Effect1.PropertyChanged += (sender, args) =>
-            {
-                if (AutoSync && SelectedOutputDeviceId != -1)
-                {
-                    var effectsPatchManager = (IEffectsPatchManager)PatchManager;
-                    effectsPatchManager.DumpEffect(_patch.Effect1, Effect.Effect1, SelectedOutputDeviceId);
-                }
-            };
-
-            _patch.Effect2.PropertyChanged += (sender, args) =>
-            {
-                if (AutoSync && SelectedOutputDeviceId != -1)
-                {
-                    var effectsPatchManager = (IEffectsPatchManager)PatchManager;
-                    effectsPatchManager.DumpEffect(_patch.Effect2, Effect.Effect2, SelectedOutputDeviceId);
-                }
-            };
-
-            _patch.Delay.PropertyChanged += (sender, args) =>
-            {
-                if (AutoSync && SelectedOutputDeviceId != -1)
-                {
-                    var effectsPatchManager = (IEffectsPatchManager)PatchManager;
-                    effectsPatchManager.DumpEffect(_patch.Delay, Effect.Delay, SelectedOutputDeviceId);
-                }
-            };
-
-            _patch.Reverb.PropertyChanged += (sender, args) =>
-            {
-                if (AutoSync && SelectedOutputDeviceId != -1)
-                {
-                    var effectsPatchManager = (IEffectsPatchManager)PatchManager;
-                    effectsPatchManager.DumpEffect(_patch.Reverb, Effect.Reverb, SelectedOutputDeviceId);
-                }
-            };
-        }
-
         /// <inheritdoc />
         public override void Dump()
         {
-            if (SelectedOutputDeviceId != -1)
-            {
-                PatchManager.Dump(_patch, SelectedOutputDeviceId);
-            }
+            if (SelectedOutputDeviceId != -1) PatchManager.Dump(_patch, SelectedOutputDeviceId);
         }
 
         /// <inheritdoc />

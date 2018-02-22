@@ -11,8 +11,11 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="Border" Background="{StaticResource TextBoxBackground}" BorderBrush="{StaticResource TextBoxBorderBrush}" BorderThickness="0" Grid.ColumnSpan="2" SnapsToDevicePixels="True" />
-            <Path x:Name="Arrow" Fill="{StaticResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Opacity="0.6" Data="M 0 0 L 4 4 L 8 0 Z" />
+            <Border x:Name="Border" Background="{StaticResource TextBoxBackground}"
+                    BorderBrush="{StaticResource TextBoxBorderBrush}" BorderThickness="0" Grid.ColumnSpan="2"
+                    SnapsToDevicePixels="True" />
+            <Path x:Name="Arrow" Fill="{StaticResource Foreground}" HorizontalAlignment="Center"
+                  VerticalAlignment="Center" Grid.Column="1" Opacity="0.6" Data="M 0 0 L 4 4 L 8 0 Z" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="True">
@@ -58,8 +61,8 @@
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Center"
                                           Margin="3, 3, 23, 3"
-                                          Content="{TemplateBinding SelectionBoxItem}" 
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
                         <TextBox x:Name="PART_EditableTextBox"
                                  Style="{x:Null}"
@@ -71,7 +74,7 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Margin="3, 3, 23, 3"
-                                 Focusable="True" 
+                                 Focusable="True"
                                  IsReadOnly="{TemplateBinding IsReadOnly}" />
                         <Popup Name="Popup"
                                Placement="Bottom"
@@ -123,8 +126,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsHighlighted" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource BorderBrushSelected}" />
-                                    <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource BorderBrushSelected}" />
+                                    <Setter TargetName="Border" Property="Background"
+                                            Value="{StaticResource BorderBrushSelected}" />
+                                    <Setter TargetName="Border" Property="BorderBrush"
+                                            Value="{StaticResource BorderBrushSelected}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

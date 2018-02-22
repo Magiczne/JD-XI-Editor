@@ -1,10 +1,20 @@
 ﻿using Caliburn.Micro;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Pitch : PropertyChangedBase, IPatchPart
     {
+        #region Fields
+
+        /// <summary>
+        ///     Pitch Envelope
+        /// </summary>
+        private Envelope _envelope;
+
+        #endregion
+
         /// <inheritdoc />
         public Pitch()
         {
@@ -13,6 +23,25 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
+
+        #region Properties
+
+        /// <summary>
+        /// </summary>
+        public Envelope Envelope
+        {
+            get => _envelope;
+            set
+            {
+                if (value != _envelope)
+                {
+                    _envelope = value;
+                    NotifyOfPropertyChange(nameof(Envelope));
+                }
+            }
+        }
+
+        #endregion
 
         /// <inheritdoc />
         public void Reset()
@@ -56,34 +85,5 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) (Envelope.Level4 + 64)
             };
         }
-
-        #region Fields
-
-        /// <summary>
-        ///     Pitch Envelope
-        /// </summary>
-        private Envelope _envelope;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Envelope Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
-
-        #endregion
     }
 }

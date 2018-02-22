@@ -69,8 +69,8 @@
                         </Border>
                         <Border x:Name="ContentPanel" Grid.Row="1"
                                 Background="{StaticResource Background}"
-                                KeyboardNavigation.DirectionalNavigation="Contained" 
-                                KeyboardNavigation.TabIndex="2" 
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabIndex="2"
                                 KeyboardNavigation.TabNavigation="Local">
                             <!-- https://stackoverflow.com/questions/9794151/stop-tabcontrol-from-recreating-its-children -->
                             <Grid x:Name="PART_ItemsHolder"

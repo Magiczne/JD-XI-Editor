@@ -1,5 +1,6 @@
-﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums.Program.VocalEffect;
+﻿using System;
+using Caliburn.Micro;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -8,13 +9,13 @@ namespace JD_XI_Editor.Models.Patches.Program
         /// <inheritdoc />
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         #region Fields
@@ -23,7 +24,7 @@ namespace JD_XI_Editor.Models.Patches.Program
         ///     Program Name (12 chars)
         /// </summary>
         private string _name;
-            
+
         /// <summary>
         ///     Program Level
         /// </summary>

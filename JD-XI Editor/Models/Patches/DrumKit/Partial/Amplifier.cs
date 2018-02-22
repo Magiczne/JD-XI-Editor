@@ -37,7 +37,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) (FineTune + 64),
                 (byte) RandomPitchDepth,
                 (byte) (Panorama + 64),
-                (byte) (RandomPanoramaDepth),
+                (byte) RandomPanoramaDepth,
                 (byte) (AlternatePanoramaDepth + 64),
                 (byte) EnvelopeMode
             };

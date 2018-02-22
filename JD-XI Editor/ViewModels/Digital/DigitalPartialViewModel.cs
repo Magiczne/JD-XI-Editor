@@ -3,6 +3,7 @@ using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 
+// ReSharper disable SwitchStatementMissingSomeCases
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels.Digital
@@ -60,32 +61,12 @@ namespace JD_XI_Editor.ViewModels.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Partial
-        /// </summary>
-        private Partial _partial;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Partial
         /// </summary>
-        public Partial Partial
-        {
-            get => _partial;
-            private set
-            {
-                if (value != _partial)
-                {
-                    _partial = value;
-                    NotifyOfPropertyChange(nameof(Partial));
-                }
-            }
-        }
+        public Partial Partial { get; }
 
         /// <summary>
         ///     Wave variation A checked

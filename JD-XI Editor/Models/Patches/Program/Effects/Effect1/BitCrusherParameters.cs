@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf

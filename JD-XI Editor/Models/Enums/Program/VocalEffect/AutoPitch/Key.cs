@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch
 {
     internal enum Key : byte
     {
-        [Description("C")] C = 0x00,
-        [Description("D♭")] DFlat = 0x01,
+        [Description("C")] C = 0x0,
+        [Description("D♭")] DFlat = 0x1,
         [Description("D")] D,
         [Description("E♭")] EFlat,
         [Description("E")] E,

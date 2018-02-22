@@ -11,7 +11,7 @@ namespace JD_XI_Editor.Utils.Converters
     public class EnumToCollectionConverter : MarkupExtension, IValueConverter
     {
         /// <summary>
-        /// Convert value
+        ///     Convert value
         /// </summary>
         /// <param name="value">Value</param>
         /// <param name="targetType">Target type</param>
@@ -27,7 +27,7 @@ namespace JD_XI_Editor.Utils.Converters
         }
 
         /// <summary>
-        /// Convert value back
+        ///     Convert value back
         /// </summary>
         /// <param name="value">Value</param>
         /// <param name="targetType">Target type</param>
@@ -40,7 +40,7 @@ namespace JD_XI_Editor.Utils.Converters
         }
 
         /// <summary>
-        /// Returns an object that is provided as the value of the target property for this markup extension.
+        ///     Returns an object that is provided as the value of the target property for this markup extension.
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns>The object value to set on the property where the extension is applied.</returns>

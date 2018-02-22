@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 using JD_XI_Editor.Utils;
 
@@ -11,7 +12,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
@@ -26,7 +27,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
                 (byte) SynthLevel,
                 (byte) MicrophoneMixLevel,
                 (byte) MicrophoneHpf,
-                0x00    // Reserve
+                0x00 // Reserve
             };
         }
 

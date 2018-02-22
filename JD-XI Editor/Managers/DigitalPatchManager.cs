@@ -9,17 +9,15 @@ namespace JD_XI_Editor.Managers
 {
     internal class DigitalPatchManager : IDigitalPatchManager
     {
-        public DigitalPatchManager(DigitalSynth synthNumber)
-        {
-            _synthNumber = synthNumber;
-        }
-
-        #region Fields
-
         /// <summary>
         ///     Digital synth number
         /// </summary>
         private readonly DigitalSynth _synthNumber;
+
+        public DigitalPatchManager(DigitalSynth synthNumber)
+        {
+            _synthNumber = synthNumber;
+        }
 
         /// <summary>
         ///     Common address offset
@@ -27,16 +25,9 @@ namespace JD_XI_Editor.Managers
         private IEnumerable<byte> CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
 
         /// <summary>
-        ///     Partial address offset
-        /// </summary>
-        private byte[] PartialAddressOffset(DigitalPartial partial) => new byte[] { 0x19, (byte)_synthNumber, (byte)partial, 0x00 };
-
-        /// <summary>
         ///     Modifiers address offset
         /// </summary>
-        private IEnumerable<byte> ModifiersAddressOffset => new byte[] { 0x19, (byte) _synthNumber, 0x50, 0x00 };
-
-        #endregion
+        private IEnumerable<byte> ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
 
         #region Methods
 
@@ -89,6 +80,14 @@ namespace JD_XI_Editor.Managers
             return bytes.ToArray();
         }
 
+        /// <summary>
+        ///     Partial address offset
+        /// </summary>
+        private byte[] PartialAddressOffset(DigitalPartial partial)
+        {
+            return new byte[] {0x19, (byte) _synthNumber, (byte) partial, 0x00};
+        }
+
         #endregion
 
         #region IDigitalPatchManager
@@ -96,7 +95,7 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
-            var digitalPatch = (Patch)patch;
+            var digitalPatch = (Patch) patch;
 
             var commonData = GetCommonSysexData(digitalPatch.Common);
             var partial1Data = GetPartialSysexData(digitalPatch.PartialOne, DigitalPartial.First);

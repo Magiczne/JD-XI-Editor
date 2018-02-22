@@ -2,8 +2,8 @@
 {
     internal enum WaveVariation : byte
     {
-        A = 0x00,
-        B = 0x01,
-        C = 0x02
+        A = 0x0,
+        B = 0x1,
+        C
     }
 }

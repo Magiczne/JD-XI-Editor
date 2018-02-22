@@ -33,7 +33,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Drive));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte)Type));
+            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Presence));
             bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
 

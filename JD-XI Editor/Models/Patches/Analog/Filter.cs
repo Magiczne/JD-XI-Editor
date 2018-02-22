@@ -77,11 +77,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
         private int _cutoffKeyfollow;
 
         /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Adsr _envelope;
-
-        /// <summary>
         ///     Envelope depth
         /// </summary>
         private int _envelopeDepth;
@@ -162,18 +157,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Envelope
         /// </summary>
-        public Adsr Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        public Adsr Envelope { get; }
 
         /// <summary>
         ///     Envelope depth

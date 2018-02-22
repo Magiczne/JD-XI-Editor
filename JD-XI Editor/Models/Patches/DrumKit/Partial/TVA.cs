@@ -16,6 +16,11 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
 
+        /// <summary>
+        ///     TVA Envelope
+        /// </summary>
+        public Envelope Envelope { get; }
+
         /// <inheritdoc />
         public void Reset()
         {
@@ -55,31 +60,5 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) Envelope.Level3
             };
         }
-
-        #region Fields
-
-        /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Envelope _envelope;
-
-        #endregion
-
-        #region Properties
-
-        public Envelope Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
-
-        #endregion
     }
 }

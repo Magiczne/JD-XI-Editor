@@ -2,8 +2,8 @@
 {
     internal enum AlternatePan : byte
     {
-        Off = 0x00,
-        On = 0x01,
-        Reverse = 0x02
+        Off = 0x0,
+        On = 0x1,
+        Reverse
     }
 }

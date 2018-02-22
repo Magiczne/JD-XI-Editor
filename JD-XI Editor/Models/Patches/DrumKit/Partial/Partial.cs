@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Documents;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 
@@ -86,76 +85,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Fields
 
-        /// <summary>
-        ///     Basic
-        /// </summary>
-        private Basic _basic;
-
-        /// <summary>
-        ///     Assign
-        /// </summary>
-        private Assign _assign;
-
-        /// <summary>
-        ///     Amplifier
-        /// </summary>
-        private Amplifier _amplifier;
-
-        /// <summary>
-        ///     Output
-        /// </summary>
-        private Output _output;
-
-        /// <summary>
-        ///     Expression
-        /// </summary>
-        private Expression _expression;
-
-        /// <summary>
-        ///     WMT Velocity control
-        /// </summary>
-        private VelocityControl _velocityControl;
-
-        /// <summary>
-        ///     WMT 1
-        /// </summary>
-        private Wmt.Wmt _wmt1;
-
-        /// <summary>
-        ///     WMT 2
-        /// </summary>
-        private Wmt.Wmt _wmt2;
-
-        /// <summary>
-        ///     WMT 3
-        /// </summary>
-        private Wmt.Wmt _wmt3;
-
-        /// <summary>
-        ///     WMT 4
-        /// </summary>
-        private Wmt.Wmt _wmt4;
-
-        /// <summary>
-        ///     Pitch
-        /// </summary>
-        private Pitch _pitch;
-
-        /// <summary>
-        ///     TVF
-        /// </summary>
-        private Tvf _tvf;
-
-        /// <summary>
-        ///     TVA
-        /// </summary>
-        private Tva _tva;
-
-        /// <summary>
-        ///     Other
-        /// </summary>
-        private Other _other;
-
         #endregion
 
         #region Properties
@@ -163,226 +92,72 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     Basic
         /// </summary>
-        public Basic Basic
-        {
-            get => _basic;
-            set
-            {
-                if (value != _basic)
-                {
-                    _basic = value;
-                    NotifyOfPropertyChange(nameof(Basic));
-                }
-            }
-        }
+        public Basic Basic { get; }
 
         /// <summary>
         ///     Assign
         /// </summary>
-        public Assign Assign
-        {
-            get => _assign;
-            set
-            {
-                if (value != _assign)
-                {
-                    _assign = value;
-                    NotifyOfPropertyChange(nameof(Assign));
-                }
-            }
-        }
+        public Assign Assign { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
-        public Amplifier Amplifier
-        {
-            get => _amplifier;
-            set
-            {
-                if (value != _amplifier)
-                {
-                    _amplifier = value;
-                    NotifyOfPropertyChange(nameof(Amplifier));
-                }
-            }
-        }
+        public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     Output
         /// </summary>
-        public Output Output
-        {
-            get => _output;
-            set
-            {
-                if (value != _output)
-                {
-                    _output = value;
-                    NotifyOfPropertyChange(nameof(Output));
-                }
-            }
-        }
+        public Output Output { get; }
 
         /// <summary>
         ///     Expression
         /// </summary>
-        public Expression Expression
-        {
-            get => _expression;
-            set
-            {
-                if (value != _expression)
-                {
-                    _expression = value;
-                    NotifyOfPropertyChange(nameof(Expression));
-                }
-            }
-        }
+        public Expression Expression { get; }
 
         /// <summary>
         ///     WMT Velocity control
         /// </summary>
-        public VelocityControl VelocityControl
-        {
-            get => _velocityControl;
-            set
-            {
-                if (value != _velocityControl)
-                {
-                    _velocityControl = value;
-                    NotifyOfPropertyChange(nameof(VelocityControl));
-                }
-            }
-        }
+        public VelocityControl VelocityControl { get; }
 
         /// <summary>
         ///     WMT 1
         /// </summary>
-        public Wmt.Wmt Wmt1
-        {
-            get => _wmt1;
-            set
-            {
-                if (value != _wmt1)
-                {
-                    _wmt1 = value;
-                    NotifyOfPropertyChange(nameof(Wmt1));
-                }
-            }
-        }
+        public Wmt.Wmt Wmt1 { get; }
 
         /// <summary>
         ///     WMT 2
         /// </summary>
-        public Wmt.Wmt Wmt2
-        {
-            get => _wmt2;
-            set
-            {
-                if (value != _wmt2)
-                {
-                    _wmt2 = value;
-                    NotifyOfPropertyChange(nameof(Wmt2));
-                }
-            }
-        }
+        public Wmt.Wmt Wmt2 { get; }
 
         /// <summary>
         ///     WMT 3
         /// </summary>
-        public Wmt.Wmt Wmt3
-        {
-            get => _wmt3;
-            set
-            {
-                if (value != _wmt3)
-                {
-                    _wmt3 = value;
-                    NotifyOfPropertyChange(nameof(Wmt3));
-                }
-            }
-        }
+        public Wmt.Wmt Wmt3 { get; }
 
         /// <summary>
         ///     WMT 4
         /// </summary>
-        public Wmt.Wmt Wmt4
-        {
-            get => _wmt4;
-            set
-            {
-                if (value != _wmt4)
-                {
-                    _wmt4 = value;
-                    NotifyOfPropertyChange(nameof(Wmt4));
-                }
-            }
-        }
+        public Wmt.Wmt Wmt4 { get; }
 
         /// <summary>
         ///     Pitch
         /// </summary>
-        public Pitch Pitch
-        {
-            get => _pitch;
-            set
-            {
-                if (value != _pitch)
-                {
-                    _pitch = value;
-                    NotifyOfPropertyChange(nameof(Pitch));
-                }
-            }
-        }
+        public Pitch Pitch { get; }
 
         /// <summary>
         ///     TVF
         /// </summary>
-        public Tvf Tvf
-        {
-            get => _tvf;
-            set
-            {
-                if (value != _tvf)
-                {
-                    _tvf = value;
-                    NotifyOfPropertyChange(nameof(Tvf));
-                }
-            }
-        }
+        public Tvf Tvf { get; }
 
         /// <summary>
         ///     TVA
         /// </summary>
-        public Tva Tva
-        {
-            get => _tva;
-            set
-            {
-                if (value != _tva)
-                {
-                    _tva = value;
-                    NotifyOfPropertyChange(nameof(Tva));
-                }
-            }
-        }
+        public Tva Tva { get; }
 
         /// <summary>
         ///     Other
         /// </summary>
-        public Other Other
-        {
-            get => _other;
-            set
-            {
-                if (value != _other)
-                {
-                    _other = value;
-                    NotifyOfPropertyChange(nameof(Other));
-                }
-            }
-        }
+        public Other Other { get; }
 
         #endregion
     }

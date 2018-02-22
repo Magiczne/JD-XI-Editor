@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 // ReSharper disable InvertIf
@@ -29,8 +28,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             return new[]
             {
                 (byte) OutputLevel,
-                (byte) 0x00,    //Reserve
-                (byte) 0x00,    //Reserve
+                (byte) 0x00, //Reserve
+                (byte) 0x00, //Reserve
                 (byte) ChorusSendLevel,
                 (byte) ReverbSendLevel,
                 (byte) OutputAssign

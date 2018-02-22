@@ -7,7 +7,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         /// <inheritdoc />
         public override void Reset()
         {
-            
         }
 
         /// <inheritdoc />

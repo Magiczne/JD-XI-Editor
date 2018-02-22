@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Compressor
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Compressor
 {
     internal enum Release : byte
     {
-        [Description("0.05 ms")] ZeroPoint05 = 0x00,
-        [Description("0.07 ms")] ZeroPoint07 = 0x01,
+        [Description("0.05 ms")] ZeroPoint05 = 0x0,
+        [Description("0.07 ms")] ZeroPoint07 = 0x1,
         [Description("0.1 ms")] ZeroPoint1,
         [Description("0.5 ms")] ZeroPoint5,
         [Description("1 ms")] One,

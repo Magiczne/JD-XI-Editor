@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class RingModulationViewModel : Screen
     {
-        /// <summary>
-        ///     Ring modulation parameters
-        /// </summary>
-        public RingModulationParameters RingModulationParameters { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of RingModulationViewModel
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         {
             RingModulationParameters = parameters;
         }
+
+        /// <summary>
+        ///     Ring modulation parameters
+        /// </summary>
+        public RingModulationParameters RingModulationParameters { get; }
     }
 }

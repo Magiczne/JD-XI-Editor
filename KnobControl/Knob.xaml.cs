@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using KnobControl.Annotations;
 
+// ReSharper disable InheritdocConsiderUsage
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable InvertIf
 
@@ -170,7 +171,8 @@ namespace KnobControl
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value", typeof(int), typeof(Knob),
-            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValuePropertyChanged, OnValuePropertyCoerce));
+            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                OnValuePropertyChanged, OnValuePropertyCoerce));
 
         public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register(
             "Minumum", typeof(int), typeof(Knob),
@@ -237,7 +239,7 @@ namespace KnobControl
         }
 
         /// <summary>
-        /// Knob title
+        ///     Knob title
         /// </summary>
         [Category("Knob")]
         public string Title
@@ -245,7 +247,7 @@ namespace KnobControl
             get => (string) GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
         }
-        
+
         /// <summary>
         ///     Unit
         /// </summary>

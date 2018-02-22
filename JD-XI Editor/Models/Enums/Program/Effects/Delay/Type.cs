@@ -2,7 +2,7 @@
 {
     internal enum Type : byte
     {
-        Single = 0x00,
-        Pan = 0x01
+        Single = 0x0,
+        Pan = 0x1
     }
 }

@@ -61,11 +61,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// </summary>
         private int _levelVelSensitivity;
 
-        /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Adsr _envelope;
-
         #endregion
 
         #region Properties
@@ -121,18 +116,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Envelope
         /// </summary>
-        public Adsr Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        public Adsr Envelope { get; }
 
         #endregion
     }

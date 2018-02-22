@@ -8,21 +8,6 @@ namespace JD_XI_Editor.ViewModels.Effects
 {
     internal class DelayViewModel : Screen
     {
-        /// <summary>
-        ///     Delay patch
-        /// </summary>
-        public Patch Patch { get; }
-
-        /// <summary>
-        ///     Is time mode currently selected
-        /// </summary>
-        public bool TimeModeSelected => ((Parameters) Patch.Parameters).Mode == Mode.Time;
-
-        /// <summary>
-        ///     Is note mode currently selected
-        /// </summary>
-        public bool NoteModeSelected => ((Parameters) Patch.Parameters).Mode == Mode.Note;
-
         /// <inheritdoc />
         /// <summary>
         ///     Create new instance of Delay View Model
@@ -40,5 +25,20 @@ namespace JD_XI_Editor.ViewModels.Effects
                 }
             };
         }
+
+        /// <summary>
+        ///     Delay patch
+        /// </summary>
+        public Patch Patch { get; }
+
+        /// <summary>
+        ///     Is time mode currently selected
+        /// </summary>
+        public bool TimeModeSelected => ((Parameters) Patch.Parameters).Mode == Mode.Time;
+
+        /// <summary>
+        ///     Is note mode currently selected
+        /// </summary>
+        public bool NoteModeSelected => ((Parameters) Patch.Parameters).Mode == Mode.Note;
     }
 }

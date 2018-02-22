@@ -78,7 +78,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 ByteUtils.BooleanToByte(PartialThreeSwitch),
                 ByteUtils.BooleanToByte(PartialThreeSelect),
 
-                ByteUtils.BooleanToByte(Ring),
+                ByteUtils.BooleanToByte(Ring)
             });
 
             bytes.AddRange(ByteUtils.RepeatReserve(14));

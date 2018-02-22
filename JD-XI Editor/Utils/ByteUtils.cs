@@ -5,6 +5,22 @@ namespace JD_XI_Editor.Utils
 {
     internal static class ByteUtils
     {
+        /// <summary>
+        ///     Parse boolean to byte value
+        /// </summary>
+        public static byte BooleanToByte(bool value)
+        {
+            return (byte) (value ? 0x1 : 0x0);
+        }
+
+        /// <summary>
+        ///     Generate reserve block
+        /// </summary>
+        public static IEnumerable<byte> RepeatReserve(int count, byte value = 0x00)
+        {
+            return Enumerable.Repeat(value, count);
+        }
+
         #region 4 Packet numbers 
 
         /// <summary>
@@ -48,30 +64,11 @@ namespace JD_XI_Editor.Utils
             var bytes = new List<byte>();
             var value = NumberTo4Packets((int) offset);
 
-            for (var i = 0; i < count; i++)
-            {
-                bytes.AddRange(value);
-            }
+            for (var i = 0; i < count; i++) bytes.AddRange(value);
 
             return bytes.ToArray();
         }
 
         #endregion
-
-        /// <summary>
-        ///     Parse boolean to byte value
-        /// </summary>
-        public static byte BooleanToByte(bool value)
-        {
-            return (byte) (value ? 0x1 : 0x0);
-        }
-
-        /// <summary>
-        ///     Generate reserve block
-        /// </summary>
-        public static IEnumerable<byte> RepeatReserve(int count, byte value = 0x00)
-        {
-            return Enumerable.Repeat(value, count);
-        }
     }
 }

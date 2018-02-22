@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder
 {
     internal enum HighPassFilter : byte
     {
-        [Description("Bypass")] Bypass = 0x00,
-        [Description("1000 Hz")] Hpf1000 = 0x01,
+        [Description("Bypass")] Bypass = 0x0,
+        [Description("1000 Hz")] Hpf1000 = 0x1,
         [Description("1250 Hz")] Hpf1250,
         [Description("1600 Hz")] Hpf1600,
         [Description("2000 Hz")] Hpf2000,

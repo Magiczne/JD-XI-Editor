@@ -5,9 +5,26 @@ namespace JD_XI_Editor.Models
     internal class MidiOutputDeviceInfo
     {
         /// <summary>
-        /// Channels that an internal synthesizer device responds to, 
-        /// where the least significant bit refers to channel 0 and the most significant bit to channel 15. 
-        /// Port devices that transmit on all channels set this member to 0xFFFF.
+        ///     Create new instance of MidiOutputDeviceInfo
+        /// </summary>
+        /// <param name="caps"></param>
+        public MidiOutputDeviceInfo(MidiOutCaps caps)
+        {
+            ChannelMask = caps.channelMask;
+            DriverVersion = caps.driverVersion;
+            Mid = caps.mid;
+            Name = caps.name;
+            Notes = caps.notes;
+            Pid = caps.pid;
+            Support = caps.support;
+            Technology = caps.technology;
+            Voices = caps.voices;
+        }
+
+        /// <summary>
+        ///     Channels that an internal synthesizer device responds to,
+        ///     where the least significant bit refers to channel 0 and the most significant bit to channel 15.
+        ///     Port devices that transmit on all channels set this member to 0xFFFF.
         /// </summary>
         public short ChannelMask { get; }
 
@@ -28,8 +45,8 @@ namespace JD_XI_Editor.Models
         public string Name { get; }
 
         /// <summary>
-        /// Maximum number of simultaneous notes that can be played by an internal synthesizer device. 
-        /// If the device is a port, this member is not meaningful and is set to 0.
+        ///     Maximum number of simultaneous notes that can be played by an internal synthesizer device.
+        ///     If the device is a port, this member is not meaningful and is set to 0.
         /// </summary>
         public short Notes { get; }
 
@@ -44,31 +61,14 @@ namespace JD_XI_Editor.Models
         public int Support { get; }
 
         /// <summary>
-        /// Flags describing the type of the Midi output device.
+        ///     Flags describing the type of the Midi output device.
         /// </summary>
         public short Technology { get; }
 
         /// <summary>
-        /// Number of voices supported by an internal synthesizer device. 
-        /// If the device is a port, this member is not meaningful and is set to 0.
+        ///     Number of voices supported by an internal synthesizer device.
+        ///     If the device is a port, this member is not meaningful and is set to 0.
         /// </summary>
         public short Voices { get; }
-
-        /// <summary>
-        /// Create new instance of MidiOutputDeviceInfo
-        /// </summary>
-        /// <param name="caps"></param>
-        public MidiOutputDeviceInfo(MidiOutCaps caps)
-        {
-            ChannelMask = caps.channelMask;
-            DriverVersion = caps.driverVersion;
-            Mid = caps.mid;
-            Name = caps.name;
-            Notes = caps.notes;
-            Pid = caps.pid;
-            Support = caps.support;
-            Technology = caps.technology;
-            Voices = caps.voices;
-        }
     }
 }

@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class FuzzViewModel : Screen
     {
-        /// <summary>
-        ///     Fuzz parameters
-        /// </summary>
-        public FuzzParameters FuzzParameters { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of FuzzViewModel
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         {
             FuzzParameters = parameters;
         }
+
+        /// <summary>
+        ///     Fuzz parameters
+        /// </summary>
+        public FuzzParameters FuzzParameters { get; }
     }
 }

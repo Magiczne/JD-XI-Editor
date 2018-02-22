@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
 {
     internal enum Wave
     {
-        [Description("000: Off")] Off,
-        [Description("001: CR-78 Kick P")] Cr78KickP,
+        [Description("000: Off")] Off = 0x0,
+        [Description("001: CR-78 Kick P")] Cr78KickP = 0x1,
         [Description("002: TR-606 Kick P")] Tr606KickP,
         [Description("003: TR-808 Kick 1a P")] Tr808Kick1aP,
         [Description("004: TR-808 Kick 1b P")] Tr808Kick1bP,

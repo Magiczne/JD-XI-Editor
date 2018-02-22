@@ -12,7 +12,7 @@ namespace JD_XI_Editor.Bootstrap
     public class Bootstrapper : BootstrapperBase
     {
         /// <summary>
-        /// IoC Container instance
+        ///     IoC Container instance
         /// </summary>
         public static readonly Container ContainerInstance = new Container();
 

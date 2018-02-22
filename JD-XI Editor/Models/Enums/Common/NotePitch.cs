@@ -5,8 +5,8 @@ namespace JD_XI_Editor.Models.Enums.Common
     internal enum NotePitch : byte
     {
         //Octave -1
-        [Description("C-1")] CMinus1 = 0x00,
-        [Description("C#-1")] CSharpMinus1 = 0x01,
+        [Description("C-1")] CMinus1 = 0x0,
+        [Description("C#-1")] CSharpMinus1 = 0x1,
         [Description("D-1")] DMinus1,
         [Description("D#-1")] DSharpMinus1,
         [Description("E-1")] EMinus1,

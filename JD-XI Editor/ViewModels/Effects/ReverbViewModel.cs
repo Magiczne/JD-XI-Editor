@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects
 {
     internal class ReverbViewModel : Screen
     {
-        /// <summary>
-        ///     Reverb patch
-        /// </summary>
-        public Patch Patch { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Create new instance of Reverb View Model
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects
         {
             Patch = patch;
         }
+
+        /// <summary>
+        ///     Reverb patch
+        /// </summary>
+        public Patch Patch { get; }
     }
 }

@@ -9,15 +9,24 @@ namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Patch : PropertyChangedBase, IPatch
     {
+        #region Fields
+
+        /// <summary>
+        ///     Patch name
+        /// </summary>
+        private string _name;
+
+        #endregion
+
         /// <inheritdoc />
         /// <summary>
-        /// Creates new instance of AnalogPatch
+        ///     Creates new instance of AnalogPatch
         /// </summary>
         public Patch()
         {
-            Name = "Init Tone";            
+            Name = "Init Tone";
             Lfo = new Lfo();
-            Oscillator = new Oscillator();            
+            Oscillator = new Oscillator();
             Filter = new Filter();
             Amplifier = new Amplifier();
             Common = new Common();
@@ -34,7 +43,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <inheritdoc />
         public void Reset()
         {
-            Name = "Init Tone"; 
+            Name = "Init Tone";
             Lfo.Reset();
             Oscillator.Reset();
             Filter.Reset();
@@ -44,7 +53,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <summary>
-        /// Get patch byte data
+        ///     Get patch byte data
         /// </summary>
         /// <returns></returns>
         public byte[] GetBytes()
@@ -69,47 +78,8 @@ namespace JD_XI_Editor.Models.Patches.Analog
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Patch name
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        ///     LFO
-        /// </summary>
-        private Lfo _lfo;
-
-        /// <summary>
-        ///     Oscillator
-        /// </summary>
-        private Oscillator _oscillator;
-
-        /// <summary>
-        ///     Filter (Low Pass)
-        /// </summary>
-        private Filter _filter;
-
-        /// <summary>
-        ///     Amplifier
-        /// </summary>
-        private Amplifier _amplifier;
-
-        /// <summary>
-        ///     Common
-        /// </summary>
-        private Common _common;
-
-        /// <summary>
-        ///     Lfo Mod Control
-        /// </summary>
-        private LfoModControl _lfoModControl;
-
-        #endregion
-
         #region Properies
-        
+
         /// <summary>
         ///     Patch name
         /// </summary>
@@ -129,98 +99,32 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     LFO
         /// </summary>
-        public Lfo Lfo
-        {
-            get => _lfo;
-            set
-            {
-                if (value != _lfo)
-                {
-                    _lfo = value;
-                    NotifyOfPropertyChange(nameof(Lfo));
-                }
-            }
-        }
+        public Lfo Lfo { get; }
 
         /// <summary>
         ///     Oscillator
         /// </summary>
-        public Oscillator Oscillator
-        {
-            get => _oscillator;
-            set
-            {
-                if (value != _oscillator)
-                {
-                    _oscillator = value;
-                    NotifyOfPropertyChange(nameof(Oscillator));
-                }
-            }
-        }
+        public Oscillator Oscillator { get; }
 
         /// <summary>
         ///     Filter (Low Pass)
         /// </summary>
-        public Filter Filter
-        {
-            get => _filter;
-            set
-            {
-                if (value != _filter)
-                {
-                    _filter = value;
-                    NotifyOfPropertyChange(nameof(Filter));
-                }
-            }
-        }
+        public Filter Filter { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
-        public Amplifier Amplifier
-        {
-            get => _amplifier;
-            set
-            {
-                if (value != _amplifier)
-                {
-                    _amplifier = value;
-                    NotifyOfPropertyChange(nameof(Amplifier));
-                }
-            }
-        }
+        public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     Common
         /// </summary>
-        public Common Common
-        {
-            get => _common;
-            set
-            {
-                if (value != _common)
-                {
-                    _common = value;
-                    NotifyOfPropertyChange(nameof(Common));
-                }
-            }
-        }
+        public Common Common { get; }
 
         /// <summary>
         ///     Lfo Mod Control
         /// </summary>
-        public LfoModControl LfoModControl
-        {
-            get => _lfoModControl;
-            set
-            {
-                if (value != _lfoModControl)
-                {
-                    _lfoModControl = value;
-                    NotifyOfPropertyChange(nameof(LfoModControl));
-                }
-            }
-        }
+        public LfoModControl LfoModControl { get; }
 
         #endregion
     }

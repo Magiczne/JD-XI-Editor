@@ -90,11 +90,6 @@ namespace JD_XI_Editor.Models.Patches.Digital
         private int _resonance;
 
         /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Adsr _envelope;
-
-        /// <summary>
         ///     Envelope depth
         /// </summary>
         private int _envelopeDepth;
@@ -202,18 +197,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Envelope
         /// </summary>
-        public Adsr Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        public Adsr Envelope { get; }
 
         /// <summary>
         ///     Envelope depth

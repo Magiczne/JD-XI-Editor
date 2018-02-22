@@ -69,12 +69,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         ///     Feedback
         /// </summary>
         private int _feedback;
-        
+
         /// <summary>
         ///     Manual
         /// </summary>
         private int _manual;
-        
+
         /// <summary>
         ///     Dry/Wet balance
         /// </summary>

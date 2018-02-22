@@ -5,11 +5,6 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 {
     internal class DistortionViewModel : Screen
     {
-        /// <summary>
-        ///     Distortion parameters
-        /// </summary>
-        public DistortionParameters DistortionParameters { get; }
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of DistortionViewModel
@@ -18,5 +13,10 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         {
             DistortionParameters = parameters;
         }
+
+        /// <summary>
+        ///     Distortion parameters
+        /// </summary>
+        public DistortionParameters DistortionParameters { get; }
     }
 }

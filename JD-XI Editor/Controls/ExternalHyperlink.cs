@@ -9,7 +9,7 @@ namespace JD_XI_Editor.Controls
         {
             base.OnClick();
 
-            var process = new Process
+            new Process
             {
                 StartInfo = new ProcessStartInfo
                 {

@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Common
 {
     internal enum SyncNote : byte
     {
-        [Description("16")] SixteenWholeNotes = 0x00,
-        [Description("12")] TwelveWholeNotes = 0x01,
+        [Description("16")] SixteenWholeNotes = 0x0,
+        [Description("12")] TwelveWholeNotes = 0x1,
         [Description("8")] OctupleWholeNote,
         [Description("4")] QuadrupleWholeNote,
         [Description("2")] DoubleWholeNote,

@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 // ReSharper disable InvertIf
@@ -8,27 +7,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 {
     internal class VelocityControl : PropertyChangedBase, IPatchPart
     {
-        /// <inheritdoc />
-        public VelocityControl()
-        {
-            Reset();
-        }
-
-        /// <inheritdoc />
-        public void Reset()
-        {
-            Control = WmtVelocityControl.On;
-        }
-
-        /// <inheritdoc />
-        public byte[] GetBytes()
-        {
-            return new[]
-            {
-                (byte) Control
-            };
-        }
-
         #region Fields
 
         /// <summary>
@@ -37,6 +15,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         private WmtVelocityControl _control;
 
         #endregion
+
+        /// <inheritdoc />
+        public VelocityControl()
+        {
+            Reset();
+        }
 
         #region Properties
 
@@ -57,5 +41,20 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         }
 
         #endregion
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Control = WmtVelocityControl.On;
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            return new[]
+            {
+                (byte) Control
+            };
+        }
     }
 }

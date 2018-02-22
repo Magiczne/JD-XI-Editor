@@ -37,11 +37,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             bytes.AddRange(ByteUtils.NumberTo4Packets(TriggerLevel));
             bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
 
-            var reserve = new byte[] { 0x00, 0x00, 0x80, 0x00 };
-            for (var i = 0; i < 27; i++)
-            {
-                bytes.AddRange(reserve);
-            }
+            var reserve = new byte[] {0x00, 0x00, 0x80, 0x00};
+            for (var i = 0; i < 27; i++) bytes.AddRange(reserve);
 
             return bytes.ToArray();
         }

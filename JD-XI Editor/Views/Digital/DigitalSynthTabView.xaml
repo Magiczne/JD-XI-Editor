@@ -44,9 +44,9 @@
             </i:Interaction.Triggers>
         </Button>
         <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                               Width="150" Height="35" 
+                               Width="150" Height="35"
                                VerticalAlignment="Top" HorizontalAlignment="Right"
-                               OnLabel="Auto Sync" OffLabel="Auto Sync" 
+                               OnLabel="Auto Sync" OffLabel="Auto Sync"
                                IsChecked="{Binding AutoSync}" />
         <Button Grid.Column="3" Grid.Row="0"
                 Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
@@ -100,7 +100,7 @@
             <TextBox MaxLength="12"
                      Grid.Column="0" Grid.Row="1"
                      VerticalAlignment="Top"
-                     Margin="0 0 5 0" 
+                     Margin="0 0 5 0"
                      Text="{Binding Patch.Common.Name}" />
             <Label Grid.Column="0" Grid.Row="2"
                    VerticalAlignment="Top"
@@ -116,12 +116,12 @@
             <CheckBox Grid.Column="1" Grid.Row="0"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Mono" 
+                      Content="Mono"
                       IsChecked="{Binding Patch.Common.Mono}" />
             <CheckBox Grid.Column="1" Grid.Row="1"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Ring" 
+                      Content="Ring"
                       IsChecked="{Binding Patch.Common.Ring}" />
             <CheckBox Grid.Column="1" Grid.Row="2"
                       VerticalAlignment="Top"
@@ -141,12 +141,12 @@
             <CheckBox Grid.Column="2" Grid.Row="0"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Legato" 
+                      Content="Legato"
                       IsChecked="{Binding Patch.Common.Legato}" />
             <CheckBox Grid.Row="1" Grid.Column="2"
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
-                      Content="Portamento" 
+                      Content="Portamento"
                       IsChecked="{Binding Patch.Common.Portamento}" />
             <ComboBox Grid.Row="2" Grid.Column="2"
                       Margin="0 0 5 0"
@@ -168,7 +168,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding Patch.Common.Portamento}"
                                   Value="{Binding Patch.Common.PortamentoTime}" />
                 <TextBlock Text="Portamento time"
@@ -181,7 +181,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Common.ToneLevel}" />
                 <TextBlock Text="Tone 
                            Level"
@@ -194,7 +194,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Common.AnalogFeel}" />
                 <TextBlock Text="Analog
                            Feel"
@@ -233,7 +233,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Common.PitchBendRangeUp}" />
                 <TextBlock Text="PB Range
                            Up"
@@ -246,7 +246,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Common.PitchBendRangeDown}" />
                 <TextBlock Text="PB Range 
                            Down"
@@ -333,7 +333,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Modifiers.AttackTimeIntervalSensitivity}" />
                 <TextBlock Text="Attack"
                            TextAlignment="Center"
@@ -345,7 +345,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Patch.Modifiers.ReleaseTimeIntervalSensitivity}" />
                 <TextBlock Text="Release"
                            TextAlignment="Center"
@@ -368,6 +368,6 @@
     </GroupBox>
 
     <ContentControl x:Name="Editor"
-                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4" 
+                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
                     Margin="10 0 0 0" />
 </Grid>

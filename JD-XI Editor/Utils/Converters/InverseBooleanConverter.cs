@@ -9,7 +9,7 @@ namespace JD_XI_Editor.Utils.Converters
     internal class InverseBooleanConverter : MarkupExtension, IValueConverter
     {
         /// <summary>
-        /// Convert
+        ///     Convert
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Utils.Converters
         }
 
         /// <summary>
-        /// Convert back
+        ///     Convert back
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -43,11 +43,11 @@ namespace JD_XI_Editor.Utils.Converters
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            return !(bool)value;
+            return !(bool) value;
         }
 
         /// <summary>
-        /// Returns an object that is provided as the value of the target property for this markup extension.
+        ///     Returns an object that is provided as the value of the target property for this markup extension.
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns>The object value to set on the property where the extension is applied.</returns>

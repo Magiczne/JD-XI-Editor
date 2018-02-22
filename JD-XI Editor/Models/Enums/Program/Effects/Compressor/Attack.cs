@@ -4,8 +4,8 @@ namespace JD_XI_Editor.Models.Enums.Program.Effects.Compressor
 {
     internal enum Attack : byte
     {
-        [Description("0.05 ms")] ZeroPoint05 = 0x00,
-        [Description("0.06 ms")] ZeroPoint06 = 0x01,
+        [Description("0.05 ms")] ZeroPoint05 = 0x0,
+        [Description("0.06 ms")] ZeroPoint06 = 0x1,
         [Description("0.07 ms")] ZeroPoint07,
         [Description("0.08 ms")] ZeroPoint08,
         [Description("0.09 ms")] ZeroPoint09,

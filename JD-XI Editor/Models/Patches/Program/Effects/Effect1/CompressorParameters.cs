@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Common;
-using JD_XI_Editor.Models.Enums.Effects.Compressor;
 using JD_XI_Editor.Models.Enums.Program.Effects.Compressor;
 using JD_XI_Editor.Utils;
 
@@ -91,7 +90,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         ///     Sidechan synchronization
         /// </summary>
         private bool _sidechainSync;
-        
+
         /// <summary>
         ///     Sidechain level
         /// </summary>
@@ -101,7 +100,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         ///     Sidechain note
         /// </summary>
         private NotePitch _sidechainNote;
-        
+
         /// <summary>
         ///     Sidechain time
         /// </summary>
@@ -291,6 +290,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
                 }
             }
         }
+
         #endregion
     }
 }

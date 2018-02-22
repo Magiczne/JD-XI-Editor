@@ -73,11 +73,11 @@
                              IsChecked="{Binding VariationASelected}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
-                             Content="B" 
+                             Content="B"
                              IsChecked="{Binding VariationBSelected}" />
                 <RadioButton Grid.Column="2"
                              VerticalAlignment="Top"
-                             Content="C" 
+                             Content="C"
                              IsChecked="{Binding VariationCSelected}" />
             </Grid>
 
@@ -104,17 +104,17 @@
 
                 <RadioButton Grid.Column="0"
                              VerticalAlignment="Top"
-                             Content="-6"  
+                             Content="-6"
                              IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainNegativeSixSelected}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
-                             Content="0" 
+                             Content="0"
                              IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainZeroSelected}" />
                 <RadioButton Grid.Column="2"
                              VerticalAlignment="Top"
-                             Content="+6" 
+                             Content="+6"
                              IsEnabled="{Binding PcmWaveSelected}"
                              IsChecked="{Binding WaveGainPositiveSixSelected}" />
                 <RadioButton Grid.Column="3"
@@ -155,7 +155,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding SuperSawSelected}"
                                   Value="{Binding Partial.Other.SuperSawDetune}" />
                 <TextBlock Text="Super Saw
@@ -169,7 +169,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-64" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Amplifier.Panorama}" />
                 <TextBlock Text="Panorama"
                            TextAlignment="Center"
@@ -191,7 +191,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-50" Maximum="50"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Oscillator.Detune}" />
                 <TextBlock Text="Detune"
                            TextAlignment="Center"
@@ -231,22 +231,22 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Oscillator.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Oscillator.Decay}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Oscillator.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Oscillator.Decay, Mode=OneWay}" />
 
             <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
@@ -254,7 +254,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Oscillator.EnvelopeDepth}" />
                 <TextBlock Text="Depth"
                            TextAlignment="Center"
@@ -282,7 +282,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Aftertouch.CutoffAftertouchSensitivity}" />
                 <TextBlock Text="Filter Cutoff 
@@ -295,7 +295,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Aftertouch.LevelAftertouchSensitivity}" />
                 <TextBlock Text="Amp Level 
                                        Sensitivity"
@@ -333,13 +333,13 @@
                       VerticalAlignment="Top"
                       Margin="0 0 5 0"
                       SelectedValuePath="Value"
-                      DisplayMemberPath="Description"                       
+                      DisplayMemberPath="Description"
                       ItemsSource="{Binding Partial.Lfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Lfo.Shape}" />
 
             <CheckBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
-                      Content="Tempo sync" 
+                      Content="Tempo sync"
                       IsChecked="{Binding Partial.Lfo.TempoSync}" />
             <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                       Margin="0 0 5 0"
@@ -352,7 +352,7 @@
 
             <CheckBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
-                      Content="Key trigger" 
+                      Content="Key trigger"
                       IsChecked="{Binding Partial.Lfo.KeyTrigger}" />
 
             <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="5"
@@ -372,7 +372,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Lfo.FadeTime}" />
                 <TextBlock Text="Fade Time"
                            TextAlignment="Center"
@@ -384,7 +384,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Lfo.PitchDepth}" />
                 <TextBlock Text="Pitch 
                                        Depth"
@@ -396,7 +396,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Lfo.FilterDepth}" />
                 <TextBlock Text="Filter 
@@ -421,7 +421,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Lfo.PanDepth}" />
                 <TextBlock Text="Panorama 
                                        Depth"
@@ -461,7 +461,7 @@
             <ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
-                      DisplayMemberPath="Description" 
+                      DisplayMemberPath="Description"
                       ItemsSource="{Binding Partial.ModLfo.Shape, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.ModLfo.Shape}" />
 
@@ -472,7 +472,7 @@
             <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
-                      DisplayMemberPath="Description"         
+                      DisplayMemberPath="Description"
                       IsEnabled="{Binding Partial.ModLfo.TempoSync}"
                       ItemsSource="{Binding Partial.ModLfo.SyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.ModLfo.SyncNote}" />
@@ -494,7 +494,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding Partial.ModLfo.TempoSync, Converter={StaticResource InverseBooleanConverter}}"
                                   Value="{Binding Partial.Other.ModLfoRateControl}" />
                 <TextBlock Text="Rate Control"
@@ -519,7 +519,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding PulseSquareWaveSelected}"
                                   Value="{Binding Partial.Oscillator.PulseWidthModDepth}" />
                 <TextBlock Text="Pulse Width
@@ -532,7 +532,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.ModLfo.PitchDepth}" />
                 <TextBlock Text="Pitch
                                            Depth"
@@ -544,7 +544,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.ModLfo.FilterDepth}" />
                 <TextBlock Text="Filter
@@ -557,7 +557,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.ModLfo.AmpDepth}" />
                 <TextBlock Text="Amplifier
                                            Depth"
@@ -594,7 +594,7 @@
                       Margin="0 0 5 0"
                       VerticalAlignment="Top"
                       SelectedValuePath="Value"
-                      DisplayMemberPath="Description" 
+                      DisplayMemberPath="Description"
                       ItemsSource="{Binding Partial.Filter.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Partial.Filter.Type}" />
 
@@ -614,7 +614,7 @@
                              IsChecked="{Binding SlopeNegativeTwelveSelected}" />
                 <RadioButton Grid.Column="1"
                              VerticalAlignment="Top"
-                             Content="-24" 
+                             Content="-24"
                              IsEnabled="{Binding FilterOn}"
                              IsChecked="{Binding SlopeNegativeTwentyFourSelected}" />
             </Grid>
@@ -636,7 +636,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Filter.Resonance}" />
                 <TextBlock Text="Resonance"
@@ -648,7 +648,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-100" Maximum="100" Step="10"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   IsEnabled="{Binding FilterOn}"
                                   Value="{Binding Partial.Filter.CutoffKeyfollow}" />
                 <TextBlock Text="Cutoff keyfollow"
@@ -712,34 +712,34 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Filter.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Filter.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Filter.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Filter.Envelope.Release}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Filter.Envelope.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Filter.Envelope.Decay, Mode=OneWay}" />
             <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
@@ -747,7 +747,7 @@
                      Text="{Binding Partial.Filter.Envelope.Sustain, Mode=OneWay}" />
             <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Filter.Envelope.Release, Mode=OneWay}" />
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
@@ -777,7 +777,7 @@
 
     <!-- Amplifier -->
     <GroupBox Grid.Row="2" Grid.Column="5"
-              Width="345" Height="160" 
+              Width="345" Height="160"
               VerticalAlignment="Top" HorizontalAlignment="Right"
               Header="Amplifier">
         <Grid>
@@ -818,42 +818,42 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Amplifier.Envelope.Attack}" />
             <Slider Grid.Column="1" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Amplifier.Envelope.Decay}" />
             <Slider Grid.Column="2" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Amplifier.Envelope.Sustain}" />
             <Slider Grid.Column="3" Grid.Row="1"
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     Minimum="0"
-                    Maximum="127" 
+                    Maximum="127"
                     Value="{Binding Partial.Amplifier.Envelope.Release}" />
 
             <TextBox Grid.Column="0" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Amplifier.Envelope.Attack, Mode=OneWay}" />
             <TextBox Grid.Column="1" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Amplifier.Envelope.Decay, Mode=OneWay}" />
             <TextBox Grid.Column="2" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Amplifier.Envelope.Sustain, Mode=OneWay}" />
             <TextBox Grid.Column="3" Grid.Row="2"
                      IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
+                     VerticalAlignment="Bottom"
                      Text="{Binding Partial.Amplifier.Envelope.Release, Mode=OneWay}" />
 
             <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3"
@@ -861,7 +861,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Amplifier.Level}" />
                 <TextBlock Text="Level"
                            TextAlignment="Center"
@@ -872,7 +872,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63" Step="10"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Other.AmpLevelKeyfollow}" />
                 <TextBlock Text="Level keyfollow"
                            TextAlignment="Center"
@@ -883,7 +883,7 @@
                 <knobControl:Knob Height="65" Width="65"
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="-63" Maximum="63"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                                   Value="{Binding Partial.Amplifier.LevelVelSensitivity}" />
                 <TextBlock Text="Level velocity sensitivity"
                            TextAlignment="Center"

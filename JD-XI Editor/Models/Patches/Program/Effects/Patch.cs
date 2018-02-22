@@ -32,22 +32,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         /// <summary>
         ///     Effect 1
         /// </summary>
-        public Effect1.Patch Effect1 { get; set; }
+        public Effect1.Patch Effect1 { get; }
 
         /// <summary>
         ///     Effect 2
         /// </summary>
-        public Effect2.Patch Effect2 { get; set; }
+        public Effect2.Patch Effect2 { get; }
 
         /// <summary>
         ///     Delay patch
         /// </summary>
-        public Delay.Patch Delay { get; set; }
+        public Delay.Patch Delay { get; }
 
         /// <summary>
         ///     Reverb patch
         /// </summary>
-        public Reverb.Patch Reverb { get; set; }
+        public Reverb.Patch Reverb { get; }
 
         #endregion
     }

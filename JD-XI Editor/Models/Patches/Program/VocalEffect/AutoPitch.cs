@@ -1,6 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch.Type;
 
 // ReSharper disable InvertIf
 
@@ -11,7 +13,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
