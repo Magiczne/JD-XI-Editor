@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 
 // ReSharper disable InvertIf
@@ -16,6 +17,10 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             Common = new Common();
             AutoPitch = new AutoPitch();
             Vocoder = new Vocoder();
+
+            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
+            AutoPitch.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(AutoPitch));
+            Vocoder.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Vocoder));
         }
 
         /// <inheritdoc />
@@ -29,77 +34,32 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            var bytes = new List<byte>();
+
+            bytes.AddRange(Common.GetBytes());
+            bytes.AddRange(AutoPitch.GetBytes());
+            bytes.AddRange(Vocoder.GetBytes());
+            bytes.AddRange(Enumerable.Repeat<byte>(0x0, 3)); // Reserve
+
+            return bytes.ToArray();
         }
-
-        #region Fields
-
-        /// <summary>
-        ///     Common
-        /// </summary>
-        private Common _common;
-
-        /// <summary>
-        ///     Auto Pitch
-        /// </summary>
-        private AutoPitch _autoPitch;
-        
-        /// <summary>
-        ///     Vocoder
-        /// </summary>
-        private Vocoder _vocoder;
-
-        #endregion
 
         #region Properties
 
         /// <summary>
         ///     Common
         /// </summary>
-        public Common Common
-        {
-            get => _common;
-            set
-            {
-                if (value != _common)
-                {
-                    _common = value;
-                    NotifyOfPropertyChange(nameof(Common));
-                }
-            }
-        }
+        public Common Common { get; }
 
         /// <summary>
         ///     Auto Pitch
         /// </summary>
-        public AutoPitch AutoPitch
-        {
-            get => _autoPitch;
-            set
-            {
-                if (value != _autoPitch)
-                {
-                    _autoPitch = value;
-                    NotifyOfPropertyChange(nameof(AutoPitch));
-                }
-            }
-        }
+        public AutoPitch AutoPitch { get; }
 
         /// <summary>
         ///     Vocoder
         /// </summary>
-        public Vocoder Vocoder
-        {
-            get => _vocoder;
-            set
-            {
-                if (value != _vocoder)
-                {
-                    _vocoder = value;
-                    NotifyOfPropertyChange(nameof(Vocoder));
-                }
-            }
-        }
+        public Vocoder Vocoder { get; }
 
         #endregion
     }

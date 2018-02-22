@@ -1,6 +1,8 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 
+// ReSharper disable InvertIf
+
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
     internal class Vocoder : PropertyChangedBase, IPatchPart
@@ -14,7 +16,17 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            throw new System.NotImplementedException();
+            return new byte[]
+            {
+                (byte) (On ? 0x01 : 0x00),
+                (byte) Envelope,
+                (byte) UnknowParameter,
+                (byte) MicrophoneSensitivity,
+                (byte) SynthLevel,
+                (byte) MicrophoneMixLevel,
+                (byte) MicrophoneHpf,
+                0x00    // Reserve
+            };
         }
 
         #region Fields
@@ -29,7 +41,10 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// </summary>
         private Envelope _envelope;
 
-        //TODO: Maybe vocoder tone number?
+        /// <summary>
+        ///     TODO: WHAT
+        ///     Unknow parameter (maybe vocoder tone number)
+        /// </summary>
         private int _unknownParam;
 
         /// <summary>
@@ -54,5 +69,120 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        ///     Vocoder Switch
+        /// </summary>
+        public bool On
+        {
+            get => _on;
+            set
+            {
+                if (value != _on)
+                {
+                    _on = value;
+                    NotifyOfPropertyChange(nameof(On));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Vocoder Envelope
+        /// </summary>
+        public Envelope Envelope
+        {
+            get => _envelope;
+            set
+            {
+                if (value != _envelope)
+                {
+                    _envelope = value;
+                    NotifyOfPropertyChange(nameof(Envelope));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Unknow Parameter
+        /// </summary>
+        public int UnknowParameter
+        {
+            get => _unknownParam;
+            set
+            {
+                if (value != _unknownParam)
+                {
+                    _unknownParam = value;
+                    NotifyOfPropertyChange(nameof(UnknowParameter));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Vocoder Mic Sensitivity
+        /// </summary>
+        public int MicrophoneSensitivity
+        {
+            get => _microphoneSensitivity;
+            set
+            {
+                if (value != _microphoneSensitivity)
+                {
+                    _microphoneSensitivity = value;
+                    NotifyOfPropertyChange(nameof(MicrophoneSensitivity));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Vocoder Synth Level
+        /// </summary>
+        public int SynthLevel
+        {
+            get => _synthLevel;
+            set
+            {
+                if (value != _synthLevel)
+                {
+                    _synthLevel = value;
+                    NotifyOfPropertyChange(nameof(SynthLevel));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Vocoder Mic Mix Level
+        /// </summary>
+        public int MicrophoneMixLevel
+        {
+            get => _microphoneMixLevel;
+            set
+            {
+                if (value != _microphoneMixLevel)
+                {
+                    _microphoneMixLevel = value;
+                    NotifyOfPropertyChange(nameof(MicrophoneMixLevel));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Vocoder Microphone HPF
+        /// </summary>
+        public HighPassFilter MicrophoneHpf
+        {
+            get => _microphoneHpf;
+            set
+            {
+                if (value != _microphoneHpf)
+                {
+                    _microphoneHpf = value;
+                    NotifyOfPropertyChange(nameof(MicrophoneHpf));
+                }
+            }
+        }
+
+        #endregion
     }
 }
