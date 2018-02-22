@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Distortion
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Distortion
 {
     internal enum Type : byte
     {

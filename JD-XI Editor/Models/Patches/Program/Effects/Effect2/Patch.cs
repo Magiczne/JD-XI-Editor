@@ -1,4 +1,4 @@
-﻿using JD_XI_Editor.Models.Enums.Effects;
+﻿using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 
 // ReSharper disable SwitchStatementMissingSomeCases

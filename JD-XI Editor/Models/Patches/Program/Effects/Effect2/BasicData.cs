@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums.Effects;
+using JD_XI_Editor.Models.Enums.Program.Effects;
 
 // ReSharper disable InvertIf
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects
+namespace JD_XI_Editor.Models.Enums.Program.Effects
 {
     internal enum Effect2Type : byte
     {

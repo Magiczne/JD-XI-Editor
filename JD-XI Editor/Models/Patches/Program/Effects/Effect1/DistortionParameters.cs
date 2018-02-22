@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using JD_XI_Editor.Models.Enums.Effects.Distortion;
+using JD_XI_Editor.Models.Enums.Program.Effects.Distortion;
 using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf

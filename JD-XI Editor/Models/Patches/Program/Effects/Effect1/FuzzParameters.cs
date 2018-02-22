@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using JD_XI_Editor.Utils;
-using Type = JD_XI_Editor.Models.Enums.Effects.Fuzz.Type;
+using Type = JD_XI_Editor.Models.Enums.Program.Effects.Fuzz.Type;
 
 // ReSharper disable InvertIf
 

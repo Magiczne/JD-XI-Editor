@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Slicer
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Slicer
 {
     internal enum TimingPattern
     {

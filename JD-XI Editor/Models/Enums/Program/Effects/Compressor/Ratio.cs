@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Compressor
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Compressor
 {
     internal enum Ratio : byte
     {

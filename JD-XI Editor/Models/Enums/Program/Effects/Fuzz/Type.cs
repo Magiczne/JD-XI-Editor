@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Fuzz
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Fuzz
 {
     internal enum Type : byte
     {

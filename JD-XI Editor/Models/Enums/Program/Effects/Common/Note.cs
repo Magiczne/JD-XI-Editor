@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Common
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Common
 {
     internal enum Note : byte
     {

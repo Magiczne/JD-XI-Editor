@@ -1,4 +1,4 @@
-﻿namespace JD_XI_Editor.Models.Enums.Effects.Phaser
+﻿namespace JD_XI_Editor.Models.Enums.Program.Effects.Flanger
 {
     internal enum Mode : byte
     {

@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using JD_XI_Editor.Models.Enums.Effects.Phaser;
+using JD_XI_Editor.Models.Enums.Program.Effects.Phaser;
 using JD_XI_Editor.Models.Patches.Program.Effects.Effect2;
 
 namespace JD_XI_Editor.ViewModels.Effects.Assignable

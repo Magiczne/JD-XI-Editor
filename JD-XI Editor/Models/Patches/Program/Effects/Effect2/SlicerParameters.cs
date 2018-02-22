@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using JD_XI_Editor.Models.Enums.Effects.Common;
-using JD_XI_Editor.Models.Enums.Effects.Slicer;
+using JD_XI_Editor.Models.Enums.Program.Effects.Common;
+using JD_XI_Editor.Models.Enums.Program.Effects.Slicer;
 using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf

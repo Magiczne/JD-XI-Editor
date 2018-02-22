@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace JD_XI_Editor.Models.Enums.Effects.Reverb
+namespace JD_XI_Editor.Models.Enums.Program.Effects.Reverb
 {
     internal enum Type : byte
     {

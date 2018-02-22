@@ -1,4 +1,4 @@
-﻿namespace JD_XI_Editor.Models.Enums.Effects.Delay
+﻿namespace JD_XI_Editor.Models.Enums.Program.Effects.Delay
 {
     internal enum Type : byte
     {
