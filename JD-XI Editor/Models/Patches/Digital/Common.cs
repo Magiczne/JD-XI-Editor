@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Digital;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -53,51 +53,55 @@ namespace JD_XI_Editor.Models.Patches.Digital
         {
             var bytes = new List<byte>();
 
-            var nameBytes = Encoding.ASCII.GetBytes(Name);
+            var nameBytes = Encoding.ASCII.GetBytes(Name.Length > 12 ? Name.Substring(0, 12) : Name);
             bytes.AddRange(nameBytes);
-            bytes.AddRange(Enumerable.Repeat<byte>(0x20, 12 - nameBytes.Length));
+            bytes.AddRange(ByteUtils.RepeatReserve(12 - nameBytes.Length, 0x20));
 
             bytes.Add((byte) ToneLevel);
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));
+
+            bytes.AddRange(ByteUtils.RepeatReserve(5));
 
             bytes.AddRange(new[]
             {
-                (byte) (Portamento ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Portamento),
                 (byte) PortamentoTime,
-                (byte) (Mono ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Mono),
                 (byte) (OctaveShift + 64),
                 (byte) PitchBendRangeUp,
                 (byte) PitchBendRangeDown,
                 (byte) 0x00, //Reserve
 
-                (byte) (PartialOneSwitch ? 0x01 : 0x00),
-                (byte) (PartialOneSelect ? 0x01 : 0x00),
-                (byte) (PartialTwoSwitch ? 0x01 : 0x00),
-                (byte) (PartialTwoSelect ? 0x01 : 0x00),
-                (byte) (PartialThreeSwitch ? 0x01 : 0x00),
-                (byte) (PartialThreeSelect ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(PartialOneSwitch),
+                ByteUtils.BooleanToByte(PartialOneSelect),
+                ByteUtils.BooleanToByte(PartialTwoSwitch),
+                ByteUtils.BooleanToByte(PartialTwoSelect),
+                ByteUtils.BooleanToByte(PartialThreeSwitch),
+                ByteUtils.BooleanToByte(PartialThreeSelect),
 
-                (byte) (Ring ? 0x01 : 0x00)
+                ByteUtils.BooleanToByte(Ring),
             });
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 14)); //Reserve
-            bytes.Add((byte) (Unison ? 0x01 : 0x00));
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 2)); //Reserve
+            bytes.AddRange(ByteUtils.RepeatReserve(14));
+
+            bytes.Add(ByteUtils.BooleanToByte(Unison));
+
+            bytes.AddRange(ByteUtils.RepeatReserve(2));
+
             bytes.AddRange(new[]
             {
                 (byte) PortamentoMode,
-                (byte) (Legato ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Legato),
                 (byte) 0x00, //Reserve
                 (byte) AnalogFeel,
                 (byte) WaveShape,
                 (byte) ToneCategory
             });
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 5));
+            bytes.AddRange(ByteUtils.RepeatReserve(5));
 
             bytes.Add((byte) UnisonSize);
 
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 3)); //Reserve
+            bytes.AddRange(ByteUtils.RepeatReserve(3));
 
             return bytes.ToArray();
         }

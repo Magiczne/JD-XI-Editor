@@ -1,5 +1,6 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using JD_XI_Editor.Utils;
+
 // ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -23,12 +24,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            return new[]
+            return new byte[]
             {
                 (byte) PitchBendRange,
-                (byte) (ReceiveExpression ? 0x01 : 0x00),
-                (byte) (ReceiveHold1 ? 0x01 : 0x00),
-                (byte) 0x00     //Reserve
+                ByteUtils.BooleanToByte(ReceiveExpression),
+                ByteUtils.BooleanToByte(ReceiveHold1),
+                0x00 //Reserve
             };
         }
 

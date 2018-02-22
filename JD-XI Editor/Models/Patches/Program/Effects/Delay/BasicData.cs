@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -28,7 +29,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         {
             return new byte[]
             {
-                (byte) (On ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(On),
                 (byte) Level,
                 0x00, // Reserve
                 (byte) ReverbSendLevel

@@ -2,6 +2,7 @@
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -48,7 +49,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         {
             return new[]
             {
-                (byte) (On ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(On),
                 (byte) GroupType,
 
                 (byte) ((GroupId >> 12) & 0xF),
@@ -67,14 +68,14 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
                 (byte) ((int) RightWave & 0xF),
 
                 (byte) WaveGain,
-                (byte) (Fxm ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Fxm),
                 (byte) FxmColor,
                 (byte) FxmDepth,
-                (byte) (TempoSync ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(TempoSync),
                 (byte) (CoarseTune + 64),
                 (byte) (FineTune + 64),
                 (byte) (Panorama + 64),
-                (byte) (RandomPanorama ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(RandomPanorama),
                 (byte) AlternatePanorama,
                 (byte) Level,
                 (byte) VelocityRangeLower,

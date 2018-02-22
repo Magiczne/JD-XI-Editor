@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -38,12 +39,12 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 (byte) Shape,
                 (byte) Rate,
                 (byte) FadeTime,
-                (byte) (TempoSync ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(TempoSync),
                 (byte) SyncNote,
                 (byte) (PitchDepth + 64),
                 (byte) (FilterDepth + 64),
                 (byte) (AmpDepth + 64),
-                (byte) (KeyTrigger ? 0x01 : 0x00)
+                ByteUtils.BooleanToByte(KeyTrigger),
             };
         }
 

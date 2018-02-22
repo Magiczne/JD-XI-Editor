@@ -3,6 +3,7 @@ using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -41,9 +42,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 (byte) PortamentoTimeIntervalSensitivity,
                 (byte) EnvelopeLoopMode,
                 (byte) EnvelopeLoopSyncNote,
-                (byte) (ChromaticPortamento ? 0x01 : 0x00)
+                ByteUtils.BooleanToByte(ChromaticPortamento)
             });
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 30)); //Reserve
+
+            bytes.AddRange(ByteUtils.RepeatReserve(30));
 
             return bytes.ToArray();
         }

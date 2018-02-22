@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -40,7 +41,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         {
             return new[]
             {
-                (byte) (On ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(On),
                 (byte) Cutoff,
                 (byte) (CutoffKeyfollow / 10 + 64),
                 (byte) Resonance,

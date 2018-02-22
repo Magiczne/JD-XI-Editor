@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable SwitchStatementMissingSomeCases
 
@@ -64,7 +64,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             var bytes = new List<byte>();
 
             bytes.AddRange(Basic.GetBytes());
-            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 12));
+            bytes.AddRange(ByteUtils.RepeatReserve(12));
             bytes.AddRange(Parameters.GetBytes());
 
             return bytes.ToArray();

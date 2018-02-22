@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -31,9 +32,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
         {
             return new[]
             {
-                (byte) (Portamento ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Portamento),
                 (byte) PortamentoTime,
-                (byte) (Legato ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(Legato),
                 (byte) (OctaveShift + 64),
                 (byte) PitchBendRangeUp,
                 (byte) PitchBendRangeDown,

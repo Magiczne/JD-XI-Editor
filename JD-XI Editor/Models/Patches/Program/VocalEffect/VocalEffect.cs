@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -39,7 +40,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             bytes.AddRange(Common.GetBytes());
             bytes.AddRange(AutoPitch.GetBytes());
             bytes.AddRange(Vocoder.GetBytes());
-            bytes.AddRange(Enumerable.Repeat<byte>(0x0, 3)); // Reserve
+            bytes.AddRange(ByteUtils.RepeatReserve(3));
 
             return bytes.ToArray();
         }

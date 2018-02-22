@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Utils;
 
 // ReSharper disable InvertIf
 
@@ -24,7 +25,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         {
             return new[]
             {
-                (byte) (OneShotMode ? 0x01 : 0x00),
+                ByteUtils.BooleanToByte(OneShotMode),
                 (byte) (RelativeLevel + 64)
             };
         }

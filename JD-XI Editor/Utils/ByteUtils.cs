@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace JD_XI_Editor.Utils
 {
     internal static class ByteUtils
     {
+        #region 4 Packet numbers 
+
         /// <summary>
         ///     Offset for the
         /// </summary>
@@ -32,7 +35,7 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Parse boolean to 4 packets
         /// </summary>
-        public static byte[] NumberTo4Packets(bool val, Offset offset = Offset.EffectOffset)
+        public static byte[] BooleanTo4Packets(bool val, Offset offset = Offset.EffectOffset)
         {
             return NumberTo4Packets(val ? 0x1 : 0x0, offset);
         }
@@ -51,6 +54,24 @@ namespace JD_XI_Editor.Utils
             }
 
             return bytes.ToArray();
+        }
+
+        #endregion
+
+        /// <summary>
+        ///     Parse boolean to byte value
+        /// </summary>
+        public static byte BooleanToByte(bool value)
+        {
+            return (byte) (value ? 0x1 : 0x0);
+        }
+
+        /// <summary>
+        ///     Generate reserve block
+        /// </summary>
+        public static IEnumerable<byte> RepeatReserve(int count, byte value = 0x00)
+        {
+            return Enumerable.Repeat(value, count);
         }
     }
 }
