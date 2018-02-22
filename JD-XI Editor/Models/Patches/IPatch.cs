@@ -6,5 +6,7 @@
         ///     Reset data to initial patch
         /// </summary>
         void Reset();
+
+        byte[] GetBytes();
     }
 }

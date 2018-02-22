@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 
 // ReSharper disable InvertIf
 
@@ -33,6 +34,12 @@ namespace JD_XI_Editor.Models.Patches.Digital
             PartialTwo.Reset();
             PartialThree.Reset();
             Modifiers.Reset();
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            throw new PatchNotConvertibleIntoBytes();
         }
 
         #region Fields

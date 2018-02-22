@@ -14,6 +14,9 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
             Parameters.Reset();
         }
 
+        /// <inheritdoc />
+        public abstract byte[] GetBytes();
+
         #region Fields
 
         /// <summary>

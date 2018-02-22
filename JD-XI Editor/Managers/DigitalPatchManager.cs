@@ -24,7 +24,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Common address offset
         /// </summary>
-        private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
+        private IEnumerable<byte> CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
 
         /// <summary>
         ///     Partial address offset
@@ -34,7 +34,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Modifiers address offset
         /// </summary>
-        private byte[] ModifiersAddressOffset => new byte[] { 0x19, (byte) _synthNumber, 0x50, 0x00 };
+        private IEnumerable<byte> ModifiersAddressOffset => new byte[] { 0x19, (byte) _synthNumber, 0x50, 0x00 };
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for common
         /// </summary>
-        private byte[] GetCommonSysexData(Common common)
+        private byte[] GetCommonSysexData(IPatchPart common)
         {
             var patchBytes = common.GetBytes();
 
@@ -59,7 +59,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for partial
         /// </summary>
-        private byte[] GetPartialSysexData(Partial partial, DigitalPartial partialNumber)
+        private byte[] GetPartialSysexData(IPatchPart partial, DigitalPartial partialNumber)
         {
             var patchBytes = partial.GetBytes();
             var offset = PartialAddressOffset(partialNumber);
@@ -76,7 +76,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for modifiers
         /// </summary>
-        private byte[] GetModifiersSysexData(Modifiers modifiers)
+        private byte[] GetModifiersSysexData(IPatchPart modifiers)
         {
             var patchBytes = modifiers.GetBytes();
 

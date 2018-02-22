@@ -1,4 +1,6 @@
-﻿using JD_XI_Editor.Models.Enums.Program.Effects;
+﻿using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 
 // ReSharper disable SwitchStatementMissingSomeCases
@@ -54,6 +56,18 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 
                 NotifyOfPropertyChange(nameof(Basic));
             };
+        }
+
+        /// <inheritdoc />
+        public override byte[] GetBytes()
+        {
+            var bytes = new List<byte>();
+
+            bytes.AddRange(Basic.GetBytes());
+            bytes.AddRange(Enumerable.Repeat<byte>(0x00, 12));
+            bytes.AddRange(Parameters.GetBytes());
+
+            return bytes.ToArray();
         }
 
         #region Properties

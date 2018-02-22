@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
@@ -22,18 +20,9 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Get sysex data for patch
         /// </summary>
-        private static byte[] GetSysexDataForPatch(EffectPatch patch, Effect effect)
+        private static byte[] GetSysexDataForPatch(IPatch patch, Effect effect)
         {
-            var patchBytes = new List<byte>();
-            patchBytes.AddRange(patch.Basic.GetBytes());
-
-            if (effect == Effect.Effect1 || effect == Effect.Effect2)
-            {
-                patchBytes.AddRange(Enumerable.Repeat<byte>(0x00, 12)); // Reserve
-            }
-
-            patchBytes.AddRange(patch.Parameters.GetBytes());
-
+            var patchBytes = patch.GetBytes();
 
             var bytes = new List<byte>();
             bytes.AddRange(SysExUtils.Header);

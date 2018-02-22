@@ -18,7 +18,7 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         /// <param name="patch">Analog patch</param>
         /// <returns>Bytes of the sysex event</returns>
-        private static byte[] GetSysexData(Patch patch)
+        private static byte[] GetSysexData(IPatch patch)
         {
             var patchBytes = patch.GetBytes();
 
@@ -34,7 +34,7 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Dump(IPatch analogPatch, int deviceId)
         {
-            var data = GetSysexData((Patch) analogPatch);
+            var data = GetSysexData(analogPatch);
 
             using (var output = new OutputDevice(deviceId))
             {

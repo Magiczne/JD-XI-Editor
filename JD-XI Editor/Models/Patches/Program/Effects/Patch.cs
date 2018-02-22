@@ -1,4 +1,6 @@
-﻿namespace JD_XI_Editor.Models.Patches.Program.Effects
+﻿using JD_XI_Editor.Exceptions;
+
+namespace JD_XI_Editor.Models.Patches.Program.Effects
 {
     internal class Patch : IPatch
     {
@@ -17,6 +19,12 @@
             Effect2.Reset();
             Delay.Reset();
             Reverb.Reset();
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            throw new PatchNotConvertibleIntoBytes();
         }
 
         #region Properties

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 
 // ReSharper disable InvertIf
 
@@ -20,6 +21,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         {
             Common.Reset();
             InitPartials();
+        }
+
+        /// <inheritdoc />
+        public byte[] GetBytes()
+        {
+            throw new PatchNotConvertibleIntoBytes();
         }
 
         /// <summary>
