@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
 
-namespace JD_XI_Editor.ViewModels
+namespace JD_XI_Editor.ViewModels.Digital
 {
     internal sealed class DigitalSynthTabViewModel : PatchTabViewModel
     {

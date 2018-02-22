@@ -1,0 +1,63 @@
+﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.Assignable.BitCrusherView"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+          Style="{StaticResource MetroGroupBox}"
+          Header="Bit Crusher">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85" />
+            <RowDefinition Height="85" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding BitCrusherParameters.Level}" />
+            <TextBlock Text="Level"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding BitCrusherParameters.Rate}" />
+            <TextBlock Text="Rate"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="1"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding BitCrusherParameters.Bit}" />
+            <TextBlock Text="Bit"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding BitCrusherParameters.Filter}" />
+            <TextBlock Text="Filter"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</GroupBox>

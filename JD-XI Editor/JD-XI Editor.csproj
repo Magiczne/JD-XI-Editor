@@ -200,33 +200,86 @@
     <Compile Include="Models\Patches\Program\Effects\Reverb\Patch.cs" />
     <Compile Include="Models\Patches\Program\Effects\ThruEffectParameters.cs" />
     <Compile Include="Utils\ByteUtils.cs" />
+    <Compile Include="Utils\Converters\BooleanAndConverter.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Converters\EnumToCollectionConverter.cs" />
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
-    <Compile Include="ViewModels\DigitalPartialsEditorViewModel.cs" />
-    <Compile Include="ViewModels\DigitalPartialViewModel.cs" />
-    <Compile Include="ViewModels\DigitalSynthTabViewModel.cs" />
-    <Compile Include="ViewModels\EffectsTabViewModel.cs" />
+    <Compile Include="ViewModels\Digital\DigitalPartialsEditorViewModel.cs" />
+    <Compile Include="ViewModels\Digital\DigitalPartialViewModel.cs" />
+    <Compile Include="ViewModels\Digital\DigitalSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\BitCrusherViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\DistortionViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\FlangerViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\FuzzViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\PhaserViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\RingModulationViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\SlicerViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Assignable\ThruViewModel.cs" />
+    <Compile Include="ViewModels\Effects\DelayViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Effect1ViewModel.cs" />
+    <Compile Include="ViewModels\Effects\Effect2ViewModel.cs" />
+    <Compile Include="ViewModels\Effects\EffectsTabViewModel.cs" />
+    <Compile Include="ViewModels\Effects\ReverbViewModel.cs" />
     <Compile Include="ViewModels\HomeTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Abstract\PatchTabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DigitalPartialsEditorView.xaml.cs">
+    <Compile Include="Views\Digital\DigitalPartialsEditorView.xaml.cs">
       <DependentUpon>DigitalPartialsEditorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DigitalPartialView.xaml.cs">
+    <Compile Include="Views\Digital\DigitalPartialView.xaml.cs">
       <DependentUpon>DigitalPartialView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DigitalSynthTabView.xaml.cs">
+    <Compile Include="Views\Digital\DigitalSynthTabView.xaml.cs">
       <DependentUpon>DigitalSynthTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EffectsTabView.xaml.cs">
+    <Compile Include="Views\Effects\Assignable\BitCrusherView.xaml.cs">
+      <DependentUpon>BitCrusherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\CompressorView.xaml.cs">
+      <DependentUpon>CompressorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\DistortionView.xaml.cs">
+      <DependentUpon>DistortionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\FlangerView.xaml.cs">
+      <DependentUpon>FlangerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\FuzzView.xaml.cs">
+      <DependentUpon>FuzzView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\PhaserView.xaml.cs">
+      <DependentUpon>PhaserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\RingModulationView.xaml.cs">
+      <DependentUpon>RingModulationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\SlicerView.xaml.cs">
+      <DependentUpon>SlicerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Assignable\ThruView.xaml.cs">
+      <DependentUpon>ThruView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\DelayView.xaml.cs">
+      <DependentUpon>DelayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Effect1View.xaml.cs">
+      <DependentUpon>Effect1View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\Effect2View.xaml.cs">
+      <DependentUpon>Effect2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\EffectsTabView.xaml.cs">
       <DependentUpon>EffectsTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Effects\ReverbView.xaml.cs">
+      <DependentUpon>ReverbView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeTabView.xaml.cs">
       <DependentUpon>HomeTabView.xaml</DependentUpon>
@@ -271,19 +324,71 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DigitalPartialsEditorView.xaml">
+    <Page Include="Views\Digital\DigitalPartialsEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DigitalPartialView.xaml">
+    <Page Include="Views\Digital\DigitalPartialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DigitalSynthTabView.xaml">
+    <Page Include="Views\Digital\DigitalSynthTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EffectsTabView.xaml">
+    <Page Include="Views\Effects\Assignable\BitCrusherView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\CompressorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\DistortionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\FlangerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\FuzzView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\PhaserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\RingModulationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\SlicerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Assignable\ThruView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\DelayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Effect1View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\Effect2View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\EffectsTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Effects\ReverbView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

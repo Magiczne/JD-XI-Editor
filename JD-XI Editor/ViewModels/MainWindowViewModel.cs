@@ -3,6 +3,8 @@ using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
+using JD_XI_Editor.ViewModels.Digital;
+using JD_XI_Editor.ViewModels.Effects;
 using Sanford.Multimedia.Midi;
 
 // ReSharper disable InvertIf

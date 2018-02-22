@@ -1,0 +1,63 @@
+﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.Assignable.RingModulationView"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+          Style="{StaticResource MetroGroupBox}"
+          Header="Ring Modulation">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85" />
+            <RowDefinition Height="85" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding RingModulationParameters.Frequency}" />
+            <TextBlock Text="Frequency"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding RingModulationParameters.Sensitivity}" />
+            <TextBlock Text="Sensitivity"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="1"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="100"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding RingModulationParameters.DryWetBalance}" />
+            <TextBlock Text="Dry/Wet Balance"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1"
+                    Orientation="Vertical">
+            <knobControl:Knob Height="65" Width="65"
+                              ArcEndAngle="150" ArcStartAngle="-150"
+                              Minimum="0" Maximum="127"
+                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                              Value="{Binding RingModulationParameters.Level}" />
+            <TextBlock Text="Level"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</GroupBox>

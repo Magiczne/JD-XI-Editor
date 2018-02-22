@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.Digital;
 
-namespace JD_XI_Editor.ViewModels
+namespace JD_XI_Editor.ViewModels.Digital
 {
     internal class DigitalPartialsEditorViewModel : Conductor<DigitalPartialViewModel>.Collection.OneActive
     {

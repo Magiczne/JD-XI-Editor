@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Patches.Digital;
 
 // ReSharper disable InvertIf
 
-namespace JD_XI_Editor.ViewModels
+namespace JD_XI_Editor.ViewModels.Digital
 {
     internal sealed class DigitalPartialViewModel : Screen
     {

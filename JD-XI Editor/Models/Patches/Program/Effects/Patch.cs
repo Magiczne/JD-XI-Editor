@@ -2,6 +2,14 @@
 {
     internal class Patch : IPatch
     {
+        public Patch()
+        {
+            Effect1 = new Effect1.Patch();
+            Effect2 = new Effect2.Patch();
+            Delay = new Delay.Patch();
+            Reverb = new Reverb.Patch();
+        }
+
         /// <inheritdoc />
         public void Reset()
         {
