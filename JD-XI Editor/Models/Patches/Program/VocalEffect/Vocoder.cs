@@ -10,6 +10,15 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
     internal class Vocoder : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Vocoder
+        /// </summary>
+        public Vocoder()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
             throw new NotImplementedException();

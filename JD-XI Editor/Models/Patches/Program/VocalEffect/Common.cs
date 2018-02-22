@@ -9,6 +9,15 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
     internal class Common : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Common
+        /// </summary>
+        public Common()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
             throw new NotImplementedException();

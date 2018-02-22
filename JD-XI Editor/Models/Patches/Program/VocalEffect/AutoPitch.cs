@@ -11,6 +11,15 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
     internal class AutoPitch : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of AutoPitch
+        /// </summary>
+        public AutoPitch()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
             throw new NotImplementedException();
