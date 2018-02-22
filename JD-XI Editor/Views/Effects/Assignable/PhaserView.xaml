@@ -35,7 +35,8 @@
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding PhaserParameters.Note, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding PhaserParameters.Note}" />
+                  SelectedValue="{Binding PhaserParameters.Note}"
+                  IsEnabled="{Binding IsRateModeSelected, Converter={converters:InverseBooleanConverter}}" />
 
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
               Margin="0 5 0 0">
@@ -51,6 +52,7 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  IsEnabled="{Binding IsRateModeSelected}"
                                   Value="{Binding PhaserParameters.Rate}" />
                 <TextBlock Text="Rate"
                            TextAlignment="Center"

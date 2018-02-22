@@ -85,7 +85,8 @@
         <CheckBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   Content="Synchronization"
-                  IsChecked="{Binding CompressorParameters.SidechainSync}" />
+                  IsChecked="{Binding CompressorParameters.SidechainSync}"
+                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
 
         <Label Grid.Row="6" Grid.Column="0"
                VerticalAlignment="Top"
@@ -95,7 +96,8 @@
                   SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding CompressorParameters.SidechainNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding CompressorParameters.SidechainNote}" />
+                  SelectedValue="{Binding CompressorParameters.SidechainNote}" 
+                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
 
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
               Margin="0 5 0 0">
@@ -112,7 +114,8 @@
                                   Minimum="60" Maximum="1000" Unit="ms"
                                   LabelFontSize="40"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainTime}" />
+                                  Value="{Binding CompressorParameters.SidechainTime}" 
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
                 <TextBlock Text="Sidechain Time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -123,7 +126,8 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainRelease}" />
+                                  Value="{Binding CompressorParameters.SidechainRelease}"
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
                 <TextBlock Text="Sidechain Release"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
@@ -134,7 +138,8 @@
                                   ArcEndAngle="150" ArcStartAngle="-150"
                                   Minimum="0" Maximum="127"
                                   HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainLevel}" />
+                                  Value="{Binding CompressorParameters.SidechainLevel}"
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
                 <TextBlock Text="Sidechain Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

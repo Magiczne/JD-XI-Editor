@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using JD_XI_Editor.Models.Enums.Effects.Flanger;
 using JD_XI_Editor.Models.Patches.Program.Effects.Effect2;
 
 namespace JD_XI_Editor.ViewModels.Effects.Assignable
@@ -10,9 +11,19 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
         /// </summary>
         public FlangerParameters FlangerParameters { get; }
 
+        /// <summary>
+        ///     Is Rate Mode Selected
+        /// </summary>
+        public bool IsRateModeSelected => FlangerParameters.Mode == Mode.Rate;
+
         public FlangerViewModel(FlangerParameters parameters)
         {
             FlangerParameters = parameters;
+
+            FlangerParameters.PropertyChanged += (sender, args) =>
+            {
+                NotifyOfPropertyChange(nameof(IsRateModeSelected));
+            };
         }
     }
 }
