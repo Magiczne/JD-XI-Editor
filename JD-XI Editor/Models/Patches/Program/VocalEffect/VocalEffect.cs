@@ -6,7 +6,7 @@ using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
-    internal class VocalEffect : PropertyChangedBase, IPatch
+    internal class VocalEffect : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
         /// <summary>

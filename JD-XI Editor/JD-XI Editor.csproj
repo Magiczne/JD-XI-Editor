@@ -89,15 +89,17 @@
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Exceptions\PatchNotConvertibleIntoBytes.cs" />
+    <Compile Include="Managers\Abstract\IProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
     <Compile Include="Managers\EffectsPatchManager.cs" />
     <Compile Include="Managers\Enums\DigitalPartial.cs" />
     <Compile Include="Managers\Enums\DigitalSynthNumber.cs" />
     <Compile Include="Managers\Enums\Effect.cs" />
-    <Compile Include="Managers\IDigitalPatchManager.cs" />
-    <Compile Include="Managers\IDrumKitPatchManager.cs" />
-    <Compile Include="Managers\IEffectsPatchManager.cs" />
-    <Compile Include="Managers\IPatchManager.cs" />
+    <Compile Include="Managers\Abstract\IDigitalPatchManager.cs" />
+    <Compile Include="Managers\Abstract\IDrumKitPatchManager.cs" />
+    <Compile Include="Managers\Abstract\IEffectsPatchManager.cs" />
+    <Compile Include="Managers\Abstract\IPatchManager.cs" />
+    <Compile Include="Managers\ProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\Digital\Category.cs" />
     <Compile Include="Models\Enums\Digital\FilterType.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="Models\Patches\Program\Effects\Reverb\Parameters.cs" />
     <Compile Include="Models\Patches\Program\Effects\Reverb\Patch.cs" />
     <Compile Include="Models\Patches\Program\Effects\ThruEffectParameters.cs" />
+    <Compile Include="Models\Patches\Program\CommonAndVocalEffectPatch.cs" />
     <Compile Include="Models\Patches\Program\VocalEffect\AutoPitch.cs" />
     <Compile Include="Models\Patches\Program\VocalEffect\Common.cs" />
     <Compile Include="Models\Patches\Program\VocalEffect\VocalEffect.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="ViewModels\HomeTabViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Abstract\PatchTabViewModel.cs" />
+    <Compile Include="ViewModels\Program\CommonAndVocalFxTabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
     </Compile>
@@ -309,6 +313,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrap\Bootstrapper.cs" />
+    <Compile Include="Views\Program\CommonAndVocalFxTabView.xaml.cs">
+      <DependentUpon>CommonAndVocalFxTabView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\Styles\Accent\JDXICrimson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -414,6 +421,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Program\CommonAndVocalFxTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

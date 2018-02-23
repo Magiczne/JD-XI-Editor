@@ -5,6 +5,7 @@ using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Digital;
 using JD_XI_Editor.ViewModels.Effects;
+using JD_XI_Editor.ViewModels.Program;
 using Sanford.Multimedia.Midi;
 
 // ReSharper disable InvertIf
@@ -25,7 +26,10 @@ namespace JD_XI_Editor.ViewModels
                 new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second),
                 // TODO: Drums
                 new AnalogSynthTabViewModel(eventAggregator),
-                new EffectsTabViewModel(eventAggregator)
+
+                new EffectsTabViewModel(eventAggregator),
+
+                new CommonAndVocalFxTabViewModel(eventAggregator)
             });
             _eventAggregator = eventAggregator;
 
