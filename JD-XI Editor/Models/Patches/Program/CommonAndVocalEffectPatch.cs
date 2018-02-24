@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -10,7 +11,36 @@ namespace JD_XI_Editor.Models.Patches.Program
             Common = new Common();
             VocalEffect = new VocalEffect.VocalEffect();
 
-            Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
+            Common.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Common.VocalEffectType))
+                {
+                    switch (Common.VocalEffectType)
+                    {
+                        case Type.Off:
+                            VocalEffect.AutoPitch.On = false;
+                            VocalEffect.Vocoder.On = false;
+                            break;
+
+                        case Type.Vocoder:
+                            VocalEffect.AutoPitch.On = false;
+                            VocalEffect.Vocoder.On = true;
+                            break;
+
+                        case Type.AutoPitch:
+                            VocalEffect.AutoPitch.On = true;
+                            VocalEffect.Vocoder.On = false;
+                            break;
+
+                        default:
+                            VocalEffect.AutoPitch.On = false;
+                            VocalEffect.Vocoder.On = false;
+                            break;
+                    }
+                }
+
+                NotifyOfPropertyChange(nameof(Common));
+            };
             VocalEffect.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(VocalEffect));
         }
 

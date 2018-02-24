@@ -64,7 +64,7 @@
             </Style>
 
             <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MetroTabItem}">
-                <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="25" />
+                <Setter Property="mah:ControlsHelper.HeaderFontSize" Value="22" />
                 <Setter Property="mah:ControlsHelper.HeaderFontStretch" Value="UltraCondensed" />
             </Style>
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch;
 using JD_XI_Editor.Utils;
 using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch.Type;
@@ -22,7 +21,13 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void Reset()
         {
-            throw new NotImplementedException();
+            On = false;
+            Type = Type.Soft;
+            Scale = Scale.MajorMinor;
+            Key = Key.C;
+            Gender = 0;
+            Octave = Octave.Zero;
+            DryWetBalance = 100;
         }
 
         /// <inheritdoc />

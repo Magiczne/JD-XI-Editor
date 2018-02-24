@@ -13,7 +13,7 @@ namespace JD_XI_Editor.ViewModels.Program
         /// <summary>
         ///     Common and vocal fx patch
         /// </summary>
-        private readonly CommonAndVocalEffectPatch _patch;
+        public CommonAndVocalEffectPatch Patch { get; }
 
         /// <inheritdoc />
         /// <summary>
@@ -24,23 +24,23 @@ namespace JD_XI_Editor.ViewModels.Program
             : base(eventAggregator, new ProgramCommonAndVocalEffectsManager())
         {
             DisplayName = "Program Common & VocalFX";
-            _patch = new CommonAndVocalEffectPatch();
+            Patch = new CommonAndVocalEffectPatch();
 
-            _patch.Common.PropertyChanged += (sender, args) =>
+            Patch.Common.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
                     var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
-                    manager.DumpCommon(_patch.Common, SelectedOutputDeviceId);
+                    manager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
                 }
             };
 
-            _patch.VocalEffect.PropertyChanged += (sender, args) =>
+            Patch.VocalEffect.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
                     var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
-                    manager.DumpVocalEffects(_patch.VocalEffect, SelectedOutputDeviceId);
+                    manager.DumpVocalEffects(Patch.VocalEffect, SelectedOutputDeviceId);
                 }
             };
         }
@@ -48,13 +48,14 @@ namespace JD_XI_Editor.ViewModels.Program
         /// <inheritdoc />
         public override void Dump()
         {
-            throw new System.NotImplementedException();
+            if (SelectedOutputDeviceId != -1)
+                PatchManager.Dump(Patch, SelectedOutputDeviceId);
         }
 
         /// <inheritdoc />
         public override void InitPatch()
         {
-            _patch.Reset();
+            Patch.Reset();
         }
     }
 }

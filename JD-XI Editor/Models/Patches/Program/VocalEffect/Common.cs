@@ -20,7 +20,11 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void Reset()
         {
-            throw new NotImplementedException();
+            Level = 127;
+            Panorama = 0;
+            DelaySendLevel = 0x0;
+            ReverbSendLevel = 0x0;
+            OutputAssign = OutputAssign.Delay;
         }
 
         /// <inheritdoc />
@@ -29,7 +33,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             return new[]
             {
                 (byte) Level,
-                (byte) Panorama,
+                (byte) (Panorama + 64),
                 (byte) DelaySendLevel,
                 (byte) ReverbSendLevel,
                 (byte) OutputAssign

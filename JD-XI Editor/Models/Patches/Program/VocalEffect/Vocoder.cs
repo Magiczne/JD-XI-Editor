@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 using JD_XI_Editor.Utils;
 
@@ -21,7 +20,13 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void Reset()
         {
-            throw new NotImplementedException();
+            On = false;
+            Envelope = Envelope.Sharp;
+            UnknowParameter = 0;    //TODO: WHAT
+            MicrophoneSensitivity = 40;
+            SynthLevel = 0;
+            MicrophoneMixLevel = 2;
+            MicrophoneHpf = HighPassFilter.Bypass;
         }
 
         /// <inheritdoc />

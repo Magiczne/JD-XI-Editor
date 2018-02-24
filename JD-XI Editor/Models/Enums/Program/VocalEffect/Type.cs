@@ -6,6 +6,6 @@ namespace JD_XI_Editor.Models.Enums.Program.VocalEffect
     {
         [Description("Off")] Off = 0x0,
         [Description("Vocoder")] Vocoder = 0x1,
-        [Description("Auto Pitc")] AutoPitch
+        [Description("Auto Pitch")] AutoPitch
     }
 }

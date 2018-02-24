@@ -3,16 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:cal="http://www.caliburnproject.org"
-      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+      xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters">
+    <Grid.Resources>
+        <converters:BooleanOrConverter x:Key="BooleanOrConverter" />
+    </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
         <RowDefinition />
+        <RowDefinition />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition />
+        <ColumnDefinition Width="250" />
+        <ColumnDefinition Width="260" />
+        <ColumnDefinition Width="260" />
     </Grid.ColumnDefinitions>
 
-    <Grid Grid.Row="0" Grid.Column="0">
+    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="235" />
             <ColumnDefinition Width="*" />
@@ -32,10 +40,10 @@
             </i:Interaction.Triggers>
         </Button>
         <mah:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                               Width="150" Height="35"
-                               VerticalAlignment="Top" HorizontalAlignment="Right"
-                               OnLabel="Auto Sync" OffLabel="Auto Sync"
-                               IsChecked="{Binding AutoSync}" />
+                          Width="150" Height="35"
+                          VerticalAlignment="Top" HorizontalAlignment="Right"
+                          OnLabel="Auto Sync" OffLabel="Auto Sync"
+                          IsChecked="{Binding AutoSync}" />
         <Button Grid.Column="3" Grid.Row="0"
                 Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
                 Content="Force dump"
@@ -54,4 +62,395 @@
                 IsEnabled="{Binding CanRead}"
                 Style="{StaticResource AccentedSquareButtonStyle}" />
     </Grid>
+
+    <!-- Program Common -->
+    <GroupBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"
+              Header="Program Common">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="90" />
+                <RowDefinition Height="30" />
+
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0"
+                   VerticalAlignment="Top"
+                   Content="Name: " />
+            <TextBox MaxLength="12"
+                     Grid.Column="1" Grid.Row="0"
+                     VerticalAlignment="Top"
+                     Margin="0 0 5 0"
+                     Text="{Binding Patch.Common.Name}" />
+
+            <StackPanel Grid.Column="0" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.Level}" />
+                <TextBlock Text="Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="5" Maximum="300"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.Common.Tempo}" />
+                <TextBlock Text="Tempo"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                   VerticalAlignment="Top"
+                   Content="Vocal Effect Type: " />
+            <ComboBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.Common.VocalEffectType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.VocalEffectType}" />
+
+            <!--<Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                   VerticalAlignment="Top"
+                   Content="Vocal Effect Number: " />
+            <ComboBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.Common.VocalEffectNumber, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.VocalEffectNumber}" />
+
+            <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+                   VerticalAlignment="Top"
+                   Content="Vocal Effect Part: " />
+            <ComboBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.Common.VocalEffectPart, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.VocalEffectPart}" />
+
+            <CheckBox Grid.Column="1" Grid.Row="9"
+                      VerticalAlignment="Top"
+                      FlowDirection="RightToLeft"
+                      Content="Auto Note"
+                      IsChecked="{Binding Patch.Lfo.KeyTrigger}" />-->
+        </Grid>
+    </GroupBox>
+
+    <!-- Vocal FX Common -->
+    <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+              Margin="10 0 0 0"
+              Header="Vocal Effects Common">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="90" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="2" Grid.Row="0"
+                   VerticalAlignment="Top"
+                   Content="Output Assign: " />
+            <ComboBox Grid.Column="3" Grid.Row="0"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.Common.OutputAssign, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.Common.OutputAssign}">
+                <ComboBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BooleanOrConverter}">
+                        <Binding Path="Patch.VocalEffect.AutoPitch.On" />
+                        <Binding Path="Patch.VocalEffect.Vocoder.On" />
+                    </MultiBinding>
+                </ComboBox.IsEnabled>
+            </ComboBox>
+
+            <StackPanel Grid.Column="0" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Common.Level}">
+                    <knobControl:Knob.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanOrConverter}">
+                            <Binding Path="Patch.VocalEffect.AutoPitch.On" />
+                            <Binding Path="Patch.VocalEffect.Vocoder.On" />
+                        </MultiBinding>
+                    </knobControl:Knob.IsEnabled>
+                </knobControl:Knob>
+                <TextBlock Text="Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="-64" Maximum="63"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Common.Panorama}">
+                    <knobControl:Knob.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanOrConverter}">
+                            <Binding Path="Patch.VocalEffect.AutoPitch.On" />
+                            <Binding Path="Patch.VocalEffect.Vocoder.On" />
+                        </MultiBinding>
+                    </knobControl:Knob.IsEnabled>
+                </knobControl:Knob>
+                <TextBlock Text="Panorama"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Common.DelaySendLevel}">
+                    <knobControl:Knob.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanOrConverter}">
+                            <Binding Path="Patch.VocalEffect.AutoPitch.On" />
+                            <Binding Path="Patch.VocalEffect.Vocoder.On" />
+                        </MultiBinding>
+                    </knobControl:Knob.IsEnabled>
+                </knobControl:Knob>
+                <TextBlock Text="Delay Send Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="3" Grid.Row="1"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Common.ReverbSendLevel}">
+                    <knobControl:Knob.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BooleanOrConverter}">
+                            <Binding Path="Patch.VocalEffect.AutoPitch.On" />
+                            <Binding Path="Patch.VocalEffect.Vocoder.On" />
+                        </MultiBinding>
+                    </knobControl:Knob.IsEnabled>
+                </knobControl:Knob>
+                <TextBlock Text="Reverb Send Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+
+    <!-- Vocoder -->
+    <GroupBox Grid.Row="2" Grid.Column="1"
+              Margin="10 10 0 0"
+              Header="Vocoder">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="105" />
+                <RowDefinition Height="90" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0"
+                   VerticalAlignment="Top"
+                   Content="Envelope: " />
+            <ComboBox Grid.Column="1" Grid.Row="0"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.Vocoder.Envelope, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.Vocoder.Envelope}"
+                      IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+
+            <Label Grid.Column="0" Grid.Row="1"
+                   VerticalAlignment="Top"
+                   Content="Microphone HPF: "
+                   ToolTip="Microphone High Pass Filter" />
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.Vocoder.MicrophoneHpf, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.Vocoder.MicrophoneHpf}"
+                      IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+
+            <StackPanel Grid.Column="0" Grid.Row="2"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Vocoder.UnknowParameter}"
+                                  IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+                <TextBlock Text="Unknow Param"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Vocoder.MicrophoneSensitivity}"
+                                  IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+                <TextBlock Text="Microphone Sensitivity"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Grid.Row="3"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Vocoder.SynthLevel}"
+                                  IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+                <TextBlock Text="Synth Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="3"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="127"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.Vocoder.MicrophoneMixLevel}"
+                                  IsEnabled="{Binding Patch.VocalEffect.Vocoder.On}" />
+                <TextBlock Text="Microphone Mix Level"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+
+    <!-- Auto Pitch -->
+    <GroupBox Grid.Row="2" Grid.Column="2"
+              Margin="10 10 0 0"
+              Header="Auto Pitch">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="90" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0"
+                   VerticalAlignment="Top"
+                   Content="Type: " />
+            <ComboBox Grid.Column="1" Grid.Row="0"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.AutoPitch.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.AutoPitch.Type}"
+                      IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+
+            <Label Grid.Column="0" Grid.Row="1"
+                   VerticalAlignment="Top"
+                   Content="Scale: " />
+            <ComboBox Grid.Column="1" Grid.Row="1"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.AutoPitch.Scale, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.AutoPitch.Scale}"
+                      IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+
+            <Label Grid.Column="0" Grid.Row="2"
+                   VerticalAlignment="Top"
+                   Content="Key: " />
+            <ComboBox Grid.Column="1" Grid.Row="2"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.AutoPitch.Key, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.AutoPitch.Key}"
+                      IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+
+            <Label Grid.Column="0" Grid.Row="3"
+                   VerticalAlignment="Top"
+                   Content="Octave: " />
+            <ComboBox Grid.Column="1" Grid.Row="3"
+                      VerticalAlignment="Top"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.VocalEffect.AutoPitch.Octave, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.VocalEffect.AutoPitch.Octave}"
+                      IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+
+            <StackPanel Grid.Column="0" Grid.Row="4"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="-10" Maximum="10"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.AutoPitch.Gender}"
+                                  IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+                <TextBlock Text="Gender"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="4"
+                        Margin="0 5 0 0"
+                        Orientation="Vertical">
+                <knobControl:Knob Height="65" Width="65"
+                                  ArcEndAngle="150" ArcStartAngle="-150"
+                                  Minimum="0" Maximum="100"
+                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                  Value="{Binding Patch.VocalEffect.AutoPitch.DryWetBalance}"
+                                  IsEnabled="{Binding Patch.VocalEffect.AutoPitch.On}" />
+                <TextBlock Text="Dry/Wet Balance"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </GroupBox>
 </Grid>

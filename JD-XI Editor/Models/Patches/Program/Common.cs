@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using JD_XI_Editor.Utils;
-using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 // ReSharper disable InvertIf
 
@@ -24,7 +22,15 @@ namespace JD_XI_Editor.Models.Patches.Program
         /// <inheritdoc />
         public void Reset()
         {
-            throw new NotImplementedException();
+            Name = "Init Program";
+            Level = 127;
+            Tempo = 140;
+
+            VocalEffectType = Type.Off;
+            VocalEffectNumber = EffectNumber.VocoderEnsemble;
+            VocalEffectPart = Part.DigitalSynth1;
+
+            AutoNote = false;
         }
 
         /// <inheritdoc />
@@ -39,17 +45,23 @@ namespace JD_XI_Editor.Models.Patches.Program
             bytes.AddRange(ByteUtils.RepeatReserve(4));
 
             bytes.Add((byte) Level);
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Tempo, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4Packets(Tempo * 100, ByteUtils.Offset.None));
             bytes.Add(0x00); // Reserve
 
-            bytes.Add((byte) VocalEffectType);
+            //if (VocalEffectType != Type.Off)
+            //{
+            //    bytes.Add((byte)VocalEffectType);
 
-            bytes.AddRange(ByteUtils.RepeatReserve(5));
+            //    bytes.AddRange(ByteUtils.RepeatReserve(5));
 
-            bytes.Add((byte) VocalEffectNumber);
-            bytes.Add((byte) VocalEffectPart);
+            //    bytes.Add((byte)VocalEffectNumber);
+            //    bytes.Add((byte)VocalEffectPart);
+            //}
 
-            bytes.Add(ByteUtils.BooleanToByte(AutoNote));
+            //if (VocalEffectType == Type.Vocoder)
+            //{
+            //    bytes.Add(ByteUtils.BooleanToByte(AutoNote));
+            //}
 
             return bytes.ToArray();
         }
@@ -158,7 +170,7 @@ namespace JD_XI_Editor.Models.Patches.Program
                 }
             }
         }
-   
+
         /// <summary>
         ///     Vocal Effect Number
         /// </summary>

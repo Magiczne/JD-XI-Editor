@@ -221,6 +221,7 @@
     <Compile Include="Models\Patches\Program\VocalEffect\Vocoder.cs" />
     <Compile Include="Utils\ByteUtils.cs" />
     <Compile Include="Utils\Converters\BooleanAndConverter.cs" />
+    <Compile Include="Utils\Converters\BooleanOrConverter.cs" />
     <Compile Include="Utils\Converters\InverseBooleanConverter.cs" />
     <Compile Include="Utils\Enums\EnumHelper.cs" />
     <Compile Include="Utils\Converters\EnumToCollectionConverter.cs" />
