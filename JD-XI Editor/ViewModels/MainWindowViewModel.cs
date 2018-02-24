@@ -42,7 +42,7 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         ///     Get input and output MIDI devices
         /// </summary>
-        private void GetMidiDevices()
+        public void GetMidiDevices()
         {
             var inputDevices = new BindableCollection<MidiInputDeviceInfo>();
             var outputDevices = new BindableCollection<MidiOutputDeviceInfo>();
@@ -56,8 +56,8 @@ namespace JD_XI_Editor.ViewModels
             InputDevices = inputDevices;
             OutputDevices = outputDevices;
 
-            var jdXiInput = InputDevices.First(d => d.Name == "JD-Xi");
-            var jdXiOutput = OutputDevices.First(d => d.Name == "JD-Xi");
+            var jdXiInput = InputDevices.FirstOrDefault(d => d.Name == "JD-Xi");
+            var jdXiOutput = OutputDevices.FirstOrDefault(d => d.Name == "JD-Xi");
 
             SelectedInputDeviceId = jdXiInput == null ? -1 : InputDevices.IndexOf(jdXiInput);
             SelectedOutputDeviceId = jdXiOutput == null ? -1 : OutputDevices.IndexOf(jdXiOutput);
@@ -124,6 +124,7 @@ namespace JD_XI_Editor.ViewModels
                 {
                     _selectedInputDeviceId = value;
                     _eventAggregator.PublishOnUIThread(new InputDeviceChangedEventArgs(_selectedInputDeviceId));
+                    NotifyOfPropertyChange(nameof(SelectedInputDeviceId));
                 }
             }
         }
@@ -156,6 +157,7 @@ namespace JD_XI_Editor.ViewModels
                 {
                     _selectedOutputDeviceId = value;
                     _eventAggregator.PublishOnUIThread(new OutputDeviceChangedEventArgs(_selectedOutputDeviceId));
+                    NotifyOfPropertyChange(nameof(SelectedOutputDeviceId));
                 }
             }
         }

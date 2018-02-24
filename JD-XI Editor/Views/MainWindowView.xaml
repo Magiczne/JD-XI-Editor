@@ -5,6 +5,8 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
                      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
+                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                     xmlns:cal="http://www.caliburnproject.org"
                      mc:Ignorable="d"
                      SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <mahapps:MetroWindow.RightWindowCommands>
@@ -23,6 +25,13 @@
                           ItemsSource="{Binding OutputDevices}"
                           SelectedIndex="{Binding SelectedOutputDeviceId}" />
             </StackPanel>
+            <Button Content="Refresh Devices">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="GetMidiDevices" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </mahapps:WindowCommands>
     </mahapps:MetroWindow.RightWindowCommands>
     <Grid Margin="5">
