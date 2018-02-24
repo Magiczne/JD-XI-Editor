@@ -48,20 +48,20 @@ namespace JD_XI_Editor.Models.Patches.Program
             bytes.AddRange(ByteUtils.NumberTo4Packets(Tempo * 100, ByteUtils.Offset.None));
             bytes.Add(0x00); // Reserve
 
-            //if (VocalEffectType != Type.Off)
-            //{
-            //    bytes.Add((byte)VocalEffectType);
+            if (VocalEffectType != Type.Off)
+            {
+                bytes.Add((byte)VocalEffectType);
 
-            //    bytes.AddRange(ByteUtils.RepeatReserve(5));
+                bytes.AddRange(ByteUtils.RepeatReserve(5));
 
-            //    bytes.Add((byte)VocalEffectNumber);
-            //    bytes.Add((byte)VocalEffectPart);
-            //}
+                bytes.Add((byte)VocalEffectNumber);
+                bytes.Add((byte)VocalEffectPart);
+            }
 
-            //if (VocalEffectType == Type.Vocoder)
-            //{
-            //    bytes.Add(ByteUtils.BooleanToByte(AutoNote));
-            //}
+            if (VocalEffectType == Type.Vocoder)
+            {
+                bytes.Add(ByteUtils.BooleanToByte(AutoNote));
+            }
 
             return bytes.ToArray();
         }

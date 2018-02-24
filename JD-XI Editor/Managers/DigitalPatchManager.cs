@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using JD_XI_Editor.Managers.Abstract;
+﻿using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Digital;
@@ -23,62 +22,58 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Common address offset
         /// </summary>
-        private IEnumerable<byte> CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
+        private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
 
         /// <summary>
         ///     Modifiers address offset
         /// </summary>
-        private IEnumerable<byte> ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
+        private byte[] ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
 
-        #region Methods
-
-        /// <summary>
-        ///     Get sysex data for common
-        /// </summary>
-        private byte[] GetCommonSysexData(IPatchPart common)
+        /// <inheritdoc />
+        public void Dump(IPatch patch, int deviceId)
         {
-            var patchBytes = common.GetBytes();
+            var digitalPatch = (Patch) patch;
 
-            var bytes = new List<byte>();
-            bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(CommonAddressOffset);
-            bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, CommonAddressOffset));
-            bytes.Add(0xF7);
-            return bytes.ToArray();
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(digitalPatch.Common.GetBytes(), CommonAddressOffset));
+
+                output.Send(SysExUtils.GetMessage(digitalPatch.PartialOne.GetBytes(),
+                    PartialAddressOffset(DigitalPartial.First)));
+                output.Send(SysExUtils.GetMessage(digitalPatch.PartialTwo.GetBytes(),
+                    PartialAddressOffset(DigitalPartial.Second)));
+                output.Send(SysExUtils.GetMessage(digitalPatch.PartialThree.GetBytes(),
+                    PartialAddressOffset(DigitalPartial.Third)));
+
+                output.Send(SysExUtils.GetMessage(digitalPatch.Modifiers.GetBytes(), ModifiersAddressOffset));
+            }
         }
 
-        /// <summary>
-        ///     Get sysex data for partial
-        /// </summary>
-        private byte[] GetPartialSysexData(IPatchPart partial, DigitalPartial partialNumber)
+        /// <inheritdoc />
+        public void DumpCommon(Common common, int deviceId)
         {
-            var patchBytes = partial.GetBytes();
-            var offset = PartialAddressOffset(partialNumber);
-
-            var bytes = new List<byte>();
-            bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(offset);
-            bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, offset));
-            bytes.Add(0xF7);
-            return bytes.ToArray();
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(common.GetBytes(), CommonAddressOffset));
+            }
         }
 
-        /// <summary>
-        ///     Get sysex data for modifiers
-        /// </summary>
-        private byte[] GetModifiersSysexData(IPatchPart modifiers)
+        /// <inheritdoc />
+        public void DumpPartial(Partial partial, DigitalPartial partialNumber, int deviceId)
         {
-            var patchBytes = modifiers.GetBytes();
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(partial.GetBytes(), PartialAddressOffset(partialNumber)));
+            }
+        }
 
-            var bytes = new List<byte>();
-            bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(ModifiersAddressOffset);
-            bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, ModifiersAddressOffset));
-            bytes.Add(0xF7);
-            return bytes.ToArray();
+        /// <inheritdoc />
+        public void DumpModifiers(Modifiers modifiers, int deviceId)
+        {
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(modifiers.GetBytes(), ModifiersAddressOffset));
+            }
         }
 
         /// <summary>
@@ -88,65 +83,5 @@ namespace JD_XI_Editor.Managers
         {
             return new byte[] {0x19, (byte) _synthNumber, (byte) partial, 0x00};
         }
-
-        #endregion
-
-        #region IDigitalPatchManager
-
-        /// <inheritdoc />
-        public void Dump(IPatch patch, int deviceId)
-        {
-            var digitalPatch = (Patch) patch;
-
-            var commonData = GetCommonSysexData(digitalPatch.Common);
-            var partial1Data = GetPartialSysexData(digitalPatch.PartialOne, DigitalPartial.First);
-            var partial2Data = GetPartialSysexData(digitalPatch.PartialTwo, DigitalPartial.Second);
-            var partial3Data = GetPartialSysexData(digitalPatch.PartialThree, DigitalPartial.Third);
-            var modifiersData = GetModifiersSysexData(digitalPatch.Modifiers);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(commonData));
-                output.Send(new SysExMessage(partial1Data));
-                output.Send(new SysExMessage(partial2Data));
-                output.Send(new SysExMessage(partial3Data));
-                output.Send(new SysExMessage(modifiersData));
-            }
-        }
-
-        /// <inheritdoc />
-        public void DumpCommon(Common common, int deviceId)
-        {
-            var data = GetCommonSysexData(common);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(data));
-            }
-        }
-
-        /// <inheritdoc />
-        public void DumpPartial(Partial partial, DigitalPartial partialNumber, int deviceId)
-        {
-            var data = GetPartialSysexData(partial, partialNumber);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(data));
-            }
-        }
-
-        /// <inheritdoc />
-        public void DumpModifiers(Modifiers modifiers, int deviceId)
-        {
-            var data = GetModifiersSysexData(modifiers);
-
-            using (var output = new OutputDevice(deviceId))
-            {
-                output.Send(new SysExMessage(data));
-            }
-        }
-
-        #endregion
     }
 }

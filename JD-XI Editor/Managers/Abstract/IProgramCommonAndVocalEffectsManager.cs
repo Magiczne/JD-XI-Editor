@@ -13,5 +13,10 @@ namespace JD_XI_Editor.Managers.Abstract
         ///     Dump vocal effects program data to device
         /// </summary>
         void DumpVocalEffects(IPatchPart vocalEffects, int deviceId);
+
+        /// <summary>
+        ///     Set Auto Note param
+        /// </summary>
+        void SetAutoNote(bool value, int deviceId);
     }
 }

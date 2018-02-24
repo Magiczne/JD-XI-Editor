@@ -15,61 +15,52 @@ namespace JD_XI_Editor.Managers
         private static readonly byte[] CommonOffset = {0x18, 0x00, 0x00, 0x00};
 
         /// <summary>
+        ///     Auto Note offset address
+        /// </summary>
+        private static readonly byte[] AutoNoteOffset = {0x18, 0x00, 0x00, 0x1E};
+
+        /// <summary>
         ///     Program vocal effects offset address
         /// </summary>
         private static readonly byte[] VocalEffectsOffset = { 0x18, 0x00, 0x01, 0x00 };
 
-        /// <summary>
-        ///     Get sysex data
-        /// </summary>
-        private static byte[] GetSysexData(IPatchPart patch, byte[] offset)
-        {
-            var patchBytes = patch.GetBytes();
-
-            var bytes = new List<byte>();
-            bytes.AddRange(SysExUtils.Header);
-            bytes.AddRange(offset);
-            bytes.AddRange(patchBytes);
-            bytes.Add(SysExUtils.CalculateChecksum(patchBytes, offset));
-            bytes.Add(0xF7);
-
-            return bytes.ToArray();
-        }
-
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
-            var commonAndVocalFxPatch = (CommonAndVocalEffectPatch) patch;
-
-            var commonData = GetSysexData(commonAndVocalFxPatch.Common, CommonOffset);
-            var vocalFxData = GetSysexData(commonAndVocalFxPatch.VocalEffect, VocalEffectsOffset);
+            var vfxPatch = (CommonAndVocalEffectPatch) patch;
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(new SysExMessage(commonData));
-                output.Send(new SysExMessage(vocalFxData));
+                output.Send(SysExUtils.GetMessage(vfxPatch.Common.GetBytes(), CommonOffset));
+                output.Send(SysExUtils.GetMessage(vfxPatch.VocalEffect.GetBytes(), VocalEffectsOffset));
+                output.Send(SysExUtils.GetMessage(new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }, AutoNoteOffset));
             }
         }
 
         /// <inheritdoc />
         public void DumpCommon(IPatchPart common, int deviceId)
         {
-            var data = GetSysexData(common, CommonOffset);
-
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(new SysExMessage(data));
+                output.Send(SysExUtils.GetMessage(common.GetBytes(), CommonOffset));
             }
         }
 
         /// <inheritdoc />
         public void DumpVocalEffects(IPatchPart vocalFx, int deviceId)
         {
-            var data = GetSysexData(vocalFx, VocalEffectsOffset);
-
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(new SysExMessage(data));
+                output.Send(SysExUtils.GetMessage(vocalFx.GetBytes(), VocalEffectsOffset));
+            }
+        }
+
+        /// <inheritdoc />
+        public void SetAutoNote(bool value, int deviceId)
+        {
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(new[] { ByteUtils.BooleanToByte(value) }, AutoNoteOffset));
             }
         }
     }

@@ -147,13 +147,13 @@
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Patch.Common.VocalEffectPart, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.VocalEffectPart}" />
+                      SelectedValue="{Binding Patch.Common.VocalEffectPart}" /> -->
 
             <CheckBox Grid.Column="1" Grid.Row="9"
                       VerticalAlignment="Top"
                       FlowDirection="RightToLeft"
                       Content="Auto Note"
-                      IsChecked="{Binding Patch.Lfo.KeyTrigger}" />-->
+                      IsChecked="{Binding Patch.Common.AutoNote}" />
         </Grid>
     </GroupBox>
 

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Models.Patches.Program;
@@ -28,9 +29,16 @@ namespace JD_XI_Editor.ViewModels.Program
 
             Patch.Common.PropertyChanged += (sender, args) =>
             {
-                if (AutoSync && SelectedOutputDeviceId != -1)
+                if (!(AutoSync && SelectedOutputDeviceId != -1)) return;
+
+                var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
+
+                if (args.PropertyName == nameof(Patch.Common.AutoNote))
                 {
-                    var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
+                    manager.SetAutoNote(Patch.Common.AutoNote, SelectedOutputDeviceId);
+                }
+                else
+                {
                     manager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
                 }
             };
@@ -49,7 +57,9 @@ namespace JD_XI_Editor.ViewModels.Program
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1)
+            {
                 PatchManager.Dump(Patch, SelectedOutputDeviceId);
+            }
         }
 
         /// <inheritdoc />
