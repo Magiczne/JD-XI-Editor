@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Enums;
@@ -55,8 +56,11 @@ namespace JD_XI_Editor.ViewModels
             InputDevices = inputDevices;
             OutputDevices = outputDevices;
 
-            SelectedInputDeviceId = -1;
-            SelectedOutputDeviceId = -1;
+            var jdXiInput = InputDevices.First(d => d.Name == "JD-Xi");
+            var jdXiOutput = OutputDevices.First(d => d.Name == "JD-Xi");
+
+            SelectedInputDeviceId = jdXiInput == null ? -1 : InputDevices.IndexOf(jdXiInput);
+            SelectedOutputDeviceId = jdXiOutput == null ? -1 : OutputDevices.IndexOf(jdXiOutput);
         }
 
         #endregion
