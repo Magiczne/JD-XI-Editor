@@ -54,8 +54,11 @@ namespace KnobControl
                 return;
             }
 
-            if (Value == Maximum && Value + toAdd > Maximum)
+            if (Value + toAdd < Minimum)
+            {
+                Value = Minimum;
                 return;
+            }
 
             Value += toAdd;
         }

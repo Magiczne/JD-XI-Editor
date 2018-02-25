@@ -150,6 +150,8 @@
     <Compile Include="Models\Enums\Program\VocalEffect\Type.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\Vocoder\Envelope.cs" />
     <Compile Include="Models\Enums\Program\VocalEffect\Vocoder\HighPassFilter.cs" />
+    <Compile Include="Models\Enums\Sys\ProgramControlChannel.cs" />
+    <Compile Include="Models\Enums\Sys\VelocityCurve.cs" />
     <Compile Include="Models\Patches\Analog\Amplifier.cs" />
     <Compile Include="Models\Patches\Analog\Common.cs" />
     <Compile Include="Models\Patches\Analog\Lfo.cs" />
