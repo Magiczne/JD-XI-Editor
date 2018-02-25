@@ -219,6 +219,8 @@
     <Compile Include="Models\Patches\Program\VocalEffect\Common.cs" />
     <Compile Include="Models\Patches\Program\VocalEffect\VocalEffect.cs" />
     <Compile Include="Models\Patches\Program\VocalEffect\Vocoder.cs" />
+    <Compile Include="Models\Patches\Sys\Common.cs" />
+    <Compile Include="Models\Patches\Sys\Controller.cs" />
     <Compile Include="Utils\ByteUtils.cs" />
     <Compile Include="Utils\Converters\BooleanAndConverter.cs" />
     <Compile Include="Utils\Converters\BooleanOrConverter.cs" />
