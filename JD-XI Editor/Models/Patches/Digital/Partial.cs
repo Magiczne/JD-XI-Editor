@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -63,36 +64,43 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Oscillator
         /// </summary>
+        [DoNotNotify]
         public Oscillator Oscillator { get; }
 
         /// <summary>
         ///     Filter
         /// </summary>
+        [DoNotNotify]
         public Filter Filter { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
+        [DoNotNotify]
         public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     LFO
         /// </summary>
+        [DoNotNotify]
         public Lfo Lfo { get; }
 
         /// <summary>
         ///     Mod LFO
         /// </summary>
+        [DoNotNotify]
         public ModLfo ModLfo { get; }
 
         /// <summary>
         ///     Aftertouch
         /// </summary>
+        [DoNotNotify]
         public Aftertouch Aftertouch { get; }
 
         /// <summary>
         ///     Misc data
         /// </summary>
+        [DoNotNotify]
         public Other Other { get; }
 
         #endregion

@@ -30,53 +30,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     One shot mode
-        /// </summary>
-        private bool _oneShotMode;
-
-        /// <summary>
-        ///     Relative volume level
-        /// </summary>
-        private int _relativeLevel;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     One shot mode
         /// </summary>
-        public bool OneShotMode
-        {
-            get => _oneShotMode;
-            set
-            {
-                if (value != _oneShotMode)
-                {
-                    _oneShotMode = value;
-                    NotifyOfPropertyChange(nameof(OneShotMode));
-                }
-            }
-        }
+        public bool OneShotMode { get; set; }
 
         /// <summary>
         ///     Relative volume level
         /// </summary>
-        public int RelativeLevel
-        {
-            get => _relativeLevel;
-            set
-            {
-                if (value != _relativeLevel)
-                {
-                    _relativeLevel = value;
-                    NotifyOfPropertyChange(nameof(RelativeLevel));
-                }
-            }
-        }
+        public int RelativeLevel { get; set; }
 
         #endregion
     }

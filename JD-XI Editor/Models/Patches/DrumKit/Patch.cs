@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -58,11 +59,13 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         /// <summary>
         ///     Common
         /// </summary>
+        [DoNotNotify]
         public Common Common { get; }
 
         /// <summary>
         ///     Partials
         /// </summary>
+        [DoNotNotify]
         public Dictionary<string, Partial.Partial> Partials { get; }
 
         #endregion

@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -74,141 +75,42 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Type
-        /// </summary>
-        private FilterType _type;
-
-        /// <summary>
-        ///     Cutoff
-        /// </summary>
-        private int _cutoff;
-
-        /// <summary>
-        ///     Cutoff velocity curve
-        /// </summary>
-        private VelocityCurve _cutoffVelocityCurve;
-
-        /// <summary>
-        ///     Cutoff velocity sensitivity
-        /// </summary>
-        private int _cutoffVelocitySensitivity;
-
-        /// <summary>
-        ///     Resonance
-        /// </summary>
-        private int _resonance;
-
-        /// <summary>
-        ///     Resonance velocity sensitivity
-        /// </summary>
-        private int _resonanceVelocitySensitivity;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Type
         /// </summary>
-        public FilterType Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    NotifyOfPropertyChange(nameof(Type));
-                }
-            }
-        }
+        public FilterType Type { get; set; }
 
         /// <summary>
         ///     Cutoff
         /// </summary>
-        public int Cutoff
-        {
-            get => _cutoff;
-            set
-            {
-                if (value != _cutoff)
-                {
-                    _cutoff = value;
-                    NotifyOfPropertyChange(nameof(Cutoff));
-                }
-            }
-        }
+        public int Cutoff { get; set; }
 
         /// <summary>
         ///     Cutoff velocity curve
         /// </summary>
-        public VelocityCurve CutoffVelocityCurve
-        {
-            get => _cutoffVelocityCurve;
-            set
-            {
-                if (value != _cutoffVelocityCurve)
-                {
-                    _cutoffVelocityCurve = value;
-                    NotifyOfPropertyChange(nameof(CutoffVelocityCurve));
-                }
-            }
-        }
+        public VelocityCurve CutoffVelocityCurve { get; set; }
 
         /// <summary>
         ///     Cutoff velocity sensitivity
         /// </summary>
-        public int CutoffVelocitySensitivity
-        {
-            get => _cutoffVelocitySensitivity;
-            set
-            {
-                if (value != _cutoffVelocitySensitivity)
-                {
-                    _cutoffVelocitySensitivity = value;
-                    NotifyOfPropertyChange(nameof(CutoffVelocitySensitivity));
-                }
-            }
-        }
+        public int CutoffVelocitySensitivity { get; set; }
 
         /// <summary>
         ///     Resonance
         /// </summary>
-        public int Resonance
-        {
-            get => _resonance;
-            set
-            {
-                if (value != _resonance)
-                {
-                    _resonance = value;
-                    NotifyOfPropertyChange(nameof(Resonance));
-                }
-            }
-        }
+        public int Resonance { get; set; }
 
         /// <summary>
         ///     Resonance velocity sensitivity
         /// </summary>
-        public int ResonanceVelocitySensitivity
-        {
-            get => _resonanceVelocitySensitivity;
-            set
-            {
-                if (value != _resonanceVelocitySensitivity)
-                {
-                    _resonanceVelocitySensitivity = value;
-                    NotifyOfPropertyChange(nameof(ResonanceVelocitySensitivity));
-                }
-            }
-        }
+        public int ResonanceVelocitySensitivity { get; set; }
 
         /// <summary>
         ///     Envelope
         /// </summary>
+        [DoNotNotify]
         public Envelope Envelope { get; }
 
         #endregion

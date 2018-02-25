@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -47,26 +48,31 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <summary>
         ///     Common
         /// </summary>
+        [DoNotNotify]
         public Common Common { get; }
 
         /// <summary>
         ///     Partial #1
         /// </summary>
+        [DoNotNotify]
         public Partial PartialOne { get; }
 
         /// <summary>
         ///     Partial #2
         /// </summary>
+        [DoNotNotify]
         public Partial PartialTwo { get; }
 
         /// <summary>
         ///     Partial #3
         /// </summary>
+        [DoNotNotify]
         public Partial PartialThree { get; }
 
         /// <summary>
         ///     Modifiers
         /// </summary>
+        [DoNotNotify]
         public Modifiers Modifiers { get; }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -6,15 +7,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Pitch : PropertyChangedBase, IPatchPart
     {
-        #region Fields
-
-        /// <summary>
-        ///     Pitch Envelope
-        /// </summary>
-        private Envelope _envelope;
-
-        #endregion
-
         /// <inheritdoc />
         public Pitch()
         {
@@ -28,18 +20,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         /// <summary>
         /// </summary>
-        public Envelope Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        [DoNotNotify]
+        public Envelope Envelope { get; }
 
         #endregion
 

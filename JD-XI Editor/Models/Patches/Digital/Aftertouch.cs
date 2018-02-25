@@ -34,53 +34,17 @@ namespace JD_XI_Editor.Models.Patches.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Cutoff Aftertouch Sensitivity
-        /// </summary>
-        private int _cutoffAftertouchSensitivity;
-
-        /// <summary>
-        ///     Level Aftertouch Sensitivity
-        /// </summary>
-        private int _levelAftertouchSensitivity;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Cutoff Aftertouch Sensitivity
         /// </summary>
-        public int CutoffAftertouchSensitivity
-        {
-            get => _cutoffAftertouchSensitivity;
-            set
-            {
-                if (value != _cutoffAftertouchSensitivity)
-                {
-                    _cutoffAftertouchSensitivity = value;
-                    NotifyOfPropertyChange(nameof(CutoffAftertouchSensitivity));
-                }
-            }
-        }
+        public int CutoffAftertouchSensitivity { get; set; }
 
         /// <summary>
         ///     Level Aftertouch Sensitivity
         /// </summary>
-        public int LevelAftertouchSensitivity
-        {
-            get => _levelAftertouchSensitivity;
-            set
-            {
-                if (value != _levelAftertouchSensitivity)
-                {
-                    _levelAftertouchSensitivity = value;
-                    NotifyOfPropertyChange(nameof(LevelAftertouchSensitivity));
-                }
-            }
-        }
+        public int LevelAftertouchSensitivity { get; set; }
 
         #endregion
     }

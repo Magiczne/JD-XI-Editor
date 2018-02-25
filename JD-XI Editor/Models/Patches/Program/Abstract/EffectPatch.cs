@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.Program.Effects;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -22,11 +23,13 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
         /// <summary>
         ///     Basic Data
         /// </summary>
+        [DoNotNotify]
         public IPatchPart Basic { get; protected set; }
 
         /// <summary>
         ///     Delay parameters
         /// </summary>
+        [DoNotNotify]
         public EffectParameters Parameters { get; protected set; }
 
         #endregion

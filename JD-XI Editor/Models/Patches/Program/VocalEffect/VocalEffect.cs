@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -49,16 +50,19 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <summary>
         ///     Common
         /// </summary>
+        [DoNotNotify]
         public Common Common { get; }
 
         /// <summary>
         ///     Auto Pitch
         /// </summary>
+        [DoNotNotify]
         public AutoPitch AutoPitch { get; }
 
         /// <summary>
         ///     Vocoder
         /// </summary>
+        [DoNotNotify]
         public Vocoder Vocoder { get; }
 
         #endregion

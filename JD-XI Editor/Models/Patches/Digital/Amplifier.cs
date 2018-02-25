@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -12,10 +13,8 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Amplifier()
         {
-            Level = 100;
-            LevelVelSensitivity = 19;
             Envelope = new Adsr(0, 0, 127, 0);
-            Panorama = 0;
+            Reset();
 
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
@@ -44,95 +43,28 @@ namespace JD_XI_Editor.Models.Patches.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Level velocity sensitivity
-        /// </summary>
-        private int _levelVelSensitivity;
-
-        /// <summary>
-        ///     Envelope
-        /// </summary>
-        private Adsr _envelope;
-
-        /// <summary>
-        ///     Panorama
-        /// </summary>
-        private int _panorama;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Level velocity sensitivity
         /// </summary>
-        public int LevelVelSensitivity
-        {
-            get => _levelVelSensitivity;
-            set
-            {
-                if (value != _levelVelSensitivity)
-                {
-                    _levelVelSensitivity = value;
-                    NotifyOfPropertyChange(nameof(LevelVelSensitivity));
-                }
-            }
-        }
+        public int LevelVelSensitivity { get; set; }
 
         /// <summary>
         ///     Envelope
         /// </summary>
-        public Adsr Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        [DoNotNotify]
+        public Adsr Envelope { get; }
 
         /// <summary>
         ///     Panorama
         /// </summary>
-        public int Panorama
-        {
-            get => _panorama;
-            set
-            {
-                if (value != _panorama)
-                {
-                    _panorama = value;
-                    NotifyOfPropertyChange(nameof(Panorama));
-                }
-            }
-        }
+        public int Panorama { get; set; }
 
         #endregion
     }

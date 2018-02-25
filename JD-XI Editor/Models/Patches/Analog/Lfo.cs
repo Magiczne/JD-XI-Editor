@@ -48,200 +48,52 @@ namespace JD_XI_Editor.Models.Patches.Analog
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     LFO shape
-        /// </summary>
-        private LfoShape _shape;
-
-        /// <summary>
-        ///     Rate
-        /// </summary>
-        private int _rate;
-
-        /// <summary>
-        ///     Fade time
-        /// </summary>
-        private int _fadeTime;
-
-        /// <summary>
-        ///     Is tempo synchronization on
-        /// </summary>
-        private bool _tempoSync;
-
-        /// <summary>
-        ///     Tempo synchronization base note
-        /// </summary>
-        private SyncNote _syncNote;
-
-        /// <summary>
-        ///     Pitch depth
-        /// </summary>
-        private int _pitchDepth;
-
-        /// <summary>
-        ///     Filter depth
-        /// </summary>
-        private int _filterDepth;
-
-        /// <summary>
-        ///     Amplifier depth
-        /// </summary>
-        private int _ampDepth;
-
-        /// <summary>
-        ///     Is key trigger on
-        /// </summary>
-        private bool _keyTrigger;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     LFO shape
         /// </summary>
-        public LfoShape Shape
-        {
-            get => _shape;
-            set
-            {
-                if (value != _shape)
-                {
-                    _shape = value;
-                    NotifyOfPropertyChange(nameof(Shape));
-                }
-            }
-        }
+        public LfoShape Shape { get; set; }
 
         /// <summary>
         ///     Rate
         /// </summary>
-        public int Rate
-        {
-            get => _rate;
-            set
-            {
-                if (value != _rate)
-                {
-                    _rate = value;
-                    NotifyOfPropertyChange(nameof(Rate));
-                }
-            }
-        }
+        public int Rate { get; set; }
 
         /// <summary>
         ///     Fade time
         /// </summary>
-        public int FadeTime
-        {
-            get => _fadeTime;
-            set
-            {
-                if (value != _fadeTime)
-                {
-                    _fadeTime = value;
-                    NotifyOfPropertyChange(nameof(FadeTime));
-                }
-            }
-        }
+        public int FadeTime { get; set; }
 
         /// <summary>
         ///     Is tempo synchronization on
         /// </summary>
-        public bool TempoSync
-        {
-            get => _tempoSync;
-            set
-            {
-                if (value != _tempoSync)
-                {
-                    _tempoSync = value;
-                    NotifyOfPropertyChange(nameof(TempoSync));
-                }
-            }
-        }
+        public bool TempoSync { get; set; }
 
         /// <summary>
         ///     Tempo synchronization base note
         /// </summary>
-        public SyncNote SyncNote
-        {
-            get => _syncNote;
-            set
-            {
-                if (value != _syncNote)
-                {
-                    _syncNote = value;
-                    NotifyOfPropertyChange(nameof(SyncNote));
-                }
-            }
-        }
+        public SyncNote SyncNote { get; set; }
 
         /// <summary>
         ///     Pitch depth
         /// </summary>
-        public int PitchDepth
-        {
-            get => _pitchDepth;
-            set
-            {
-                if (value != _pitchDepth)
-                {
-                    _pitchDepth = value;
-                    NotifyOfPropertyChange(nameof(PitchDepth));
-                }
-            }
-        }
+        public int PitchDepth { get; set; }
 
         /// <summary>
         ///     Filter depth
         /// </summary>
-        public int FilterDepth
-        {
-            get => _filterDepth;
-            set
-            {
-                if (value != _filterDepth)
-                {
-                    _filterDepth = value;
-                    NotifyOfPropertyChange(nameof(FilterDepth));
-                }
-            }
-        }
+        public int FilterDepth { get; set; }
 
         /// <summary>
         ///     Amplifier depth
         /// </summary>
-        public int AmpDepth
-        {
-            get => _ampDepth;
-            set
-            {
-                if (value != _ampDepth)
-                {
-                    _ampDepth = value;
-                    NotifyOfPropertyChange(nameof(AmpDepth));
-                }
-            }
-        }
+        public int AmpDepth { get; set; }
 
         /// <summary>
         ///     Is key trigger on
         /// </summary>
-        public bool KeyTrigger
-        {
-            get => _keyTrigger;
-            set
-            {
-                if (value != _keyTrigger)
-                {
-                    _keyTrigger = value;
-                    NotifyOfPropertyChange(nameof(KeyTrigger));
-                }
-            }
-        }
+        public bool KeyTrigger { get; set; }
 
         #endregion
     }

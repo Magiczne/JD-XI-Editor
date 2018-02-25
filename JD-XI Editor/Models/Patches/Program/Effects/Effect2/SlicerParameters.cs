@@ -9,6 +9,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class SlicerParameters : EffectParameters
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of Slicer Parameters
         /// </summary>
@@ -43,116 +44,32 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Timing Pattern
-        /// </summary>
-        private TimingPattern _timingPattern;
-
-        /// <summary>
-        ///     Note
-        /// </summary>
-        private Note _note;
-
-        /// <summary>
-        ///     Attack
-        /// </summary>
-        private int _attack;
-
-        /// <summary>
-        ///     Trigger Level
-        /// </summary>
-        private int _triggerLevel;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Timing Pattern
         /// </summary>
-        public TimingPattern TimingPattern
-        {
-            get => _timingPattern;
-            set
-            {
-                if (value != _timingPattern)
-                {
-                    _timingPattern = value;
-                    NotifyOfPropertyChange(nameof(TimingPattern));
-                }
-            }
-        }
+        public TimingPattern TimingPattern { get; set; }
 
         /// <summary>
         ///     Note
         /// </summary>
-        public Note Note
-        {
-            get => _note;
-            set
-            {
-                if (value != _note)
-                {
-                    _note = value;
-                    NotifyOfPropertyChange(nameof(Note));
-                }
-            }
-        }
+        public Note Note { get; set; }
 
         /// <summary>
         ///     Attack
         /// </summary>
-        public int Attack
-        {
-            get => _attack;
-            set
-            {
-                if (value != _attack)
-                {
-                    _attack = value;
-                    NotifyOfPropertyChange(nameof(Attack));
-                }
-            }
-        }
+        public int Attack { get; set; }
 
         /// <summary>
         ///     TriggerLevel
         /// </summary>
-        public int TriggerLevel
-        {
-            get => _triggerLevel;
-            set
-            {
-                if (value != _triggerLevel)
-                {
-                    _triggerLevel = value;
-                    NotifyOfPropertyChange(nameof(TriggerLevel));
-                }
-            }
-        }
+        public int TriggerLevel { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

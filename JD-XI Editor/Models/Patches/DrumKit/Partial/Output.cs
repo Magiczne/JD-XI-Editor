@@ -36,95 +36,27 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Output level
-        /// </summary>
-        private int _outputLevel;
-
-        /// <summary>
-        ///     Chorus send level
-        /// </summary>
-        private int _chorusSendLevel;
-
-        /// <summary>
-        ///     Reverb send level
-        /// </summary>
-        private int _reverbSendLevel;
-
-        /// <summary>
-        ///     Output assign
-        /// </summary>
-        private OutputAssign _outputAssign;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Output level
         /// </summary>
-        public int OutputLevel
-        {
-            get => _outputLevel;
-            set
-            {
-                if (value != _outputLevel)
-                {
-                    _outputLevel = value;
-                    NotifyOfPropertyChange(nameof(OutputLevel));
-                }
-            }
-        }
+        public int OutputLevel { get; set; }
 
         /// <summary>
         ///     Chorus send level
         /// </summary>
-        public int ChorusSendLevel
-        {
-            get => _chorusSendLevel;
-            set
-            {
-                if (value != _chorusSendLevel)
-                {
-                    _chorusSendLevel = value;
-                    NotifyOfPropertyChange(nameof(ChorusSendLevel));
-                }
-            }
-        }
+        public int ChorusSendLevel { get; set; }
 
         /// <summary>
         ///     Reverb send level
         /// </summary>
-        public int ReverbSendLevel
-        {
-            get => _reverbSendLevel;
-            set
-            {
-                if (value != _reverbSendLevel)
-                {
-                    _reverbSendLevel = value;
-                    NotifyOfPropertyChange(nameof(ReverbSendLevel));
-                }
-            }
-        }
+        public int ReverbSendLevel { get; set; }
 
         /// <summary>
         ///     Output assign
         /// </summary>
-        public OutputAssign OutputAssign
-        {
-            get => _outputAssign;
-            set
-            {
-                if (value != _outputAssign)
-                {
-                    _outputAssign = value;
-                    NotifyOfPropertyChange(nameof(OutputAssign));
-                }
-            }
-        }
+        public OutputAssign OutputAssign { get; set; }
 
         #endregion
     }

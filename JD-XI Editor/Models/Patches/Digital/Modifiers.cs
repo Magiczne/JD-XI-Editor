@@ -49,137 +49,37 @@ namespace JD_XI_Editor.Models.Patches.Digital
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Attack Time Interval Sensitivity
-        /// </summary>
-        private int _attackTimeIntervalSensitivity;
-
-        /// <summary>
-        ///     Release Time Interval Sens
-        /// </summary>
-        private int _releaseTimeIntervalSensitivity;
-
-        /// <summary>
-        ///     Portamento Time Interval Sensitivity
-        /// </summary>
-        private int _portamentoTimeIntervalSensitivity;
-
-        /// <summary>
-        ///     Envelope Loop Mode
-        /// </summary>
-        private EnvelopeLoopMode _envelopeEnvelopeLoopMode;
-
-        /// <summary>
-        ///     Envelope Loop Sync note
-        /// </summary>
-        private SyncNote _envelopeLoopSyncNote;
-
-        /// <summary>
-        ///     Envelope Loop Sync Note
-        /// </summary>
-        private bool _chromaticPortamento;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Attack Time Interval Sensitivity
         /// </summary>
-        public int AttackTimeIntervalSensitivity
-        {
-            get => _attackTimeIntervalSensitivity;
-            set
-            {
-                if (value != _attackTimeIntervalSensitivity)
-                {
-                    _attackTimeIntervalSensitivity = value;
-                    NotifyOfPropertyChange(nameof(AttackTimeIntervalSensitivity));
-                }
-            }
-        }
+        public int AttackTimeIntervalSensitivity { get; set; }
 
         /// <summary>
         ///     Release Time Interval Sens
         /// </summary>
-        public int ReleaseTimeIntervalSensitivity
-        {
-            get => _releaseTimeIntervalSensitivity;
-            set
-            {
-                if (value != _releaseTimeIntervalSensitivity)
-                {
-                    _releaseTimeIntervalSensitivity = value;
-                    NotifyOfPropertyChange(nameof(ReleaseTimeIntervalSensitivity));
-                }
-            }
-        }
+        public int ReleaseTimeIntervalSensitivity { get; set; }
 
         /// <summary>
         ///     Portamento Time Interval Sensitivity
         /// </summary>
-        public int PortamentoTimeIntervalSensitivity
-        {
-            get => _portamentoTimeIntervalSensitivity;
-            set
-            {
-                if (value != _portamentoTimeIntervalSensitivity)
-                {
-                    _portamentoTimeIntervalSensitivity = value;
-                    NotifyOfPropertyChange(nameof(PortamentoTimeIntervalSensitivity));
-                }
-            }
-        }
+        public int PortamentoTimeIntervalSensitivity { get; set; }
 
         /// <summary>
         ///     Envelope Loop Mode
         /// </summary>
-        public EnvelopeLoopMode EnvelopeLoopMode
-        {
-            get => _envelopeEnvelopeLoopMode;
-            set
-            {
-                if (value != _envelopeEnvelopeLoopMode)
-                {
-                    _envelopeEnvelopeLoopMode = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeLoopMode));
-                }
-            }
-        }
+        public EnvelopeLoopMode EnvelopeLoopMode { get; set; }
 
         /// <summary>
         ///     Envelope Loop Sync note
         /// </summary>
-        public SyncNote EnvelopeLoopSyncNote
-        {
-            get => _envelopeLoopSyncNote;
-            set
-            {
-                if (value != _envelopeLoopSyncNote)
-                {
-                    _envelopeLoopSyncNote = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeLoopSyncNote));
-                }
-            }
-        }
+        public SyncNote EnvelopeLoopSyncNote { get; set; }
 
         /// <summary>
         ///     Envelope Loop Sync Note
         /// </summary>
-        public bool ChromaticPortamento
-        {
-            get => _chromaticPortamento;
-            set
-            {
-                if (value != _chromaticPortamento)
-                {
-                    _chromaticPortamento = value;
-                    NotifyOfPropertyChange(nameof(ChromaticPortamento));
-                }
-            }
-        }
+        public bool ChromaticPortamento { get; set; }
 
         #endregion
     }

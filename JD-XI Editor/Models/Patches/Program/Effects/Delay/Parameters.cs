@@ -50,221 +50,57 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Threshold
-        /// </summary>
-        private int _threshold;
-
-        /// <summary>
-        ///     Type
-        /// </summary>
-        private Type _type;
-
-        /// <summary>
-        ///     Mode
-        /// </summary>
-        private Mode _mode;
-
-        /// <summary>
-        ///     Note
-        /// </summary>
-        private Note _note;
-
-        /// <summary>
-        ///     Time
-        /// </summary>
-        private int _time;
-
-        /// <summary>
-        ///     Tap time
-        /// </summary>
-        private int _tapTime;
-
-        /// <summary>
-        ///     Feedback
-        /// </summary>
-        private int _feedback;
-
-        /// <summary>
-        ///     HF Damp
-        /// </summary>
-        private HfDamp _hfDamp;
-
-        /// <summary>
-        ///     Reverb Send Level
-        /// </summary>
-        private int _reverbSendLevel;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Threshold
         /// </summary>
-        public int Threshold
-        {
-            get => _threshold;
-            set
-            {
-                if (value != _threshold)
-                {
-                    _threshold = value;
-                    NotifyOfPropertyChange(nameof(Threshold));
-                }
-            }
-        }
+        public int Threshold { get; set; }
 
         /// <summary>
         ///     Type
         /// </summary>
-        public Type Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    NotifyOfPropertyChange(nameof(Type));
-                }
-            }
-        }
+        public Type Type { get; set; }
 
         /// <summary>
         ///     Mode
         /// </summary>
-        public Mode Mode
-        {
-            get => _mode;
-            set
-            {
-                if (value != _mode)
-                {
-                    _mode = value;
-                    NotifyOfPropertyChange(nameof(Mode));
-                }
-            }
-        }
+        public Mode Mode { get; set; }
 
         /// <summary>
         ///     Note
         /// </summary>
-        public Note Note
-        {
-            get => _note;
-            set
-            {
-                if (value != _note)
-                {
-                    _note = value;
-                    NotifyOfPropertyChange(nameof(Note));
-                }
-            }
-        }
+        public Note Note { get; set; }
 
         /// <summary>
         ///     Time
         /// </summary>
-        public int Time
-        {
-            get => _time;
-            set
-            {
-                if (value != _time)
-                {
-                    _time = value;
-                    NotifyOfPropertyChange(nameof(Time));
-                }
-            }
-        }
+        public int Time { get; set; }
 
         /// <summary>
         ///     Tap time
         /// </summary>
-        public int TapTime
-        {
-            get => _tapTime;
-            set
-            {
-                if (value != _tapTime)
-                {
-                    _tapTime = value;
-                    NotifyOfPropertyChange(nameof(TapTime));
-                }
-            }
-        }
+        public int TapTime { get; set; }
 
         /// <summary>
         ///     Feedback
         /// </summary>
-        public int Feedback
-        {
-            get => _feedback;
-            set
-            {
-                if (value != _feedback)
-                {
-                    _feedback = value;
-                    NotifyOfPropertyChange(nameof(Feedback));
-                }
-            }
-        }
+        public int Feedback { get; set; }
 
         /// <summary>
         ///     HF Damp
         /// </summary>
-        public HfDamp HfDamp
-        {
-            get => _hfDamp;
-            set
-            {
-                if (value != _hfDamp)
-                {
-                    _hfDamp = value;
-                    NotifyOfPropertyChange(nameof(HfDamp));
-                }
-            }
-        }
+        public HfDamp HfDamp { get; set; }
 
         /// <summary>
         ///     Reverb Send Level
         /// </summary>
-        public int ReverbSendLevel
-        {
-            get => _reverbSendLevel;
-            set
-            {
-                if (value != _reverbSendLevel)
-                {
-                    _reverbSendLevel = value;
-                    NotifyOfPropertyChange(nameof(ReverbSendLevel));
-                }
-            }
-        }
+        public int ReverbSendLevel { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

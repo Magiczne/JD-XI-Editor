@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -92,71 +93,85 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     Basic
         /// </summary>
+        [DoNotNotify]
         public Basic Basic { get; }
 
         /// <summary>
         ///     Assign
         /// </summary>
+        [DoNotNotify]
         public Assign Assign { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
+        [DoNotNotify]
         public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     Output
         /// </summary>
+        [DoNotNotify]
         public Output Output { get; }
 
         /// <summary>
         ///     Expression
         /// </summary>
+        [DoNotNotify]
         public Expression Expression { get; }
 
         /// <summary>
         ///     WMT Velocity control
         /// </summary>
+        [DoNotNotify]
         public VelocityControl VelocityControl { get; }
 
         /// <summary>
         ///     WMT 1
         /// </summary>
+        [DoNotNotify]
         public Wmt.Wmt Wmt1 { get; }
 
         /// <summary>
         ///     WMT 2
         /// </summary>
+        [DoNotNotify]
         public Wmt.Wmt Wmt2 { get; }
 
         /// <summary>
         ///     WMT 3
         /// </summary>
+        [DoNotNotify]
         public Wmt.Wmt Wmt3 { get; }
 
         /// <summary>
         ///     WMT 4
         /// </summary>
+        [DoNotNotify]
         public Wmt.Wmt Wmt4 { get; }
 
         /// <summary>
         ///     Pitch
         /// </summary>
+        [DoNotNotify]
         public Pitch Pitch { get; }
 
         /// <summary>
         ///     TVF
         /// </summary>
+        [DoNotNotify]
         public Tvf Tvf { get; }
 
         /// <summary>
         ///     TVA
         /// </summary>
+        [DoNotNotify]
         public Tva Tva { get; }
 
         /// <summary>
         ///     Other
         /// </summary>
+        [DoNotNotify]
         public Other Other { get; }
 
         #endregion

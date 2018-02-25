@@ -34,53 +34,17 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Is reverb on
-        /// </summary>
-        private bool _on;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Is delay on
         /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
+        public bool On { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

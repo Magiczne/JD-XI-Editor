@@ -16,7 +16,8 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 
             PhaserParameters.PropertyChanged += (sender, args) =>
             {
-                NotifyOfPropertyChange(nameof(IsRateModeSelected));
+                if (args.PropertyName == nameof(PhaserParameters.Mode))
+                    NotifyOfPropertyChange(nameof(IsRateModeSelected));
             };
         }
 

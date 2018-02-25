@@ -7,6 +7,7 @@ using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Digital;
 using JD_XI_Editor.ViewModels.Effects;
 using JD_XI_Editor.ViewModels.Program;
+using PropertyChanged;
 using Sanford.Multimedia.Midi;
 
 // ReSharper disable InvertIf
@@ -73,19 +74,9 @@ namespace JD_XI_Editor.ViewModels
         private readonly IEventAggregator _eventAggregator;
 
         /// <summary>
-        ///     Input MIDI devices
-        /// </summary>
-        private BindableCollection<MidiInputDeviceInfo> _inputDevices;
-
-        /// <summary>
         ///     Selected input device ID
         /// </summary>
         private int _selectedInputDeviceId;
-
-        /// <summary>
-        ///     Output MIDI devices
-        /// </summary>
-        private BindableCollection<MidiOutputDeviceInfo> _outputDevices;
 
         /// <summary>
         ///     Selected output device ID
@@ -99,22 +90,12 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         ///     Input MIDI devices
         /// </summary>
-        public BindableCollection<MidiInputDeviceInfo> InputDevices
-        {
-            get => _inputDevices;
-            set
-            {
-                if (value != _inputDevices)
-                {
-                    _inputDevices = value;
-                    NotifyOfPropertyChange(nameof(InputDevices));
-                }
-            }
-        }
+        public BindableCollection<MidiInputDeviceInfo> InputDevices { get; set; }
 
         /// <summary>
         ///     Selected input device ID
         /// </summary>
+        [DoNotNotify]
         public int SelectedInputDeviceId
         {
             get => _selectedInputDeviceId;
@@ -132,22 +113,12 @@ namespace JD_XI_Editor.ViewModels
         /// <summary>
         ///     Output MIDI devices
         /// </summary>
-        public BindableCollection<MidiOutputDeviceInfo> OutputDevices
-        {
-            get => _outputDevices;
-            set
-            {
-                if (value != _outputDevices)
-                {
-                    _outputDevices = value;
-                    NotifyOfPropertyChange(nameof(OutputDevices));
-                }
-            }
-        }
+        public BindableCollection<MidiOutputDeviceInfo> OutputDevices { get; set; }
 
         /// <summary>
         ///     Selected Output Device
         /// </summary>
+        [DoNotNotify]
         public int SelectedOutputDeviceId
         {
             get => _selectedOutputDeviceId;

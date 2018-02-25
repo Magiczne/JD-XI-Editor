@@ -22,8 +22,8 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         {
             Level = 127;
             Panorama = 0;
-            DelaySendLevel = 0x0;
-            ReverbSendLevel = 0x0;
+            DelaySendLevel = 0;
+            ReverbSendLevel = 0;
             OutputAssign = OutputAssign.Delay;
         }
 
@@ -40,116 +40,32 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Pan
-        /// </summary>
-        private int _panorama;
-
-        /// <summary>
-        ///     Delay Send Level
-        /// </summary>
-        private int _delaySendLevel;
-
-        /// <summary>
-        ///     Reverb Send Level
-        /// </summary>
-        private int _reverbSendLevel;
-
-        /// <summary>
-        ///     Output Assign
-        /// </summary>
-        private OutputAssign _outputAssign;
-
-        #endregion
-
         #region MyRegion
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Panorama
         /// </summary>
-        public int Panorama
-        {
-            get => _panorama;
-            set
-            {
-                if (value != _panorama)
-                {
-                    _panorama = value;
-                    NotifyOfPropertyChange(nameof(Panorama));
-                }
-            }
-        }
+        public int Panorama { get; set; }
 
         /// <summary>
         ///     Delay Send Level
         /// </summary>
-        public int DelaySendLevel
-        {
-            get => _delaySendLevel;
-            set
-            {
-                if (value != _delaySendLevel)
-                {
-                    _delaySendLevel = value;
-                    NotifyOfPropertyChange(nameof(DelaySendLevel));
-                }
-            }
-        }
+        public int DelaySendLevel { get; set; }
 
         /// <summary>
         ///     Reverb Send Level
         /// </summary>
-        public int ReverbSendLevel
-        {
-            get => _reverbSendLevel;
-            set
-            {
-                if (value != _reverbSendLevel)
-                {
-                    _reverbSendLevel = value;
-                    NotifyOfPropertyChange(nameof(ReverbSendLevel));
-                }
-            }
-        }
+        public int ReverbSendLevel { get; set; }
 
         /// <summary>
         ///     Output Assign
         /// </summary>
-        public OutputAssign OutputAssign
-        {
-            get => _outputAssign;
-            set
-            {
-                if (value != _outputAssign)
-                {
-                    _outputAssign = value;
-                    NotifyOfPropertyChange(nameof(OutputAssign));
-                }
-            }
-        }
+        public OutputAssign OutputAssign { get; set; }
 
         #endregion
     }

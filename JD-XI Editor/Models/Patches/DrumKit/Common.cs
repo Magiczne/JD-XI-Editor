@@ -38,53 +38,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Drum kit name
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        ///     Drum kit level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Drum kit name
         /// </summary>
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    NotifyOfPropertyChange(nameof(Name));
-                }
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         ///     Drum kit Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

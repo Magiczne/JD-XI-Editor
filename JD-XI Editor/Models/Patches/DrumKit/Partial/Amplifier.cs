@@ -43,179 +43,47 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Coarse tune
-        /// </summary>
-        private NotePitch _coarseTune;
-
-        /// <summary>
-        ///     Fine tune
-        /// </summary>
-        private int _fineTune;
-
-        /// <summary>
-        ///     Random pitch depth
-        /// </summary>
-        private RandomPitchDepth _randomPitchDepth;
-
-        /// <summary>
-        ///     Panorama
-        /// </summary>
-        private int _panorama;
-
-        /// <summary>
-        ///     Random panorama depth
-        /// </summary>
-        private int _randomPanoramaDepth;
-
-        /// <summary>
-        ///     Alternate panorama depth
-        /// </summary>
-        private int _alternatePanoramaDepth;
-
-        /// <summary>
-        ///     Envelope mode
-        /// </summary>
-        private EnvelopeMode _envelopeMode;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Coarse tune
         /// </summary>
-        public NotePitch CoarseTune
-        {
-            get => _coarseTune;
-            set
-            {
-                if (value != _coarseTune)
-                {
-                    _coarseTune = value;
-                    NotifyOfPropertyChange(nameof(CoarseTune));
-                }
-            }
-        }
+        public NotePitch CoarseTune { get; set; }
 
         /// <summary>
         ///     Fine tune
         /// </summary>
-        public int FineTune
-        {
-            get => _fineTune;
-            set
-            {
-                if (value != _fineTune)
-                {
-                    _fineTune = value;
-                    NotifyOfPropertyChange(nameof(FineTune));
-                }
-            }
-        }
+        public int FineTune { get; set; }
 
         /// <summary>
         ///     Random pitch depth
         /// </summary>
-        public RandomPitchDepth RandomPitchDepth
-        {
-            get => _randomPitchDepth;
-            set
-            {
-                if (value != _randomPitchDepth)
-                {
-                    _randomPitchDepth = value;
-                    NotifyOfPropertyChange(nameof(RandomPitchDepth));
-                }
-            }
-        }
+        public RandomPitchDepth RandomPitchDepth { get; set; }
 
         /// <summary>
         ///     Panorama
         /// </summary>
-        public int Panorama
-        {
-            get => _panorama;
-            set
-            {
-                if (value != _panorama)
-                {
-                    _panorama = value;
-                    NotifyOfPropertyChange(nameof(Panorama));
-                }
-            }
-        }
+        public int Panorama { get; set; }
 
         /// <summary>
         ///     Random panorama depth
         /// </summary>
-        public int RandomPanoramaDepth
-        {
-            get => _randomPanoramaDepth;
-            set
-            {
-                if (value != _randomPanoramaDepth)
-                {
-                    _randomPanoramaDepth = value;
-                    NotifyOfPropertyChange(nameof(RandomPanoramaDepth));
-                }
-            }
-        }
+        public int RandomPanoramaDepth { get; set; }
 
         /// <summary>
         ///     Alternate panorama depth
         /// </summary>
-        public int AlternatePanoramaDepth
-        {
-            get => _alternatePanoramaDepth;
-            set
-            {
-                if (value != _alternatePanoramaDepth)
-                {
-                    _alternatePanoramaDepth = value;
-                    NotifyOfPropertyChange(nameof(AlternatePanoramaDepth));
-                }
-            }
-        }
+        public int AlternatePanoramaDepth { get; set; }
 
         /// <summary>
         ///     Envelope mode
         /// </summary>
-        public EnvelopeMode EnvelopeMode
-        {
-            get => _envelopeMode;
-            set
-            {
-                if (value != _envelopeMode)
-                {
-                    _envelopeMode = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeMode));
-                }
-            }
-        }
+        public EnvelopeMode EnvelopeMode { get; set; }
 
         #endregion
     }

@@ -33,74 +33,22 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Pitch bend range
-        /// </summary>
-        private int _pitchBendRange;
-
-        /// <summary>
-        ///     Receive expression
-        /// </summary>
-        private bool _receiveExpression;
-
-        /// <summary>
-        ///     Receive Hold-1
-        /// </summary>
-        private bool _receiveHold1;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Pitch bend range
         /// </summary>
-        public int PitchBendRange
-        {
-            get => _pitchBendRange;
-            set
-            {
-                if (value != _pitchBendRange)
-                {
-                    _pitchBendRange = value;
-                    NotifyOfPropertyChange(nameof(PitchBendRange));
-                }
-            }
-        }
+        public int PitchBendRange { get; set; }
 
         /// <summary>
         ///     Receive expression
         /// </summary>
-        public bool ReceiveExpression
-        {
-            get => _receiveExpression;
-            set
-            {
-                if (value != _receiveExpression)
-                {
-                    _receiveExpression = value;
-                    NotifyOfPropertyChange(nameof(ReceiveExpression));
-                }
-            }
-        }
+        public bool ReceiveExpression { get; set; }
 
         /// <summary>
         ///     Receive Hold-1
         /// </summary>
-        public bool ReceiveHold1
-        {
-            get => _receiveHold1;
-            set
-            {
-                if (value != _receiveHold1)
-                {
-                    _receiveHold1 = value;
-                    NotifyOfPropertyChange(nameof(ReceiveHold1));
-                }
-            }
-        }
+        public bool ReceiveHold1 { get; set; }
 
         #endregion
     }

@@ -42,137 +42,36 @@ namespace JD_XI_Editor.Models.Patches.Analog
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Portamento
-        /// </summary>
-        private bool _portamento;
-
-        /// <summary>
-        ///     Legato
-        /// </summary>
-        private bool _legato;
-
-        /// <summary>
-        ///     Portamento time
-        /// </summary>
-        private int _portamentoTime;
-
-        /// <summary>
-        ///     Octave shift
-        /// </summary>
-        private int _octaveShift;
-
-        /// <summary>
-        ///     Pitch bend range up
-        /// </summary>
-        private int _pitchBendRangeUp;
-
-        /// <summary>
-        ///     Pitch bend range down
-        /// </summary>
-        private int _pitchBendRangeDown;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Portamento
         /// </summary>
-        public bool Portamento
-        {
-            get => _portamento;
-            set
-            {
-                if (value != _portamento)
-                {
-                    _portamento = value;
-                    NotifyOfPropertyChange(nameof(Portamento));
-                }
-            }
-        }
+        public bool Portamento { get; set; }
 
         /// <summary>
         ///     Legato
         /// </summary>
-        public bool Legato
-        {
-            get => _legato;
-            set
-            {
-                if (value != _legato)
-                {
-                    _legato = value;
-                    NotifyOfPropertyChange(nameof(Legato));
-                }
-            }
-        }
+        public bool Legato { get; set; }
 
         /// <summary>
         ///     Portamento time
         /// </summary>
-        public int PortamentoTime
-        {
-            get => _portamentoTime;
-            set
-            {
-                if (value != _portamentoTime)
-                {
-                    _portamentoTime = value;
-                    NotifyOfPropertyChange(nameof(PortamentoTime));
-                }
-            }
-        }
-
+        public int PortamentoTime { get; set; }
         /// <summary>
         ///     Octave shift
         /// </summary>
-        public int OctaveShift
-        {
-            get => _octaveShift;
-            set
-            {
-                if (value != _octaveShift)
-                {
-                    _octaveShift = value;
-                    NotifyOfPropertyChange(nameof(OctaveShift));
-                }
-            }
-        }
+        public int OctaveShift { get; set; }
 
         /// <summary>
         ///     Pitch bend range up
         /// </summary>
-        public int PitchBendRangeUp
-        {
-            get => _pitchBendRangeUp;
-            set
-            {
-                if (value != _pitchBendRangeUp)
-                {
-                    _pitchBendRangeUp = value;
-                    NotifyOfPropertyChange(nameof(PitchBendRangeUp));
-                }
-            }
-        }
+        public int PitchBendRangeUp { get; set; }
 
         /// <summary>
         ///     Pitch bend range down
         /// </summary>
-        public int PitchBendRangeDown
-        {
-            get => _pitchBendRangeDown;
-            set
-            {
-                if (value != _pitchBendRangeDown)
-                {
-                    _pitchBendRangeDown = value;
-                    NotifyOfPropertyChange(nameof(PitchBendRangeDown));
-                }
-            }
-        }
+        public int PitchBendRangeDown { get; set; }
 
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using PropertyChanged;
 using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
@@ -62,11 +63,13 @@ namespace JD_XI_Editor.Models.Patches.Program
         /// <summary>
         ///     Program common
         /// </summary>
+        [DoNotNotify]
         public Common Common { get; }
 
         /// <summary>
         ///     Program Vocal Effect
         /// </summary>
+        [DoNotNotify]
         public VocalEffect.VocalEffect VocalEffect { get; }
 
         #endregion

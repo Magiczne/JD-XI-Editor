@@ -7,6 +7,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class RingModulationParameters : EffectParameters
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of Ring Modulation Parameters
         /// </summary>
@@ -38,95 +39,27 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Frequency
-        /// </summary>
-        private int _frequency;
-
-        /// <summary>
-        ///     Sensitivity
-        /// </summary>
-        private int _sensitivity;
-
-        /// <summary>
-        ///     Dry/Wet balance
-        /// </summary>
-        private int _dryWetBalance;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Frequency
         /// </summary>
-        public int Frequency
-        {
-            get => _frequency;
-            set
-            {
-                if (value != _frequency)
-                {
-                    _frequency = value;
-                    NotifyOfPropertyChange(nameof(Frequency));
-                }
-            }
-        }
+        public int Frequency { get; set; }
 
         /// <summary>
         ///     Sensitivity
         /// </summary>
-        public int Sensitivity
-        {
-            get => _sensitivity;
-            set
-            {
-                if (value != _sensitivity)
-                {
-                    _sensitivity = value;
-                    NotifyOfPropertyChange(nameof(Sensitivity));
-                }
-            }
-        }
+        public int Sensitivity { get; set; }
 
         /// <summary>
         ///     Dry/Wet Balance
         /// </summary>
-        public int DryWetBalance
-        {
-            get => _dryWetBalance;
-            set
-            {
-                if (value != _dryWetBalance)
-                {
-                    _dryWetBalance = value;
-                    NotifyOfPropertyChange(nameof(DryWetBalance));
-                }
-            }
-        }
+        public int DryWetBalance { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

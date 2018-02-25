@@ -9,11 +9,16 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class PhaserParameters : EffectParameters
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Phaser Parameters
+        /// </summary>
         public PhaserParameters()
         {
             Reset();
         }
 
+        /// <inheritdoc />
         public sealed override void Reset()
         {
             Mode = Mode.Note;
@@ -25,6 +30,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Level = 100;
         }
 
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -41,158 +47,42 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Mode
-        /// </summary>
-        private Mode _mode;
-
-        /// <summary>
-        ///     Note
-        /// </summary>
-        private Note _note;
-
-        /// <summary>
-        ///     Rate
-        /// </summary>
-        private int _rate;
-
-        /// <summary>
-        ///     Depth
-        /// </summary>
-        private int _depth;
-
-        /// <summary>
-        ///     Resonance
-        /// </summary>
-        private int _resonance;
-
-        /// <summary>
-        ///     Manual
-        /// </summary>
-        private int _manual;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Mode
         /// </summary>
-        public Mode Mode
-        {
-            get => _mode;
-            set
-            {
-                if (value != _mode)
-                {
-                    _mode = value;
-                    NotifyOfPropertyChange(nameof(Mode));
-                }
-            }
-        }
+        public Mode Mode { get; set; }
 
         /// <summary>
         ///     Note
         /// </summary>
-        public Note Note
-        {
-            get => _note;
-            set
-            {
-                if (value != _note)
-                {
-                    _note = value;
-                    NotifyOfPropertyChange(nameof(Note));
-                }
-            }
-        }
+        public Note Note { get; set; }
 
         /// <summary>
         ///     Rate
         /// </summary>
-        public int Rate
-        {
-            get => _rate;
-            set
-            {
-                if (value != _rate)
-                {
-                    _rate = value;
-                    NotifyOfPropertyChange(nameof(Rate));
-                }
-            }
-        }
+        public int Rate { get; set; }
 
         /// <summary>
         ///     Depth
         /// </summary>
-        public int Depth
-        {
-            get => _depth;
-            set
-            {
-                if (value != _depth)
-                {
-                    _depth = value;
-                    NotifyOfPropertyChange(nameof(Depth));
-                }
-            }
-        }
+        public int Depth { get; set; }
 
         /// <summary>
         ///     Resonance
         /// </summary>
-        public int Resonance
-        {
-            get => _resonance;
-            set
-            {
-                if (value != _resonance)
-                {
-                    _resonance = value;
-                    NotifyOfPropertyChange(nameof(Resonance));
-                }
-            }
-        }
+        public int Resonance { get; set; }
 
         /// <summary>
         ///     Manual
         /// </summary>
-        public int Manual
-        {
-            get => _manual;
-            set
-            {
-                if (value != _manual)
-                {
-                    _manual = value;
-                    NotifyOfPropertyChange(nameof(Manual));
-                }
-            }
-        }
+        public int Manual { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

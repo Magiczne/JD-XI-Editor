@@ -19,6 +19,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         public void Reset()
         {
             On = false;
+            GroupType = 0;  //TODO: WHAT
             GroupId = 0; //TODO: WHAT
             LeftWave = Wave.Off;
             RightWave = Wave.Off;
@@ -84,415 +85,107 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Switch
-        /// </summary>
-        private bool _on;
-
-        /// <summary>
-        ///     Wave group type
-        /// </summary>
-        private const int GroupType = 0;
-
-        /// <summary>
-        ///     Group ID
-        /// </summary>
-        private int _groupId;
-
-        /// <summary>
-        ///     Left wave number (mono)
-        /// </summary>
-        private Wave _leftWave;
-
-        /// <summary>
-        ///     Right wave number
-        /// </summary>
-        private Wave _rightWave;
-
-        /// <summary>
-        ///     Wave gain
-        /// </summary>
-        private WaveGain _waveGain;
-
-        /// <summary>
-        ///     FXM switch
-        /// </summary>
-        private bool _fxm;
-
-        /// <summary>
-        ///     FXM Color
-        /// </summary>
-        private FxmWaveColor _fxmColor;
-
-        /// <summary>
-        ///     FXM Depth
-        /// </summary>
-        private int _fxmDepth;
-
-        /// <summary>
-        ///     Tempo sync
-        /// </summary>
-        private bool _tempoSync;
-
-        /// <summary>
-        ///     Coarse tune
-        /// </summary>
-        private int _coarseTune;
-
-        /// <summary>
-        ///     Fine tune
-        /// </summary>
-        private int _fineTune;
-
-        /// <summary>
-        ///     Panorama
-        /// </summary>
-        private int _panorama;
-
-        /// <summary>
-        ///     Random panorama switch
-        /// </summary>
-        private bool _randomPanorama;
-
-        /// <summary>
-        ///     Alternate panorama switch
-        /// </summary>
-        private AlternatePan _alternatePanorama;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Velocity range lower
-        /// </summary>
-        private int _velocityRangeLower;
-
-        /// <summary>
-        ///     Velocity range upper
-        /// </summary>
-        private int _velocityRangeUpper;
-
-        /// <summary>
-        ///     Velocity fade width lower
-        /// </summary>
-        private int _velocityFadeWidthLower;
-
-        /// <summary>
-        ///     Velocity fade width upper
-        /// </summary>
-        private int _velocityFadeWidthUpper;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Switch
         /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
+        public bool On { get; set; }
+
+        /// <summary>
+        ///     Wave group type
+        /// </summary>
+        public int GroupType { get; set; }
 
         /// <summary>
         ///     Group ID
         /// </summary>
-        public int GroupId
-        {
-            get => _groupId;
-            set
-            {
-                if (value != _groupId)
-                {
-                    _groupId = value;
-                    NotifyOfPropertyChange(nameof(GroupId));
-                }
-            }
-        }
+        public int GroupId { get; set; }
 
         /// <summary>
         ///     Left wave number (mono)
         /// </summary>
-        public Wave LeftWave
-        {
-            get => _leftWave;
-            set
-            {
-                if (value != _leftWave)
-                {
-                    _leftWave = value;
-                    NotifyOfPropertyChange(nameof(LeftWave));
-                }
-            }
-        }
+        public Wave LeftWave { get; set; }
 
         /// <summary>
         ///     Right wave number
         /// </summary>
-        public Wave RightWave
-        {
-            get => _rightWave;
-            set
-            {
-                if (value != _rightWave)
-                {
-                    _rightWave = value;
-                    NotifyOfPropertyChange(nameof(RightWave));
-                }
-            }
-        }
+        public Wave RightWave { get; set; }
 
         /// <summary>
         ///     Wave gain
         /// </summary>
-        public WaveGain WaveGain
-        {
-            get => _waveGain;
-            set
-            {
-                if (value != _waveGain)
-                {
-                    _waveGain = value;
-                    NotifyOfPropertyChange(nameof(WaveGain));
-                }
-            }
-        }
+        public WaveGain WaveGain { get; set; }
 
         /// <summary>
         ///     FXM switch
         /// </summary>
-        public bool Fxm
-        {
-            get => _fxm;
-            set
-            {
-                if (value != _fxm)
-                {
-                    _fxm = value;
-                    NotifyOfPropertyChange(nameof(Fxm));
-                }
-            }
-        }
+        public bool Fxm { get; set; }
 
         /// <summary>
         ///     FXM Color
         /// </summary>
-        public FxmWaveColor FxmColor
-        {
-            get => _fxmColor;
-            set
-            {
-                if (value != _fxmColor)
-                {
-                    _fxmColor = value;
-                    NotifyOfPropertyChange(nameof(FxmColor));
-                }
-            }
-        }
+        public FxmWaveColor FxmColor { get; set; }
 
         /// <summary>
         ///     FXM Depth
         /// </summary>
-        public int FxmDepth
-        {
-            get => _fxmDepth;
-            set
-            {
-                if (value != _fxmDepth)
-                {
-                    _fxmDepth = value;
-                    NotifyOfPropertyChange(nameof(FxmDepth));
-                }
-            }
-        }
+        public int FxmDepth { get; set; }
 
         /// <summary>
         ///     Tempo sync
         /// </summary>
-        public bool TempoSync
-        {
-            get => _tempoSync;
-            set
-            {
-                if (value != _tempoSync)
-                {
-                    _tempoSync = value;
-                    NotifyOfPropertyChange(nameof(TempoSync));
-                }
-            }
-        }
+        public bool TempoSync { get; set; }
 
         /// <summary>
         ///     Coarse tune
         /// </summary>
-        public int CoarseTune
-        {
-            get => _coarseTune;
-            set
-            {
-                if (value != _coarseTune)
-                {
-                    _coarseTune = value;
-                    NotifyOfPropertyChange(nameof(CoarseTune));
-                }
-            }
-        }
+        public int CoarseTune { get; set; }
 
         /// <summary>
         ///     Fine tune
         /// </summary>
-        public int FineTune
-        {
-            get => _fineTune;
-            set
-            {
-                if (value != _fineTune)
-                {
-                    _fineTune = value;
-                    NotifyOfPropertyChange(nameof(FineTune));
-                }
-            }
-        }
+        public int FineTune { get; set; }
 
         /// <summary>
         ///     Panorama
         /// </summary>
-        public int Panorama
-        {
-            get => _panorama;
-            set
-            {
-                if (value != _panorama)
-                {
-                    _panorama = value;
-                    NotifyOfPropertyChange(nameof(Panorama));
-                }
-            }
-        }
+        public int Panorama { get; set; }
 
         /// <summary>
         ///     Random panorama switch
         /// </summary>
-        public bool RandomPanorama
-        {
-            get => _randomPanorama;
-            set
-            {
-                if (value != _randomPanorama)
-                {
-                    _randomPanorama = value;
-                    NotifyOfPropertyChange(nameof(RandomPanorama));
-                }
-            }
-        }
+        public bool RandomPanorama { get; set; }
 
         /// <summary>
         ///     Alternate panorama switch
         /// </summary>
-        public AlternatePan AlternatePanorama
-        {
-            get => _alternatePanorama;
-            set
-            {
-                if (value != _alternatePanorama)
-                {
-                    _alternatePanorama = value;
-                    NotifyOfPropertyChange(nameof(AlternatePanorama));
-                }
-            }
-        }
+        public AlternatePan AlternatePanorama { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Velocity range lower
         /// </summary>
-        public int VelocityRangeLower
-        {
-            get => _velocityRangeLower;
-            set
-            {
-                if (value != _velocityRangeLower)
-                {
-                    _velocityRangeLower = value;
-                    NotifyOfPropertyChange(nameof(VelocityRangeLower));
-                }
-            }
-        }
+        public int VelocityRangeLower { get; set; }
 
         /// <summary>
         ///     Velocity range upper
         /// </summary>
-        public int VelocityRangeUpper
-        {
-            get => _velocityRangeUpper;
-            set
-            {
-                if (value != _velocityRangeUpper)
-                {
-                    _velocityRangeUpper = value;
-                    NotifyOfPropertyChange(nameof(VelocityRangeUpper));
-                }
-            }
-        }
+        public int VelocityRangeUpper { get; set; }
 
         /// <summary>
         ///     Velocity fade width lower
         /// </summary>
-        public int VelocityFadeWidthLower
-        {
-            get => _velocityFadeWidthLower;
-            set
-            {
-                if (value != _velocityFadeWidthLower)
-                {
-                    _velocityFadeWidthLower = value;
-                    NotifyOfPropertyChange(nameof(VelocityFadeWidthLower));
-                }
-            }
-        }
+        public int VelocityFadeWidthLower { get; set; }
 
         /// <summary>
         ///     Velocity fade width upper
         /// </summary>
-        public int VelocityFadeWidthUpper
-        {
-            get => _velocityFadeWidthUpper;
-            set
-            {
-                if (value != _velocityFadeWidthUpper)
-                {
-                    _velocityFadeWidthUpper = value;
-                    NotifyOfPropertyChange(nameof(VelocityFadeWidthUpper));
-                }
-            }
-        }
+        public int VelocityFadeWidthUpper { get; set; }
 
         #endregion
     }

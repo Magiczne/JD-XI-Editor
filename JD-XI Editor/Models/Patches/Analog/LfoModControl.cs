@@ -36,95 +36,27 @@ namespace JD_XI_Editor.Models.Patches.Analog
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Pitch modulation control
-        /// </summary>
-        private int _pitchModControl;
-
-        /// <summary>
-        ///     Filter modulation control
-        /// </summary>
-        private int _filterModControl;
-
-        /// <summary>
-        ///     Amplifier modulation control
-        /// </summary>
-        private int _ampModControl;
-
-        /// <summary>
-        ///     Rate modulation control
-        /// </summary>
-        private int _rateModControl;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Pitch modulation control
         /// </summary>
-        public int PitchModControl
-        {
-            get => _pitchModControl;
-            set
-            {
-                if (value != _pitchModControl)
-                {
-                    _pitchModControl = value;
-                    NotifyOfPropertyChange(nameof(PitchModControl));
-                }
-            }
-        }
+        public int PitchModControl { get; set; }
 
         /// <summary>
         ///     Filter modulation control
         /// </summary>
-        public int FilterModControl
-        {
-            get => _filterModControl;
-            set
-            {
-                if (value != _filterModControl)
-                {
-                    _filterModControl = value;
-                    NotifyOfPropertyChange(nameof(FilterModControl));
-                }
-            }
-        }
+        public int FilterModControl { get; set; }
 
         /// <summary>
         ///     Amplifier modulation control
         /// </summary>
-        public int AmpModControl
-        {
-            get => _ampModControl;
-            set
-            {
-                if (value != _ampModControl)
-                {
-                    _ampModControl = value;
-                    NotifyOfPropertyChange(nameof(AmpModControl));
-                }
-            }
-        }
+        public int AmpModControl { get; set; }
 
         /// <summary>
         ///     Rate modulation control
         /// </summary>
-        public int RateModControl
-        {
-            get => _rateModControl;
-            set
-            {
-                if (value != _rateModControl)
-                {
-                    _rateModControl = value;
-                    NotifyOfPropertyChange(nameof(RateModControl));
-                }
-            }
-        }
+        public int RateModControl { get; set; }
 
         #endregion
     }

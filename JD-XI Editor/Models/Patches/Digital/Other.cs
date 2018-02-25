@@ -45,137 +45,37 @@ namespace JD_XI_Editor.Models.Patches.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Wave gain
-        /// </summary>
-        private WaveGain _waveGain;
-
-        /// <summary>
-        ///     Wave number
-        /// </summary>
-        private PcmWave _waveNumber; //4 bytes!
-
-        /// <summary>
-        ///     High Pass Filter cutoff
-        /// </summary>
-        private int _hpfCutoff;
-
-        /// <summary>
-        ///     Super saw detune
-        /// </summary>
-        private int _superSawDetune;
-
-        /// <summary>
-        ///     LFO Mod Rate Control
-        /// </summary>
-        private int _modLfoRateControl;
-
-        /// <summary>
-        ///     Amplifier Level Keyfollow
-        /// </summary>
-        private int _ampLevelKeyfollow;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Wave gain
         /// </summary>
-        public WaveGain WaveGain
-        {
-            get => _waveGain;
-            set
-            {
-                if (value != _waveGain)
-                {
-                    _waveGain = value;
-                    NotifyOfPropertyChange(nameof(WaveGain));
-                }
-            }
-        }
+        public WaveGain WaveGain { get; set; }
 
         /// <summary>
         ///     Wave number
         /// </summary>
-        public PcmWave WaveNumber
-        {
-            get => _waveNumber;
-            set
-            {
-                if (value != _waveNumber)
-                {
-                    _waveNumber = value;
-                    NotifyOfPropertyChange(nameof(WaveNumber));
-                }
-            }
-        }
+        public PcmWave WaveNumber { get; set; }
 
         /// <summary>
         ///     High Pass Filter cutoff
         /// </summary>
-        public int HpfCutoff
-        {
-            get => _hpfCutoff;
-            set
-            {
-                if (value != _hpfCutoff)
-                {
-                    _hpfCutoff = value;
-                    NotifyOfPropertyChange(nameof(HpfCutoff));
-                }
-            }
-        }
+        public int HpfCutoff { get; set; }
 
         /// <summary>
         ///     Super saw detune
         /// </summary>
-        public int SuperSawDetune
-        {
-            get => _superSawDetune;
-            set
-            {
-                if (value != _superSawDetune)
-                {
-                    _superSawDetune = value;
-                    NotifyOfPropertyChange(nameof(SuperSawDetune));
-                }
-            }
-        }
+        public int SuperSawDetune { get; set; }
 
         /// <summary>
         ///     LFO Mod Rate Control
         /// </summary>
-        public int ModLfoRateControl
-        {
-            get => _modLfoRateControl;
-            set
-            {
-                if (value != _modLfoRateControl)
-                {
-                    _modLfoRateControl = value;
-                    NotifyOfPropertyChange(nameof(ModLfoRateControl));
-                }
-            }
-        }
+        public int ModLfoRateControl { get; set; }
 
         /// <summary>
         ///     Amplifier Level Keyfollow
         /// </summary>
-        public int AmpLevelKeyfollow
-        {
-            get => _ampLevelKeyfollow;
-            set
-            {
-                if (value != _ampLevelKeyfollow)
-                {
-                    _ampLevelKeyfollow = value;
-                    NotifyOfPropertyChange(nameof(AmpLevelKeyfollow));
-                }
-            }
-        }
+        public int AmpLevelKeyfollow { get; set; }
 
         #endregion
     }

@@ -34,95 +34,27 @@ namespace JD_XI_Editor.Models
             Release = release;
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Attack
-        /// </summary>
-        private int _attack;
-
-        /// <summary>
-        ///     Decay
-        /// </summary>
-        private int _decay;
-
-        /// <summary>
-        ///     Sustain
-        /// </summary>
-        private int _sustain;
-
-        /// <summary>
-        ///     Release
-        /// </summary>
-        private int _release;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Attack
         /// </summary>
-        public int Attack
-        {
-            get => _attack;
-            set
-            {
-                if (value != _attack)
-                {
-                    _attack = value;
-                    NotifyOfPropertyChange(nameof(Attack));
-                }
-            }
-        }
+        public int Attack { get; set; }
 
         /// <summary>
         ///     Decay
         /// </summary>
-        public int Decay
-        {
-            get => _decay;
-            set
-            {
-                if (value != _decay)
-                {
-                    _decay = value;
-                    NotifyOfPropertyChange(nameof(Decay));
-                }
-            }
-        }
+        public int Decay { get; set; }
 
         /// <summary>
         ///     Sustain
         /// </summary>
-        public int Sustain
-        {
-            get => _sustain;
-            set
-            {
-                if (value != _sustain)
-                {
-                    _sustain = value;
-                    NotifyOfPropertyChange(nameof(Sustain));
-                }
-            }
-        }
+        public int Sustain { get; set; }
 
         /// <summary>
         ///     Release
         /// </summary>
-        public int Release
-        {
-            get => _release;
-            set
-            {
-                if (value != _release)
-                {
-                    _release = value;
-                    NotifyOfPropertyChange(nameof(Release));
-                }
-            }
-        }
+        public int Release { get; set; }
 
         #endregion
     }

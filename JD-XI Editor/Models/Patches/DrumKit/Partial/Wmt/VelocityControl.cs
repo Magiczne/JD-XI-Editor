@@ -7,40 +7,16 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 {
     internal class VelocityControl : PropertyChangedBase, IPatchPart
     {
-        #region Fields
-
-        /// <summary>
-        ///     Velocity control
-        /// </summary>
-        private WmtVelocityControl _control;
-
-        #endregion
-
         /// <inheritdoc />
         public VelocityControl()
         {
             Reset();
         }
 
-        #region Properties
-
         /// <summary>
         ///     Velocity control
         /// </summary>
-        public WmtVelocityControl Control
-        {
-            get => _control;
-            set
-            {
-                if (value != _control)
-                {
-                    _control = value;
-                    NotifyOfPropertyChange(nameof(Control));
-                }
-            }
-        }
-
-        #endregion
+        public WmtVelocityControl Control { get; set; }
 
         /// <inheritdoc />
         public void Reset()

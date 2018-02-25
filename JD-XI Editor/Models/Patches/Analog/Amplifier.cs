@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -12,10 +13,8 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// </summary>
         public Amplifier()
         {
-            Level = 127;
-            LevelKeyfollow = 0;
-            LevelVelSensitivity = 0;
             Envelope = new Adsr(0, 0, 127, 0);
+            Reset();
 
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
@@ -44,78 +43,27 @@ namespace JD_XI_Editor.Models.Patches.Analog
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Level keyfollow
-        /// </summary>
-        private int _levelKeyfollow;
-
-        /// <summary>
-        ///     Level velocity sensitivity
-        /// </summary>
-        private int _levelVelSensitivity;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Level keyfollow
         /// </summary>
-        public int LevelKeyfollow
-        {
-            get => _levelKeyfollow;
-            set
-            {
-                if (value != _levelKeyfollow)
-                {
-                    _levelKeyfollow = value;
-                    NotifyOfPropertyChange(nameof(LevelKeyfollow));
-                }
-            }
-        }
+        public int LevelKeyfollow { get; set; }
 
         /// <summary>
         ///     Level velocity sensitivity
         /// </summary>
-        public int LevelVelSensitivity
-        {
-            get => _levelVelSensitivity;
-            set
-            {
-                if (value != _levelVelSensitivity)
-                {
-                    _levelVelSensitivity = value;
-                    NotifyOfPropertyChange(nameof(LevelVelSensitivity));
-                }
-            }
-        }
+        public int LevelVelSensitivity { get; set; }
 
         /// <summary>
         ///     Envelope
         /// </summary>
+        [DoNotNotify]
         public Adsr Envelope { get; }
 
         #endregion

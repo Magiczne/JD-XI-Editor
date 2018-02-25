@@ -49,137 +49,37 @@ namespace JD_XI_Editor.Models.Patches.Sys
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Master Tune
-        /// </summary>
-        private decimal _masterTune;
-
-        /// <summary>
-        ///     Master Key shift
-        /// </summary>
-        private int _masterKeyShift;
-
-        /// <summary>
-        ///     Master Level
-        /// </summary>
-        private int _masterLevel;
-
-        /// <summary>
-        ///     Program Control Channel
-        /// </summary>
-        private ProgramControlChannel _programControlChannel;
-
-        /// <summary>
-        ///     Receive Program Change
-        /// </summary>
-        private bool _receiveProgramchange;
-
-        /// <summary>
-        ///     Reveice Bank Select
-        /// </summary>
-        private bool _receiveBankSelect;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Master Tune
         /// </summary>
-        public decimal MasterTune
-        {
-            get => _masterTune;
-            set
-            {
-                if (value != _masterTune)
-                {
-                    _masterTune = value;
-                    NotifyOfPropertyChange(nameof(MasterTune));
-                }
-            }
-        }
+        public decimal MasterTune { get; set; }
 
         /// <summary>
         ///     Master Key Shift
         /// </summary>
-        public int MasterKeyShift
-        {
-            get => _masterKeyShift;
-            set
-            {
-                if (value != _masterKeyShift)
-                {
-                    _masterKeyShift = value;
-                    NotifyOfPropertyChange(nameof(MasterKeyShift));
-                }
-            }
-        }
+        public int MasterKeyShift { get; set; }
 
         /// <summary>
         ///     Master Level
         /// </summary>
-        public int MasterLevel
-        {
-            get => _masterLevel;
-            set
-            {
-                if (value != _masterLevel)
-                {
-                    _masterLevel = value;
-                    NotifyOfPropertyChange(nameof(MasterLevel));
-                }
-            }
-        }
+        public int MasterLevel { get; set; }
 
         /// <summary>
         ///     Program Control Channel
         /// </summary>
-        public ProgramControlChannel ProgramControlChannel
-        {
-            get => _programControlChannel;
-            set
-            {
-                if (value != _programControlChannel)
-                {
-                    _programControlChannel = value;
-                    NotifyOfPropertyChange(nameof(ProgramControlChannel));
-                }
-            }
-        }
+        public ProgramControlChannel ProgramControlChannel { get; set; }
 
         /// <summary>
         ///     Receive Program Change
         /// </summary>
-        public bool ReceiveProgramChange
-        {
-            get => _receiveProgramchange;
-            set
-            {
-                if (value != _receiveProgramchange)
-                {
-                    _receiveProgramchange = value;
-                    NotifyOfPropertyChange(nameof(ReceiveProgramChange));
-                }
-            }
-        }
+        public bool ReceiveProgramChange { get; set; }
 
         /// <summary>
         ///     Reveice Bank Select
         /// </summary>
-        public bool ReceiveBankSelect
-        {
-            get => _receiveBankSelect;
-            set
-            {
-                if (value != _receiveBankSelect)
-                {
-                    _receiveBankSelect = value;
-                    NotifyOfPropertyChange(nameof(ReceiveBankSelect));
-                }
-            }
-        }
+        public bool ReceiveBankSelect { get; set; }
 
         #endregion
     }

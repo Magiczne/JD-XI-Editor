@@ -1,6 +1,5 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Events;
-using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 
 // ReSharper disable InvertIf
@@ -46,71 +45,21 @@ namespace JD_XI_Editor.ViewModels.Abstract
         /// </summary>
         protected IPatchManager PatchManager;
 
-        /// <summary>
-        ///     Auto syncrhonization
-        /// </summary>
-        private bool _autoSync;
-
-        /// <summary>
-        ///     Selected input device ID
-        /// </summary>
-        private int _selectedInputDeviceId;
-
-        /// <summary>
-        ///     Selected output device ID
-        /// </summary>
-        private int _selectedOutputDeviceId;
-
         #endregion
 
         #region Properties
 
-        public bool AutoSync
-        {
-            get => _autoSync;
-            set
-            {
-                if (value != _autoSync)
-                {
-                    _autoSync = value;
-                    NotifyOfPropertyChange(nameof(AutoSync));
-                }
-            }
-        }
+        public bool AutoSync { get; set; }
 
         /// <summary>
         ///     Input device ID
         /// </summary>
-        public int SelectedInputDeviceId
-        {
-            get => _selectedInputDeviceId;
-            set
-            {
-                if (value != _selectedInputDeviceId)
-                {
-                    _selectedInputDeviceId = value;
-                    NotifyOfPropertyChange(nameof(SelectedInputDeviceId));
-                    NotifyOfPropertyChange(nameof(CanRead));
-                }
-            }
-        }
+        public int SelectedInputDeviceId { get; set; }
 
         /// <summary>
         ///     Selected output device ID
         /// </summary>
-        public int SelectedOutputDeviceId
-        {
-            get => _selectedOutputDeviceId;
-            set
-            {
-                if (value != _selectedOutputDeviceId)
-                {
-                    _selectedOutputDeviceId = value;
-                    NotifyOfPropertyChange(nameof(SelectedOutputDeviceId));
-                    NotifyOfPropertyChange(nameof(CanDump));
-                }
-            }
-        }
+        public int SelectedOutputDeviceId { get; set; }
 
         /// <summary>
         ///     Can dump to device

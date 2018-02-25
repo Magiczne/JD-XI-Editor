@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Digital;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -13,14 +14,8 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// </summary>
         public Filter()
         {
-            Type = FilterType.LowPassFilter;
-            Slope = FilterSlope.NegativeTwentyFour;
-            Cutoff = 127;
-            CutoffKeyfollow = 0;
-            EnvelopeVelocitySensitivity = 0;
-            Resonance = 0;
             Envelope = new Adsr(0, 36, 0, 0);
-            EnvelopeDepth = 0;
+            Reset();
 
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
@@ -57,163 +52,48 @@ namespace JD_XI_Editor.Models.Patches.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Filter type
-        /// </summary>
-        private FilterType _type;
-
-        /// <summary>
-        ///     Filter slope
-        /// </summary>
-        private FilterSlope _filterSlope;
-
-        /// <summary>
-        ///     Cutoff
-        /// </summary>
-        private int _cutoff;
-
-        /// <summary>
-        ///     Cutoff keyfollow
-        /// </summary>
-        private int _cutoffKeyfollow;
-
-        /// <summary>
-        ///     Envelope velocity sensitivity
-        /// </summary>
-        private int _envelopeVelocitySensitivity;
-
-        /// <summary>
-        ///     Resonance
-        /// </summary>
-        private int _resonance;
-
-        /// <summary>
-        ///     Envelope depth
-        /// </summary>
-        private int _envelopeDepth;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Filter type
         /// </summary>
-        public FilterType Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    NotifyOfPropertyChange(nameof(Type));
-                }
-            }
-        }
+        public FilterType Type { get; set; }
 
         /// <summary>
         ///     Filter slope
         /// </summary>
-        public FilterSlope Slope
-        {
-            get => _filterSlope;
-            set
-            {
-                if (value != _filterSlope)
-                {
-                    _filterSlope = value;
-                    NotifyOfPropertyChange(nameof(Slope));
-                }
-            }
-        }
+        public FilterSlope Slope { get; set; }
 
         /// <summary>
         ///     Cutoff
         /// </summary>
-        public int Cutoff
-        {
-            get => _cutoff;
-            set
-            {
-                if (value != _cutoff)
-                {
-                    _cutoff = value;
-                    NotifyOfPropertyChange(nameof(Cutoff));
-                }
-            }
-        }
+        public int Cutoff { get; set; }
 
         /// <summary>
         ///     Cutoff keyfollow
         /// </summary>
-        public int CutoffKeyfollow
-        {
-            get => _cutoffKeyfollow;
-            set
-            {
-                if (value != _cutoffKeyfollow)
-                {
-                    _cutoffKeyfollow = value;
-                    NotifyOfPropertyChange(nameof(CutoffKeyfollow));
-                }
-            }
-        }
+        public int CutoffKeyfollow { get; set; }
 
         /// <summary>
         ///     Envelope velocity sensitivity
         /// </summary>
-        public int EnvelopeVelocitySensitivity
-        {
-            get => _envelopeVelocitySensitivity;
-            set
-            {
-                if (value != _envelopeVelocitySensitivity)
-                {
-                    _envelopeVelocitySensitivity = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeVelocitySensitivity));
-                }
-            }
-        }
+        public int EnvelopeVelocitySensitivity { get; set; }
 
         /// <summary>
         ///     Resonance
         /// </summary>
-        public int Resonance
-        {
-            get => _resonance;
-            set
-            {
-                if (value != _resonance)
-                {
-                    _resonance = value;
-                    NotifyOfPropertyChange(nameof(Resonance));
-                }
-            }
-        }
+        public int Resonance { get; set; }
 
         /// <summary>
         ///     Envelope
         /// </summary>
+        [DoNotNotify]
         public Adsr Envelope { get; }
 
         /// <summary>
         ///     Envelope depth
         /// </summary>
-        public int EnvelopeDepth
-        {
-            get => _envelopeDepth;
-            set
-            {
-                if (value != _envelopeDepth)
-                {
-                    _envelopeDepth = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeDepth));
-                }
-            }
-        }
+        public int EnvelopeDepth { get; set; }
 
         #endregion
     }

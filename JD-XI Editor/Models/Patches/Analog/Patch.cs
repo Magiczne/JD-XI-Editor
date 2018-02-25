@@ -2,6 +2,7 @@
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -99,31 +100,37 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     LFO
         /// </summary>
+        [DoNotNotify]
         public Lfo Lfo { get; }
 
         /// <summary>
         ///     Oscillator
         /// </summary>
+        [DoNotNotify]
         public Oscillator Oscillator { get; }
 
         /// <summary>
         ///     Filter (Low Pass)
         /// </summary>
+        [DoNotNotify]
         public Filter Filter { get; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
+        [DoNotNotify]
         public Amplifier Amplifier { get; }
 
         /// <summary>
         ///     Common
         /// </summary>
+        [DoNotNotify]
         public Common Common { get; }
 
         /// <summary>
         ///     Lfo Mod Control
         /// </summary>
+        [DoNotNotify]
         public LfoModControl LfoModControl { get; }
 
         #endregion

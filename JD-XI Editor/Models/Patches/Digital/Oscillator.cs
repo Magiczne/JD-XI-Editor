@@ -48,200 +48,52 @@ namespace JD_XI_Editor.Models.Patches.Digital
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Shape
-        /// </summary>
-        private OscillatorShape _shape;
-
-        /// <summary>
-        ///     Wave variation
-        /// </summary>
-        private WaveVariation _waveVariation;
-
-        /// <summary>
-        ///     Pitch
-        /// </summary>
-        private int _pitch;
-
-        /// <summary>
-        ///     Detune
-        /// </summary>
-        private int _detune;
-
-        /// <summary>
-        ///     Pulse width
-        /// </summary>
-        private int _pulseWidth;
-
-        /// <summary>
-        ///     Pulse width modulation depth
-        /// </summary>
-        private int _pulseWidthModDepth;
-
-        /// <summary>
-        ///     Attack
-        /// </summary>
-        private int _attack;
-
-        /// <summary>
-        ///     Decay
-        /// </summary>
-        private int _decay;
-
-        /// <summary>
-        ///     Envelope depth
-        /// </summary>
-        private int _envelopeDepth;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Shape
         /// </summary>
-        public OscillatorShape Shape
-        {
-            get => _shape;
-            set
-            {
-                if (value != _shape)
-                {
-                    _shape = value;
-                    NotifyOfPropertyChange(nameof(Shape));
-                }
-            }
-        }
+        public OscillatorShape Shape { get; set; }
 
         /// <summary>
         ///     Wave variation
         /// </summary>
-        public WaveVariation WaveVariation
-        {
-            get => _waveVariation;
-            set
-            {
-                if (value != _waveVariation)
-                {
-                    _waveVariation = value;
-                    NotifyOfPropertyChange(nameof(WaveVariation));
-                }
-            }
-        }
+        public WaveVariation WaveVariation { get; set; }
 
         /// <summary>
         ///     Pitch
         /// </summary>
-        public int Pitch
-        {
-            get => _pitch;
-            set
-            {
-                if (value != _pitch)
-                {
-                    _pitch = value;
-                    NotifyOfPropertyChange(nameof(Pitch));
-                }
-            }
-        }
+        public int Pitch { get; set; }
 
         /// <summary>
         ///     Detune
         /// </summary>
-        public int Detune
-        {
-            get => _detune;
-            set
-            {
-                if (value != _detune)
-                {
-                    _detune = value;
-                    NotifyOfPropertyChange(nameof(Detune));
-                }
-            }
-        }
+        public int Detune { get; set; }
 
         /// <summary>
         ///     Pulse width
         /// </summary>
-        public int PulseWidth
-        {
-            get => _pulseWidth;
-            set
-            {
-                if (value != _pulseWidth)
-                {
-                    _pulseWidth = value;
-                    NotifyOfPropertyChange(nameof(PulseWidth));
-                }
-            }
-        }
+        public int PulseWidth { get; set; }
 
         /// <summary>
         ///     Pulse width modulation depth
         /// </summary>
-        public int PulseWidthModDepth
-        {
-            get => _pulseWidthModDepth;
-            set
-            {
-                if (value != _pulseWidthModDepth)
-                {
-                    _pulseWidthModDepth = value;
-                    NotifyOfPropertyChange(nameof(PulseWidthModDepth));
-                }
-            }
-        }
+        public int PulseWidthModDepth { get; set; }
 
         /// <summary>
         ///     Attack
         /// </summary>
-        public int Attack
-        {
-            get => _attack;
-            set
-            {
-                if (value != _attack)
-                {
-                    _attack = value;
-                    NotifyOfPropertyChange(nameof(Attack));
-                }
-            }
-        }
+        public int Attack { get; set; }
 
         /// <summary>
         ///     Decay
         /// </summary>
-        public int Decay
-        {
-            get => _decay;
-            set
-            {
-                if (value != _decay)
-                {
-                    _decay = value;
-                    NotifyOfPropertyChange(nameof(Decay));
-                }
-            }
-        }
+        public int Decay { get; set; }
 
         /// <summary>
         ///     Envelope depth
         /// </summary>
-        public int EnvelopeDepth
-        {
-            get => _envelopeDepth;
-            set
-            {
-                if (value != _envelopeDepth)
-                {
-                    _envelopeDepth = value;
-                    NotifyOfPropertyChange(nameof(EnvelopeDepth));
-                }
-            }
-        }
+        public int EnvelopeDepth { get; set; }
 
         #endregion
     }

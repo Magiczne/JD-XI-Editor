@@ -1,4 +1,5 @@
 ﻿using JD_XI_Editor.Exceptions;
+using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects
 {
@@ -32,21 +33,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         /// <summary>
         ///     Effect 1
         /// </summary>
+        [DoNotNotify]
         public Effect1.Patch Effect1 { get; }
 
         /// <summary>
         ///     Effect 2
         /// </summary>
+        [DoNotNotify]
         public Effect2.Patch Effect2 { get; }
 
         /// <summary>
         ///     Delay patch
         /// </summary>
+        [DoNotNotify]
         public Delay.Patch Delay { get; }
 
         /// <summary>
         ///     Reverb patch
         /// </summary>
+        [DoNotNotify]
         public Reverb.Patch Reverb { get; }
 
         #endregion

@@ -66,158 +66,42 @@ namespace JD_XI_Editor.Models.Patches.Program
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Program Name (12 chars)
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        ///     Program Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Program Tempo
-        /// </summary>
-        private int _tempo;
-
-        /// <summary>
-        ///     Vocal Effect Type
-        /// </summary>
-        private Type _vocalEffectType;
-
-        /// <summary>
-        ///     Vocal Effect Number
-        /// </summary>
-        private EffectNumber _vocaEffectNumber;
-
-        /// <summary>
-        ///     Vocal Effect Part
-        /// </summary>
-        private Part _vocalEffectPart;
-
-        /// <summary>
-        ///     Auto Note Switch
-        /// </summary>
-        private bool _autoNote;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Program Name
         /// </summary>
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    NotifyOfPropertyChange(nameof(Name));
-                }
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         ///     Program Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Tempo
         /// </summary>
-        public int Tempo
-        {
-            get => _tempo;
-            set
-            {
-                if (value != _tempo)
-                {
-                    _tempo = value;
-                    NotifyOfPropertyChange(nameof(Tempo));
-                }
-            }
-        }
+        public int Tempo { get; set; }
 
         /// <summary>
         ///     Vocal Effect Type
         /// </summary>
-        public Type VocalEffectType
-        {
-            get => _vocalEffectType;
-            set
-            {
-                if (value != _vocalEffectType)
-                {
-                    _vocalEffectType = value;
-                    NotifyOfPropertyChange(nameof(VocalEffectType));
-                }
-            }
-        }
+        public Type VocalEffectType { get; set; }
 
         /// <summary>
         ///     Vocal Effect Number
         /// </summary>
-        public EffectNumber VocalEffectNumber
-        {
-            get => _vocaEffectNumber;
-            set
-            {
-                if (value != _vocaEffectNumber)
-                {
-                    _vocaEffectNumber = value;
-                    NotifyOfPropertyChange(nameof(VocalEffectNumber));
-                }
-            }
-        }
+        public EffectNumber VocalEffectNumber { get; set; }
 
         /// <summary>
         ///     Vocal Effect Part
         /// </summary>
-        public Part VocalEffectPart
-        {
-            get => _vocalEffectPart;
-            set
-            {
-                if (value != _vocalEffectPart)
-                {
-                    _vocalEffectPart = value;
-                    NotifyOfPropertyChange(nameof(VocalEffectPart));
-                }
-            }
-        }
+        public Part VocalEffectPart { get; set; }
 
         /// <summary>
         ///     Auto Note
         /// </summary>
-        public bool AutoNote
-        {
-            get => _autoNote;
-            set
-            {
-                if (value != _autoNote)
-                {
-                    _autoNote = value;
-                    NotifyOfPropertyChange(nameof(AutoNote));
-                }
-            }
-        }
+        public bool AutoNote { get; set; }
 
         #endregion
     }

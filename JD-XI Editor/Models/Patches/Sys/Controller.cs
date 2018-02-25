@@ -43,116 +43,32 @@ namespace JD_XI_Editor.Models.Patches.Sys
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Transmit Program Change
-        /// </summary>
-        private bool _transmitProgramChange;
-
-        /// <summary>
-        ///     Transmit Bank Select
-        /// </summary>
-        private bool _transmitBankSelect;
-
-        /// <summary>
-        ///     Keyboard Velocity
-        /// </summary>
-        private int _keyboardVelocity;
-
-        /// <summary>
-        ///     Keyboard Velocity Curve
-        /// </summary>
-        private VelocityCurve _velocityCurve;
-
-        /// <summary>
-        ///     Keyboard Velocity Curve Offset
-        /// </summary>
-        private int _velocityCurveOffset;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Transmit Program Change
         /// </summary>
-        public bool TransmitProgramChange
-        {
-            get => _transmitProgramChange;
-            set
-            {
-                if (value != _transmitProgramChange)
-                {
-                    _transmitProgramChange = value;
-                    NotifyOfPropertyChange(nameof(TransmitProgramChange));
-                }
-            }
-        }
+        public bool TransmitProgramChange { get; set; }
 
         /// <summary>
         ///     Transmit Bank Select
         /// </summary>
-        public bool TransmitBankSelect
-        {
-            get => _transmitBankSelect;
-            set
-            {
-                if (value != _transmitBankSelect)
-                {
-                    _transmitBankSelect = value;
-                    NotifyOfPropertyChange(nameof(TransmitBankSelect));
-                }
-            }
-        }
+        public bool TransmitBankSelect { get; set; }
 
         /// <summary>
         ///     Keyboard Velocity
         /// </summary>
-        public int KeyboardVelocity
-        {
-            get => _keyboardVelocity;
-            set
-            {
-                if (value != _keyboardVelocity)
-                {
-                    _keyboardVelocity = value;
-                    NotifyOfPropertyChange(nameof(KeyboardVelocity));
-                }
-            }
-        }
+        public int KeyboardVelocity { get; set; }
 
         /// <summary>
         ///     Keyboard Velocity Curve
         /// </summary>
-        public VelocityCurve VelocityCurve
-        {
-            get => _velocityCurve;
-            set
-            {
-                if (value != _velocityCurve)
-                {
-                    _velocityCurve = value;
-                    NotifyOfPropertyChange(nameof(VelocityCurve));
-                }
-            }
-        }
+        public VelocityCurve VelocityCurve { get; set; }
 
         /// <summary>
         ///     Keyboard Velocity Curve Offset
         /// </summary>
-        public int VelocityCurveOffset
-        {
-            get => _velocityCurveOffset;
-            set
-            {
-                if (value != _velocityCurveOffset)
-                {
-                    _velocityCurveOffset = value;
-                    NotifyOfPropertyChange(nameof(VelocityCurveOffset));
-                }
-            }
-        }
+        public int VelocityCurveOffset { get; set; }
 
         #endregion
     }

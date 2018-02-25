@@ -45,159 +45,42 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Vocoder Switch
-        /// </summary>
-        private bool _on;
-
-        /// <summary>
-        ///     Vocoder Envelope
-        /// </summary>
-        private Envelope _envelope;
-
-        /// <summary>
-        ///     TODO: WHAT
-        ///     Unknow parameter (maybe vocoder tone number)
-        /// </summary>
-        private int _unknownParam;
-
-        /// <summary>
-        ///     Vocoder Mic Sensitivity
-        /// </summary>
-        private int _microphoneSensitivity;
-
-        /// <summary>
-        ///     Vocoder Synth Level
-        /// </summary>
-        private int _synthLevel;
-
-        /// <summary>
-        ///     Vocoder Mic Mix Level
-        /// </summary>
-        private int _microphoneMixLevel;
-
-        /// <summary>
-        ///     Vocoder Microphone HPF
-        /// </summary>
-        private HighPassFilter _microphoneHpf;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Vocoder Switch
         /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
+        public bool On { get; set; }
 
         /// <summary>
         ///     Vocoder Envelope
         /// </summary>
-        public Envelope Envelope
-        {
-            get => _envelope;
-            set
-            {
-                if (value != _envelope)
-                {
-                    _envelope = value;
-                    NotifyOfPropertyChange(nameof(Envelope));
-                }
-            }
-        }
+        public Envelope Envelope { get; set; }
 
         /// <summary>
         ///     Unknow Parameter
         /// </summary>
-        public int UnknowParameter
-        {
-            get => _unknownParam;
-            set
-            {
-                if (value != _unknownParam)
-                {
-                    _unknownParam = value;
-                    NotifyOfPropertyChange(nameof(UnknowParameter));
-                }
-            }
-        }
+        public int UnknowParameter { get; set; }
 
         /// <summary>
         ///     Vocoder Mic Sensitivity
         /// </summary>
-        public int MicrophoneSensitivity
-        {
-            get => _microphoneSensitivity;
-            set
-            {
-                if (value != _microphoneSensitivity)
-                {
-                    _microphoneSensitivity = value;
-                    NotifyOfPropertyChange(nameof(MicrophoneSensitivity));
-                }
-            }
-        }
+        public int MicrophoneSensitivity { get; set; }
 
         /// <summary>
         ///     Vocoder Synth Level
         /// </summary>
-        public int SynthLevel
-        {
-            get => _synthLevel;
-            set
-            {
-                if (value != _synthLevel)
-                {
-                    _synthLevel = value;
-                    NotifyOfPropertyChange(nameof(SynthLevel));
-                }
-            }
-        }
+        public int SynthLevel { get; set; }
 
         /// <summary>
         ///     Vocoder Mic Mix Level
         /// </summary>
-        public int MicrophoneMixLevel
-        {
-            get => _microphoneMixLevel;
-            set
-            {
-                if (value != _microphoneMixLevel)
-                {
-                    _microphoneMixLevel = value;
-                    NotifyOfPropertyChange(nameof(MicrophoneMixLevel));
-                }
-            }
-        }
+        public int MicrophoneMixLevel { get; set; }
 
         /// <summary>
         ///     Vocoder Microphone HPF
         /// </summary>
-        public HighPassFilter MicrophoneHpf
-        {
-            get => _microphoneHpf;
-            set
-            {
-                if (value != _microphoneHpf)
-                {
-                    _microphoneHpf = value;
-                    NotifyOfPropertyChange(nameof(MicrophoneHpf));
-                }
-            }
-        }
+        public HighPassFilter MicrophoneHpf { get; set; }
 
         #endregion
     }

@@ -16,7 +16,8 @@ namespace JD_XI_Editor.ViewModels.Effects.Assignable
 
             FlangerParameters.PropertyChanged += (sender, args) =>
             {
-                NotifyOfPropertyChange(nameof(IsRateModeSelected));
+                if (args.PropertyName == nameof(FlangerParameters.Mode))
+                    NotifyOfPropertyChange(nameof(IsRateModeSelected));
             };
         }
 

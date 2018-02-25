@@ -41,95 +41,27 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Type
-        /// </summary>
-        private Type _type;
-
-        /// <summary>
-        ///     Time
-        /// </summary>
-        private int _time;
-
-        /// <summary>
-        ///     HF Damp
-        /// </summary>
-        private HfDamp _hfDamp;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Type
         /// </summary>
-        public Type Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    NotifyOfPropertyChange(nameof(Type));
-                }
-            }
-        }
+        public Type Type { get; set; }
 
         /// <summary>
         ///     Time
         /// </summary>
-        public int Time
-        {
-            get => _time;
-            set
-            {
-                if (value != _time)
-                {
-                    _time = value;
-                    NotifyOfPropertyChange(nameof(Time));
-                }
-            }
-        }
+        public int Time { get; set; }
 
         /// <summary>
         ///     HF Damp
         /// </summary>
-        public HfDamp HfDamp
-        {
-            get => _hfDamp;
-            set
-            {
-                if (value != _hfDamp)
-                {
-                    _hfDamp = value;
-                    NotifyOfPropertyChange(nameof(HfDamp));
-                }
-            }
-        }
+        public HfDamp HfDamp { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         #endregion
     }

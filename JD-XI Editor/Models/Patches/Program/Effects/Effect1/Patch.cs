@@ -2,6 +2,7 @@
 using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 using JD_XI_Editor.Utils;
+using PropertyChanged;
 
 // ReSharper disable SwitchStatementMissingSomeCases
 
@@ -75,21 +76,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <summary>
         ///     Distortion parameters
         /// </summary>
+        [DoNotNotify]
         public DistortionParameters DistortionParameters { get; }
 
         /// <summary>
         ///     Fuzz parameters
         /// </summary>
+        [DoNotNotify]
         public FuzzParameters FuzzParameters { get; }
 
         /// <summary>
         ///     Compressor parameters
         /// </summary>
+        [DoNotNotify]
         public CompressorParameters CompressorParameters { get; }
 
         /// <summary>
         ///     Bit crusher parameters
         /// </summary>
+        [DoNotNotify]
         public BitCrusherParameters BitCrusherParameters { get; }
 
         #endregion

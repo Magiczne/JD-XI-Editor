@@ -9,37 +9,13 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Basic : PropertyChangedBase, IPatchPart
     {
-        #region Fields
-
-        /// <summary>
-        ///     Partial name
-        /// </summary>
-        private string _name;
-
-        #endregion
-
         /// <inheritdoc />
         public Basic()
         {
             Reset();
         }
 
-        #region Properties
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    NotifyOfPropertyChange(nameof(Name));
-                }
-            }
-        }
-
-        #endregion
+        public string Name { get; set; }
 
         /// <inheritdoc />
         public void Reset()

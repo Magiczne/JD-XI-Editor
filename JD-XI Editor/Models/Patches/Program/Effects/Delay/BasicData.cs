@@ -36,74 +36,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             };
         }
 
-        #region Fields
-
-        /// <summary>
-        ///     Is delay on
-        /// </summary>
-        private bool _on;
-
-        /// <summary>
-        ///     Level
-        /// </summary>
-        private int _level;
-
-        /// <summary>
-        ///     Reverb Send Level
-        /// </summary>
-        private int _reverbSendLevel;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///     Is delay on
         /// </summary>
-        public bool On
-        {
-            get => _on;
-            set
-            {
-                if (value != _on)
-                {
-                    _on = value;
-                    NotifyOfPropertyChange(nameof(On));
-                }
-            }
-        }
+        public bool On { get; set; }
 
         /// <summary>
         ///     Level
         /// </summary>
-        public int Level
-        {
-            get => _level;
-            set
-            {
-                if (value != _level)
-                {
-                    _level = value;
-                    NotifyOfPropertyChange(nameof(Level));
-                }
-            }
-        }
+        public int Level { get; set; }
 
         /// <summary>
         ///     Reverb Send Level
         /// </summary>
-        public int ReverbSendLevel
-        {
-            get => _reverbSendLevel;
-            set
-            {
-                if (value != _reverbSendLevel)
-                {
-                    _reverbSendLevel = value;
-                    NotifyOfPropertyChange(nameof(ReverbSendLevel));
-                }
-            }
-        }
+        public int ReverbSendLevel { get; set; }
 
         #endregion
     }

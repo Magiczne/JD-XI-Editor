@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
+using PropertyChanged;
 
 // ReSharper disable InvertIf
 
@@ -19,6 +20,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     TVA Envelope
         /// </summary>
+        [DoNotNotify]
         public Envelope Envelope { get; }
 
         /// <inheritdoc />

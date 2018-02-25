@@ -2,6 +2,7 @@
 using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 using JD_XI_Editor.Utils;
+using PropertyChanged;
 
 // ReSharper disable SwitchStatementMissingSomeCases
 
@@ -75,21 +76,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// <summary>
         ///     Flanger parameters
         /// </summary>
+        [DoNotNotify]
         public FlangerParameters FlangerParameters { get; }
 
         /// <summary>
         ///     Phaser parameters
         /// </summary>
+        [DoNotNotify]
         public PhaserParameters PhaserParameters { get; }
 
         /// <summary>
         ///     Ring Modulation parameters
         /// </summary>
+        [DoNotNotify]
         public RingModulationParameters RingModulationParameters { get; }
 
         /// <summary>
         ///     Slicer paremeters
         /// </summary>
+        [DoNotNotify]
         public SlicerParameters SlicerParameters { get; }
 
         #endregion
