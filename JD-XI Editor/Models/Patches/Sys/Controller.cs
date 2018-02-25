@@ -9,6 +9,13 @@ namespace JD_XI_Editor.Models.Patches.Sys
 {
     internal class Controller : PropertyChangedBase, IPatch
     {
+        /// <inheritdoc />
+        public Controller()
+        {
+            Reset();
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
             TransmitProgramChange = true;
@@ -19,6 +26,7 @@ namespace JD_XI_Editor.Models.Patches.Sys
             VelocityCurveOffset = 9;
         }
 
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>
