@@ -5,6 +5,8 @@ namespace JD_XI_Editor.Utils
 {
     internal static class ByteUtils
     {
+        #region MyRegion
+
         /// <summary>
         ///     Parse boolean to byte value
         /// </summary>
@@ -20,6 +22,8 @@ namespace JD_XI_Editor.Utils
         {
             return Enumerable.Repeat(value, count);
         }
+
+        #endregion
 
         #region 4 Packet numbers 
 
@@ -67,6 +71,22 @@ namespace JD_XI_Editor.Utils
             for (var i = 0; i < count; i++) bytes.AddRange(value);
 
             return bytes.ToArray();
+        }
+
+        #endregion
+
+        #region 2 Packet numbers
+
+        /// <summary>
+        ///     Split number to 2 packets
+        /// </summary>
+        public static byte[] NumberTo2Packets(int value)
+        {
+            return new[]
+            {
+                (byte) ((value >> 4) & 0xF),
+                (byte) (value & 0xF)
+            };
         }
 
         #endregion
