@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Tvf : PropertyChangedBase, IPatchPart

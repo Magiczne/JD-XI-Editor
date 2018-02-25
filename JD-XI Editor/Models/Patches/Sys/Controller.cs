@@ -3,8 +3,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Sys;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Sys
 {
     internal class Controller : PropertyChangedBase, IPatch

@@ -1,8 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Analog;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Oscillator : PropertyChangedBase, IPatchPart

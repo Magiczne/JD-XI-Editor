@@ -1,6 +1,4 @@
-﻿// ReSharper disable InvertIf
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2

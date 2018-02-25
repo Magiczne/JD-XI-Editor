@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.Program.Effects.Delay;
 using JD_XI_Editor.Models.Patches.Program.Effects.Delay;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.ViewModels.Effects
 {
     internal class DelayViewModel : Screen

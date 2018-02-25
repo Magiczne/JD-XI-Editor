@@ -1,8 +1,5 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect;
-
-// ReSharper disable InvertIf
 
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {

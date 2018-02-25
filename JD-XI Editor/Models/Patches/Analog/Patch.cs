@@ -4,8 +4,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Patch : PropertyChangedBase, IPatch

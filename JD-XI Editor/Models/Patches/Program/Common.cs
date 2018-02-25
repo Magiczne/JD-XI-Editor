@@ -4,8 +4,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program
 {
     internal class Common : PropertyChangedBase, IPatchPart
@@ -50,18 +48,15 @@ namespace JD_XI_Editor.Models.Patches.Program
 
             if (VocalEffectType != Type.Off)
             {
-                bytes.Add((byte)VocalEffectType);
+                bytes.Add((byte) VocalEffectType);
 
                 bytes.AddRange(ByteUtils.RepeatReserve(5));
 
-                bytes.Add((byte)VocalEffectNumber);
-                bytes.Add((byte)VocalEffectPart);
+                bytes.Add((byte) VocalEffectNumber);
+                bytes.Add((byte) VocalEffectPart);
             }
 
-            if (VocalEffectType == Type.Vocoder)
-            {
-                bytes.Add(ByteUtils.BooleanToByte(AutoNote));
-            }
+            if (VocalEffectType == Type.Vocoder) bytes.Add(ByteUtils.BooleanToByte(AutoNote));
 
             return bytes.ToArray();
         }

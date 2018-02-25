@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using PropertyChanged;
-using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -15,7 +15,6 @@ namespace JD_XI_Editor.Models.Patches.Program
             Common.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(Common.VocalEffectType))
-                {
                     switch (Common.VocalEffectType)
                     {
                         case Type.Off:
@@ -38,7 +37,6 @@ namespace JD_XI_Editor.Models.Patches.Program
                             VocalEffect.Vocoder.On = false;
                             break;
                     }
-                }
 
                 NotifyOfPropertyChange(nameof(Common));
             };

@@ -1,8 +1,6 @@
 ﻿using Caliburn.Micro;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Amplifier : PropertyChangedBase, IPatchPart

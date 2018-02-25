@@ -1,8 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 {
     internal class VelocityControl : PropertyChangedBase, IPatchPart

@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Patches.Program.Effects;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.Abstract
 {
     internal abstract class EffectPatch : PropertyChangedBase, IPatch

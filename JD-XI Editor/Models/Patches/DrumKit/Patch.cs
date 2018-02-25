@@ -3,8 +3,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit
 {
     internal class Patch : PropertyChangedBase, IPatch
@@ -41,9 +39,44 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
 
             var keys = new List<string>
             {
-                "BD1", "RIM", "BD2", "CLAP", "BD3", "SD1", "CHH", "SD2", "PHH", "SD3", "OHH", "SD4",
-                "TOM1", "PRC1", "TOM2", "PRC2", "TOM3", "PRC3", "CYM1", "PRC4", "CYM2", "PRC5", "CYM3", "HIT",
-                "OTH1", "OTH2", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5"
+                "BD1",
+                "RIM",
+                "BD2",
+                "CLAP",
+                "BD3",
+                "SD1",
+                "CHH",
+                "SD2",
+                "PHH",
+                "SD3",
+                "OHH",
+                "SD4",
+                "TOM1",
+                "PRC1",
+                "TOM2",
+                "PRC2",
+                "TOM3",
+                "PRC3",
+                "CYM1",
+                "PRC4",
+                "CYM2",
+                "PRC5",
+                "CYM3",
+                "HIT",
+                "OTH1",
+                "OTH2",
+                "D4",
+                "D#4",
+                "E4",
+                "F4",
+                "F#4",
+                "G4",
+                "G#4",
+                "A4",
+                "A#4",
+                "B4",
+                "C5",
+                "C#5"
             };
 
             foreach (var key in keys)

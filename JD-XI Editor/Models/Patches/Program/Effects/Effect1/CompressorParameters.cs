@@ -3,8 +3,6 @@ using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Compressor;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
     internal class CompressorParameters : EffectParameters

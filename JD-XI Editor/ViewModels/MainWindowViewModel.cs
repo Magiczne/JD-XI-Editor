@@ -10,8 +10,6 @@ using JD_XI_Editor.ViewModels.Program;
 using PropertyChanged;
 using Sanford.Multimedia.Midi;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.ViewModels
 {
     internal sealed class MainWindowViewModel

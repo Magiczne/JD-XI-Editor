@@ -3,8 +3,6 @@ using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Effects.Effect1;
 using JD_XI_Editor.ViewModels.Effects.Assignable;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.ViewModels.Effects
 {
     internal class Effect1ViewModel : Conductor<Screen>

@@ -4,7 +4,7 @@ using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 
 // ReSharper disable SwitchStatementMissingSomeCases
-// ReSharper disable InvertIf
+
 
 namespace JD_XI_Editor.ViewModels.Digital
 {

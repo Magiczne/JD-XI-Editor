@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Amplifier : PropertyChangedBase, IPatchPart

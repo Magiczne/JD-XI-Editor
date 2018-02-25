@@ -3,8 +3,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
     internal class VocalEffect : PropertyChangedBase, IPatchPart

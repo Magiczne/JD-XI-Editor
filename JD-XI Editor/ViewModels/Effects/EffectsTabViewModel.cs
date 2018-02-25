@@ -5,7 +5,6 @@ using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.ViewModels.Abstract;
 using EffectPatch = JD_XI_Editor.Models.Patches.Program.Effects.Patch;
 
-// ReSharper disable InvertIf
 
 namespace JD_XI_Editor.ViewModels.Effects
 {

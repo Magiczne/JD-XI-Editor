@@ -30,7 +30,9 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("023: TR-909 Kick 4")] Tr909Kick4,
         [Description("024: TR-909 Kick 5")] Tr909Kick5,
         [Description("025: TR-909 Kick 6")] Tr909Kick6,
-        [Description("026: TR-909 Distorted Kick P")] Tr909DistortedKickP,
+
+        [Description("026: TR-909 Distorted Kick P")]
+        Tr909DistortedKickP,
         [Description("027: TR-909 Kick Lp")] Tr909KickLp,
         [Description("028: TR-707 Kick 1 P")] Tr707Kick1P,
         [Description("029: TR-707 Kick 2 P")] Tr707Kick2P,
@@ -96,42 +98,106 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("089: CR-78 Snare")] Cr78Snare,
         [Description("090: TR-606 Snare 1 P")] Tr606Snare1P,
         [Description("091: TR-606 Snare 2 P")] Tr606Snare2P,
-        [Description("092: TR-808 Snare 1a P")] Tr808Snare1aP,
-        [Description("093: TR-808 Snare 1b P")] Tr808Snare1bP,
-        [Description("094: TR-808 Snare 1c P")] Tr808Snare1cP,
-        [Description("095: TR-808 Snare 2a P")] Tr808Snare2aP,
-        [Description("096: TR-808 Snare 2b P")] Tr808Snare2bP,
-        [Description("097: TR-808 Snare 2c P")] Tr808Snare2cP,
-        [Description("098: TR-808 Snare 3a P")] Tr808Snare3aP,
-        [Description("099: TR-808 Snare 3b P")] Tr808Snare3bP,
-        [Description("100: TR-808 Snare 3c P")] Tr808Snare3cP,
-        [Description("101: TR-909 Snare 1a P")] Tr909Snare1aP,
-        [Description("102: TR-909 Snare 1b P")] Tr909Snare1bP,
-        [Description("103: TR-909 Snare 1c P")] Tr909Snare1cP,
-        [Description("104: TR-909 Snare 1d P")] Tr909Snare1dP,
-        [Description("105: TR-909 Snare 2a P")] Tr909Snare2aP,
-        [Description("106: TR-909 Snare 2b P")] Tr909Snare2bP,
-        [Description("107: TR-909 Snare 2c P")] Tr909Snare2cP,
-        [Description("108: TR-909 Snare 2d P")] Tr909Snare2dP,
-        [Description("109: TR-909 Snare 3a P")] Tr909Snare3aP,
-        [Description("110: TR-909 Snare 3b P")] Tr909Snare3bP,
-        [Description("111: TR-909 Snare 3c P")] Tr909Snare3cP,
-        [Description("112: TR-909 Snare 3d P")] Tr909Snare3dP,
-        [Description("113: TR-909 Distorted Snare 1 P")] Tr909DistortedSnare1P,
-        [Description("114: TR-909 Distorted Snare 2 P")] Tr909DistortedSnare2P,
-        [Description("115: TR-909 Distorted Snare 3 P")] Tr909DistortedSnare3P,
-        [Description("116: TR-707 Snare 1a P")] Tr707Snare1aP,
-        [Description("117: TR-707 Snare 2a P")] Tr707Snare2aP,
-        [Description("118: TR-707 Snare 1b P")] Tr707Snare1bP,
-        [Description("119: TR-707 Snare 2b P")] Tr707Snare2bP,
+
+        [Description("092: TR-808 Snare 1a P")]
+        Tr808Snare1aP,
+
+        [Description("093: TR-808 Snare 1b P")]
+        Tr808Snare1bP,
+
+        [Description("094: TR-808 Snare 1c P")]
+        Tr808Snare1cP,
+
+        [Description("095: TR-808 Snare 2a P")]
+        Tr808Snare2aP,
+
+        [Description("096: TR-808 Snare 2b P")]
+        Tr808Snare2bP,
+
+        [Description("097: TR-808 Snare 2c P")]
+        Tr808Snare2cP,
+
+        [Description("098: TR-808 Snare 3a P")]
+        Tr808Snare3aP,
+
+        [Description("099: TR-808 Snare 3b P")]
+        Tr808Snare3bP,
+
+        [Description("100: TR-808 Snare 3c P")]
+        Tr808Snare3cP,
+
+        [Description("101: TR-909 Snare 1a P")]
+        Tr909Snare1aP,
+
+        [Description("102: TR-909 Snare 1b P")]
+        Tr909Snare1bP,
+
+        [Description("103: TR-909 Snare 1c P")]
+        Tr909Snare1cP,
+
+        [Description("104: TR-909 Snare 1d P")]
+        Tr909Snare1dP,
+
+        [Description("105: TR-909 Snare 2a P")]
+        Tr909Snare2aP,
+
+        [Description("106: TR-909 Snare 2b P")]
+        Tr909Snare2bP,
+
+        [Description("107: TR-909 Snare 2c P")]
+        Tr909Snare2cP,
+
+        [Description("108: TR-909 Snare 2d P")]
+        Tr909Snare2dP,
+
+        [Description("109: TR-909 Snare 3a P")]
+        Tr909Snare3aP,
+
+        [Description("110: TR-909 Snare 3b P")]
+        Tr909Snare3bP,
+
+        [Description("111: TR-909 Snare 3c P")]
+        Tr909Snare3cP,
+
+        [Description("112: TR-909 Snare 3d P")]
+        Tr909Snare3dP,
+
+        [Description("113: TR-909 Distorted Snare 1 P")]
+        Tr909DistortedSnare1P,
+
+        [Description("114: TR-909 Distorted Snare 2 P")]
+        Tr909DistortedSnare2P,
+
+        [Description("115: TR-909 Distorted Snare 3 P")]
+        Tr909DistortedSnare3P,
+
+        [Description("116: TR-707 Snare 1a P")]
+        Tr707Snare1aP,
+
+        [Description("117: TR-707 Snare 2a P")]
+        Tr707Snare2aP,
+
+        [Description("118: TR-707 Snare 1b P")]
+        Tr707Snare1bP,
+
+        [Description("119: TR-707 Snare 2b P")]
+        Tr707Snare2bP,
         [Description("120: TR-626 Snare 1")] Tr626Snare1,
         [Description("121: TR-626 Snare 2")] Tr626Snare2,
         [Description("122: TR-626 Snare 3")] Tr626Snare3,
-        [Description("123: TR-626 Snare 1a P")] Tr626Snare1aP,
-        [Description("124: TR-626 Snare 3a P")] Tr626Snare3aP,
-        [Description("125: TR-626 Snare 1b P")] Tr626Snare1bP,
+
+        [Description("123: TR-626 Snare 1a P")]
+        Tr626Snare1aP,
+
+        [Description("124: TR-626 Snare 3a P")]
+        Tr626Snare3aP,
+
+        [Description("125: TR-626 Snare 1b P")]
+        Tr626Snare1bP,
         [Description("126: TR-626 Snare 2 P")] Tr626Snare2P,
-        [Description("127: TR-626 Snare 3b P")] Tr626Snare3bP,
+
+        [Description("127: TR-626 Snare 3b P")]
+        Tr626Snare3bP,
         [Description("128: Analog Snare 1")] AnalogSnare1,
         [Description("129: Analog Snare 2")] AnalogSnare2,
         [Description("130: Analog Snare 3")] AnalogSnare3,
@@ -145,8 +211,12 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("138: Lite Snare")] LiteSnare,
         [Description("139: Lo-Bit Snare 1 P")] LoBitSnare1P,
         [Description("140: Lo-Bit Snare 2 P")] LoBitSnare2P,
-        [Description("141: Hip-Hop Jazz Snare P")] HphpJazzSnareP,
-        [Description("142: Pure Phat Snare P")] PurePhatSnareP,
+
+        [Description("141: Hip-Hop Jazz Snare P")]
+        HphpJazzSnareP,
+
+        [Description("142: Pure Phat Snare P")]
+        PurePhatSnareP,
         [Description("143: DRDisco Snare P")] DrDiscoSnareP,
         [Description("144: Ragga Snare")] RaggaSnare,
         [Description("145: Lo-Fi Snare")] LoFiSnare,
@@ -162,8 +232,12 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("155: TY Snare")] TySnare,
         [Description("156: WD Snare P")] WdSnareP,
         [Description("157: Tight Snare")] TightSnare,
-        [Description("158: Regular Snare 1 P")] RegSnare1P,
-        [Description("159: Regular Snare 2 P")] RegSnare2P,
+
+        [Description("158: Regular Snare 1 P")]
+        RegSnare1P,
+
+        [Description("159: Regular Snare 2 P")]
+        RegSnare2P,
         [Description("160: Ballad Snare P")] BalladSnareP,
         [Description("161: Rock Snare 1 P")] RockSnare1P,
         [Description("162: Rock Snare 2 P")] RockSnare2P,
@@ -173,8 +247,12 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("166: WD Rim P")] WdRimP,
         [Description("167: Jazz Snare P")] JazzSnareP,
         [Description("168: Jazz Rim P")] JazzRimP,
-        [Description("169: Jazz Brush Slap P")] JazzBrshSlapP,
-        [Description("170: Jazz Brush Swsh P")] JazzBrshSwshP,
+
+        [Description("169: Jazz Brush Slap P")]
+        JazzBrshSlapP,
+
+        [Description("170: Jazz Brush Swsh P")]
+        JazzBrshSwshP,
         [Description("171: Swish & Trn P")] SwishAndTrnP,
         [Description("172: CR-78 Rimshot")] Cr78Rimshot,
         [Description("173: TR-808 RimshotP")] Tr808RimshotP,
@@ -188,12 +266,24 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("181: LD Cstick")] LdCstick,
         [Description("182: TY Cstick")] TyCstick,
         [Description("183: WD Cstick")] WdCstick,
-        [Description("184: TR-606 High Tom P")] Tr606HighTomP,
-        [Description("185: TR-808 High Tom P")] Tr808HighTomP,
-        [Description("186: TR-909 High Tom P")] Tr909HighTomP,
-        [Description("187: TR-707 High Tom P")] Tr707HighTomP,
-        [Description("188: TR-626 High Tom 1")] Tr626HighTom1,
-        [Description("189: TR-626 High Tom 2")] Tr626HighTom2,
+
+        [Description("184: TR-606 High Tom P")]
+        Tr606HighTomP,
+
+        [Description("185: TR-808 High Tom P")]
+        Tr808HighTomP,
+
+        [Description("186: TR-909 High Tom P")]
+        Tr909HighTomP,
+
+        [Description("187: TR-707 High Tom P")]
+        Tr707HighTomP,
+
+        [Description("188: TR-626 High Tom 1")]
+        Tr626HighTom1,
+
+        [Description("189: TR-626 High Tom 2")]
+        Tr626HighTom2,
         [Description("190: SimV Tom 1 P")] SimVTom1P,
         [Description("191: LD High Tom P")] LdHightTomP,
         [Description("192: SF High Tom P")] SfHightTomP,
@@ -218,53 +308,125 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("211: LD Low Tom P")] LdLowTomP,
         [Description("212: SF Low Tom P")] SfLowTomP,
         [Description("213: TY Low Tom P")] TyLowTomP,
-        [Description("214: CR-78 Closed Hi Hat")] Cr78ClosedHiHat,
-        [Description("215: TR-606 Closed Hi Hat")] Tr606ClosedHiHat,
-        [Description("216: TR-808 Closed Hi Hat")] Tr808ClosedHiHat,
-        [Description("217: TR-909 Closed Hi Hat 1")] Tr909ClosedHiHat1,
-        [Description("218: TR-909 Closed Hi Hat 2")] Tr909ClosedHiHat2,
-        [Description("219: TR-909 Closed Hi Hat 3")] Tr909ClosedHiHat3,
-        [Description("220: TR-909 Closed Hi Hat 4")] Tr909ClosedHiHat4,
-        [Description("221: TR-707 Closed Hi Hat")] Tr707ClosedHiHat,
-        [Description("222: TR-626 Closed Hi Hat")] Tr626ClosedHiHat,
-        [Description("223: HipHop Closed Hi Hat")] HipHopClosedHiHat,
-        [Description("224: Lite Closed Hi Hat")] LiteClosedHiHat,
-        [Description("225: Regular Closed Hi Hat")] RegClosedHiHat,
-        [Description("226: Rock Closed Hi Hat")] RockClosedHiHat,
-        [Description("227: S13 Closed Hi Hat Tip")] S13ClosedHiHatTip,
-        [Description("228: S14 Closed Hi Hat Tip")] S14ClosedHiHatTip,
-        [Description("229: TR-606 Closed & Open Hi Hat")] Tr606ClosedAndOpenHiHat,
-        [Description("230: TR-808 Closed & Open Hi Hat S")] Tr808ClosedAndOpenHiHatS,
-        [Description("231: TR-808 Closed & Open Hi Hat L")] Tr808ClosedAndOpenHiHatL,
+
+        [Description("214: CR-78 Closed Hi Hat")]
+        Cr78ClosedHiHat,
+
+        [Description("215: TR-606 Closed Hi Hat")]
+        Tr606ClosedHiHat,
+
+        [Description("216: TR-808 Closed Hi Hat")]
+        Tr808ClosedHiHat,
+
+        [Description("217: TR-909 Closed Hi Hat 1")]
+        Tr909ClosedHiHat1,
+
+        [Description("218: TR-909 Closed Hi Hat 2")]
+        Tr909ClosedHiHat2,
+
+        [Description("219: TR-909 Closed Hi Hat 3")]
+        Tr909ClosedHiHat3,
+
+        [Description("220: TR-909 Closed Hi Hat 4")]
+        Tr909ClosedHiHat4,
+
+        [Description("221: TR-707 Closed Hi Hat")]
+        Tr707ClosedHiHat,
+
+        [Description("222: TR-626 Closed Hi Hat")]
+        Tr626ClosedHiHat,
+
+        [Description("223: HipHop Closed Hi Hat")]
+        HipHopClosedHiHat,
+
+        [Description("224: Lite Closed Hi Hat")]
+        LiteClosedHiHat,
+
+        [Description("225: Regular Closed Hi Hat")]
+        RegClosedHiHat,
+
+        [Description("226: Rock Closed Hi Hat")]
+        RockClosedHiHat,
+
+        [Description("227: S13 Closed Hi Hat Tip")]
+        S13ClosedHiHatTip,
+
+        [Description("228: S14 Closed Hi Hat Tip")]
+        S14ClosedHiHatTip,
+
+        [Description("229: TR-606 Closed & Open Hi Hat")]
+        Tr606ClosedAndOpenHiHat,
+
+        [Description("230: TR-808 Closed & Open Hi Hat S")]
+        Tr808ClosedAndOpenHiHatS,
+
+        [Description("231: TR-808 Closed & Open Hi Hat L")]
+        Tr808ClosedAndOpenHiHatL,
         [Description("232: Hip Pedal Hi Hat")] HipPedalHiHat,
-        [Description("233: Regular Pedal Hi Hat")] RegularPedalHiHat,
-        [Description("234: Rock Pedal Hi Hat")] RockPedalHiHat,
+
+        [Description("233: Regular Pedal Hi Hat")]
+        RegularPedalHiHat,
+
+        [Description("234: Rock Pedal Hi Hat")]
+        RockPedalHiHat,
         [Description("235: S13 Pedal Hi Hat")] S13PedalHiHat,
         [Description("236: S14 Pedal Hi Hat")] S14PedalHiHat,
-        [Description("237: TR-606 Open Hi Hat")] Tr606OpenHiHat,
-        [Description("238: TR-808 Open Hi Hat S")] Tr808OpenHiHatS,
-        [Description("239: TR-808 Open Hi Hat L")] Tr808OpenHiHatL,
-        [Description("240: TR-909 Open Hi Hat 1")] Tr909OpenHiHat1,
-        [Description("241: TR-909 Open Hi Hat 2")] Tr909OpenHiHat2,
-        [Description("242: TR-909 Open Hi Hat 3")] Tr909OpenHiHat3,
-        [Description("243: TR-707 Open Hi Hat")] Tr707OpenHiHat,
-        [Description("244: TR-626 Open Hi Hat")] Tr626OpenHiHat,
-        [Description("245: Hip-Hop Open Hi Hat")] HipHopOpenHiHat,
+
+        [Description("237: TR-606 Open Hi Hat")]
+        Tr606OpenHiHat,
+
+        [Description("238: TR-808 Open Hi Hat S")]
+        Tr808OpenHiHatS,
+
+        [Description("239: TR-808 Open Hi Hat L")]
+        Tr808OpenHiHatL,
+
+        [Description("240: TR-909 Open Hi Hat 1")]
+        Tr909OpenHiHat1,
+
+        [Description("241: TR-909 Open Hi Hat 2")]
+        Tr909OpenHiHat2,
+
+        [Description("242: TR-909 Open Hi Hat 3")]
+        Tr909OpenHiHat3,
+
+        [Description("243: TR-707 Open Hi Hat")]
+        Tr707OpenHiHat,
+
+        [Description("244: TR-626 Open Hi Hat")]
+        Tr626OpenHiHat,
+
+        [Description("245: Hip-Hop Open Hi Hat")]
+        HipHopOpenHiHat,
         [Description("246: Lite Open Hi Hat")] LiteOpenHiHat,
-        [Description("247: RegularOpen Hi Hat")] RegularOpenHiHat,
+
+        [Description("247: RegularOpen Hi Hat")]
+        RegularOpenHiHat,
         [Description("248: Rock Open Hi Hat")] RockOpenHiHat,
-        [Description("249: S13 Open Hi Hat Shift")] S13OpenHiHatShift,
-        [Description("250: S14 Open Hi Hat Shift")] S14OpenHiHatShift,
+
+        [Description("249: S13 Open Hi Hat Shift")]
+        S13OpenHiHatShift,
+
+        [Description("250: S14 Open Hi Hat Shift")]
+        S14OpenHiHatShift,
         [Description("251: CR-78 Cymbal")] Cr78Cymbal,
         [Description("252: TR-606 Cymbal")] Tr606Cymbal,
         [Description("253: TR-808 Cymbal 1")] Tr808Cymbal1,
         [Description("254: TR-808 Cymbal 2")] Tr808Cymbal2,
         [Description("255: TR-808 Cymbal 3")] Tr808Cymbal3,
-        [Description("256: TR-909 CrashCymbal")] Tr909CrashCymbal,
-        [Description("257: TR-909 ReverseCymbal")] Tr909ReverseCymbal,
+
+        [Description("256: TR-909 CrashCymbal")]
+        Tr909CrashCymbal,
+
+        [Description("257: TR-909 ReverseCymbal")]
+        Tr909ReverseCymbal,
         [Description("258: MG Nz Cymbal")] MgNzCymbal,
-        [Description("259: TR-707 CrashCymbal")] Tr707CrashCymbal,
-        [Description("260: TR-626 CrashCymbal")] Tr626CrashCymbal,
+
+        [Description("259: TR-707 CrashCymbal")]
+        Tr707CrashCymbal,
+
+        [Description("260: TR-626 CrashCymbal")]
+        Tr626CrashCymbal,
         [Description("261: Crash Cymbal 1")] CrashCymbal1,
         [Description("262: Crash Cymbal 2")] CrashCymbal2,
         [Description("263: Rock Crash 1")] RockCrash1,
@@ -273,11 +435,19 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("266: S18 CrashTip")] S18CrashTip,
         [Description("267: Z18k Crash Sft")] Z18KCrashSft,
         [Description("268: Jazz Crash")] JazzCrash,
-        [Description("269: TR-909 Ride Cymbal")] Tr909RideCymbal,
-        [Description("270: TR-707 Ride Cymbal")] Tr707RideCymbal,
-        [Description("271: TR-626 Ride Cymbal")] Tr626RideCymbal,
+
+        [Description("269: TR-909 Ride Cymbal")]
+        Tr909RideCymbal,
+
+        [Description("270: TR-707 Ride Cymbal")]
+        Tr707RideCymbal,
+
+        [Description("271: TR-626 Ride Cymbal")]
+        Tr626RideCymbal,
         [Description("272: Ride Cymbal")] RideCymbal,
-        [Description("273: TR-626 China Cymbal")] Tr626ChinaCymbal,
+
+        [Description("273: TR-626 China Cymbal")]
+        Tr626ChinaCymbal,
         [Description("274: China Cymbal")] ChinaCymbal,
         [Description("275: Splash Cymbal")] SplashCymbal,
         [Description("276: TR-626 Cup")] Tr626Cup,
@@ -289,7 +459,9 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("282: TR-909 Clap 1 P")] Tr909Clap1P,
         [Description("283: TR-909 Clap 2 P")] Tr909Clap2P,
         [Description("284: TR-909 Clap 3 P")] Tr909Clap3P,
-        [Description("285: TR-909 Distorted Clap P")] Tr909DistortedClapP,
+
+        [Description("285: TR-909 Distorted Clap P")]
+        Tr909DistortedClapP,
         [Description("286: TR-707 Clap P")] T707ClapP,
         [Description("287: TR-626 Clap")] Tr626Clap,
         [Description("288: R8 Clap")] R8Clap,
@@ -318,30 +490,54 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("311: TR-707 Cowbell")] Tr707Cowbell,
         [Description("312: TR-626 Cowbell")] Tr626Cowbell,
         [Description("313: Cowbell Mute")] CowbellMute,
-        [Description("314: CR-78 High Bongo P")] Cr78HighBongoP,
-        [Description("315: TR-727 High Bongo")] Tr727HighBongo,
+
+        [Description("314: CR-78 High Bongo P")]
+        Cr78HighBongoP,
+
+        [Description("315: TR-727 High Bongo")]
+        Tr727HighBongo,
         [Description("316: Bongo High Mt")] BongoHightMt,
         [Description("317: Bongo High Slp")] BongoHighSlp,
         [Description("318: Bongo High Op")] BongoHightOp,
-        [Description("319: CR-78 Low Bongo P")] Tr78LowBongoP,
+
+        [Description("319: CR-78 Low Bongo P")]
+        Tr78LowBongoP,
         [Description("320: TR-727 Low Bongo")] Tr727LowBongo,
         [Description("321: Bongo Low Op")] BongoLowOp,
         [Description("322: Bongo Low Slp")] BongoLowSlp,
-        [Description("323: TR-808 High Conga P")] Tr808HightCoongaP,
-        [Description("324: TR-727 High Conga Op P")] Tr727HightCongOpP,
-        [Description("325: TR-727 High Conga Mt P")] Tr727HightCongMtP,
-        [Description("326: TR-626 High Conga Op")] Tr626HightCongaOp,
-        [Description("327: TR-626 High Conga Mt")] Tr626HightCongaMt,
+
+        [Description("323: TR-808 High Conga P")]
+        Tr808HightCoongaP,
+
+        [Description("324: TR-727 High Conga Op P")]
+        Tr727HightCongOpP,
+
+        [Description("325: TR-727 High Conga Mt P")]
+        Tr727HightCongMtP,
+
+        [Description("326: TR-626 High Conga Op")]
+        Tr626HightCongaOp,
+
+        [Description("327: TR-626 High Conga Mt")]
+        Tr626HightCongaMt,
         [Description("328: Conga Hi Mt")] CongaHiMt,
         [Description("329: Conga 2H Mt")] Conga2HMt,
         [Description("330: Conga Hi Slp")] CongaHiSlp,
         [Description("331: Conga 2H Slp")] Conga2HSlp,
         [Description("332: Conga Hi Op")] CongaHiOp,
         [Description("333: Conga 2H Op")] Conga2HOp,
-        [Description("334: TR-808 Mid Conga P")] Tr808MidCongaP,
-        [Description("335: CR-78 Low Conga P")] Cr78LowCongaP,
-        [Description("336: TR-808 Low Conga P")] Tr808LowCongaP,
-        [Description("337: TR-727 Low Conga P")] Tr727LowCongaP,
+
+        [Description("334: TR-808 Mid Conga P")]
+        Tr808MidCongaP,
+
+        [Description("335: CR-78 Low Conga P")]
+        Cr78LowCongaP,
+
+        [Description("336: TR-808 Low Conga P")]
+        Tr808LowCongaP,
+
+        [Description("337: TR-727 Low Conga P")]
+        Tr727LowCongaP,
         [Description("338: TR-626 Low Conga")] Tr626LowConga,
         [Description("339: Conga Low Mt")] CongaLoMt,
         [Description("340: Conga Low Slp")] CongaLoSlp,
@@ -351,10 +547,18 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("344: Conga Slp Op")] CongaSlpOp,
         [Description("345: Conga Efx")] CongaEfx,
         [Description("346: Conga Thumb")] CongaThumb,
-        [Description("347: TR-727 High Timbal")] Tr727HighTimbal,
-        [Description("348: TR-626 High Timbal")] Tr626HighTimbal,
-        [Description("349: TR-727 Low Timbal")] Tr727LowTimbal,
-        [Description("350: TR-626 Low Timbal")] Tr626LowTimbal,
+
+        [Description("347: TR-727 High Timbal")]
+        Tr727HighTimbal,
+
+        [Description("348: TR-626 High Timbal")]
+        Tr626HighTimbal,
+
+        [Description("349: TR-727 Low Timbal")]
+        Tr727LowTimbal,
+
+        [Description("350: TR-626 Low Timbal")]
+        Tr626LowTimbal,
         [Description("351: Timbale 1")] Timbale1,
         [Description("352: Timbale 2")] Timbale2,
         [Description("353: Timbale 3")] Timbale3,
@@ -363,9 +567,15 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("356: Timbles Low Mt")] TimblesLoMt,
         [Description("357: Timbales Hand")] TimbalesHand,
         [Description("358: Timbales Rim")] TimbalesRim,
-        [Description("359: Timbales Side Stick")] TmbSideStick,
-        [Description("360: TR-727 High Agogo")] Tr727HighAgogo,
-        [Description("361: TR-626 High Agogo")] Tr626HighAgogo,
+
+        [Description("359: Timbales Side Stick")]
+        TmbSideStick,
+
+        [Description("360: TR-727 High Agogo")]
+        Tr727HighAgogo,
+
+        [Description("361: TR-626 High Agogo")]
+        Tr626HighAgogo,
         [Description("362: TR-727 Low Agogo")] Tr727LowAgogo,
         [Description("363: TR-626 Low Agogo")] Tr626LowAgogo,
         [Description("364: TR-727 Cabasa P")] Tr727CabasaP,
@@ -431,10 +641,16 @@ namespace JD_XI_Editor.Models.Enums.DrumKit
         [Description("424: White Noise")] WhiteNoise,
         [Description("425: Pink Noise")] PinkNoise,
         [Description("426: Atmosphere")] Atmosphere,
-        [Description("427: Percussive Organ 1")] PercOrgan1,
-        [Description("428: Percussive Organ 2")] PercOrgan2,
+
+        [Description("427: Percussive Organ 1")]
+        PercOrgan1,
+
+        [Description("428: Percussive Organ 2")]
+        PercOrgan2,
         [Description("429: TB Blip")] TbBlip,
-        [Description("430: Distorted Muted Gtr")] DistortedMutedGuitar,
+
+        [Description("430: Distorted Muted Gtr")]
+        DistortedMutedGuitar,
         [Description("431: Flute Fx")] FluteFx,
         [Description("432: Pop Brass Atk")] PopBrassAttack,
         [Description("433: Strings Hit")] StringsHit,

@@ -3,8 +3,6 @@ using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Phaser;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
     internal class PhaserParameters : EffectParameters

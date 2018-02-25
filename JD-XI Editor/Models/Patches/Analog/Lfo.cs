@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Lfo : PropertyChangedBase, IPatchPart

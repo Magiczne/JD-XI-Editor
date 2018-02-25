@@ -1,8 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Common : PropertyChangedBase, IPatchPart
@@ -58,6 +56,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         ///     Portamento time
         /// </summary>
         public int PortamentoTime { get; set; }
+
         /// <summary>
         ///     Octave shift
         /// </summary>

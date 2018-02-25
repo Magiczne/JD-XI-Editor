@@ -3,8 +3,6 @@ using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 {
     internal class Wmt : PropertyChangedBase, IPatchPart
@@ -19,7 +17,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         public void Reset()
         {
             On = false;
-            GroupType = 0;  //TODO: WHAT
+            GroupType = 0; //TODO: WHAT
             GroupId = 0; //TODO: WHAT
             LeftWave = Wave.Off;
             RightWave = Wave.Off;

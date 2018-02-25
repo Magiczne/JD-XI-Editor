@@ -4,8 +4,6 @@ using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Digital
 {
     internal class Modifiers : PropertyChangedBase, IPatchPart

@@ -3,8 +3,6 @@ using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 {
     internal class Partial : PropertyChangedBase, IPatchPart

@@ -1,7 +1,5 @@
 ﻿using Caliburn.Micro;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models
 {
     internal class Adsr : PropertyChangedBase

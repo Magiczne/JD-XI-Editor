@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
     internal class Vocoder : PropertyChangedBase, IPatchPart
@@ -22,7 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         {
             On = false;
             Envelope = Envelope.Sharp;
-            UnknowParameter = 0;    //TODO: WHAT
+            UnknowParameter = 0; //TODO: WHAT
             MicrophoneSensitivity = 40;
             SynthLevel = 0;
             MicrophoneMixLevel = 2;

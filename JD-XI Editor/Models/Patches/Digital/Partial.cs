@@ -2,8 +2,6 @@
 using Caliburn.Micro;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Digital
 {
     internal class Partial : PropertyChangedBase, IPatchPart

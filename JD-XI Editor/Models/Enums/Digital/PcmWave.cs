@@ -6,18 +6,26 @@ namespace JD_XI_Editor.Models.Enums.Digital
     {
         [Description("000: Off")] Off = 0x0,
         [Description("001: Calculator Saw")] CalcSaw = 0x1,
-        [Description("002: Distorded Sawtooth Wavetooth")] DistordedSaw,
+
+        [Description("002: Distorded Sawtooth Wavetooth")]
+        DistordedSaw,
         [Description("003: GR-300 Sawtooth")] Gr300Saw,
         [Description("004: Lead Wave 1")] LeadWave1,
         [Description("005: Lead Wave 2")] LeadWave2,
         [Description("006: Unison Sawtooth")] UnisonSaw,
-        [Description("007: Sawtooth + Sub Wave")] SawtoothWithSub,
+
+        [Description("007: Sawtooth + Sub Wave")]
+        SawtoothWithSub,
         [Description("008: Square Lead Wave")] SquareLeadWave1,
-        [Description("009: Square Lead Wave+")] SquareLeadWave2,
+
+        [Description("009: Square Lead Wave+")]
+        SquareLeadWave2,
         [Description("010: Feedback Wave")] FeedbackWave,
         [Description("011: Bad Axe")] BadAxe,
         [Description("012: Cutting Lead")] CuttingLead,
-        [Description("013: Distorted TB Square")] DistordedTbSquare,
+
+        [Description("013: Distorted TB Square")]
+        DistordedTbSquare,
         [Description("014: Sync Sweep")] SyncSweep,
         [Description("015: Sawtooth Sync")] SawSync,
         [Description("016: Unison Sync")] UnisonSync,
@@ -90,8 +98,12 @@ namespace JD_XI_Editor.Models.Enums.Digital
         [Description("083: Fantasy Pad")] FantasyPad,
         [Description("084: Legend Pad")] LegendPad,
         [Description("085: D-50 Stack")] D50Stack,
-        [Description("086: Chords Of Canada Left")] ChordOfCanadaL,
-        [Description("087: Chords Of Canada Right")] ChordOfCanadaR,
+
+        [Description("086: Chords Of Canada Left")]
+        ChordOfCanadaL,
+
+        [Description("087: Chords Of Canada Right")]
+        ChordOfCanadaR,
         [Description("088: Fireflies")] Fireflies,
         [Description("089: Jazzy Bubbles")] JazzyBlues,
         [Description("090: Synth FX 1")] SynthFx1,
@@ -127,8 +139,12 @@ namespace JD_XI_Editor.Models.Enums.Digital
         [Description("120: Vibe Wave")] VibeWave,
         [Description("121: Organ Wave 1")] OrganWave1,
         [Description("122: Organ Wave 2")] OrganWave2,
-        [Description("123: PercussiveOrgan 1")] PercOrgan1,
-        [Description("124: Percussive Organ 2")] PercOrgan2,
+
+        [Description("123: PercussiveOrgan 1")]
+        PercOrgan1,
+
+        [Description("124: Percussive Organ 2")]
+        PercOrgan2,
         [Description("125: Vintage Organ")] VintageOrgan,
         [Description("126: Harmonica")] Harmonica,
         [Description("127: Accoustic Guitar")] AccousticGuitar,
@@ -137,8 +153,12 @@ namespace JD_XI_Editor.Models.Enums.Digital
         [Description("130: Funk Guitar")] FunkGuitar,
         [Description("131: Jazz Guitar")] JazzGuitar,
         [Description("132: Distorted Guitar")] DistortedGuitar,
-        [Description("133: Distorted Muted Guitar")] DistortedMutedGuitar,
-        [Description("134: Fat Accoustic Bass")] FatAccousticBass,
+
+        [Description("133: Distorted Muted Guitar")]
+        DistortedMutedGuitar,
+
+        [Description("134: Fat Accoustic Bass")]
+        FatAccousticBass,
         [Description("135: Fingered Bass")] FingeredBass,
         [Description("136: Picked Bass")] PickedBass,
         [Description("137: Fretless Bass")] FretlessBass,
@@ -154,8 +174,12 @@ namespace JD_XI_Editor.Models.Enums.Digital
         [Description("147: Pop Brass")] PopBrass,
         [Description("148: Trumpet Section")] TpSection,
         [Description("149: Studio Trumpet")] StudioTp,
-        [Description("150: Trumpet Vibraphone Marimba")] TpVibMari,
-        [Description("151: Trumpet Harmonica Mt")] TpHrmnMt,
+
+        [Description("150: Trumpet Vibraphone Marimba")]
+        TpVibMari,
+
+        [Description("151: Trumpet Harmonica Mt")]
+        TpHrmnMt,
         [Description("152: FM Brass")] FmBrass,
         [Description("153: Trombone")] Trombone,
         [Description("154: Wide Saxophone")] WideSax,

@@ -2,8 +2,6 @@
 using JD_XI_Editor.Models.Enums.Digital;
 using PropertyChanged;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Digital
 {
     internal class Filter : PropertyChangedBase, IPatchPart

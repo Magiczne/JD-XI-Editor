@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using JD_XI_Editor.Utils;
 
-// ReSharper disable InvertIf
-
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
     internal class BitCrusherParameters : EffectParameters
