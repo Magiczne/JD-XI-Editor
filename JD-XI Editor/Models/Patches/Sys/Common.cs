@@ -9,9 +9,10 @@ namespace JD_XI_Editor.Models.Patches.Sys
 {
     internal class Common : PropertyChangedBase, IPatch
     {
+        /// <inheritdoc />
         public Common()
         {
-
+            Reset();
         }
 
         /// <inheritdoc />
