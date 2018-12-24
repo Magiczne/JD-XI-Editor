@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Utils
             ModelId[1],
             ModelId[2],
             ModelId[3],
-            0x12
+            0x12            // Magic number for sending data to device
         };
 
         /// <summary>
@@ -43,19 +43,19 @@ namespace JD_XI_Editor.Utils
             ModelId[1],
             ModelId[2],
             ModelId[3],
-            0x11
+            0x11            // Magic number for requesting dump from device
         };
 
         /// <summary>
         ///     Calculates the checksum for the event data
         /// </summary>
-        /// <param name="patchData">Patch data bytes</param>
-        /// <param name="addressOffset">Address offset bytes</param>
+        /// <param name="addressOffset">Address offset</param>
+        /// <param name="data">Data bytes</param>
         /// <returns>Checksum byte</returns>
-        public static byte CalculateChecksum(byte[] patchData, byte[] addressOffset)
+        public static byte CalculateChecksum(byte[] addressOffset, byte[] data)
         {
             var sum = addressOffset.Aggregate(0, (current, b) => current + b);
-            sum = patchData.Aggregate(sum, (current, b) => current + b);
+            sum = data.Aggregate(sum, (current, b) => current + b);
 
             var remainder = sum / 128;
             var checksum = 128 - remainder;
@@ -66,6 +66,7 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Get sysex data for patch data and offset
         /// </summary>
+        /// TODO: Change parameters order
         public static byte[] GetSysexData(byte[] patchData, byte[] addressOffset)
         {
             var bytes = new List<byte>();
@@ -73,18 +74,45 @@ namespace JD_XI_Editor.Utils
             bytes.AddRange(Header);
             bytes.AddRange(addressOffset);
             bytes.AddRange(patchData);
-            bytes.Add(CalculateChecksum(patchData, addressOffset));
+            bytes.Add(CalculateChecksum(addressOffset, patchData));
             bytes.Add(0xF7);
 
             return bytes.ToArray();
         }
 
         /// <summary>
-        ///     Get sysex message for specified data
+        ///     Get sysex data for specified patch
         /// </summary>
+        public static byte[] GetRequestDumpData(byte[] addressOffset, byte[] expectedLength)
+        {
+            var bytes = new List<byte>();
+
+            bytes.AddRange(RequestHeader);
+
+            bytes.AddRange(addressOffset);
+            bytes.AddRange(expectedLength);
+            bytes.Add(CalculateChecksum(addressOffset, expectedLength));
+
+            bytes.Add(0xF7);
+
+            return bytes.ToArray();
+        }
+
+        /// <summary>
+        ///     Get sysex message for specified patch data
+        /// </summary>
+        /// TODO: Change parameters order
         public static SysExMessage GetMessage(byte[] patchData, byte[] addressOffset)
         {
             return new SysExMessage(GetSysexData(patchData, addressOffset));
+        }
+
+        /// <summary>
+        ///     Get sysex message for requesting data dump from device
+        /// </summary>
+        public static SysExMessage GetRequestDumpMessage(byte[] addressOffset, byte[] expectedLength)
+        {
+            return new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
         }
     }
 }
