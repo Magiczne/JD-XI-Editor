@@ -32,6 +32,22 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Filter filter)
+            {
+                Type = filter.Type;
+                Slope = filter.Slope;
+                Cutoff = filter.Cutoff;
+                CutoffKeyfollow = filter.CutoffKeyfollow;
+                EnvelopeVelocitySensitivity = filter.EnvelopeVelocitySensitivity;
+                Resonance = filter.Resonance;
+                Envelope.CopyFrom(filter.Envelope);
+                EnvelopeDepth = filter.EnvelopeDepth;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

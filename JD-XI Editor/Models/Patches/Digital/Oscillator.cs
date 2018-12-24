@@ -29,6 +29,23 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Oscillator osc)
+            {
+                Shape = osc.Shape;
+                WaveVariation = osc.WaveVariation;
+                Pitch = osc.Pitch;
+                Detune = osc.Detune;
+                PulseWidth = osc.PulseWidth;
+                PulseWidthModDepth = osc.PulseWidthModDepth;
+                Attack = osc.Attack;
+                Decay = osc.Decay;
+                EnvelopeDepth = osc.EnvelopeDepth;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

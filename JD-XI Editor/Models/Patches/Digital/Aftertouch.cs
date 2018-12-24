@@ -21,6 +21,16 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Aftertouch aftertouch)
+            {
+                CutoffAftertouchSensitivity = aftertouch.CutoffAftertouchSensitivity;
+                LevelAftertouchSensitivity = aftertouch.LevelAftertouchSensitivity;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]

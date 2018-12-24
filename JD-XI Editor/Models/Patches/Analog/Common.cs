@@ -26,6 +26,20 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common common)
+            {
+                Portamento = common.Portamento;
+                Legato = common.Legato;
+                PortamentoTime = common.PortamentoTime;
+                OctaveShift = common.OctaveShift;
+                PitchBendRangeUp = common.PitchBendRangeUp;
+                PitchBendRangeDown = common.PitchBendRangeDown;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

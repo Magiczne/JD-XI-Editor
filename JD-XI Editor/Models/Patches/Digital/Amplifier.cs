@@ -27,6 +27,18 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Amplifier amp)
+            {
+                Level = amp.Level;
+                LevelVelSensitivity = amp.LevelVelSensitivity;
+                Envelope.CopyFrom(amp.Envelope);
+                Panorama = amp.Panorama;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

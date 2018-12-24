@@ -42,6 +42,21 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Partial partial)
+            {
+                Oscillator.CopyFrom(partial.Oscillator);
+                Filter.CopyFrom(partial.Filter);
+                Amplifier.CopyFrom(partial.Amplifier);
+                Lfo.CopyFrom(partial.Lfo);
+                ModLfo.CopyFrom(partial.ModLfo);
+                Aftertouch.CopyFrom(partial.Aftertouch);
+                Other.CopyFrom(partial.Other);
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();

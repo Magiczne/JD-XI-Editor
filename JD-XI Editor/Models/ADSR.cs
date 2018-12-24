@@ -32,6 +32,18 @@ namespace JD_XI_Editor.Models
             Release = release;
         }
 
+        /// <summary>
+        ///     Copy values from another ADSR
+        /// </summary>
+        /// <param name="adsr"></param>
+        public void CopyFrom(Adsr adsr)
+        {
+            Attack = adsr.Attack;
+            Decay = adsr.Decay;
+            Sustain = adsr.Sustain;
+            Release = adsr.Release;
+        }
+
         #region Properties
 
         /// <summary>

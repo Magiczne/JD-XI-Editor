@@ -27,6 +27,20 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Other other)
+            {
+                WaveGain = other.WaveGain;
+                WaveNumber = other.WaveNumber;
+                HpfCutoff = other.HpfCutoff;
+                SuperSawDetune = other.SuperSawDetune;
+                ModLfoRateControl = other.ModLfoRateControl;
+                AmpLevelKeyfollow = other.AmpLevelKeyfollow;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

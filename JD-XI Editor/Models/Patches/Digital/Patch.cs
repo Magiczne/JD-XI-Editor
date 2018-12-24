@@ -39,14 +39,14 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Patch))
+            if (patch is Patch p)
             {
-                throw new NotSupportedException("Copying from that type is not supported");
+                Common.CopyFrom(p.Common);
+                PartialOne.CopyFrom(p.PartialOne);
+                PartialTwo.CopyFrom(p.PartialTwo);
+                PartialThree.CopyFrom(p.PartialThree);
+                Modifiers.CopyFrom(p.Modifiers);
             }
-
-            var castPatch = (Patch) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

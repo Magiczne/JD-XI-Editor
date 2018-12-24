@@ -10,6 +10,11 @@ namespace JD_XI_Editor.Models.Patches
         void Reset();
 
         /// <summary>
+        ///     Copy data from another patch part
+        /// </summary> 
+        void CopyFrom(IPatchPart patch);
+
+        /// <summary>
         ///     Get bytes of the part
         /// </summary>
         /// <returns>Bytes</returns>

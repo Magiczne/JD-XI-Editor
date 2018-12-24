@@ -29,6 +29,20 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Modifiers mods)
+            {
+                AttackTimeIntervalSensitivity = mods.AttackTimeIntervalSensitivity;
+                ReleaseTimeIntervalSensitivity = mods.ReleaseTimeIntervalSensitivity;
+                PortamentoTimeIntervalSensitivity = mods.PortamentoTimeIntervalSensitivity;
+                EnvelopeLoopMode = mods.EnvelopeLoopMode;
+                EnvelopeLoopSyncNote = mods.EnvelopeLoopSyncNote;
+                ChromaticPortamento = mods.ChromaticPortamento;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>(new[]

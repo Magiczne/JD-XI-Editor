@@ -23,6 +23,18 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is LfoModControl modControl)
+            {
+                PitchModControl = modControl.PitchModControl;
+                FilterModControl = modControl.FilterModControl;
+                AmpModControl = modControl.AmpModControl;
+                RateModControl = modControl.RateModControl;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

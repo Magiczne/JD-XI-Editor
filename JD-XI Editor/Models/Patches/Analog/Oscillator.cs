@@ -30,6 +30,24 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Oscillator osc)
+            {
+                Shape = osc.Shape;
+                PulseWidth = osc.PulseWidth;
+                PulseWidthModDepth = osc.PulseWidthModDepth;
+                SubOsc = osc.SubOsc;
+                Pitch = osc.Pitch;
+                Detune = osc.Detune;
+                Attack = osc.Attack;
+                Decay = osc.Decay;
+                EnvelopeDepth = osc.EnvelopeDepth;
+                EnvelopeVelocitySensitivity = osc.EnvelopeVelocitySensitivity;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

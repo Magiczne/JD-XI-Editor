@@ -55,15 +55,20 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Patch))
+            if (patch is Patch p)
+            {
+                Name = p.Name;
+                Lfo.CopyFrom(p.Lfo);
+                Oscillator.CopyFrom(p.Oscillator);
+                Filter.CopyFrom(p.Filter);
+                Amplifier.CopyFrom(p.Amplifier);
+                Common.CopyFrom(p.Common);
+                LfoModControl.CopyFrom(p.LfoModControl);
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (Patch) patch;
-
-            Name = castPatch.Name;
-            //TODO: Copy all patch parts
         }
 
         /// <summary>

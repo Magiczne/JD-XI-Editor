@@ -27,6 +27,18 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Amplifier amplifier)
+            {
+                Level = amplifier.Level;
+                LevelKeyfollow = amplifier.LevelKeyfollow;
+                LevelVelSensitivity = amplifier.LevelVelSensitivity;
+                Envelope.CopyFrom(amplifier.Envelope);
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

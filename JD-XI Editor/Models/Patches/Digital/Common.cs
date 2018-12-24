@@ -47,6 +47,38 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common common)
+            {
+                Name = common.Name;
+                ToneLevel = common.ToneLevel;
+                Portamento = common.Portamento;
+                PortamentoTime = common.PortamentoTime;
+                Mono = common.Mono;
+                OctaveShift = common.OctaveShift;
+                PitchBendRangeUp = common.PitchBendRangeUp;
+                PitchBendRangeDown = common.PitchBendRangeDown;
+
+                PartialOneSwitch = common.PartialOneSwitch;
+                PartialTwoSwitch = common.PartialTwoSwitch;
+                PartialThreeSwitch = common.PartialThreeSwitch;
+                PartialOneSelect = common.PartialOneSelect;
+                PartialTwoSelect = common.PartialTwoSelect;
+                PartialThreeSelect = common.PartialThreeSelect;
+
+                Ring = common.Ring;
+                Unison = common.Unison;
+                PortamentoMode = common.PortamentoMode;
+                Legato = common.Legato;
+                AnalogFeel = common.AnalogFeel;
+                WaveShape = common.WaveShape;
+                ToneCategory = common.ToneCategory;
+                UnisonSize = common.UnisonSize;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();

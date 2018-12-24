@@ -30,6 +30,23 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is ModLfo modLfo)
+            {
+                Shape = modLfo.Shape;
+                Rate = modLfo.Rate;
+                TempoSync = modLfo.TempoSync;
+                SyncNote = modLfo.SyncNote;
+                PulseWidthShift = modLfo.PulseWidthShift;
+                PitchDepth = modLfo.PitchDepth;
+                FilterDepth = modLfo.FilterDepth;
+                AmpDepth = modLfo.AmpDepth;
+                PanDepth = modLfo.PanDepth;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]

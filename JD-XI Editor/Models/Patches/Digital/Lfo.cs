@@ -31,6 +31,24 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Lfo lfo)
+            {
+                Shape = lfo.Shape;
+                Rate = lfo.Rate;
+                TempoSync = lfo.TempoSync;
+                SyncNote = lfo.SyncNote;
+                FadeTime = lfo.FadeTime;
+                KeyTrigger = lfo.KeyTrigger;
+                PitchDepth = lfo.PitchDepth;
+                FilterDepth = lfo.FilterDepth;
+                AmpDepth = lfo.AmpDepth;
+                PanDepth = lfo.PanDepth;
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
