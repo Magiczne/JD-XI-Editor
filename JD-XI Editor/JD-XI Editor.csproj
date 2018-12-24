@@ -110,6 +110,8 @@
     <Compile Include="Managers\Abstract\IDrumKitPatchManager.cs" />
     <Compile Include="Managers\Abstract\IEffectsPatchManager.cs" />
     <Compile Include="Managers\Abstract\IPatchManager.cs" />
+    <Compile Include="Managers\Events\AnalogPatchDumpReceivedEventArgs.cs" />
+    <Compile Include="Managers\Events\PatchDumpReceivedEventArgs.cs" />
     <Compile Include="Managers\ProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Models\ADSR.cs" />
     <Compile Include="Models\Enums\Digital\Category.cs" />

@@ -1,5 +1,6 @@
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.Analog;
 using JD_XI_Editor.Models.Patches.Analog;
 using JD_XI_Editor.ViewModels.Abstract;
@@ -25,6 +26,12 @@ namespace JD_XI_Editor.ViewModels
 
                 if (args.PropertyName == nameof(Patch.Oscillator))
                     NotifyOfPropertyChange(nameof(IsPulseWidthEnabled));
+            };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is AnalogPatchDumpReceivedEventArgs eventArgs)
+                    Patch.CopyFrom(eventArgs.Patch);
             };
         }
 
