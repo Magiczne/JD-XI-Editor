@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using PropertyChanged;
 
@@ -33,6 +34,19 @@ namespace JD_XI_Editor.Models.Patches.Digital
             PartialTwo.Reset();
             PartialThree.Reset();
             Modifiers.Reset();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is Patch))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (Patch) patch;
+
+            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

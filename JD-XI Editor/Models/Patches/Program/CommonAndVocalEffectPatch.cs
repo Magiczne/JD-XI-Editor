@@ -1,7 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
-using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using PropertyChanged;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -48,6 +49,19 @@ namespace JD_XI_Editor.Models.Patches.Program
         {
             Common.Reset();
             VocalEffect.Reset();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is CommonAndVocalEffectPatch))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (CommonAndVocalEffectPatch) patch;
+
+            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

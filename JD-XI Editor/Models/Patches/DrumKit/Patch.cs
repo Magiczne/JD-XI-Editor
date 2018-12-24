@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using PropertyChanged;
@@ -22,6 +23,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         {
             Common.Reset();
             InitPartials();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is Patch))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (Patch) patch;
+
+            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Sys;
 using JD_XI_Editor.Utils;
@@ -11,6 +12,19 @@ namespace JD_XI_Editor.Models.Patches.Sys
         public Common()
         {
             Reset();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is Common))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (Common) patch;
+
+            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
@@ -51,6 +52,20 @@ namespace JD_XI_Editor.Models.Patches.Analog
             LfoModControl.Reset();
         }
 
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is Patch))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (Patch) patch;
+
+            Name = castPatch.Name;
+            //TODO: Copy all patch parts
+        }
+
         /// <summary>
         ///     Get patch byte data
         /// </summary>
@@ -82,6 +97,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Patch name
         /// </summary>
+        /// TODO(magiczne): Take use of Fody.PropertyChanged
         public string Name
         {
             get => _name;

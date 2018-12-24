@@ -1,4 +1,5 @@
-﻿using JD_XI_Editor.Exceptions;
+﻿using System;
+using JD_XI_Editor.Exceptions;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects
@@ -20,6 +21,19 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
             Effect2.Reset();
             Delay.Reset();
             Reverb.Reset();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (!(patch is Patch))
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+
+            var castPatch = (Patch) patch;
+
+            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />
