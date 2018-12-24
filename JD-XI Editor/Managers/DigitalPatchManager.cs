@@ -25,9 +25,24 @@ namespace JD_XI_Editor.Managers
         private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
 
         /// <summary>
+        ///     Common SysEx message length
+        /// </summary>
+        private byte[] CommonSysExMessageLength => new byte[] {0x00, 0x00, 0x00, 0x40};
+        
+        /// <summary>
+        ///     Partial SysEx message length
+        /// </summary>
+        private byte[] PartialSysExMessageLength => new byte[] {0x00, 0x00, 0x00, 0x3D};
+
+        /// <summary>
         ///     Modifiers address offset
         /// </summary>
         private byte[] ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
+
+        /// <summary>
+        ///     Modifiers SysEx message length
+        /// </summary>
+        private byte[] ModifiersSysExMessageLength => new byte[] {0x00, 0x00, 0x00, 0x25};
 
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)

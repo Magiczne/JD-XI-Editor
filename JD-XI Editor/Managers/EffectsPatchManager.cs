@@ -1,4 +1,5 @@
-﻿using JD_XI_Editor.Managers.Abstract;
+﻿using System;
+using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
@@ -40,6 +41,28 @@ namespace JD_XI_Editor.Managers
         private static byte[] EffectOffset(Effect effect)
         {
             return new byte[] {0x18, 0x00, (byte) effect, 0x00};
+        }
+
+        /// <summary>
+        ///     SysEx message length
+        /// </summary>
+        private static byte[] EffectSysExMessageLength(Effect effect)
+        {
+            switch (effect)
+            {
+                case Effect.Effect1:
+                case Effect.Effect2:
+                    return new byte[] {0x00, 0x00, 0x01, 0x11};
+
+                case Effect.Delay:
+                    return new byte[] {0x00, 0x00, 0x00, 0x64};
+
+                case Effect.Reverb:
+                    return new byte[] {0x00, 0x00, 0x00, 0x63};
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(effect), effect, null);
+            }
         }
     }
 }
