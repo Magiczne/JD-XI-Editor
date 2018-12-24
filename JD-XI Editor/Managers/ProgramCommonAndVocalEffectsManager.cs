@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using JD_XI_Editor.Managers.Abstract;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program;
 using JD_XI_Editor.Utils;
@@ -9,6 +10,9 @@ namespace JD_XI_Editor.Managers
 {
     internal class ProgramCommonAndVocalEffectsManager : IProgramCommonAndVocalEffectsManager
     {
+        /// <inheritdoc />
+        public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
         /// <summary>
         ///     Program common offset address
         /// </summary>
@@ -35,6 +39,12 @@ namespace JD_XI_Editor.Managers
                 output.Send(SysExUtils.GetMessage(vfxPatch.VocalEffect.GetBytes(), VocalEffectsOffset));
                 output.Send(SysExUtils.GetMessage(new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }, AutoNoteOffset));
             }
+        }
+
+        /// <inheritdoc />
+        public void Read(int inputDeviceId, int outputDeviceId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

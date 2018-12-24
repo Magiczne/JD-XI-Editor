@@ -1,5 +1,7 @@
-﻿using JD_XI_Editor.Managers.Abstract;
+﻿using System;
+using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.Utils;
@@ -45,6 +47,9 @@ namespace JD_XI_Editor.Managers
         private byte[] ModifiersSysExMessageLength => new byte[] {0x00, 0x00, 0x00, 0x25};
 
         /// <inheritdoc />
+        public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
+        /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
             var digitalPatch = (Patch) patch;
@@ -62,6 +67,12 @@ namespace JD_XI_Editor.Managers
 
                 output.Send(SysExUtils.GetMessage(digitalPatch.Modifiers.GetBytes(), ModifiersAddressOffset));
             }
+        }
+
+        /// <inheritdoc />
+        public void Read(int inputDeviceId, int outputDeviceId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

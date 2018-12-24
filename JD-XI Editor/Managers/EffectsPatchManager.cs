@@ -1,6 +1,7 @@
 ﻿using System;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 using JD_XI_Editor.Models.Patches.Program.Effects;
@@ -11,6 +12,9 @@ namespace JD_XI_Editor.Managers
 {
     internal class EffectsPatchManager : IEffectsPatchManager
     {
+        /// <inheritdoc />
+        public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
         /// <inheritdoc />
         public void DumpEffect(EffectPatch patch, Effect effect, int deviceId)
         {
@@ -33,6 +37,12 @@ namespace JD_XI_Editor.Managers
                 output.Send(SysExUtils.GetMessage(effectPatch.Delay.GetBytes(), EffectOffset(Effect.Delay)));
                 output.Send(SysExUtils.GetMessage(effectPatch.Reverb.GetBytes(), EffectOffset(Effect.Reverb)));
             }
+        }
+
+        /// <inheritdoc />
+        public void Read(int inputDeviceId, int outputDeviceId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
