@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Sanford.Multimedia.Midi;
 
@@ -17,7 +17,7 @@ namespace JD_XI_Editor.Utils
         private static readonly byte[] ModelId = {0x00, 0x00, 0x00, 0x0E};
 
         /// <summary>
-        ///     SysExHeader
+        ///     Header for dumping data to device
         /// </summary>
         public static IEnumerable<byte> Header => new byte[]
         {
@@ -29,6 +29,21 @@ namespace JD_XI_Editor.Utils
             ModelId[2],
             ModelId[3],
             0x12
+        };
+
+        /// <summary>
+        ///     Header for requesting data from device
+        /// </summary>
+        public static IEnumerable<byte> RequestHeader => new byte[]
+        {
+            0xF0,
+            ProducerId,
+            0x10,
+            ModelId[0],
+            ModelId[1],
+            ModelId[2],
+            ModelId[3],
+            0x11
         };
 
         /// <summary>
