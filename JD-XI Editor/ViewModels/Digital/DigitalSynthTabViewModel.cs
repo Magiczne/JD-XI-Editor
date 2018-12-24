@@ -83,7 +83,8 @@ namespace JD_XI_Editor.ViewModels.Digital
         /// <inheritdoc />
         public override void Read()
         {
-            throw new System.NotImplementedException();
+            if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
+                PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
         }
 
         /// <inheritdoc />

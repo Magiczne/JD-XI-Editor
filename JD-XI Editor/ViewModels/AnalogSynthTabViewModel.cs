@@ -1,4 +1,4 @@
-﻿using Caliburn.Micro;
+using Caliburn.Micro;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Models.Enums.Analog;
 using JD_XI_Editor.Models.Patches.Analog;
@@ -47,7 +47,8 @@ namespace JD_XI_Editor.ViewModels
         /// <inheritdoc />
         public override void Read()
         {
-            throw new System.NotImplementedException();
+            if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
+                PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
         }
 
         /// <inheritdoc />
