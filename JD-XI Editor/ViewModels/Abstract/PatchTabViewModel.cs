@@ -22,6 +22,11 @@ namespace JD_XI_Editor.ViewModels.Abstract
         }
 
         /// <summary>
+        ///     Read data from device
+        /// </summary>
+        public abstract void Read();
+
+        /// <summary>
         ///     Dump data to device
         /// </summary>
         public abstract void Dump();

@@ -88,6 +88,12 @@ namespace JD_XI_Editor.ViewModels.Effects
         public ReverbViewModel Reverb { get; }
 
         /// <inheritdoc />
+        public override void Read()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1) PatchManager.Dump(_patch, SelectedOutputDeviceId);

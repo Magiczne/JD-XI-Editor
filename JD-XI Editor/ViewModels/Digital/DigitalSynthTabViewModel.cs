@@ -81,6 +81,12 @@ namespace JD_XI_Editor.ViewModels.Digital
         #region Methods
 
         /// <inheritdoc />
+        public override void Read()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1)

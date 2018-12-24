@@ -47,6 +47,12 @@ namespace JD_XI_Editor.ViewModels.Program
         public CommonAndVocalEffectPatch Patch { get; }
 
         /// <inheritdoc />
+        public override void Read()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override void Dump()
         {
             if (SelectedOutputDeviceId != -1) PatchManager.Dump(Patch, SelectedOutputDeviceId);

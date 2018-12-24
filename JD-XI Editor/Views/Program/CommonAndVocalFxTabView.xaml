@@ -55,12 +55,17 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
-        <!-- TODO: Hookup -->
         <Button Grid.Column="4" Grid.Row="0"
                 Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
                 Content="Force read"
                 IsEnabled="{Binding CanRead}"
-                Style="{StaticResource AccentedSquareButtonStyle}" />
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Read" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
     </Grid>
 
     <!-- Program Common -->
