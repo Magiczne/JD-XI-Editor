@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Utils;
 
@@ -45,6 +46,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 FilterDepth = lfo.FilterDepth;
                 AmpDepth = lfo.AmpDepth;
                 PanDepth = lfo.PanDepth;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

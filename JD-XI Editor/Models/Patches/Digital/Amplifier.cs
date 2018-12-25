@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Digital
@@ -35,6 +36,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 LevelVelSensitivity = amp.LevelVelSensitivity;
                 Envelope.CopyFrom(amp.Envelope);
                 Panorama = amp.Panorama;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

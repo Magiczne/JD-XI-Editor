@@ -47,6 +47,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 PartialThree.CopyFrom(p.PartialThree);
                 Modifiers.CopyFrom(p.Modifiers);
             }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
@@ -28,6 +29,21 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             Common.Reset();
             AutoPitch.Reset();
             Vocoder.Reset();
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is VocalEffect ve)
+            {
+                Common.CopyFrom(ve.Common);
+                AutoPitch.CopyFrom(ve.AutoPitch);
+                Vocoder.CopyFrom(ve.AutoPitch);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

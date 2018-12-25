@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
@@ -31,6 +32,10 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 FilterModControl = modControl.FilterModControl;
                 AmpModControl = modControl.AmpModControl;
                 RateModControl = modControl.RateModControl;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

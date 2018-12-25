@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Slicer;
 using JD_XI_Editor.Utils;
@@ -24,6 +25,23 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Attack = 39;
             TriggerLevel = 50;
             Level = 127;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is SlicerParameters p)
+            {
+                TimingPattern = p.TimingPattern;
+                Note = p.Note;
+                Attack = p.Attack;
+                TriggerLevel = p.TriggerLevel;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

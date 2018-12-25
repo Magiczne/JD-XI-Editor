@@ -10,6 +10,11 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             return ByteUtils.Repeat4PacketsReserve(32);

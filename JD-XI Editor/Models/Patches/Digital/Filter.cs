@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Digital;
 using PropertyChanged;
 
@@ -44,6 +45,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 Resonance = filter.Resonance;
                 Envelope.CopyFrom(filter.Envelope);
                 EnvelopeDepth = filter.EnvelopeDepth;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

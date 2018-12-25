@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Flanger;
 using JD_XI_Editor.Utils;
@@ -27,6 +28,26 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Manual = 30;
             DryWetBalance = 50;
             Level = 127;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is FlangerParameters p)
+            {
+                Mode = p.Mode;
+                Note = p.Note;
+                Rate = p.Rate;
+                Depth = p.Depth;
+                Feedback = p.Feedback;
+                Manual = p.Manual;
+                DryWetBalance = p.DryWetBalance;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

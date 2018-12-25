@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
 
@@ -37,6 +38,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 SuperSawDetune = other.SuperSawDetune;
                 ModLfoRateControl = other.ModLfoRateControl;
                 AmpLevelKeyfollow = other.AmpLevelKeyfollow;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

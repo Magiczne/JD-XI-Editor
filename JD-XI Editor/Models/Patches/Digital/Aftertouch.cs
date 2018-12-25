@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
@@ -27,6 +28,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
             {
                 CutoffAftertouchSensitivity = aftertouch.CutoffAftertouchSensitivity;
                 LevelAftertouchSensitivity = aftertouch.LevelAftertouchSensitivity;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

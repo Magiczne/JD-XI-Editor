@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
@@ -20,6 +21,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         public void Reset()
         {
             Control = WmtVelocityControl.On;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is VelocityControl vc)
+            {
+                Control = vc.Control;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

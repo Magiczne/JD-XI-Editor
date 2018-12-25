@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 using JD_XI_Editor.Utils;
 
@@ -25,6 +26,25 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             SynthLevel = 0;
             MicrophoneMixLevel = 2;
             MicrophoneHpf = HighPassFilter.Bypass;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Vocoder v)
+            {
+                On = v.On;
+                Envelope = v.Envelope;
+                UnknowParameter = v.UnknowParameter;
+                MicrophoneSensitivity = v.MicrophoneSensitivity;
+                SynthLevel = v.SynthLevel;
+                MicrophoneMixLevel = v.MicrophoneMixLevel;
+                MicrophoneHpf = v.MicrophoneHpf;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -18,6 +19,22 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             ChorusSendLevel = 0;
             ReverbSendLevel = 64;
             OutputAssign = OutputAssign.Reverb;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Output output)
+            {
+                OutputLevel = output.OutputLevel;
+                ChorusSendLevel = output.ChorusSendLevel;
+                ReverbSendLevel = output.ReverbSendLevel;
+                OutputAssign = output.OutputAssign;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

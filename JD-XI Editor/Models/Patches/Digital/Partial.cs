@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using PropertyChanged;
 
@@ -53,6 +54,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 ModLfo.CopyFrom(partial.ModLfo);
                 Aftertouch.CopyFrom(partial.Aftertouch);
                 Other.CopyFrom(partial.Other);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

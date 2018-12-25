@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
@@ -18,6 +19,20 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         {
             Name = "Init sound";
             Level = 127;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common c)
+            {
+                Name = c.Name;
+                Level = c.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

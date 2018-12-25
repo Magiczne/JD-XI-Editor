@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Analog
@@ -35,6 +36,10 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 LevelKeyfollow = amplifier.LevelKeyfollow;
                 LevelVelSensitivity = amplifier.LevelVelSensitivity;
                 Envelope.CopyFrom(amplifier.Envelope);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

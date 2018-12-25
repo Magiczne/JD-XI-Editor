@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
@@ -19,6 +20,20 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         {
             On = true;
             Level = 0;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is BasicData data)
+            {
+                On = data.On;
+                Level = data.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

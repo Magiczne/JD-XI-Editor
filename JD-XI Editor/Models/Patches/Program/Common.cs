@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -29,6 +31,27 @@ namespace JD_XI_Editor.Models.Patches.Program
             VocalEffectPart = Part.DigitalSynth1;
 
             AutoNote = false;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common c)
+            {
+                Name = c.Name;
+                Level = c.Level;
+                Tempo = c.Tempo;
+
+                VocalEffectType = c.VocalEffectType;
+                VocalEffectNumber = c.VocalEffectNumber;
+                VocalEffectPart = c.VocalEffectPart;
+
+                AutoNote = c.AutoNote;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using JD_XI_Editor.Models.Enums.Program.Effects.Distortion;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.Effects.Distortion.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
@@ -22,6 +23,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             Drive = 110;
             Presence = 127;
             Level = 80;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is DistortionParameters p)
+            {
+                Type = p.Type;
+                Drive = p.Drive;
+                Presence = p.Presence;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

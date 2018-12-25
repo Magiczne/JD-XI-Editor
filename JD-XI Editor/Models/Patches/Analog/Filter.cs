@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 
@@ -42,6 +43,10 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 Envelope.CopyFrom(filter.Envelope);
                 EnvelopeDepth = filter.EnvelopeDepth;
                 EnvelopeVelocitySensitivity = filter.EnvelopeVelocitySensitivity;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

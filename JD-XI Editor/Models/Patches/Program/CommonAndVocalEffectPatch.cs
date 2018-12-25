@@ -54,14 +54,15 @@ namespace JD_XI_Editor.Models.Patches.Program
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is CommonAndVocalEffectPatch))
+            if (patch is CommonAndVocalEffectPatch p)
+            {
+                Common.CopyFrom(p.Common);
+                VocalEffect.CopyFrom(p.VocalEffect);
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (CommonAndVocalEffectPatch) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

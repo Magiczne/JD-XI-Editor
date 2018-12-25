@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Utils;
@@ -19,6 +20,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         public void Reset()
         {
             Name = "Init Partial";
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Basic basic)
+            {
+                Name = basic.Name;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

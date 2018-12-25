@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
@@ -20,6 +21,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             Bit = 70;
             Filter = 85;
             Level = 127;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is BitCrusherParameters p)
+            {
+                Rate = p.Rate;
+                Bit = p.Bit;
+                Filter = p.Filter;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

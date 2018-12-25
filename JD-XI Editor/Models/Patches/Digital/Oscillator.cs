@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Digital;
 
 namespace JD_XI_Editor.Models.Patches.Digital
@@ -42,6 +43,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 Attack = osc.Attack;
                 Decay = osc.Decay;
                 EnvelopeDepth = osc.EnvelopeDepth;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

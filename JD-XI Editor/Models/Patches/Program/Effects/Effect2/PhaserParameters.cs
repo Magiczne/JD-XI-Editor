@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Phaser;
 using JD_XI_Editor.Utils;
@@ -26,6 +27,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Resonance = 40;
             Manual = 30;
             Level = 100;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is PhaserParameters p)
+            {
+                Mode = p.Mode;
+                Note = p.Note;
+                Rate = p.Rate;
+                Depth = p.Depth;
+                Resonance = p.Resonance;
+                Manual = p.Manual;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

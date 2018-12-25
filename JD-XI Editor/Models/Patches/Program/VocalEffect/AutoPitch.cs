@@ -1,6 +1,8 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
@@ -25,6 +27,25 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             Gender = 0;
             Octave = Octave.Zero;
             DryWetBalance = 100;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is AutoPitch ap)
+            {
+                On = ap.On;
+                Type = ap.Type;
+                Scale = ap.Scale;
+                Key = ap.Key;
+                Gender = ap.Gender;
+                Octave = ap.Octave;
+                DryWetBalance = ap.DryWetBalance;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

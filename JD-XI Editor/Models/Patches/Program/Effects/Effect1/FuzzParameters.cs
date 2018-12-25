@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using JD_XI_Editor.Models.Enums.Program.Effects.Fuzz;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.Effects.Fuzz.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
@@ -22,6 +23,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             Drive = 100;
             Presence = 127;
             Level = 70;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is FuzzParameters p)
+            {
+                Type = p.Type;
+                Drive = p.Drive;
+                Presence = p.Presence;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

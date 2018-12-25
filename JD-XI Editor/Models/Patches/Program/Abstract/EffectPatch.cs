@@ -17,14 +17,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Patch))
+            if (patch is EffectPatch ep)
+            {
+                Basic.CopyFrom(ep.Basic);
+                Parameters.CopyFrom(ep.Parameters);
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (Patch) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

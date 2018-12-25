@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
@@ -39,6 +40,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 EnvelopeLoopMode = mods.EnvelopeLoopMode;
                 EnvelopeLoopSyncNote = mods.EnvelopeLoopSyncNote;
                 ChromaticPortamento = mods.ChromaticPortamento;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

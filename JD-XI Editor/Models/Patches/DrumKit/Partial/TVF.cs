@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
@@ -40,6 +41,26 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Envelope.Level2 = 127;
             Envelope.Level3 = 127;
             Envelope.Level4 = 0;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Tvf tvf)
+            {
+                Type = tvf.Type;
+                Cutoff = tvf.Cutoff;
+                CutoffVelocityCurve = tvf.CutoffVelocityCurve;
+                CutoffVelocitySensitivity = tvf.CutoffVelocitySensitivity;
+                Resonance = tvf.Resonance;
+                ResonanceVelocitySensitivity = tvf.ResonanceVelocitySensitivity;
+
+                Envelope.CopyFrom(tvf.Envelope);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

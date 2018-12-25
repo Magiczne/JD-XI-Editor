@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Delay;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.Effects.Delay.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
 {
@@ -28,6 +30,27 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             HfDamp = HfDamp.Damp5000;
             ReverbSendLevel = 0;
             Level = 0;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is Parameters p)
+            {
+                Type = p.Type;
+                Mode = p.Mode;
+                Note = p.Note;
+                Time = p.Time;
+                TapTime = p.TapTime;
+                Feedback = p.Feedback;
+                HfDamp = p.HfDamp;
+                ReverbSendLevel = p.ReverbSendLevel;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

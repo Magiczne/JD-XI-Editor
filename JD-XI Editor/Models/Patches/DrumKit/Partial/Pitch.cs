@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -41,6 +42,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Envelope.Level2 = 63;
             Envelope.Level3 = 0;
             Envelope.Level4 = 0;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Pitch pitch)
+            {
+                Envelope.CopyFrom(pitch.Envelope);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

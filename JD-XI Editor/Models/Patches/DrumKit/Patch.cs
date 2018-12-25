@@ -28,14 +28,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Patch))
+            if (patch is Patch p)
+            {
+                Common.CopyFrom(p.Common);
+
+                foreach (var partial in Partials)
+                {
+                    partial.Value.CopyFrom(p.Partials[partial.Key]);
+                }
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (Patch) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

@@ -26,14 +26,17 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Patch))
+            if (patch is Patch p)
+            {
+                Effect1.CopyFrom(p.Effect1);
+                Effect2.CopyFrom(p.Effect2);
+                Delay.CopyFrom(p.Delay);
+                Reverb.CopyFrom(p.Delay);
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (Patch) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

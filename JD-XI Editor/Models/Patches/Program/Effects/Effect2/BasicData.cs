@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.Effects;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
@@ -21,6 +22,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             Level = 127;
             DelaySendLevel = 50;
             ReverbSendLevel = 50;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is BasicData data)
+            {
+                Type = data.Type;
+                Level = data.Level;
+                DelaySendLevel = data.DelaySendLevel;
+                ReverbSendLevel = data.ReverbSendLevel;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

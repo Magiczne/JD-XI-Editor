@@ -28,14 +28,19 @@ namespace JD_XI_Editor.Models.Patches.Sys
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (!(patch is Controller))
+            if (patch is Controller c)
+            {
+                TransmitProgramChange = c.TransmitProgramChange;
+                TransmitBankSelect = c.TransmitBankSelect;
+
+                KeyboardVelocity = c.KeyboardVelocity;
+                VelocityCurve = c.VelocityCurve;
+                VelocityCurveOffset = c.VelocityCurveOffset;
+            }
+            else
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
-
-            var castPatch = (Controller) patch;
-
-            //TODO: Copy from inner objects
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Digital;
@@ -75,6 +76,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
                 WaveShape = common.WaveShape;
                 ToneCategory = common.ToneCategory;
                 UnisonSize = common.UnisonSize;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Analog
@@ -36,6 +37,10 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 OctaveShift = common.OctaveShift;
                 PitchBendRangeUp = common.PitchBendRangeUp;
                 PitchBendRangeDown = common.PitchBendRangeDown;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

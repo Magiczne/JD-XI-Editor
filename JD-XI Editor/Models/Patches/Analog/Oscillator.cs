@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Analog;
 
 namespace JD_XI_Editor.Models.Patches.Analog
@@ -44,6 +45,10 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 Decay = osc.Decay;
                 EnvelopeDepth = osc.EnvelopeDepth;
                 EnvelopeVelocitySensitivity = osc.EnvelopeVelocitySensitivity;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
             }
         }
 

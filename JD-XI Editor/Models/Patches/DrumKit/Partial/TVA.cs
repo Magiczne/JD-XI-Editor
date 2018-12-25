@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
@@ -38,6 +39,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Envelope.Level1 = 127;
             Envelope.Level2 = 127;
             Envelope.Level3 = 127;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Tva tva)
+            {
+                Envelope.CopyFrom(tva.Envelope);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

@@ -8,6 +8,9 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         public abstract void Reset();
 
         /// <inheritdoc />
+        public abstract void CopyFrom(IPatchPart part);
+
+        /// <inheritdoc />
         public abstract byte[] GetBytes();
     }
 }

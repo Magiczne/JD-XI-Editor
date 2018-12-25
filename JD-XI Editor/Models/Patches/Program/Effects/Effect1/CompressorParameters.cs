@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Compressor;
 using JD_XI_Editor.Utils;
@@ -29,6 +30,29 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
             SidechainNote = NotePitch.C2;
             SidechainTime = 60;
             SidechainRelease = 0;
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is CompressorParameters p)
+            {
+                Threshold = p.Threshold;
+                Ratio = p.Ratio;
+                Attack = p.Attack;
+                Release = p.Release;
+                Level = p.Level;
+                Sidechain = p.Sidechain;
+                SidechainSync = p.SidechainSync;
+                SidechainLevel = p.SidechainLevel;
+                SidechainNote = p.SidechainNote;
+                SidechainTime = p.SidechainTime;
+                SidechainRelease = p.SidechainRelease;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

@@ -15,19 +15,6 @@ namespace JD_XI_Editor.Models.Patches.Sys
         }
 
         /// <inheritdoc />
-        public void CopyFrom(IPatch patch)
-        {
-            if (!(patch is Common))
-            {
-                throw new NotSupportedException("Copying from that type is not supported");
-            }
-
-            var castPatch = (Common) patch;
-
-            //TODO: Copy from inner objects
-        }
-
-        /// <inheritdoc />
         public void Reset()
         {
             MasterTune = 0; //TODO: Figure out 440.0 Value
@@ -38,6 +25,26 @@ namespace JD_XI_Editor.Models.Patches.Sys
 
             ReceiveProgramChange = true;
             ReceiveBankSelect = true;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (patch is Common common)
+            {
+                MasterTune = common.MasterTune;
+                MasterKeyShift = common.MasterKeyShift;
+                MasterLevel = common.MasterLevel;
+
+                ProgramControlChannel = common.ProgramControlChannel;
+
+                ReceiveProgramChange = common.ReceiveProgramChange;
+                ReceiveBankSelect = common.ReceiveBankSelect;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />

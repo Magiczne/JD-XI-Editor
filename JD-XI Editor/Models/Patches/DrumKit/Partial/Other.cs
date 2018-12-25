@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -16,6 +17,20 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         {
             OneShotMode = false;
             RelativeLevel = 0;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Other oth)
+            {
+                OneShotMode = oth.OneShotMode;
+                RelativeLevel = oth.RelativeLevel;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />
