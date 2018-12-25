@@ -46,11 +46,11 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Drive));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Presence));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Drive));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Presence));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(28));
 
             return bytes.ToArray();
         }

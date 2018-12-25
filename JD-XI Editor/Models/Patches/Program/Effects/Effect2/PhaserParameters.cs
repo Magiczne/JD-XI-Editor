@@ -53,14 +53,14 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Rate));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Depth));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Resonance));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Manual));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(25));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Mode));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Rate));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Depth));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Resonance));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Manual));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(25));
 
             return bytes.ToArray();
         }

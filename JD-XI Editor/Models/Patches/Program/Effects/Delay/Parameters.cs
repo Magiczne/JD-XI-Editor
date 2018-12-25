@@ -58,15 +58,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type)); // 0x04
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Mode)); // 0x08
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Time)); // 0x0C
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note)); // 0x10
-            bytes.AddRange(ByteUtils.NumberTo4Packets(TapTime)); // 0x14
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Feedback)); // 0x18
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp)); // 0x1C
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level)); // 0x20
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(16));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type)); // 0x04
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Mode)); // 0x08
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Time)); // 0x0C
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note)); // 0x10
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(TapTime)); // 0x14
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Feedback)); // 0x18
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) HfDamp)); // 0x1C
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level)); // 0x20
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(16));
 
             return bytes.ToArray();
         }

@@ -52,7 +52,7 @@ namespace JD_XI_Editor.Models.Patches.Sys
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets((int) (MasterTune * 5))); // TODO: Replace 5 with something
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) (MasterTune * 5))); // TODO: Replace 5 with something
             bytes.Add((byte) (MasterKeyShift + 64));
             bytes.Add((byte) MasterLevel);
 

@@ -60,18 +60,18 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Threshold));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Ratio));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Attack));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Release));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.BooleanTo4Packets(Sidechain));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainLevel));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) SidechainNote));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainTime));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainRelease));
-            bytes.AddRange(ByteUtils.BooleanTo4Packets(SidechainSync));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(21));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Threshold));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Ratio));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Attack));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Release));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.BooleanTo4MidiPackets(Sidechain));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainLevel));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) SidechainNote));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainTime));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainRelease));
+            bytes.AddRange(ByteUtils.BooleanTo4MidiPackets(SidechainSync));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(21));
 
             return bytes.ToArray();
         }

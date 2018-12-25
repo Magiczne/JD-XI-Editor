@@ -17,7 +17,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
-            return ByteUtils.Repeat4PacketsReserve(32);
+            return ByteUtils.Repeat4MidiPacketsReserve(32);
         }
     }
 }

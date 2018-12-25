@@ -66,7 +66,7 @@ namespace JD_XI_Editor.Models.Patches.Program
             bytes.AddRange(ByteUtils.RepeatReserve(4));
 
             bytes.Add((byte) Level);
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Tempo * 100, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Tempo * 100, ByteUtils.Offset.None));
             bytes.Add(0x00); // Reserve
 
             if (VocalEffectType != Type.Off)

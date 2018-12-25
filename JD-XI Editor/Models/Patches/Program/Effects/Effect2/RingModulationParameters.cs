@@ -45,11 +45,11 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Frequency));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Sensitivity));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(DryWetBalance));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Frequency));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Sensitivity));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(DryWetBalance));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(28));
 
             return bytes.ToArray();
         }

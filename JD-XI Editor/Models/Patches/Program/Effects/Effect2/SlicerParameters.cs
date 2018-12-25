@@ -48,11 +48,11 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) TimingPattern));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Note));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Attack));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(TriggerLevel));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) TimingPattern));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Attack));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(TriggerLevel));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
 
             var reserve = new byte[] {0x00, 0x00, 0x80, 0x00};
             for (var i = 0; i < 27; i++) bytes.AddRange(reserve);

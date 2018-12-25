@@ -47,11 +47,11 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Time));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) HfDamp));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(20));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Time));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) HfDamp));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(20));
 
             return bytes.ToArray();
         }
