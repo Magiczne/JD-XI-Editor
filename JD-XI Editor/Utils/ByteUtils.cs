@@ -14,6 +14,14 @@ namespace JD_XI_Editor.Utils
         {
             return (byte) (value ? 0x1 : 0x0);
         }
+        
+        /// <summary>
+        ///     Parse byte to boolean
+        /// </summary>
+        public static bool ByteToBoolean(byte value)
+        {
+            return value > 0x00;
+        }
 
         /// <summary>
         ///     Generate reserve block
