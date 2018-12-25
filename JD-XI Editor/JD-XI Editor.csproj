@@ -99,6 +99,7 @@
     <Compile Include="Controls\ExternalHyperlink.cs" />
     <Compile Include="Events\InputDeviceChangedEventArgs.cs" />
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
+    <Compile Include="Exceptions\InvalidDumpSizeException.cs" />
     <Compile Include="Exceptions\PatchNotConvertibleIntoBytes.cs" />
     <Compile Include="Managers\Abstract\IProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />

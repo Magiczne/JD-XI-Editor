@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -43,7 +45,16 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                //TODO: Maybe check for sysExLength here and throw error if something is not quite right
+                var expectedLength = BitConverter.IsLittleEndian
+                    ? BitConverter.ToInt32(SysExMessageLength.Reverse().ToArray(), 0)
+                    : BitConverter.ToInt32(SysExMessageLength.ToArray(), 0);
+                var actualLength = args.Message.Length - SysExUtils.DumpPaddingSize;
+
+                if (actualLength != expectedLength)
+                {
+                    throw new InvalidDumpSizeException(expectedLength, actualLength);
+                }
+
                 DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(Patch.FromSysEx(args.Message)));
             };
     

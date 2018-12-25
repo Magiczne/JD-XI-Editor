@@ -47,6 +47,13 @@ namespace JD_XI_Editor.Utils
         };
 
         /// <summary>
+        ///     Size of the header and footer in the dump packet received from JD-XI
+        ///     12 bytes from header and address offset at the start of sysex message
+        ///     2 bytes from checksum and 0xF7 at the end of sysex message
+        /// </summary>
+        public const int DumpPaddingSize = 14;
+
+        /// <summary>
         ///     Calculates the checksum for the event data
         /// </summary>
         /// <param name="addressOffset">Address offset</param>
@@ -63,6 +70,7 @@ namespace JD_XI_Editor.Utils
             return (byte) checksum;
         }
 
+        //TODO: Unify that methods into one
         /// <summary>
         ///     Get sysex data for patch data and offset
         /// </summary>
@@ -97,6 +105,7 @@ namespace JD_XI_Editor.Utils
             return bytes.ToArray();
         }
 
+        //TODO: Unify methods into one
         /// <summary>
         ///     Get sysex message for specified patch data
         /// </summary>
