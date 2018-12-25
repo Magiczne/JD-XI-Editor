@@ -13,15 +13,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
 {
     internal class Patch : PropertyChangedBase, IPatch
     {
-        #region Fields
-
-        /// <summary>
-        ///     Patch name
-        /// </summary>
-        private string _name;
-
-        #endregion
-
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of AnalogPatch
@@ -214,19 +205,7 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// <summary>
         ///     Patch name
         /// </summary>
-        /// TODO(magiczne): Take use of Fody.PropertyChanged
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    NotifyOfPropertyChange(nameof(Name));
-                }
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         ///     LFO
