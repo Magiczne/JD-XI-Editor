@@ -66,8 +66,7 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Get sysex data for patch data and offset
         /// </summary>
-        /// TODO: Change parameters order
-        public static byte[] GetSysexData(byte[] patchData, byte[] addressOffset)
+        public static byte[] GetSysexData(byte[] addressOffset, byte[] patchData)
         {
             var bytes = new List<byte>();
 
@@ -101,10 +100,9 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Get sysex message for specified patch data
         /// </summary>
-        /// TODO: Change parameters order
-        public static SysExMessage GetMessage(byte[] patchData, byte[] addressOffset)
+        public static SysExMessage GetMessage(byte[] addressOffset, byte[] patchData)
         {
-            return new SysExMessage(GetSysexData(patchData, addressOffset));
+            return new SysExMessage(GetSysexData(addressOffset, patchData));
         }
 
         /// <summary>

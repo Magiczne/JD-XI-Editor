@@ -35,9 +35,9 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(vfxPatch.Common.GetBytes(), CommonOffset));
-                output.Send(SysExUtils.GetMessage(vfxPatch.VocalEffect.GetBytes(), VocalEffectsOffset));
-                output.Send(SysExUtils.GetMessage(new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }, AutoNoteOffset));
+                output.Send(SysExUtils.GetMessage(CommonOffset, vfxPatch.Common.GetBytes()));
+                output.Send(SysExUtils.GetMessage(VocalEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
+                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }));
             }
         }
 
@@ -52,7 +52,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(common.GetBytes(), CommonOffset));
+                output.Send(SysExUtils.GetMessage(CommonOffset, common.GetBytes()));
             }
         }
 
@@ -61,7 +61,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(vocalFx.GetBytes(), VocalEffectsOffset));
+                output.Send(SysExUtils.GetMessage(VocalEffectsOffset, vocalFx.GetBytes()));
             }
         }
 
@@ -70,7 +70,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(new[] { ByteUtils.BooleanToByte(value) }, AutoNoteOffset));
+                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(value) }));
             }
         }
     }

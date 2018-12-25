@@ -20,7 +20,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(patch.GetBytes(), EffectOffset(effect)));
+                output.Send(SysExUtils.GetMessage(EffectOffset(effect), patch.GetBytes()));
             }
         }
 
@@ -31,11 +31,11 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(effectPatch.Effect1.GetBytes(), EffectOffset(Effect.Effect1)));
-                output.Send(SysExUtils.GetMessage(effectPatch.Effect2.GetBytes(), EffectOffset(Effect.Effect2)));
+                output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Effect1), effectPatch.Effect1.GetBytes()));
+                output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Effect2), effectPatch.Effect2.GetBytes()));
 
-                output.Send(SysExUtils.GetMessage(effectPatch.Delay.GetBytes(), EffectOffset(Effect.Delay)));
-                output.Send(SysExUtils.GetMessage(effectPatch.Reverb.GetBytes(), EffectOffset(Effect.Reverb)));
+                output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Delay), effectPatch.Delay.GetBytes()));
+                output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Reverb), effectPatch.Reverb.GetBytes()));
             }
         }
 

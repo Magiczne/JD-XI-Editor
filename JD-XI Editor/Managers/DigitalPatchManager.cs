@@ -56,16 +56,13 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(digitalPatch.Common.GetBytes(), CommonAddressOffset));
+                output.Send(SysExUtils.GetMessage(CommonAddressOffset, digitalPatch.Common.GetBytes()));
 
-                output.Send(SysExUtils.GetMessage(digitalPatch.PartialOne.GetBytes(),
-                    PartialAddressOffset(DigitalPartial.First)));
-                output.Send(SysExUtils.GetMessage(digitalPatch.PartialTwo.GetBytes(),
-                    PartialAddressOffset(DigitalPartial.Second)));
-                output.Send(SysExUtils.GetMessage(digitalPatch.PartialThree.GetBytes(),
-                    PartialAddressOffset(DigitalPartial.Third)));
+                output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.First), digitalPatch.PartialOne.GetBytes()));
+                output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.Second), digitalPatch.PartialTwo.GetBytes()));
+                output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.Third), digitalPatch.PartialThree.GetBytes()));
 
-                output.Send(SysExUtils.GetMessage(digitalPatch.Modifiers.GetBytes(), ModifiersAddressOffset));
+                output.Send(SysExUtils.GetMessage(ModifiersAddressOffset, digitalPatch.Modifiers.GetBytes()));
             }
         }
 
@@ -80,7 +77,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(common.GetBytes(), CommonAddressOffset));
+                output.Send(SysExUtils.GetMessage(CommonAddressOffset, common.GetBytes()));
             }
         }
 
@@ -89,7 +86,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(partial.GetBytes(), PartialAddressOffset(partialNumber)));
+                output.Send(SysExUtils.GetMessage(PartialAddressOffset(partialNumber), partial.GetBytes()));
             }
         }
 
@@ -98,7 +95,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(modifiers.GetBytes(), ModifiersAddressOffset));
+                output.Send(SysExUtils.GetMessage(ModifiersAddressOffset, modifiers.GetBytes()));
             }
         }
 

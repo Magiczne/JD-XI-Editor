@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(analogPatch.GetBytes(), AddressOffset));
+                output.Send(SysExUtils.GetMessage(AddressOffset, analogPatch.GetBytes()));
             }
         }
 
