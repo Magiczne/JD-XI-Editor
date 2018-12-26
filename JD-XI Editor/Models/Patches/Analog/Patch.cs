@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 using Sanford.Multimedia.Midi;
@@ -78,8 +79,6 @@ namespace JD_XI_Editor.Models.Patches.Analog
         /// </summary>
         public void CopyFrom(SysExMessage message)
         {
-            //TODO: validate length
-
             /** 
              * 12   -> SysEx header & address offset
              * 13   -> Tone Name(12) + Reserve(1)
@@ -93,22 +92,24 @@ namespace JD_XI_Editor.Models.Patches.Analog
              * 1    -> Footer (0xF7)
              */
 
-            var bytes = message.GetBytes().Skip(12).ToArray();
+            var data = message.GetBytes().Skip(12).ToArray();
 
-            Name = Encoding.ASCII.GetString(bytes.Take(12).ToArray());
+            if (data.Length - 2 != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
 
-            Lfo.CopyFrom(bytes.Skip(13).Take(9).ToArray());
-            Oscillator.CopyFrom(bytes.Skip(22).Take(10).ToArray());
-            Filter.CopyFrom(bytes.Skip(32).Take(10).ToArray());
-            Amplifier.CopyFrom(bytes.Skip(42).Take(7).ToArray());
-            Common.CopyFrom(bytes.Skip(49).Take(7).ToArray());
-            LfoModControl.CopyFrom(bytes.Skip(56).Take(8).ToArray());
+            Name = Encoding.ASCII.GetString(data.Take(12).ToArray());
+
+            Lfo.CopyFrom(data.Skip(13).Take(9).ToArray());
+            Oscillator.CopyFrom(data.Skip(22).Take(10).ToArray());
+            Filter.CopyFrom(data.Skip(32).Take(10).ToArray());
+            Amplifier.CopyFrom(data.Skip(42).Take(7).ToArray());
+            Common.CopyFrom(data.Skip(49).Take(7).ToArray());
+            LfoModControl.CopyFrom(data.Skip(56).Take(8).ToArray());
         }
 
-        /// <summary>
-        ///     Get patch byte data
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -130,6 +131,11 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #region Properies
+
+        /// <summary>
+        ///     Expected Dump Length
+        /// </summary>
+        public int DumpLength { get; } = 64;
 
         /// <summary>
         ///     Patch name
