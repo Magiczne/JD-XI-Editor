@@ -14,6 +14,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Reset();
         }
 
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
+
         public string Name { get; set; }
 
         /// <inheritdoc />
@@ -33,6 +37,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

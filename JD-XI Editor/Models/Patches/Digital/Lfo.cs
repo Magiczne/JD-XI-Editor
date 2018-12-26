@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Utils;
 
@@ -54,6 +55,26 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Shape = (LfoShape) data[0];
+            Rate = data[1];
+            TempoSync = ByteUtils.ByteToBoolean(data[2]);
+            SyncNote = (SyncNote) data[3];
+            FadeTime = data[4];
+            KeyTrigger = ByteUtils.ByteToBoolean(data[5]);
+            PitchDepth = data[6] - 64;
+            FilterDepth = data[7] - 64;
+            AmpDepth = data[8] - 64;
+            PanDepth = data[9] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -72,6 +93,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 10;
 
         /// <summary>
         ///     LFO shape

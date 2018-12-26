@@ -43,6 +43,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -57,6 +63,10 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public override int DumpLength { get; }
 
         /// <summary>
         ///     Type

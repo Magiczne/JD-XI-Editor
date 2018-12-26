@@ -42,6 +42,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -56,6 +62,10 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public override int DumpLength { get; }
 
         /// <summary>
         ///     Fuzz Type

@@ -37,6 +37,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]
@@ -48,6 +54,10 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Is delay on

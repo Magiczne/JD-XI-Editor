@@ -55,6 +55,12 @@ namespace JD_XI_Editor.Models.Patches.Program
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -85,6 +91,10 @@ namespace JD_XI_Editor.Models.Patches.Program
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Program Name

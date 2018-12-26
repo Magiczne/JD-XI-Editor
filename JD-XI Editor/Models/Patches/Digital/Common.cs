@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Utils;
 
@@ -84,6 +86,63 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            /**
+             * 12   -> SysEx header & address offset
+             * 12   -> Patch name
+             * 1    -> Tone level
+             * 5    -> Reserve
+             * 6    -> Portamento, Mono, OctaveShift, Pitch Bend
+             * 1    -> Reserve
+             * 6    -> Partial switches
+             * 1    -> Ring
+             * 14   -> Reserve
+             * 1    -> Unison
+             * 2    -> Reserve
+             * 2    -> Portamento mode, Legato
+             * 1    -> Reserve,
+             * 3    -> AnalogFeel, WaveShape, Tone Category
+             * 5    -> Reserve
+             * 1    -> Unison Size
+             * 3    -> Reserve
+             */
+
+            Name = Encoding.ASCII.GetString(data.Take(12).ToArray());
+            ToneLevel = data[12];
+            Portamento = ByteUtils.ByteToBoolean(data[18]);
+            PortamentoTime = data[19];
+            Mono = ByteUtils.ByteToBoolean(data[20]);
+            OctaveShift = data[21] - 64;
+            PitchBendRangeUp = data[22];
+            PitchBendRangeDown = data[23];
+
+            PartialOneSwitch = ByteUtils.ByteToBoolean(data[25]);
+            PartialOneSelect = ByteUtils.ByteToBoolean(data[26]);
+            PartialTwoSwitch = ByteUtils.ByteToBoolean(data[27]);
+            PartialTwoSelect = ByteUtils.ByteToBoolean(data[28]);
+            PartialThreeSwitch = ByteUtils.ByteToBoolean(data[29]);
+            PartialThreeSelect = ByteUtils.ByteToBoolean(data[30]);
+
+            Ring = ByteUtils.ByteToBoolean(data[31]);
+            Unison = ByteUtils.ByteToBoolean(data[46]);
+
+            PortamentoMode = (PortamentoMode)data[49];
+            Legato = ByteUtils.ByteToBoolean(data[50]);
+
+            AnalogFeel = data[52];
+            WaveShape = data[53];
+            ToneCategory = (Category)data[54];
+
+            UnisonSize = (UnisonSize) data[60];
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -142,6 +201,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 64;
 
         /// <summary>
         ///     Patch name

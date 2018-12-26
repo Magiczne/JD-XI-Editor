@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 
 namespace JD_XI_Editor.Models.Patches.Analog
 {
@@ -40,6 +41,20 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            PitchModControl = data[0] - 64;
+            FilterModControl = data[1] - 64;
+            AmpModControl = data[2] - 64;
+            RateModControl = data[3] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -47,11 +62,17 @@ namespace JD_XI_Editor.Models.Patches.Analog
                 (byte) (PitchModControl + 64),
                 (byte) (FilterModControl + 64),
                 (byte) (AmpModControl + 64),
-                (byte) (RateModControl + 64)
+                (byte) (RateModControl + 64),
+                (byte) 0x00,    // Reserve
+                (byte) 0x00,    // Reserve
+                (byte) 0x00,    // Reserve
+                (byte) 0x00     // Reserve
             };
         }
 
         #region Properties
+
+        public int DumpLength { get; } = 8;
 
         /// <summary>
         ///     Pitch modulation control

@@ -54,6 +54,7 @@ namespace JD_XI_Editor.ViewModels
         /// <inheritdoc />
         public override void Read()
         {
+            //TODO: Exception handling
             if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
                 PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
         }

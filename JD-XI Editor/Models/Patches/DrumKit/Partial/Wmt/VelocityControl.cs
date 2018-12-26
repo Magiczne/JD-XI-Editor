@@ -12,6 +12,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
             Reset();
         }
 
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
+
         /// <summary>
         ///     Velocity control
         /// </summary>
@@ -34,6 +38,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

@@ -80,6 +80,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -121,6 +127,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Switch

@@ -43,6 +43,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -56,6 +62,10 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Effect Type

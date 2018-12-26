@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Timers;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
@@ -38,10 +38,14 @@ namespace JD_XI_Editor.Managers
         public void Read(int inputDeviceId, int outputDeviceId)
         {
             var device = new InputDevice(inputDeviceId);
+            var timer = new Timer(1500);
 
             // Setup event handler for receiving SysEx messages
             device.SysExMessageReceived += (sender, args) =>
             {
+                timer.Stop();
+                timer.Dispose();
+
                 device.StopRecording();
                 device.Dispose();
 
@@ -53,7 +57,18 @@ namespace JD_XI_Editor.Managers
                     throw new InvalidDumpSizeException(expectedLength, actualLength);
                 }
 
-                DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(Patch.FromSysEx(args.Message)));
+                DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(args.Message)));
+            };
+
+            timer.Elapsed += (sender, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+
+                device.StopRecording();
+                device.Dispose();
+
+                throw new TimeoutException("Read data operation timeout");
             };
     
             // Start recording input from device
@@ -63,6 +78,7 @@ namespace JD_XI_Editor.Managers
             using (var output = new OutputDevice(outputDeviceId))
             {
                 output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, SysExMessageLength));
+                timer.Start();
             }
         }
     }

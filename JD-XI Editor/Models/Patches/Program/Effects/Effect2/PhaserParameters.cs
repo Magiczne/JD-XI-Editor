@@ -49,6 +49,12 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -66,6 +72,10 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public override int DumpLength { get; }
 
         /// <summary>
         ///     Mode

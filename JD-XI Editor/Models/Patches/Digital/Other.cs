@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
+using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Digital
 {
@@ -46,15 +49,32 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            WaveGain = (WaveGain) data[0];
+            WaveNumber = (PcmWave) ByteUtils.NumberFrom4MidiPackets(data.Skip(1).Take(4).ToArray());
+            HpfCutoff = data[5];
+            SuperSawDetune = data[6];
+            ModLfoRateControl = data[7] - 64;
+            AmpLevelKeyfollow = (data[8] - 64) * 10;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
+            //TODO: Wave number using ByteUtils.To4Packets
             return new[]
             {
                 (byte) WaveGain,
                 (byte) (((int) WaveNumber >> 12) & 0xF),
                 (byte) (((int) WaveNumber >> 8) & 0xF),
                 (byte) (((int) WaveNumber >> 4) & 0xF),
-                (byte) ((int) WaveNumber & 0xF), //Wave number splitted
+                (byte) ((int) WaveNumber & 0xF),
                 (byte) HpfCutoff,
                 (byte) SuperSawDetune,
                 (byte) (ModLfoRateControl + 64),
@@ -63,6 +83,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 9;
 
         /// <summary>
         ///     Wave gain

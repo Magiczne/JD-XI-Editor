@@ -43,6 +43,12 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -55,7 +61,11 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             };
         }
 
-        #region MyRegion
+        #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Level

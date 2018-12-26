@@ -22,6 +22,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         [DoNotNotify]
         public Envelope Envelope { get; }
 
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
+
+
         /// <inheritdoc />
         public void Reset()
         {
@@ -52,6 +58,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

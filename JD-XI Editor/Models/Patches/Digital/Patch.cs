@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using PropertyChanged;
+using Sanford.Multimedia.Midi;
 
+//TODO: Partials as array
 namespace JD_XI_Editor.Models.Patches.Digital
 {
     internal class Patch : PropertyChangedBase, IPatch
@@ -24,6 +27,15 @@ namespace JD_XI_Editor.Models.Patches.Digital
             PartialTwo.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(PartialTwo));
             PartialThree.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(PartialThree));
             Modifiers.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Modifiers));
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Patch using sysex dumps
+        /// </summary>
+        public Patch(SysExMessage common, SysExMessage[] partials, SysExMessage modifiers) : this()
+        {
+            CopyFrom(common, partials, modifiers);
         }
 
         /// <inheritdoc />
@@ -51,6 +63,30 @@ namespace JD_XI_Editor.Models.Patches.Digital
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
+        }
+
+        /// <summary>
+        ///     Copy data from sysex dumps
+        /// </summary>
+        /// <param name="common">Common sysex message</param>
+        /// <param name="partials">SysEx messages </param>
+        /// <param name="modifiers"></param>
+        public void CopyFrom(SysExMessage common, SysExMessage[] partials, SysExMessage modifiers)
+        {
+            // Skipping 12 bytes from front because it's header and address offset
+            // Skipping 2 bytes from end because it's checksum and sysex footer
+
+            var commonBytes = common.GetBytes().Skip(12).ToArray();
+            var partialsBytes = partials.Select(partial => partial.GetBytes().Skip(12).ToArray()).ToArray();
+            var modifiersBytes = modifiers.GetBytes().Skip(12).ToArray();
+
+            Common.CopyFrom(commonBytes.Take(commonBytes.Length - 2).ToArray());
+
+            PartialOne.CopyFrom(partialsBytes[0].Take(partialsBytes[0].Length - 2).ToArray());
+            PartialTwo.CopyFrom(partialsBytes[1].Take(partialsBytes[1].Length - 2).ToArray());
+            PartialThree.CopyFrom(partialsBytes[2].Take(partialsBytes[2].Length - 2).ToArray());
+
+            Modifiers.CopyFrom(modifiersBytes.Take(modifiersBytes.Length - 2).ToArray());
         }
 
         /// <inheritdoc />

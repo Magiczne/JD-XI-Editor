@@ -59,6 +59,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             throw new PatchNotConvertibleIntoBytes();
@@ -67,6 +73,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         #endregion
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Depth

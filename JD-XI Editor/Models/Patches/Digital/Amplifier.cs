@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Digital
@@ -44,6 +45,23 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Level = data[0];
+            LevelVelSensitivity = data[1] - 64;
+            Envelope.Attack = data[2];
+            Envelope.Decay = data[3];
+            Envelope.Sustain = data[4];
+            Envelope.Release = data[5];
+            Panorama = data[6] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -59,6 +77,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 7;
 
         /// <summary>
         ///     Level

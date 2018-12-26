@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Timers;
+using System.Windows;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -69,7 +72,92 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Read(int inputDeviceId, int outputDeviceId)
         {
-            throw new NotImplementedException();
+            var device = new InputDevice(inputDeviceId);
+            var timer = new Timer(5000);
+
+            var commonDumpLength = ByteUtils.ToInt32(CommonSysExMessageLength) + SysExUtils.DumpPaddingSize;
+            var partialDumpLength = ByteUtils.ToInt32(PartialSysExMessageLength) + SysExUtils.DumpPaddingSize;
+            var modsDumpLength = ByteUtils.ToInt32(ModifiersSysExMessageLength) + SysExUtils.DumpPaddingSize;
+
+            SysExMessage common = null;
+            var partials = new SysExMessage[] {null, null, null};
+            SysExMessage modifiers = null;
+
+            var dumpCount = 0;
+
+            device.SysExMessageReceived += (sender, args) =>
+            {
+                if (args.Message.Length == commonDumpLength)
+                {
+                    common = args.Message;
+                }
+                else if (args.Message.Length == partialDumpLength)
+                {
+                    // At 11 byte we have partial number, so we check value at that byte
+                    var partial = (DigitalPartial) args.Message[10];
+
+                    switch (partial)
+                    {
+                        case DigitalPartial.First:
+                            partials[0] = args.Message;
+                            break;
+
+                        case DigitalPartial.Second:
+                            partials[1] = args.Message;
+
+                            break;
+                        case DigitalPartial.Third:
+                            partials[2] = args.Message;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else if (args.Message.Length == modsDumpLength)
+                {
+                    modifiers = args.Message;
+                }
+
+                dumpCount++;
+
+                if (dumpCount == 5)
+                {
+                    timer.Stop();
+                    timer.Dispose();
+
+                    device.StopRecording();
+                    device.Dispose();
+
+                    DataDumpReceived?.Invoke(this, new DigitalPatchDumpReceivedEventArgs(new Patch(common, partials, modifiers)));
+                }
+            };
+
+            timer.Elapsed += (sender, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+
+                device.StopRecording();   
+                device.Dispose();
+
+                throw new TimeoutException("Read data operation timeout");
+            };
+
+            // Start recording input from device
+            device.StartRecording();
+
+            // Request data dump from device
+            using (var output = new OutputDevice(outputDeviceId))
+            {
+                output.Send(SysExUtils.GetRequestDumpMessage(CommonAddressOffset, CommonSysExMessageLength));
+                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.First), PartialSysExMessageLength));
+                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Second), PartialSysExMessageLength));
+                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third), PartialSysExMessageLength));
+                output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, ModifiersSysExMessageLength));
+
+                timer.Start();
+            }
         }
 
         /// <inheritdoc />

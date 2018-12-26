@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Digital;
 using PropertyChanged;
 
@@ -53,6 +54,27 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Type = (FilterType) data[0];
+            Slope = (FilterSlope) data[1];
+            Cutoff = data[2];
+            CutoffKeyfollow = (data[3] - 64) * 10;
+            EnvelopeVelocitySensitivity = data[4] - 64;
+            Resonance = data[5];
+            Envelope.Attack = data[6];
+            Envelope.Decay = data[7];
+            Envelope.Sustain = data[8];
+            Envelope.Release = data[9];
+            EnvelopeDepth = data[10] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -72,6 +94,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 11;
 
         /// <summary>
         ///     Filter type

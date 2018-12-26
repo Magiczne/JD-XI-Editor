@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Utils;
@@ -48,6 +49,30 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            /**
+             * 12   -> SysEx header & address offset
+             * 1    -> Reserve
+             * 3    -> TimeIntervalSensitivities
+             * 2    -> Envelope Loop
+             * 1    -> Chromatic Portamento
+             */
+
+            AttackTimeIntervalSensitivity = data[1];
+            ReleaseTimeIntervalSensitivity = data[2];
+            PortamentoTimeIntervalSensitivity = data[3];
+            EnvelopeLoopMode = (EnvelopeLoopMode)data[4];
+            EnvelopeLoopSyncNote = (SyncNote)data[5];
+            ChromaticPortamento = ByteUtils.ByteToBoolean(data[6]);
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>(new[]
@@ -67,6 +92,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 37;
 
         /// <summary>
         ///     Attack Time Interval Sensitivity

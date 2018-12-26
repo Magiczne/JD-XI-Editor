@@ -2,6 +2,7 @@
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
@@ -23,6 +24,7 @@ namespace JD_XI_Editor.ViewModels.Digital
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);
 
+            //TODO: AutoSync not working
             PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
@@ -60,6 +62,12 @@ namespace JD_XI_Editor.ViewModels.Digital
                 if (args.PropertyName == nameof(Modifiers))
                     NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is DigitalPatchDumpReceivedEventArgs eventArgs)
+                    Patch.CopyFrom(eventArgs.Patch);
+            };
         }
 
         #region Properties
@@ -83,6 +91,7 @@ namespace JD_XI_Editor.ViewModels.Digital
         /// <inheritdoc />
         public override void Read()
         {
+            //TODO: Exception handling
             if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
                 PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
         }
