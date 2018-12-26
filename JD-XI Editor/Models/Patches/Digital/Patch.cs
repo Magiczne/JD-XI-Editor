@@ -5,21 +5,21 @@ using JD_XI_Editor.Exceptions;
 using PropertyChanged;
 using Sanford.Multimedia.Midi;
 
-//TODO: Partials as array
 namespace JD_XI_Editor.Models.Patches.Digital
 {
     internal class Patch : PropertyChangedBase, IPatch
     {
+        private readonly Partial[] _partials;
+
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of Patch
         /// </summary>
         public Patch()
         {
+            _partials = new[] { new Partial(), new Partial(), new Partial() };
+
             Common = new Common();
-            PartialOne = new Partial();
-            PartialTwo = new Partial();
-            PartialThree = new Partial();
             Modifiers = new Modifiers();
 
             Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
@@ -82,9 +82,10 @@ namespace JD_XI_Editor.Models.Patches.Digital
 
             Common.CopyFrom(commonBytes.Take(commonBytes.Length - 2).ToArray());
 
-            PartialOne.CopyFrom(partialsBytes[0].Take(partialsBytes[0].Length - 2).ToArray());
-            PartialTwo.CopyFrom(partialsBytes[1].Take(partialsBytes[1].Length - 2).ToArray());
-            PartialThree.CopyFrom(partialsBytes[2].Take(partialsBytes[2].Length - 2).ToArray());
+            for (var i = 0; i < _partials.Length; i++)
+            {
+                _partials[i].CopyFrom(partialsBytes[i].Take(partialsBytes[i].Length - 2).ToArray());
+            }
 
             Modifiers.CopyFrom(modifiersBytes.Take(modifiersBytes.Length - 2).ToArray());
         }
@@ -107,19 +108,19 @@ namespace JD_XI_Editor.Models.Patches.Digital
         ///     Partial #1
         /// </summary>
         [DoNotNotify]
-        public Partial PartialOne { get; }
+        public Partial PartialOne => _partials[0];
 
         /// <summary>
         ///     Partial #2
         /// </summary>
         [DoNotNotify]
-        public Partial PartialTwo { get; }
+        public Partial PartialTwo => _partials[1];
 
         /// <summary>
         ///     Partial #3
         /// </summary>
         [DoNotNotify]
-        public Partial PartialThree { get; }
+        public Partial PartialThree => _partials[2];
 
         /// <summary>
         ///     Modifiers
