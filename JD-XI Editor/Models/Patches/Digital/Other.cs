@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
@@ -67,19 +68,20 @@ namespace JD_XI_Editor.Models.Patches.Digital
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            //TODO: Wave number using ByteUtils.To4Packets
-            return new[]
+            var bytes = new List<byte>
             {
-                (byte) WaveGain,
-                (byte) (((int) WaveNumber >> 12) & 0xF),
-                (byte) (((int) WaveNumber >> 8) & 0xF),
-                (byte) (((int) WaveNumber >> 4) & 0xF),
-                (byte) ((int) WaveNumber & 0xF),
+                (byte) WaveGain
+            };
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) WaveNumber, ByteUtils.Offset.None));
+            bytes.AddRange(new byte[]
+            {
                 (byte) HpfCutoff,
                 (byte) SuperSawDetune,
                 (byte) (ModLfoRateControl + 64),
                 (byte) (AmpLevelKeyfollow / 10 + 64)
-            };
+            });
+
+            return bytes.ToArray();
         }
 
         #region Properties
