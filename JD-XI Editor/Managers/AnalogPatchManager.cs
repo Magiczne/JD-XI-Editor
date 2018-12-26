@@ -45,9 +45,7 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                var expectedLength = BitConverter.IsLittleEndian
-                    ? BitConverter.ToInt32(SysExMessageLength.Reverse().ToArray(), 0)
-                    : BitConverter.ToInt32(SysExMessageLength.ToArray(), 0);
+                var expectedLength = ByteUtils.ToInt32(SysExMessageLength);
                 var actualLength = args.Message.Length - SysExUtils.DumpPaddingSize;
 
                 if (actualLength != expectedLength)

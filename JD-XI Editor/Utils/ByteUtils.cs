@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BitConverter = System.BitConverter;
 
 namespace JD_XI_Editor.Utils
 {
@@ -93,6 +94,24 @@ namespace JD_XI_Editor.Utils
             for (var i = 0; i < count; i++) bytes.AddRange(value);
 
             return bytes.ToArray();
+        }
+
+        #endregion
+
+        #region BitConverter Utils
+
+        /// <summary>
+        ///     Wrapper for <see cref="BitConverter.ToInt32">BitConverter.ToInt32</see>
+        ///     To automatically check for system endianness.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        public static int ToInt32(byte[] value, int startIndex = 0)
+        {
+            return BitConverter.IsLittleEndian
+                ? BitConverter.ToInt32(value.Reverse().ToArray(), 0)
+                : BitConverter.ToInt32(value, 0);
         }
 
         #endregion
