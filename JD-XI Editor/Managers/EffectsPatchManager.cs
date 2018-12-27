@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
-using System.Windows;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
@@ -59,16 +58,13 @@ namespace JD_XI_Editor.Managers
                 // At 11 byte we have effect type, so we check value there
                 var effect = (Effect) args.Message[10];
 
-                MessageBox.Show($"Reading: {effect.ToString()}");
-
                 switch (effect)
                 {
                     case Effect.Effect1:
                     case Effect.Effect2:
                     case Effect.Delay:
                     case Effect.Reverb:
-                        var expectedDumpLength = ByteUtils.ToInt32(EffectSysExMessageLength(effect)) +
-                                                 SysExUtils.DumpPaddingSize;
+                        var expectedDumpLength = ExpectedDumpLength(effect) + SysExUtils.DumpPaddingSize;
                         var actualDumpLength = args.Message.Length;
 
                         if (actualDumpLength != expectedDumpLength)
@@ -115,14 +111,14 @@ namespace JD_XI_Editor.Managers
             using (var output = new OutputDevice(outputDeviceId))
             {
                 output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1),
-                    EffectSysExMessageLength(Effect.Effect1)));
+                    EffectDumpRequest(Effect.Effect1)));
                 output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2),
-                    EffectSysExMessageLength(Effect.Effect2)));
+                    EffectDumpRequest(Effect.Effect2)));
 
                 output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay),
-                    EffectSysExMessageLength(Effect.Delay)));
+                    EffectDumpRequest(Effect.Delay)));
                 output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb),
-                    EffectSysExMessageLength(Effect.Reverb)));
+                    EffectDumpRequest(Effect.Reverb)));
 
                 timer.Start();
             }
@@ -131,15 +127,12 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Offset for specified effect
         /// </summary>
-        private static byte[] EffectOffset(Effect effect)
-        {
-            return new byte[] {0x18, 0x00, (byte) effect, 0x00};
-        }
+        private static byte[] EffectOffset(Effect effect) => new byte[] {0x18, 0x00, (byte) effect, 0x00};
 
         /// <summary>
         ///     SysEx message length
         /// </summary>
-        private static byte[] EffectSysExMessageLength(Effect effect)
+        private byte[] EffectDumpRequest(Effect effect)
         {
             switch (effect)
             {
@@ -152,6 +145,28 @@ namespace JD_XI_Editor.Managers
 
                 case Effect.Reverb:
                     return new byte[] {0x00, 0x00, 0x00, 0x63};
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(effect), effect, null);
+            }
+        }
+
+        /// <summary>
+        ///     Expected dump length
+        /// </summary>
+        private int ExpectedDumpLength(Effect effect)
+        {
+            switch (effect)
+            {
+                case Effect.Effect1:
+                case Effect.Effect2:
+                    return 145;
+
+                case Effect.Delay:
+                    return 100;
+
+                case Effect.Reverb:
+                    return 99;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(effect), effect, null);

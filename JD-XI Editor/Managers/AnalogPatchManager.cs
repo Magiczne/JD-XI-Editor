@@ -20,7 +20,12 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     SysEx message length
         /// </summary>
-        private static readonly byte[] SysExMessageLength = {0x00, 0x00, 0x00, 0x40};
+        private static readonly byte[] DumpRequest = {0x00, 0x00, 0x00, 0x40};
+
+        /// <summary>
+        ///     Expected Dump Length
+        /// </summary>
+        private const int ExpectedDumpLength = 64;
 
         /// <inheritdoc />
         public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
@@ -49,12 +54,11 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                var expectedLength = ByteUtils.ToInt32(SysExMessageLength);
                 var actualLength = args.Message.Length - SysExUtils.DumpPaddingSize;
 
-                if (actualLength != expectedLength)
+                if (actualLength != ExpectedDumpLength)
                 {
-                    throw new InvalidDumpSizeException(expectedLength, actualLength);
+                    throw new InvalidDumpSizeException(ExpectedDumpLength, actualLength);
                 }
 
                 DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(args.Message)));
@@ -77,7 +81,7 @@ namespace JD_XI_Editor.Managers
             // Request data dump from device
             using (var output = new OutputDevice(outputDeviceId))
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, SysExMessageLength));
+                output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, DumpRequest));
                 timer.Start();
             }
         }
