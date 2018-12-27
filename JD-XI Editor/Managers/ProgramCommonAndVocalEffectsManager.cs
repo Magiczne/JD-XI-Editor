@@ -69,7 +69,7 @@ namespace JD_XI_Editor.Managers
         public void Read(int inputDeviceId, int outputDeviceId)
         {
             var device = new InputDevice(inputDeviceId);
-            var timer = new Timer(1);
+            var timer = new Timer(2000);
 
             const int commonDumpLength = ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize;
             const int vfxDumpLength = ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize;
