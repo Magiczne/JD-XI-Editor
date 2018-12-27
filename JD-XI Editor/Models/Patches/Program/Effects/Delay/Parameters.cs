@@ -30,7 +30,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             TapTime = 50;
             Feedback = 50;
             HfDamp = HfDamp.Damp5000;
-            ReverbSendLevel = 0;
             Level = 0;
         }
 
@@ -46,7 +45,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
                 TapTime = p.TapTime;
                 Feedback = p.Feedback;
                 HfDamp = p.HfDamp;
-                ReverbSendLevel = p.ReverbSendLevel;
                 Level = p.Level;
             }
             else
@@ -70,6 +68,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
             TapTime = ByteUtils.NumberFrom4MidiPackets(data.Skip(16).Take(4).ToArray());
             Feedback = ByteUtils.NumberFrom4MidiPackets(data.Skip(20).Take(4).ToArray());
             HfDamp = (HfDamp) ByteUtils.NumberFrom4MidiPackets(data.Skip(24).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(28).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -94,11 +93,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
 
         /// <inheritdoc />
         public override int DumpLength { get; } = 96;
-
-        /// <summary>
-        ///     Threshold
-        /// </summary>
-        public int Threshold { get; set; }
 
         /// <summary>
         ///     Type
@@ -134,11 +128,6 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         ///     HF Damp
         /// </summary>
         public HfDamp HfDamp { get; set; }
-
-        /// <summary>
-        ///     Reverb Send Level
-        /// </summary>
-        public int ReverbSendLevel { get; set; }
 
         /// <summary>
         ///     Level

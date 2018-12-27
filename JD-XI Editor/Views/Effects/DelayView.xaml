@@ -140,7 +140,7 @@
                               ArcEndAngle="150" ArcStartAngle="-150"
                               Minimum="0" Maximum="127"
                               HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                              Value="{Binding Patch.Parameters.ReverbSendLevel}"
+                              Value="{Binding Patch.Basic.ReverbSendLevel}"
                               IsEnabled="{Binding Patch.Basic.On}" />
             <TextBlock Text="Reverb Send Level"
                        TextAlignment="Center"
