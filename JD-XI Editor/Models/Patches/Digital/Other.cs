@@ -58,7 +58,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
             }
 
             WaveGain = (WaveGain) data[0];
-            WaveNumber = (PcmWave) ByteUtils.NumberFrom4MidiPackets(data.Skip(1).Take(4).ToArray());
+            WaveNumber = (PcmWave) ByteUtils.NumberFrom4MidiPackets(data.Skip(1).Take(4).ToArray(), ByteUtils.Offset.None);
             HpfCutoff = data[5];
             SuperSawDetune = data[6];
             ModLfoRateControl = data[7] - 64;

@@ -49,7 +49,7 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Convert midi number packet consisting of four bytes to number
         /// </summary>
-        public static int NumberFrom4MidiPackets(byte[] packets)
+        public static int NumberFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
         {
             if (packets.Length != 4)
             {
@@ -57,6 +57,14 @@ namespace JD_XI_Editor.Utils
             }
 
             return packets[0] << 12 | packets[1] << 8 | packets[2] << 4 | packets[3];
+        }
+
+        /// <summary>
+        ///     Convert midi number packet consisting of four bytes to boolean
+        /// </summary>
+        public static bool BooleanFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
+        {
+            return NumberFrom4MidiPackets(packets) > 0;
         }
 
         /// <summary>
