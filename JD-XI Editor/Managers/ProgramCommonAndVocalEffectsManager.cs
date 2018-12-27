@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Timers;
+using System.Threading;
 using System.Windows;
+using Caliburn.Micro;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
@@ -67,7 +69,7 @@ namespace JD_XI_Editor.Managers
         public void Read(int inputDeviceId, int outputDeviceId)
         {
             var device = new InputDevice(inputDeviceId);
-            var timer = new Timer(2000);
+            var timer = new Timer(1);
 
             const int commonDumpLength = ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize;
             const int vfxDumpLength = ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize;
@@ -111,6 +113,7 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
+                // TODO: FIXME: It is throwing in another thread. 
                 throw new TimeoutException("Read data operation timeout");
             };
 

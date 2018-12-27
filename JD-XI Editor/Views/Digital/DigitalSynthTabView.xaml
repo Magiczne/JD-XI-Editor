@@ -8,7 +8,9 @@
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:cal="http://www.caliburnproject.org"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      dialogs:DialogParticipation.Register="{Binding}">
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
         <RowDefinition Height="165" />

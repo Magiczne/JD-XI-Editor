@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Abstract;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
@@ -11,10 +12,12 @@ namespace JD_XI_Editor.ViewModels.Abstract
         /// <summary>
         ///     Creates new instance of TabViewModel
         /// </summary>
-        protected PatchTabViewModel(IEventAggregator eventAggregator, IPatchManager patchManager)
+        protected PatchTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IPatchManager patchManager)
         {
             EventAggregator = eventAggregator;
             EventAggregator.Subscribe(this);
+
+            DialogCoordinator = dialogCoordinator;
 
             PatchManager = patchManager;
 
@@ -36,12 +39,34 @@ namespace JD_XI_Editor.ViewModels.Abstract
         /// </summary>
         public abstract void InitPatch();
 
+        #region Error handling
+
+        /// <summary>
+        ///     Show dialog with error message
+        /// </summary>
+        /// <param name="message">Message</param>
+        protected void ShowErrorMessage(string message)
+        {
+            DialogCoordinator.ShowMessageAsync(this, "Error", message, MessageDialogStyle.Affirmative, new MetroDialogSettings
+            {
+                AnimateHide = false,
+                AnimateShow = false
+            });
+        }
+
+        #endregion
+
         #region Fields
 
         /// <summary>
         ///     Event aggregator instance
         /// </summary>
         protected IEventAggregator EventAggregator;
+
+        /// <summary>
+        ///     Dialog coordinator instance
+        /// </summary>
+        protected IDialogCoordinator DialogCoordinator;
 
         /// <summary>
         ///     Patch manager
@@ -75,6 +100,7 @@ namespace JD_XI_Editor.ViewModels.Abstract
         public bool CanRead => SelectedInputDeviceId != -1;
 
         #endregion
+
 
         #region IHandle members
 

@@ -5,7 +5,9 @@
       xmlns:cal="http://www.caliburnproject.org"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
-      xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters">
+      xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
+      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      dialogs:DialogParticipation.Register="{Binding}">
     <Grid.Resources>
         <converters:BooleanOrConverter x:Key="BooleanOrConverter" />
     </Grid.Resources>
