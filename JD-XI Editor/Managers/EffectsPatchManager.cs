@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Timers;
+using System.Windows;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -42,7 +46,86 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Read(int inputDeviceId, int outputDeviceId)
         {
-            throw new NotImplementedException();
+            var device = new InputDevice(inputDeviceId);
+            var timer = new Timer(5000);
+
+            var dumpCount = 0;
+
+            var effects = new Dictionary<Effect, SysExMessage>();
+
+            // Setup event handler for receiving SysEx messages
+            device.SysExMessageReceived += (sender, args) =>
+            {
+                // At 11 byte we have effect type, so we check value there
+                var effect = (Effect) args.Message[10];
+
+                MessageBox.Show($"Reading: {effect.ToString()}");
+
+                switch (effect)
+                {
+                    case Effect.Effect1:
+                    case Effect.Effect2:
+                    case Effect.Delay:
+                    case Effect.Reverb:
+                        var expectedDumpLength = ByteUtils.ToInt32(EffectSysExMessageLength(effect)) +
+                                                 SysExUtils.DumpPaddingSize;
+                        var actualDumpLength = args.Message.Length;
+
+                        if (actualDumpLength != expectedDumpLength)
+                        {
+                            throw new InvalidDumpSizeException(expectedDumpLength, actualDumpLength);
+                        }
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                effects.Add(effect, args.Message);
+
+                dumpCount++;
+
+                if (dumpCount == 4)
+                {
+                    timer.Stop();
+                    timer.Dispose();
+
+                    device.StopRecording();
+                    device.Dispose();
+
+                    DataDumpReceived?.Invoke(this, new EffectsPatchDumpReceivedEventArgs(new Patch(effects)));
+                }
+            };
+
+            timer.Elapsed += (sender, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+
+                device.StopRecording();
+                device.Dispose();
+
+                throw new TimeoutException("Read data operation timeout");
+            };
+
+            // Start recording input from device
+            device.StartRecording();
+
+            // Request data dump from device
+            using (var output = new OutputDevice(outputDeviceId))
+            {
+                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1),
+                    EffectSysExMessageLength(Effect.Effect1)));
+                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2),
+                    EffectSysExMessageLength(Effect.Effect2)));
+
+                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay),
+                    EffectSysExMessageLength(Effect.Delay)));
+                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb),
+                    EffectSysExMessageLength(Effect.Reverb)));
+
+                timer.Start();
+            }
         }
 
         /// <summary>

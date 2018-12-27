@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 using Type = JD_XI_Editor.Models.Enums.Program.Effects.Fuzz.Type;
 
@@ -44,7 +46,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Drive = ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Type = (Type) ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Presence = ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -63,9 +73,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Fuzz Type

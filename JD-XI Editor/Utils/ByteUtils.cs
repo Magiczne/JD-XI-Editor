@@ -56,7 +56,7 @@ namespace JD_XI_Editor.Utils
                 throw new ArgumentException("Packet should have 4 bytes of length");
             }
 
-            return packets[0] << 12 | packets[1] << 8 | packets[2] << 4 | packets[3];
+            return (packets[0] << 12 | packets[1] << 8 | packets[2] << 4 | packets[3]) - (int) offset;
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace JD_XI_Editor.Utils
         /// </summary>
         public static bool BooleanFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
         {
-            return NumberFrom4MidiPackets(packets) > 0;
+            return NumberFrom4MidiPackets(packets) - (int) offset > 0;
         }
 
         /// <summary>

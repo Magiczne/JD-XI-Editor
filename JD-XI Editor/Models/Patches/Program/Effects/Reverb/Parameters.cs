@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Utils;
 using Type = JD_XI_Editor.Models.Enums.Program.Effects.Reverb.Type;
@@ -45,7 +47,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Type = (Type) ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Time = ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            HfDamp = (HfDamp) ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -64,9 +74,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 96;
 
         /// <summary>
         ///     Type

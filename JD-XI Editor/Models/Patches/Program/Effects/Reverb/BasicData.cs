@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
@@ -39,7 +40,13 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+            Level = data[1];
         }
 
         /// <inheritdoc />
@@ -55,9 +62,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 3;
 
         /// <summary>
         ///     Is delay on

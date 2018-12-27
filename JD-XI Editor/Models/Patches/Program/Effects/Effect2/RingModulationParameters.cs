@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
@@ -43,7 +45,15 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Frequency = ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Sensitivity = ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            DryWetBalance = ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -62,9 +72,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Frequency

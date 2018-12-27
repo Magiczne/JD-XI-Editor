@@ -28,10 +28,20 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
             }
         }
 
+        /// <summary>
+        ///     Copy data from sysex dump
+        /// </summary>
+        public abstract void CopyFrom(byte[] data);
+
         /// <inheritdoc />
         public abstract byte[] GetBytes();
 
         #region Properties
+
+        /// <summary>
+        ///     Expected Dump Length
+        /// </summary>
+        public abstract int DumpLength { get; }
 
         /// <summary>
         ///     Basic Data

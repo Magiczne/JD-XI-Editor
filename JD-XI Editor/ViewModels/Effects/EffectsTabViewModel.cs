@@ -2,6 +2,7 @@
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.ViewModels.Abstract;
 using EffectPatch = JD_XI_Editor.Models.Patches.Program.Effects.Patch;
 
@@ -64,6 +65,12 @@ namespace JD_XI_Editor.ViewModels.Effects
                     var effectsPatchManager = (IEffectsPatchManager) PatchManager;
                     effectsPatchManager.DumpEffect(_patch.Reverb, Effect.Reverb, SelectedOutputDeviceId);
                 }
+            };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is EffectsPatchDumpReceivedEventArgs eventArgs)
+                    _patch.CopyFrom(eventArgs.Patch);
             };
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.Effects;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
@@ -45,7 +46,16 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Type = (Effect1Type) data[0];
+            Level = data[1];
+            DelaySendLevel = data[2];
+            ReverbSendLevel = data[3];
+            OutputAssign = (OutputAssign) data[4];
         }
 
         /// <inheritdoc />
@@ -63,9 +73,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 5;
 
         /// <summary>
         ///     Effect Type

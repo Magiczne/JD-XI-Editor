@@ -5,7 +5,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
     internal class ThruEffectParameters : EffectParameters
     {
         /// <inheritdoc />
-        public override int DumpLength { get; } = 32;
+        public override int DumpLength { get; } = 128;
 
         /// <inheritdoc />
         public override void Reset()

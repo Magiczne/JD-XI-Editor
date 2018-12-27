@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Slicer;
 using JD_XI_Editor.Utils;
@@ -47,30 +49,37 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            TimingPattern = (TimingPattern) ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Note = (Note) ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Attack = ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            TriggerLevel = ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(16).Take(4).ToArray());
         }
 
         /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
+
             bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) TimingPattern));
             bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note));
             bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Attack));
             bytes.AddRange(ByteUtils.NumberTo4MidiPackets(TriggerLevel));
             bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
-
-            var reserve = new byte[] {0x00, 0x00, 0x80, 0x00};
-            for (var i = 0; i < 27; i++) bytes.AddRange(reserve);
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(27));
 
             return bytes.ToArray();
         }
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Timing Pattern

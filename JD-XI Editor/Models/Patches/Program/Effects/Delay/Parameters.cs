@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.Effects.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Delay;
 using JD_XI_Editor.Utils;
@@ -56,7 +58,18 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Type = (Type) ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Mode = (Mode) ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Time = ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Note = (Note) ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
+            TapTime = ByteUtils.NumberFrom4MidiPackets(data.Skip(16).Take(4).ToArray());
+            Feedback = ByteUtils.NumberFrom4MidiPackets(data.Skip(20).Take(4).ToArray());
+            HfDamp = (HfDamp) ByteUtils.NumberFrom4MidiPackets(data.Skip(24).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -64,14 +77,14 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type)); // 0x04
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Mode)); // 0x08
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Time)); // 0x0C
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note)); // 0x10
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(TapTime)); // 0x14
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Feedback)); // 0x18
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) HfDamp)); // 0x1C
-            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level)); // 0x20
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Mode));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Time));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Note));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(TapTime));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Feedback));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) HfDamp));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
             bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(16));
 
             return bytes.ToArray();
@@ -79,9 +92,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 96;
 
         /// <summary>
         ///     Threshold

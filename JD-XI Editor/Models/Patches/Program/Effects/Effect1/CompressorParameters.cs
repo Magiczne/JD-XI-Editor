@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Compressor;
 using JD_XI_Editor.Utils;
@@ -58,7 +60,22 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         /// <inheritdoc />
         public override void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Threshold = ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Ratio = (Ratio) ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Attack = (Attack) ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Release = (Release) ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(16).Take(4).ToArray());
+            Sidechain = ByteUtils.BooleanFrom4MidiPackets(data.Skip(20).Take(4).ToArray());
+            SidechainLevel = ByteUtils.NumberFrom4MidiPackets(data.Skip(24).Take(4).ToArray());
+            SidechainNote = (NotePitch) ByteUtils.NumberFrom4MidiPackets(data.Skip(28).Take(4).ToArray());
+            SidechainTime = ByteUtils.NumberFrom4MidiPackets(data.Skip(32).Take(4).ToArray());
+            SidechainRelease = ByteUtils.NumberFrom4MidiPackets(data.Skip(36).Take(4).ToArray());
+            SidechainSync = ByteUtils.BooleanFrom4MidiPackets(data.Skip(40).Take(4).ToArray());
         }
 
         /// <inheritdoc />
@@ -84,9 +101,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public override int DumpLength { get; }
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Threshold

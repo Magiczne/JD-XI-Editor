@@ -113,6 +113,7 @@
     <Compile Include="Managers\Abstract\IPatchManager.cs" />
     <Compile Include="Managers\Events\AnalogPatchDumpReceivedEventArgs.cs" />
     <Compile Include="Managers\Events\DigitalPatchDumpReceivedEventArgs.cs" />
+    <Compile Include="Managers\Events\EffectsPatchDumpReceivedEventArgs.cs" />
     <Compile Include="Managers\Events\PatchDumpReceivedEventArgs.cs" />
     <Compile Include="Managers\ProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Models\ADSR.cs" />
