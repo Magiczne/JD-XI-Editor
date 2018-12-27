@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 
@@ -38,7 +40,7 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
             {
                 Common.CopyFrom(ve.Common);
                 AutoPitch.CopyFrom(ve.AutoPitch);
-                Vocoder.CopyFrom(ve.AutoPitch);
+                Vocoder.CopyFrom(ve.Vocoder);
             }
             else
             {
@@ -49,7 +51,14 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Common.CopyFrom(data.Take(5).ToArray());
+            AutoPitch.CopyFrom(data.Skip(5).Take(8).ToArray());
+            Vocoder.CopyFrom(data.Skip(13).Take(8).ToArray());
         }
 
         /// <inheritdoc />
@@ -67,9 +76,8 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 24;
 
         /// <summary>
         ///     Common

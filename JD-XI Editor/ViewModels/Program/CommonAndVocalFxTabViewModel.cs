@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches.Program;
 using JD_XI_Editor.ViewModels.Abstract;
 
@@ -38,6 +39,12 @@ namespace JD_XI_Editor.ViewModels.Program
                     var manager = (IProgramCommonAndVocalEffectsManager) PatchManager;
                     manager.DumpVocalEffects(Patch.VocalEffect, SelectedOutputDeviceId);
                 }
+            };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is CommonAndVocalFxDumpReceivedEventArgs eventArgs)
+                    Patch.CopyFrom(eventArgs.Patch);
             };
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using PropertyChanged;
+using Sanford.Multimedia.Midi;
 using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
@@ -44,6 +46,11 @@ namespace JD_XI_Editor.Models.Patches.Program
             VocalEffect.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(VocalEffect));
         }
 
+        public CommonAndVocalEffectPatch(SysExMessage common, SysExMessage vfx) : this()
+        {
+            CopyFrom(common, vfx);
+        }
+
         /// <inheritdoc />
         public void Reset()
         {
@@ -63,6 +70,23 @@ namespace JD_XI_Editor.Models.Patches.Program
             {
                 throw new NotSupportedException("Copying from that type is not supported");
             }
+        }
+
+        /// <summary>
+        ///     Copy data from sysex dumps
+        /// </summary>
+        /// <param name="common">Common sysex message</param>
+        /// <param name="vfx">VFX sysex message</param>
+        public void CopyFrom(SysExMessage common, SysExMessage vfx)
+        {
+            // Skipping 12 bytes from front because it's header and address offset
+            // Skipping 2 bytes from end because it's checksum and sysex footer
+
+            var commonBytes = common.GetBytes().Skip(12).ToArray();
+            var vfxBytes = vfx.GetBytes().Skip(12).ToArray();
+
+            Common.CopyFrom(commonBytes.Take(commonBytes.Length - 2).ToArray());
+            VocalEffect.CopyFrom(vfxBytes.Take(vfxBytes.Length - 2).ToArray());
         }
 
         /// <inheritdoc />
