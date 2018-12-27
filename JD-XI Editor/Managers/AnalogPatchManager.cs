@@ -12,6 +12,8 @@ namespace JD_XI_Editor.Managers
 {
     internal class AnalogPatchManager : IPatchManager
     {
+        #region Fields
+
         /// <summary>
         ///     Address offset
         /// </summary>
@@ -27,8 +29,17 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private const int ExpectedDumpLength = 64;
 
+        #endregion
+
+        #region Events
+
         /// <inheritdoc />
         public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<TimeoutException> OperationTimedOut;
+
+        #endregion
 
         /// <inheritdoc />
         public void Dump(IPatch analogPatch, int deviceId)
@@ -72,7 +83,7 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                throw new TimeoutException("Read data operation timeout");
+                OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
             };
     
             // Start recording input from device

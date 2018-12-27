@@ -15,8 +15,15 @@ namespace JD_XI_Editor.Managers
 {
     internal class EffectsPatchManager : IEffectsPatchManager
     {
+        #region Events
+
         /// <inheritdoc />
         public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<TimeoutException> OperationTimedOut;
+
+        #endregion
 
         /// <inheritdoc />
         public void DumpEffect(EffectPatch patch, Effect effect, int deviceId)
@@ -101,7 +108,7 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                throw new TimeoutException("Read data operation timeout");
+                OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
             };
 
             // Start recording input from device

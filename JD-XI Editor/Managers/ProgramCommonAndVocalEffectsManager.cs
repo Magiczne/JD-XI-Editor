@@ -14,8 +14,7 @@ namespace JD_XI_Editor.Managers
 {
     internal class ProgramCommonAndVocalEffectsManager : IProgramCommonAndVocalEffectsManager
     {
-        /// <inheritdoc />
-        public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+        #region Fields
 
         /// <summary>
         ///     Program common offset address
@@ -51,6 +50,18 @@ namespace JD_XI_Editor.Managers
         ///     Expected VFX dump length
         /// </summary>
         private const int ExpectedVfxDumpLength = 24;
+
+        #endregion
+
+        #region Events
+
+        /// <inheritdoc />
+        public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<TimeoutException> OperationTimedOut;
+
+        #endregion
 
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
@@ -113,8 +124,7 @@ namespace JD_XI_Editor.Managers
                 device.StopRecording();
                 device.Dispose();
 
-                // TODO: FIXME: It is throwing in another thread. 
-                throw new TimeoutException("Read data operation timeout");
+                OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
             };
 
             // Start recording input from device

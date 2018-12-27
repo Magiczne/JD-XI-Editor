@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -7,40 +6,43 @@ using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
     internal class DigitalPatchManager : IDigitalPatchManager
     {
+        #region Fields
+
         /// <summary>
         ///     Digital synth number
         /// </summary>
-        private readonly DigitalSynth _synthNumber;        
+        private readonly DigitalSynth _synthNumber;
 
         /// <summary>
         ///     Common address offset
         /// </summary>
-        private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
+        private byte[] CommonAddressOffset => new byte[] { 0x19, (byte)_synthNumber, 0x00, 0x00 };
 
         /// <summary>
         ///     Common SysEx message length
         /// </summary>
-        private static byte[] CommonDumpRequest => new byte[] {0x00, 0x00, 0x00, 0x40};
-        
+        private static byte[] CommonDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x40 };
+
         /// <summary>
         ///     Partial SysEx message length
         /// </summary>
-        private static byte[] PartialDumpRequest => new byte[] {0x00, 0x00, 0x00, 0x3D};
+        private static byte[] PartialDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x3D };
 
         /// <summary>
         ///     Modifiers address offset
         /// </summary>
-        private byte[] ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
+        private byte[] ModifiersAddressOffset => new byte[] { 0x19, (byte)_synthNumber, 0x50, 0x00 };
 
         /// <summary>
         ///     Modifiers SysEx message length
         /// </summary>
-        private static byte[] ModifiersDumpRequest => new byte[] {0x00, 0x00, 0x00, 0x25};
+        private static byte[] ModifiersDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x25 };
 
         /// <summary>
         ///     Expected Common Dump Length
@@ -57,9 +59,19 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private const int ExpectedModifiersDumpLength = 37;
 
+        #endregion
+
+        #region Events
+
         /// <inheritdoc />
         public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
 
+        /// <inheritdoc />
+        public event EventHandler<TimeoutException> OperationTimedOut;
+
+        #endregion
+
+        /// <inheritdoc />
         public DigitalPatchManager(DigitalSynth synthNumber)
         {
             _synthNumber = synthNumber;
@@ -86,7 +98,7 @@ namespace JD_XI_Editor.Managers
         public void Read(int inputDeviceId, int outputDeviceId)
         {
             var device = new InputDevice(inputDeviceId);
-            var timer = new Timer(5000);
+            var timer = new Timer(2500);
 
             const int commonDumpLength = ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize;
             const int partialDumpLength = ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize;
@@ -151,10 +163,10 @@ namespace JD_XI_Editor.Managers
                 timer.Stop();
                 timer.Dispose();
 
-                device.StopRecording();   
+                device.StopRecording();
                 device.Dispose();
 
-                throw new TimeoutException("Read data operation timeout");
+                OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
             };
 
             // Start recording input from device

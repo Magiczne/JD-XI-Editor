@@ -12,6 +12,11 @@ namespace JD_XI_Editor.Managers.Abstract
         event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
 
         /// <summary>
+        ///     Event handler called when data dump operation timed out
+        /// </summary>
+        event EventHandler<TimeoutException> OperationTimedOut; 
+
+        /// <summary>
         ///     Dump patch data to device
         /// </summary>
         void Dump(IPatch patch, int deviceId);

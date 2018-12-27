@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Events;
@@ -36,6 +35,11 @@ namespace JD_XI_Editor.ViewModels
             {
                 if (args is AnalogPatchDumpReceivedEventArgs eventArgs)
                     Patch.CopyFrom(eventArgs.Patch);
+            };
+
+            PatchManager.OperationTimedOut += (sender, args) =>
+            {
+                ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
 
@@ -74,10 +78,6 @@ namespace JD_XI_Editor.ViewModels
             catch (InvalidDumpSizeException)
             {
                 ShowErrorMessage("Data received from device is invalid");
-            }
-            catch (TimeoutException)
-            {
-                ShowErrorMessage("Device is not responding, try again in a moment");
             }
         }
 
