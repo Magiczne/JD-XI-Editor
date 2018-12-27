@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
@@ -23,6 +25,34 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is BasicData data)
+            {
+                On = data.On;
+                Level = data.Level;
+                ReverbSendLevel = data.ReverbSendLevel;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+            Level = data[1];
+            ReverbSendLevel = data[3];
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]
@@ -35,6 +65,9 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 4;
 
         /// <summary>
         ///     Is delay on

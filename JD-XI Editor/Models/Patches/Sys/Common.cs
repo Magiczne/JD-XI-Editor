@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Sys;
 using JD_XI_Editor.Utils;
@@ -27,11 +28,31 @@ namespace JD_XI_Editor.Models.Patches.Sys
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (patch is Common common)
+            {
+                MasterTune = common.MasterTune;
+                MasterKeyShift = common.MasterKeyShift;
+                MasterLevel = common.MasterLevel;
+
+                ProgramControlChannel = common.ProgramControlChannel;
+
+                ReceiveProgramChange = common.ReceiveProgramChange;
+                ReceiveBankSelect = common.ReceiveBankSelect;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets((int) (MasterTune * 5))); // TODO: Replace 5 with something
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) (MasterTune * 5))); // TODO: Replace 5 with something
             bytes.Add((byte) (MasterKeyShift + 64));
             bytes.Add((byte) MasterLevel);
 

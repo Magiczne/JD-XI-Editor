@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.Program.Effects.Compressor;
 using JD_XI_Editor.Utils;
@@ -32,27 +35,74 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is CompressorParameters p)
+            {
+                Threshold = p.Threshold;
+                Ratio = p.Ratio;
+                Attack = p.Attack;
+                Release = p.Release;
+                Level = p.Level;
+                Sidechain = p.Sidechain;
+                SidechainSync = p.SidechainSync;
+                SidechainLevel = p.SidechainLevel;
+                SidechainNote = p.SidechainNote;
+                SidechainTime = p.SidechainTime;
+                SidechainRelease = p.SidechainRelease;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Threshold = ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Ratio = (Ratio) ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Attack = (Attack) ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Release = (Release) ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Skip(16).Take(4).ToArray());
+            Sidechain = ByteUtils.BooleanFrom4MidiPackets(data.Skip(20).Take(4).ToArray());
+            SidechainLevel = ByteUtils.NumberFrom4MidiPackets(data.Skip(24).Take(4).ToArray());
+            SidechainNote = (NotePitch) ByteUtils.NumberFrom4MidiPackets(data.Skip(28).Take(4).ToArray());
+            SidechainTime = ByteUtils.NumberFrom4MidiPackets(data.Skip(32).Take(4).ToArray());
+            SidechainRelease = ByteUtils.NumberFrom4MidiPackets(data.Skip(36).Take(4).ToArray());
+            SidechainSync = ByteUtils.BooleanFrom4MidiPackets(data.Skip(40).Take(4).ToArray());
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Threshold));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Ratio));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Attack));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Release));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.BooleanTo4Packets(Sidechain));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainLevel));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) SidechainNote));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainTime));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(SidechainRelease));
-            bytes.AddRange(ByteUtils.BooleanTo4Packets(SidechainSync));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(21));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Threshold));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Ratio));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Attack));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Release));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.BooleanTo4MidiPackets(Sidechain));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainLevel));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) SidechainNote));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainTime));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(SidechainRelease));
+            bytes.AddRange(ByteUtils.BooleanTo4MidiPackets(SidechainSync));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(21));
 
             return bytes.ToArray();
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Threshold

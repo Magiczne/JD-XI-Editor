@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
@@ -43,6 +44,32 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Tvf tvf)
+            {
+                Type = tvf.Type;
+                Cutoff = tvf.Cutoff;
+                CutoffVelocityCurve = tvf.CutoffVelocityCurve;
+                CutoffVelocitySensitivity = tvf.CutoffVelocitySensitivity;
+                Resonance = tvf.Resonance;
+                ResonanceVelocitySensitivity = tvf.ResonanceVelocitySensitivity;
+
+                Envelope.CopyFrom(tvf.Envelope);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -74,6 +101,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Type

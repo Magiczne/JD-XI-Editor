@@ -1,6 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.AutoPitch.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
 {
@@ -28,6 +31,43 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is AutoPitch ap)
+            {
+                On = ap.On;
+                Type = ap.Type;
+                Scale = ap.Scale;
+                Key = ap.Key;
+                Gender = ap.Gender;
+                Octave = ap.Octave;
+                DryWetBalance = ap.DryWetBalance;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+            Type = (Type) data[1];
+            Scale = (Scale) data[2];
+            Key = (Key) data[3];
+            Note = (Note) data[4];
+            Gender = data[5] - 10;
+            Octave = (Octave) data[6];
+            DryWetBalance = data[7];
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -44,6 +84,9 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 8;
 
         /// <summary>
         ///     Auto Pitch Switch

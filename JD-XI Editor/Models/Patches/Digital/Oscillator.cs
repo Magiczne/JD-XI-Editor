@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Digital;
 
 namespace JD_XI_Editor.Models.Patches.Digital
@@ -29,6 +31,46 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Oscillator osc)
+            {
+                Shape = osc.Shape;
+                WaveVariation = osc.WaveVariation;
+                Pitch = osc.Pitch;
+                Detune = osc.Detune;
+                PulseWidth = osc.PulseWidth;
+                PulseWidthModDepth = osc.PulseWidthModDepth;
+                Attack = osc.Attack;
+                Decay = osc.Decay;
+                EnvelopeDepth = osc.EnvelopeDepth;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Shape = (OscillatorShape) data[0];
+            WaveVariation = (WaveVariation) data[1];
+            Pitch = data[3] - 64;
+            Detune = data[4] - 64;
+            PulseWidthModDepth = data[5];
+            PulseWidth = data[6];
+            Attack = data[7];
+            Decay = data[8];
+            EnvelopeDepth = data[9] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -47,6 +89,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 10;
 
         /// <summary>
         ///     Shape

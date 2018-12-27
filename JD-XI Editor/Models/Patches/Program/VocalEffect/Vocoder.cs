@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect.Vocoder;
 using JD_XI_Editor.Utils;
 
@@ -28,6 +30,42 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Vocoder v)
+            {
+                On = v.On;
+                Envelope = v.Envelope;
+                UnknowParameter = v.UnknowParameter;
+                MicrophoneSensitivity = v.MicrophoneSensitivity;
+                SynthLevel = v.SynthLevel;
+                MicrophoneMixLevel = v.MicrophoneMixLevel;
+                MicrophoneHpf = v.MicrophoneHpf;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+            Envelope = (Envelope) data[1];
+            UnknowParameter = data[2];
+            MicrophoneSensitivity = data[3];
+            SynthLevel = data[4];
+            MicrophoneMixLevel = data[5];
+            MicrophoneHpf = (HighPassFilter) data[6];
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]
@@ -44,6 +82,9 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 8;
 
         /// <summary>
         ///     Vocoder Switch

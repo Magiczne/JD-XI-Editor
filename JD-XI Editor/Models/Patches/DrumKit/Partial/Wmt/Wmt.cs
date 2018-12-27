@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Utils;
@@ -43,6 +44,48 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Wmt wmt)
+            {
+                On = wmt.On;
+                GroupType = wmt.GroupType;
+                GroupId = wmt.GroupId;
+                LeftWave = wmt.LeftWave;
+                RightWave = wmt.RightWave;
+                WaveGain = wmt.WaveGain;
+
+                Fxm = wmt.Fxm;
+                FxmColor = wmt.FxmColor;
+                FxmDepth = wmt.FxmDepth;
+
+                TempoSync = wmt.TempoSync;
+                CoarseTune = wmt.CoarseTune;
+                FineTune = wmt.FineTune;
+
+                Panorama = wmt.Panorama;
+                RandomPanorama = wmt.RandomPanorama;
+                AlternatePanorama = wmt.AlternatePanorama;
+
+                Level = wmt.Level;
+                VelocityRangeLower = wmt.VelocityRangeLower;
+                VelocityRangeUpper = wmt.VelocityRangeUpper;
+                VelocityFadeWidthLower = wmt.VelocityFadeWidthLower;
+                VelocityFadeWidthUpper = wmt.VelocityFadeWidthUpper;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -84,6 +127,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Switch

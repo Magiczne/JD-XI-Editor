@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Patches.Program.Abstract;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
@@ -19,6 +21,18 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Basic.CopyFrom(data.Take(4).ToArray());
+            Parameters.CopyFrom(data.Skip(4).ToArray());
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -28,5 +42,8 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Delay
 
             return bytes.ToArray();
         }
+
+        /// <inheritdoc />
+        public override int DumpLength { get; } = 100;
     }
 }

@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 using PropertyChanged;
 
@@ -31,6 +33,45 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Filter filter)
+            {
+                On = filter.On;
+                Cutoff = filter.Cutoff;
+                Resonance = filter.Resonance;
+                CutoffKeyfollow = filter.CutoffKeyfollow;
+                Envelope.CopyFrom(filter.Envelope);
+                EnvelopeDepth = filter.EnvelopeDepth;
+                EnvelopeVelocitySensitivity = filter.EnvelopeVelocitySensitivity;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+            Cutoff = data[1];
+            CutoffKeyfollow = (data[2] - 64) * 10;
+            Resonance = data[3];
+            EnvelopeVelocitySensitivity = data[4] - 64;
+            Envelope.Attack = data[5];
+            Envelope.Decay = data[6];
+            Envelope.Sustain = data[7];
+            Envelope.Release = data[8];
+            EnvelopeDepth = data[9] - 64;
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -49,6 +90,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 10;
 
         /// <summary>
         ///     Is filter on

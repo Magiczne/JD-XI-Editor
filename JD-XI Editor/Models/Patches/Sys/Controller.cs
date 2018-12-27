@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Sys;
 using JD_XI_Editor.Utils;
@@ -22,6 +23,24 @@ namespace JD_XI_Editor.Models.Patches.Sys
             KeyboardVelocity = 0;
             VelocityCurve = VelocityCurve.Light;
             VelocityCurveOffset = 9;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatch patch)
+        {
+            if (patch is Controller c)
+            {
+                TransmitProgramChange = c.TransmitProgramChange;
+                TransmitBankSelect = c.TransmitBankSelect;
+
+                KeyboardVelocity = c.KeyboardVelocity;
+                VelocityCurve = c.VelocityCurve;
+                VelocityCurveOffset = c.VelocityCurveOffset;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
         }
 
         /// <inheritdoc />
