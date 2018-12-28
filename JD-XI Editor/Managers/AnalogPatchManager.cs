@@ -12,6 +12,8 @@ namespace JD_XI_Editor.Managers
 {
     internal class AnalogPatchManager : IPatchManager
     {
+        #region Fields
+
         /// <summary>
         ///     Address offset
         /// </summary>
@@ -27,8 +29,78 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private const int ExpectedDumpLength = 64;
 
+        /// <summary>
+        ///     Timer used to determine timeouts when reading data from device
+        /// </summary>
+        private readonly Timer _timer = new Timer(4000);
+
+        /// <summary>
+        ///     Device instance
+        /// </summary>
+        private InputDevice _device;
+
+        #endregion
+
+        #region Events
+
         /// <inheritdoc />
         public event EventHandler<PatchDumpReceivedEventArgs> DataDumpReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<TimeoutException> OperationTimedOut;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Create new instance of AnalogPatchManager
+        /// </summary>
+        public AnalogPatchManager()
+        {
+            _timer.Elapsed += OnTimerElapsed;
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        /// <summary>
+        ///     Callback called when data dump is received from device
+        /// </summary>
+        private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
+        {
+            _timer.Stop();
+
+            _device.StopRecording();
+            _device.Dispose();
+
+            var actualLength = e.Message.Length - SysExUtils.DumpPaddingSize;
+
+            if (actualLength != ExpectedDumpLength)
+            {
+                throw new InvalidDumpSizeException(ExpectedDumpLength, actualLength);
+            }
+
+            DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(e.Message)));
+        }
+
+        /// <summary>
+        ///     Callback called when timer waiting for data dump from device elapses
+        /// </summary>
+        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            _timer.Stop();
+
+            _device.StopRecording();
+            _device.Dispose();
+
+            OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
+        }
+
+        #endregion
+
+        #region IPatchManager
 
         /// <inheritdoc />
         public void Dump(IPatch analogPatch, int deviceId)
@@ -42,48 +114,22 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Read(int inputDeviceId, int outputDeviceId)
         {
-            var device = new InputDevice(inputDeviceId);
-            var timer = new Timer(1500);
+            _device = new InputDevice(inputDeviceId);
 
             // Setup event handler for receiving SysEx messages
-            device.SysExMessageReceived += (sender, args) =>
-            {
-                timer.Stop();
-                timer.Dispose();
-
-                device.StopRecording();
-                device.Dispose();
-
-                var actualLength = args.Message.Length - SysExUtils.DumpPaddingSize;
-
-                if (actualLength != ExpectedDumpLength)
-                {
-                    throw new InvalidDumpSizeException(ExpectedDumpLength, actualLength);
-                }
-
-                DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(args.Message)));
-            };
-
-            timer.Elapsed += (sender, args) =>
-            {
-                timer.Stop();
-                timer.Dispose();
-
-                device.StopRecording();
-                device.Dispose();
-
-                throw new TimeoutException("Read data operation timeout");
-            };
+            _device.SysExMessageReceived += OnSysExMessageReceived;
     
             // Start recording input from device
-            device.StartRecording();
+            _device.StartRecording();
 
             // Request data dump from device
             using (var output = new OutputDevice(outputDeviceId))
             {
                 output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, DumpRequest));
-                timer.Start();
+                _timer.Start();
             }
         }
+
+        #endregion
     }
 }

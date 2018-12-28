@@ -51,6 +51,11 @@ namespace JD_XI_Editor.ViewModels.Program
                 if (args is CommonAndVocalFxDumpReceivedEventArgs eventArgs)
                     Patch.CopyFrom(eventArgs.Patch);
             };
+
+            PatchManager.OperationTimedOut += (sender, args) =>
+            {
+                ShowErrorMessage("Device is not responding, try again in a moment");
+            };
         }
 
         /// <summary>
@@ -77,10 +82,6 @@ namespace JD_XI_Editor.ViewModels.Program
             catch (InvalidDumpSizeException)
             {
                 ShowErrorMessage("Data received from device is invalid");
-            }
-            catch (TimeoutException)
-            {
-                ShowErrorMessage("Device is not responding, try again in a moment");
             }
         }
 
