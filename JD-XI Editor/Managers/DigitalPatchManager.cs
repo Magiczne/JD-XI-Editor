@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Timers;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -59,6 +61,36 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private const int ExpectedModifiersDumpLength = 37;
 
+        /// <summary>
+        ///     Timer used to determine timeouts when reading data from device
+        /// </summary>
+        private readonly Timer _timer = new Timer(4000);
+
+        /// <summary>
+        ///     Device instance
+        /// </summary>
+        private InputDevice _device;
+
+        /// <summary>
+        ///     Count of dump messages received
+        /// </summary>
+        private int _dumpCount;
+
+        /// <summary>
+        ///     SysEx dump from common
+        /// </summary>
+        private SysExMessage _commonDump;
+
+        /// <summary>
+        ///     SysEx dump from partials
+        /// </summary>
+        private readonly SysExMessage[] _partialsDump = {null, null, null};
+
+        /// <summary>
+        ///     SysEx dump from modifiers
+        /// </summary>
+        private SysExMessage _modifiersDump;
+
         #endregion
 
         #region Events
@@ -71,16 +103,104 @@ namespace JD_XI_Editor.Managers
 
         #endregion
 
+        #region Methods
+
         /// <inheritdoc />
         public DigitalPatchManager(DigitalSynth synthNumber)
         {
             _synthNumber = synthNumber;
+            _timer.Elapsed += OnTimerElapsed;
         }
+
+        /// <summary>
+        ///     Partial address offset
+        /// </summary>
+        private byte[] PartialAddressOffset(DigitalPartial partial)
+        {
+            return new byte[] { 0x19, (byte)_synthNumber, (byte)partial, 0x00 };
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        /// <summary>
+        ///     Callback called when data dump is received from device
+        /// </summary>
+        private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
+        {
+            if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
+            {
+                _commonDump = e.Message;
+            }
+            else if (e.Message.Length == ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize)
+            {
+                // At 11 byte we have partial number, so we check value at that byte
+                var partial = (DigitalPartial) e.Message[10];
+
+                switch (partial)
+                {
+                    case DigitalPartial.First:
+                        _partialsDump[0] = e.Message;
+                        break;
+
+                    case DigitalPartial.Second:
+                        _partialsDump[1] = e.Message;
+
+                        break;
+                    case DigitalPartial.Third:
+                        _partialsDump[2] = e.Message;
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(partial), partial, null);
+                }
+            }
+            else if (e.Message.Length == ExpectedModifiersDumpLength + SysExUtils.DumpPaddingSize)
+            {
+                _modifiersDump = e.Message;
+            }
+            else
+            {
+                throw new InvalidDumpSizeException();
+            }
+
+            _dumpCount++;
+
+            if (_dumpCount == 5)
+            {
+                _timer.Stop();
+
+                _device.StopRecording();
+                _device.Dispose();
+
+                DataDumpReceived?.Invoke(this, new DigitalPatchDumpReceivedEventArgs(
+                    new Patch(_commonDump, _partialsDump, _modifiersDump)
+                ));
+            }
+        }
+
+        /// <summary>
+        ///     Callback called when timer waiting for data dump from device elapses
+        /// </summary>
+        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            _timer.Stop();
+
+            _device.StopRecording();
+            _device.Dispose();
+
+            OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
+        }
+
+        #endregion
+
+        #region IPatchManager
 
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
-            var digitalPatch = (Patch) patch;
+            var digitalPatch = (Patch)patch;
 
             using (var output = new OutputDevice(deviceId))
             {
@@ -97,80 +217,17 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Read(int inputDeviceId, int outputDeviceId)
         {
-            var device = new InputDevice(inputDeviceId);
-            var timer = new Timer(2500);
+            // Reset dump count counter
+            _dumpCount = 0;
 
-            const int commonDumpLength = ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize;
-            const int partialDumpLength = ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize;
-            const int modsDumpLength = ExpectedModifiersDumpLength + SysExUtils.DumpPaddingSize;
+            // Initialize input device
+            _device = new InputDevice(inputDeviceId);
 
-            SysExMessage common = null;
-            var partials = new SysExMessage[] {null, null, null};
-            SysExMessage modifiers = null;
-
-            var dumpCount = 0;
-
-            device.SysExMessageReceived += (sender, args) =>
-            {
-                if (args.Message.Length == commonDumpLength)
-                {
-                    common = args.Message;
-                }
-                else if (args.Message.Length == partialDumpLength)
-                {
-                    // At 11 byte we have partial number, so we check value at that byte
-                    var partial = (DigitalPartial) args.Message[10];
-
-                    switch (partial)
-                    {
-                        case DigitalPartial.First:
-                            partials[0] = args.Message;
-                            break;
-
-                        case DigitalPartial.Second:
-                            partials[1] = args.Message;
-
-                            break;
-                        case DigitalPartial.Third:
-                            partials[2] = args.Message;
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
-                else if (args.Message.Length == modsDumpLength)
-                {
-                    modifiers = args.Message;
-                }
-
-                dumpCount++;
-
-                if (dumpCount == 5)
-                {
-                    timer.Stop();
-                    timer.Dispose();
-
-                    device.StopRecording();
-                    device.Dispose();
-
-                    DataDumpReceived?.Invoke(this, new DigitalPatchDumpReceivedEventArgs(new Patch(common, partials, modifiers)));
-                }
-            };
-
-            timer.Elapsed += (sender, args) =>
-            {
-                timer.Stop();
-                timer.Dispose();
-
-                device.StopRecording();
-                device.Dispose();
-
-                OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
-            };
+            // Setup event handler for receiving SysEx messages
+            _device.SysExMessageReceived += OnSysExMessageReceived;
 
             // Start recording input from device
-            device.StartRecording();
+            _device.StartRecording();
 
             // Request data dump from device
             using (var output = new OutputDevice(outputDeviceId))
@@ -181,9 +238,13 @@ namespace JD_XI_Editor.Managers
                 output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third), PartialDumpRequest));
                 output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, ModifiersDumpRequest));
 
-                timer.Start();
+                _timer.Start();
             }
         }
+
+        #endregion
+
+        #region IDigitalPatchManager
 
         /// <inheritdoc />
         public void DumpCommon(Common common, int deviceId)
@@ -212,12 +273,6 @@ namespace JD_XI_Editor.Managers
             }
         }
 
-        /// <summary>
-        ///     Partial address offset
-        /// </summary>
-        private byte[] PartialAddressOffset(DigitalPartial partial)
-        {
-            return new byte[] {0x19, (byte) _synthNumber, (byte) partial, 0x00};
-        }
+        #endregion
     }
 }

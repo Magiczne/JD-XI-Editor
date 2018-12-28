@@ -17,6 +17,11 @@ namespace JD_XI_Editor.Exceptions
         /// </summary>
         public int ActualLength { get; }
 
+        public InvalidDumpSizeException()
+        {
+
+        }
+
         public InvalidDumpSizeException(int expected, int actual)
         {
             ExpectedLength = expected;
