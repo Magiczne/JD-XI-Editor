@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 using PropertyChanged;
 
@@ -71,7 +73,25 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Basic.CopyFrom(data.Take(12).ToArray());
+            Assign.CopyFrom(data.Skip(12).Take(2).ToArray());
+            Amplifier.CopyFrom(data.Skip(14).Take(8).ToArray());
+            Output.CopyFrom(data.Skip(22).Take(6).ToArray());
+            Expression.CopyFrom(data.Skip(28).Take(4).ToArray());
+            VelocityControl.CopyFrom(data.Skip(32).Take(1).ToArray());
+            Wmt1.CopyFrom(data.Skip(33).Take(29).ToArray());
+            Wmt2.CopyFrom(data.Skip(62).Take(29).ToArray());
+            Wmt3.CopyFrom(data.Skip(91).Take(29).ToArray());
+            Wmt4.CopyFrom(data.Skip(120).Take(29).ToArray());
+            Pitch.CopyFrom(data.Skip(149).Take(13).ToArray());
+            Tvf.CopyFrom(data.Skip(162).Take(20).ToArray());
+            Tva.CopyFrom(data.Skip(182).Take(11).ToArray());
+            Other.CopyFrom(data.Skip(193).Take(2).ToArray());
         }
 
         /// <inheritdoc />
@@ -121,9 +141,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 323;
 
         /// <summary>
         ///     Basic

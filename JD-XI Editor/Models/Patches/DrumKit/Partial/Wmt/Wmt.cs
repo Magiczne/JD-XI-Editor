@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Utils;
@@ -82,7 +84,35 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+
+            GroupType = data[1];
+            GroupId = ByteUtils.NumberFrom4MidiPackets(data.Skip(2).Take(4).ToArray());
+            LeftWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(6).Take(4).ToArray());
+            RightWave = (Wave)ByteUtils.NumberFrom4MidiPackets(data.Skip(10).Take(4).ToArray());
+
+            WaveGain = (WaveGain) data[14];
+            Fxm = ByteUtils.ByteToBoolean(data[15]);
+            FxmColor = (FxmWaveColor) data[16];
+            FxmDepth = data[17];
+            TempoSync = ByteUtils.ByteToBoolean(data[18]);
+
+            CoarseTune = data[19] - 64;
+            FineTune = data[20] - 64;
+            Panorama = data[21] - 64;
+            RandomPanorama = ByteUtils.ByteToBoolean(data[22]);
+            AlternatePanorama = (AlternatePan) data[23];
+
+            Level = data[24];
+            VelocityRangeLower = data[25];
+            VelocityFadeWidthUpper = data[26];
+            VelocityFadeWidthLower = data[27];
+            VelocityFadeWidthUpper = data[28];
         }
 
         /// <inheritdoc />
@@ -128,9 +158,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 29;
 
         /// <summary>
         ///     Switch

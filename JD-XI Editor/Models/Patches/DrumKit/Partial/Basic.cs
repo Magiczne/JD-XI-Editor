@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -13,12 +14,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         {
             Reset();
         }
-
-        /// TODO: Set
-        /// <inheritdoc />
-        public int DumpLength { get; }
-
-        public string Name { get; set; }
 
         /// <inheritdoc />
         public void Reset()
@@ -42,7 +37,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Name = Encoding.ASCII.GetString(data);
         }
 
         /// <inheritdoc />
@@ -56,5 +56,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
             return bytes.ToArray();
         }
+
+        #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 12;
+
+        /// <summary>
+        ///     Partial name
+        /// </summary>
+        public string Name { get; set; }
+
+        #endregion
     }
 }

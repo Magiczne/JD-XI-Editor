@@ -1,5 +1,7 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -14,19 +16,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
             Envelope.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Envelope));
         }
-
-        #region Properties
-
-        /// TODO: Set
-        /// <inheritdoc />
-        public int DumpLength { get; }
-
-        /// <summary>
-        /// </summary>
-        [DoNotNotify]
-        public Envelope Envelope { get; }
-
-        #endregion
 
         /// <inheritdoc />
         public void Reset()
@@ -64,7 +53,26 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Envelope.Depth = data[0] - 64;
+            Envelope.VelocitySensitivity = data[1] - 64;
+            Envelope.Time1VelocitySensitivity = data[2] - 64;
+            Envelope.Time4VelocitySensitivity = data[3] - 64;
+
+            Envelope.Time1 = data[4];
+            Envelope.Time2 = data[5];
+            Envelope.Time3 = data[6];
+            Envelope.Time4 = data[7];
+
+            Envelope.Level0 = data[8];
+            Envelope.Level1 = data[9];
+            Envelope.Level2 = data[10];
+            Envelope.Level3 = data[11];
+            Envelope.Level4 = data[12];
         }
 
         /// <inheritdoc />
@@ -89,5 +97,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) (Envelope.Level4 + 64)
             };
         }
+
+        #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 13;
+
+        /// <summary>
+        /// </summary>
+        [DoNotNotify]
+        public Envelope Envelope { get; }
+
+        #endregion 
     }
 }
