@@ -5,6 +5,7 @@ using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Digital;
+using JD_XI_Editor.ViewModels.Drums;
 using JD_XI_Editor.ViewModels.Effects;
 using JD_XI_Editor.ViewModels.Program;
 using MahApps.Metro.Controls.Dialogs;
@@ -23,9 +24,10 @@ namespace JD_XI_Editor.ViewModels
             Items.AddRange(new List<Screen>
             {
                 new HomeTabViewModel(),
+
                 new DigitalSynthTabViewModel(eventAggregator, dialogCoordinator, DigitalSynth.First),
                 new DigitalSynthTabViewModel(eventAggregator, dialogCoordinator, DigitalSynth.Second),
-                // TODO: Drums
+                new DrumKitTabViewModel(eventAggregator, dialogCoordinator),
                 new AnalogSynthTabViewModel(eventAggregator, dialogCoordinator),
 
                 new EffectsTabViewModel(eventAggregator, dialogCoordinator),
