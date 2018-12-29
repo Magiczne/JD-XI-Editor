@@ -103,6 +103,7 @@
     <Compile Include="Exceptions\PatchNotConvertibleIntoBytes.cs" />
     <Compile Include="Managers\Abstract\IProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
+    <Compile Include="Managers\DrumKitPatchManager.cs" />
     <Compile Include="Managers\EffectsPatchManager.cs" />
     <Compile Include="Managers\Enums\DigitalPartial.cs" />
     <Compile Include="Managers\Enums\DigitalSynthNumber.cs" />
@@ -252,6 +253,9 @@
     <Compile Include="ViewModels\Digital\DigitalPartialsEditorViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalPartialViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\Drums\DrumKitPartialEditorViewModel.cs" />
+    <Compile Include="ViewModels\Drums\DrumKitPartialViewModel.cs" />
+    <Compile Include="ViewModels\Drums\DrumKitTabViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\BitCrusherViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\CompressorViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\DistortionViewModel.cs" />
@@ -281,6 +285,12 @@
     </Compile>
     <Compile Include="Views\Digital\DigitalSynthTabView.xaml.cs">
       <DependentUpon>DigitalSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Drums\DrumKitPartialEditorView.xaml.cs">
+      <DependentUpon>DrumKitPartialEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Drums\DrumKitTabView.xaml.cs">
+      <DependentUpon>DrumKitTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Effects\Assignable\BitCrusherView.xaml.cs">
       <DependentUpon>BitCrusherView.xaml</DependentUpon>
@@ -383,6 +393,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Digital\DigitalSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Drums\DrumKitPartialEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Drums\DrumKitTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
