@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -289,6 +289,9 @@
     <Compile Include="Views\Drums\DrumKitPartialEditorView.xaml.cs">
       <DependentUpon>DrumKitPartialEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Drums\DrumKitPartialView.xaml.cs">
+      <DependentUpon>DrumKitPartialView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Drums\DrumKitTabView.xaml.cs">
       <DependentUpon>DrumKitTabView.xaml</DependentUpon>
     </Compile>
@@ -400,6 +403,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Drums\DrumKitPartialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Drums\DrumKitTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -491,7 +498,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="FodyWeavers.xml" />
+    <Content Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

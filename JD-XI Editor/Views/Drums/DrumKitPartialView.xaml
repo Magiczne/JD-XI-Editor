@@ -1,0 +1,1085 @@
+﻿<Grid x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
+      xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="100" />
+        <RowDefinition Height="250" />
+        <RowDefinition Height="165" />
+        <RowDefinition />
+        <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <!-- Basic, Assign, Expression -->
+    <Grid Grid.Row="0"
+          VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="270" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Basic -->
+        <GroupBox Grid.Column="0"
+                  Width="160" Height="95"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="Basic">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Content="Partial name: " />
+                <TextBox MaxLength="12"
+                         Grid.Column="0" Grid.Row="1"
+                         VerticalAlignment="Top"
+                         Margin="0 0 5 0"
+                         Text="{Binding Partial.Basic.Name}" />
+            </Grid>
+        </GroupBox>
+
+        <!-- Assign -->
+        <GroupBox Grid.Column="1"
+                  Width="310" Height="95"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="Assign">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Content="Assign Type: " />
+                <Label Grid.Column="1" Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Content="Mute Group: " />
+
+                <ComboBox Grid.Column="0" Grid.Row="1"
+                          Margin="0 0 5 0"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Assign.AssignType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Assign.AssignType}" />
+                <ComboBox Grid.Column="1" Grid.Row="1"
+                          Margin="0 0 5 0"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Assign.MuteGroup, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Assign.MuteGroup}" />
+            </Grid>
+        </GroupBox>
+
+        <!-- Expression -->
+        <GroupBox Grid.Column="2"
+                  Width="260" Height="95"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="Expression">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Grid.Column="0" Grid.Row="0"
+                          VerticalAlignment="Top"
+                          Content="Receive Expression"
+                          IsChecked="{Binding Partial.Expression.ReceiveExpression}" />
+                <CheckBox Grid.Column="0" Grid.Row="1"
+                          VerticalAlignment="Top"
+                          Content="Receive Hold-1"
+                          IsChecked="{Binding Partial.Expression.ReceiveHold1}" />
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="40" Width="40"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="48"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Expression.PitchBendRange}" />
+                    <TextBlock Text="Pitch Bend Range"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+    <StackPanel Grid.Row="1"
+                VerticalAlignment="Top" HorizontalAlignment="Left"
+                Width="1050" Height="240"
+                Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="910" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Vertical">
+                <mah:ToggleSwitch OffLabel="WMT1" OnLabel="WMT1"
+                                  IsChecked="{Binding Partial.Wmt1.On}" />
+                <mah:ToggleSwitch OffLabel="WMT2" OnLabel="WMT2"
+                                  IsChecked="{Binding Partial.Wmt2.On}" />
+                <mah:ToggleSwitch OffLabel="WMT3" OnLabel="WMT3"
+                                  IsChecked="{Binding Partial.Wmt3.On}" />
+                <mah:ToggleSwitch OffLabel="WMT4" OnLabel="WMT4"
+                                  IsChecked="{Binding Partial.Wmt4.On}" />
+
+                <Label Content="WMT Velocity Control: " />
+                <ComboBox Margin="0 0 5 0"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.VelocityControl.Control, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.VelocityControl.Control}" />
+            </StackPanel>
+
+            <controls:CachedTabControl Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       Width="910" Height="240"
+                                       Padding="5" Margin="0 5 0 0"
+                                       Style="{StaticResource SimpleCachedTabControl}">
+                <TabItem Header="WMT 1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="75" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="105" />
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                               VerticalAlignment="Top"
+                               Content="Wave (Left/Mono): " />
+                        <Label Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1"
+                               VerticalAlignment="Top"
+                               Content="Wave (Right): " />
+                        <Label Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="1"
+                               VerticalAlignment="Top"
+                               Content="Wave Gain: " />
+                        <Label Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1"
+                               VerticalAlignment="Top"
+                               Content="FXM Color: " />
+                        <Label Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="1"
+                               VerticalAlignment="Top"
+                               Content="Alternate Panorama: " />
+
+                        <CheckBox Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="0"
+                                  VerticalAlignment="Top"
+                                  Content="FXM"
+                                  IsChecked="{Binding Partial.Wmt1.Fxm}" />
+                        <CheckBox Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="0"
+                                  VerticalAlignment="Top"
+                                  Content="Random Panorama"
+                                  IsChecked="{Binding Partial.Wmt1.RandomPanorama}" />
+                        <CheckBox Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="0"
+                                  VerticalAlignment="Top"
+                                  Content="Tempo Sync"
+                                  IsChecked="{Binding Partial.Wmt1.TempoSync}" />
+
+                        <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"
+                                      Margin="0 0 5 0"
+                                      VerticalAlignment="Top"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"
+                                      ItemsSource="{Binding Partial.Wmt1.LeftWave, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValue="{Binding Partial.Wmt1.LeftWave}" />
+                        <ComboBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2"
+                                      Margin="0 0 5 0"
+                                      VerticalAlignment="Top"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"
+                                      ItemsSource="{Binding Partial.Wmt1.RightWave, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValue="{Binding Partial.Wmt1.RightWave}" />
+                        <ComboBox Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="2"
+                                      Margin="0 0 5 0"
+                                      VerticalAlignment="Top"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"
+                                      ItemsSource="{Binding Partial.Wmt1.WaveGain, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValue="{Binding Partial.Wmt1.WaveGain}" />
+                        <ComboBox Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="2"
+                                      Margin="0 0 5 0"
+                                      VerticalAlignment="Top"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"
+                                      ItemsSource="{Binding Partial.Wmt1.FxmColor, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValue="{Binding Partial.Wmt1.FxmColor}" />
+                        <ComboBox Grid.Column="8" Grid.ColumnSpan="2" Grid.Row="2"
+                                      Margin="0 0 5 0"
+                                      VerticalAlignment="Top"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"
+                                      ItemsSource="{Binding Partial.Wmt1.AlternatePanorama, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValue="{Binding Partial.Wmt1.AlternatePanorama}" />
+
+                        <StackPanel Grid.Column="0" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="0" Maximum="127"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.Level}" />
+                            <TextBlock Text="Level"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="1" Maximum="{Binding Partial.Wmt1.VelocityRangeUpper}"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.VelocityRangeLower}" />
+                            <TextBlock Text="Velocity Range Lower"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="{Binding Partial.Wmt1.VelocityRangeLower}" Maximum="127"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.VelocityRangeUpper}" />
+                            <TextBlock Text="Velocity Range Upper"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="0" Maximum="127"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.VelocityFadeWidthLower}" />
+                            <TextBlock Text="Velocity Fade Width Lower"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="5" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="0" Maximum="127"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.VelocityFadeWidthUpper}" />
+                            <TextBlock Text="Velocity Fade Width Upper"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="6" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="0" Maximum="16"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.FxmDepth}" />
+                            <TextBlock Text="FXM Depth"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="8" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="-64" Maximum="63"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.Panorama}" />
+                            <TextBlock Text="Panorama"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="10" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="-48" Maximum="48"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.CoarseTune}" />
+                            <TextBlock Text="Coarse Tune"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="11" Grid.Row="3"
+                                    Orientation="Vertical">
+                            <knobControl:Knob Height="65" Width="65"
+                                              ArcEndAngle="150" ArcStartAngle="-150"
+                                              Minimum="-50" Maximum="50"
+                                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                              Value="{Binding Partial.Wmt1.FineTune}" />
+                            <TextBlock Text="Fine Tune"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="WMT 2" />
+                <TabItem Header="WMT 3" />
+                <TabItem Header="WMT 4" />
+            </controls:CachedTabControl>
+        </Grid>
+    </StackPanel>
+
+    <!-- TVF & TVF Envelope -->
+    <Grid Grid.Row="2"
+          VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="435" />
+            <ColumnDefinition Width="585" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="165" />
+        </Grid.RowDefinitions>
+
+        <GroupBox VerticalAlignment="Top"
+                  Width="435" Height="155"
+                  Header="TVF">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Content="Type: " />
+                <Label Grid.Column="0" Grid.Row="2"
+                       VerticalAlignment="Top"
+                       Content="Cutoff Velocity Curve: " />
+
+                <ComboBox Grid.Column="0" Grid.Row="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Tvf.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Tvf.Type}" />
+                <ComboBox Grid.Column="0" Grid.Row="3"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Tvf.CutoffVelocityCurve, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Tvf.CutoffVelocityCurve}" />
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4"
+                            HorizontalAlignment="Right"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Cutoff}" />
+                    <TextBlock Text="Cutoff"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Resonance}" />
+                    <TextBlock Text="Resonance"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.CutoffVelocitySensitivity}" />
+                    <TextBlock Text="Cutoff Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.ResonanceVelocitySensitivity}" />
+                    <TextBlock Text="Resonance Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1"
+                  Height="155" Width="575"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="TVF Envelope">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      Width="120">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T1" />
+                    <TextBlock Grid.Column="1" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T2" />
+                    <TextBlock Grid.Column="2" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T3" />
+                    <TextBlock Grid.Column="3" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T4" />
+
+                    <Slider Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Time1}" />
+                    <Slider Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Time2}" />
+                    <Slider Grid.Column="2" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Time3}" />
+                    <Slider Grid.Column="3" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Time4}" />
+
+                    <TextBox Grid.Column="0" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Time1, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Time2, Mode=OneWay}" />
+                    <TextBox Grid.Column="2" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Time3, Mode=OneWay}" />
+                    <TextBox Grid.Column="3" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Time4, Mode=OneWay}" />
+                </Grid>
+                <Grid Grid.Column="1"
+                      Width="150"
+                      HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L0" />
+                    <TextBlock Grid.Column="1" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L1" />
+                    <TextBlock Grid.Column="2" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L2" />
+                    <TextBlock Grid.Column="3" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L3" />
+                    <TextBlock Grid.Column="4" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L4" />
+
+                    <Slider Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Level0}" />
+                    <Slider Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Level1}" />
+                    <Slider Grid.Column="2" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Level2}" />
+                    <Slider Grid.Column="3" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Level3}" />
+                    <Slider Grid.Column="4" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tvf.Envelope.Level4}" />
+
+                    <TextBox Grid.Column="0" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Level0, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Level1, Mode=OneWay}" />
+                    <TextBox Grid.Column="2" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Level2, Mode=OneWay}" />
+                    <TextBox Grid.Column="3" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Level3, Mode=OneWay}" />
+                    <TextBox Grid.Column="4" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tvf.Envelope.Level4, Mode=OneWay}" />
+                </Grid>
+
+                <StackPanel Grid.Column="2" Grid.Row="0"
+                            HorizontalAlignment="Right"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Envelope.Depth}" />
+                    <TextBlock Text="Envelope Depth"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="3" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Envelope.VelocitySensitivity}" />
+                    <TextBlock Text="Envelope Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Envelope.Time1VelocitySensitivity}" />
+                    <TextBlock Text="Time 1 Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="5" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tvf.Envelope.Time4VelocitySensitivity}" />
+                    <TextBlock Text="Time 4 Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+    <!-- Amplifier & TVA Envelope -->
+    <Grid Grid.Row="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="505" />
+            <ColumnDefinition Width="455" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0"
+                  Width="505"
+                  VerticalAlignment="Top"
+                  Header="Amplifier">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0"
+                       VerticalAlignment="Top"
+                       Content="Coarse Tune: " />
+                <Label Grid.Column="0" Grid.Row="2"
+                       VerticalAlignment="Top"
+                       Content="Random Pitch Depth: " />
+                <Label Grid.Column="0" Grid.Row="4"
+                       VerticalAlignment="Top"
+                       Content="Envelope Mode: " />
+
+                <ComboBox Grid.Column="0" Grid.Row="1"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Amplifier.CoarseTune, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Amplifier.CoarseTune}" />
+                <ComboBox Grid.Column="0" Grid.Row="3"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Amplifier.RandomPitchDepth, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Amplifier.RandomPitchDepth}" />
+                <ComboBox Grid.Column="0" Grid.Row="5"
+                          VerticalAlignment="Top"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Amplifier.EnvelopeMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Amplifier.EnvelopeMode}" />
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4"
+                            HorizontalAlignment="Right"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-50" Maximum="50"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Amplifier.FineTune}" />
+                    <TextBlock Text="Fine Tune"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="127"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Amplifier.Level}" />
+                    <TextBlock Text="Level"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-64" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Amplifier.Panorama}" />
+                    <TextBlock Text="Panorama"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="0" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Amplifier.RandomPanoramaDepth}" />
+                    <TextBlock Text="Random Panorama Depth"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Amplifier.AlternatePanoramaDepth}" />
+                    <TextBlock Text="Alternate Panorama Depth"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1"
+                  Width="445"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="TVA Envelope">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      Width="120">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T1" />
+                    <TextBlock Grid.Column="1" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T2" />
+                    <TextBlock Grid.Column="2" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T3" />
+                    <TextBlock Grid.Column="3" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="T4" />
+
+                    <Slider Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Time1}" />
+                    <Slider Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Time2}" />
+                    <Slider Grid.Column="2" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Time3}" />
+                    <Slider Grid.Column="3" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Time4}" />
+
+                    <TextBox Grid.Column="0" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Time1, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Time2, Mode=OneWay}" />
+                    <TextBox Grid.Column="2" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Time3, Mode=OneWay}" />
+                    <TextBox Grid.Column="3" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Time4, Mode=OneWay}" />
+                </Grid>
+                <Grid Grid.Column="1"
+                      Width="90"
+                      HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L1" />
+                    <TextBlock Grid.Column="1" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L2" />
+                    <TextBlock Grid.Column="2" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L3" />
+
+                    <Slider Grid.Column="0" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Level1}" />
+                    <Slider Grid.Column="1" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Level2}" />
+                    <Slider Grid.Column="2" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Level3}" />
+
+                    <TextBox Grid.Column="0" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Level1, Mode=OneWay}" />
+                    <TextBox Grid.Column="1" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Level2, Mode=OneWay}" />
+                    <TextBox Grid.Column="2" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Level3, Mode=OneWay}" />
+                </Grid>
+
+                <StackPanel Grid.Column="2" Grid.Row="0"
+                            HorizontalAlignment="Right"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tva.Envelope.VelocitySensitivity}" />
+                    <TextBlock Text="Envelope Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="3" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tva.Envelope.Time1VelocitySensitivity}" />
+                    <TextBlock Text="Time 1 Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Grid.Column="4" Grid.Row="0"
+                            Orientation="Vertical">
+                    <knobControl:Knob Height="65" Width="65"
+                                      ArcEndAngle="150" ArcStartAngle="-150"
+                                      Minimum="-63" Maximum="63"
+                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                      Value="{Binding Partial.Tva.Envelope.Time4VelocitySensitivity}" />
+                    <TextBlock Text="Time 4 Velocity Sensitivity"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+    <Grid Grid.Row="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="230" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!-- Output -->
+        <GroupBox Grid.Column="1"
+                  Width="220" Height="170"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Header="Output">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="105" />
+                    <ColumnDefinition Width="105" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Partial.Output.OutputLevel}" />
+                        <TextBlock Text="Output 
+                                   Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <!-- TODO: Check if that shouldn't be delay send level -->
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Partial.Output.ChorusSendLevel}" />
+                        <TextBlock Text="Chorus Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Vertical">
+                        <knobControl:Knob Height="65" Width="65"
+                                          ArcEndAngle="150" ArcStartAngle="-150"
+                                          Minimum="0" Maximum="127"
+                                          HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                          Value="{Binding Partial.Output.ReverbSendLevel}" />
+                        <TextBlock Text="Reverb Send Level"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Bottom"
+                       Content="Output Assign:" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          VerticalAlignment="Bottom"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Description"
+                          ItemsSource="{Binding Partial.Output.OutputAssign, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding Partial.Output.OutputAssign}" />
+            </Grid>
+        </GroupBox>
+
+        <!-- WMT Tab View -->
+
+        <!-- Pitch Envelope -->
+
+        <!-- Filter -->
+
+
+        <!-- Amplifier Envelope -->
+
+        <!-- Others -->
+    </Grid>
+
+</Grid>
