@@ -10,7 +10,7 @@
       mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="100" />
-        <RowDefinition Height="250" />
+        <RowDefinition Height="235" />
         <RowDefinition Height="165" />
         <RowDefinition />
         <RowDefinition />
@@ -130,7 +130,7 @@
 
     <StackPanel Grid.Row="1"
                 VerticalAlignment="Top" HorizontalAlignment="Left"
-                Width="1050" Height="240"
+                Width="1050" Height="225"
                 Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -159,7 +159,7 @@
 
             <controls:CachedTabControl Grid.Column="1"
                                        HorizontalAlignment="Left"
-                                       Width="910" Height="240"
+                                       Width="910" Height="225"
                                        Padding="5" Margin="0 5 0 0"
                                        Style="{StaticResource SimpleCachedTabControl}">
                 <TabItem Header="WMT 1">
@@ -267,7 +267,41 @@
                                        TextWrapping="Wrap" />
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2" Grid.Row="3"
+                        <Grid Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="1" Grid.Row="0" 
+                                   VerticalAlignment="Top"
+                                   Content="Velocity Range:" />
+
+                            <mah:RangeSlider Grid.Column="1" Grid.Row="1"
+                                             Margin="5 4"
+                                             VerticalAlignment="Top"
+                                             Minimum="0" Maximum="127" 
+                                             LowerValue="{Binding Partial.Wmt1.VelocityRangeLower}"
+                                             UpperValue="{Binding Partial.Wmt1.VelocityRangeUpper}" 
+                                             MinRangeWidth="0" />
+
+                            <TextBox Grid.Column="0" Grid.Row="1" 
+                                     Margin="5 0 0 0"
+                                     VerticalAlignment="Top"
+                                     IsReadOnly="True"
+                                     Text="{Binding Partial.Wmt1.VelocityRangeLower}" />
+                            <TextBox Grid.Column="2" Grid.Row="1"
+                                     Margin="0 0 5 0"
+                                     VerticalAlignment="Top"
+                                     IsReadOnly="True"
+                                     Text="{Binding Partial.Wmt1.VelocityRangeUpper}" />
+                        </Grid>
+                        <!--<StackPanel Grid.Column="2" Grid.Row="3"
                                     Orientation="Vertical">
                             <knobControl:Knob Height="65" Width="65"
                                               ArcEndAngle="150" ArcStartAngle="-150"
@@ -277,9 +311,9 @@
                             <TextBlock Text="Velocity Range Lower"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="3" Grid.Row="3"
-                                    Orientation="Vertical">
+                        </StackPanel>-->
+                        <!--<StackPanel Grid.Column="3" Grid.Row="3"-->
+                                    <!--Orientation="Vertical">
                             <knobControl:Knob Height="65" Width="65"
                                               ArcEndAngle="150" ArcStartAngle="-150"
                                               Minimum="{Binding Partial.Wmt1.VelocityRangeLower}" Maximum="127"
@@ -288,7 +322,7 @@
                             <TextBlock Text="Velocity Range Upper"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap" />
-                        </StackPanel>
+                        </StackPanel>-->
                         <StackPanel Grid.Column="4" Grid.Row="3"
                                     Orientation="Vertical">
                             <knobControl:Knob Height="65" Width="65"
@@ -1070,14 +1104,7 @@
             </Grid>
         </GroupBox>
 
-        <!-- WMT Tab View -->
-
         <!-- Pitch Envelope -->
-
-        <!-- Filter -->
-
-
-        <!-- Amplifier Envelope -->
 
         <!-- Others -->
     </Grid>
