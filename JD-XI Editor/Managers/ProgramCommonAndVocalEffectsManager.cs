@@ -6,38 +6,47 @@ using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
-using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
     internal class ProgramCommonAndVocalEffectsManager : IProgramCommonAndVocalEffectsManager
     {
+        #region Methods
+
+        /// <inheritdoc />
+        public ProgramCommonAndVocalEffectsManager()
+        {
+            _timer.Elapsed += OnTimerElapsed;
+        }
+
+        #endregion
+
         #region Fields
 
         /// <summary>
         ///     Program common offset address
         /// </summary>
-        private static readonly byte[] CommonOffset = {0x18, 0x00, 0x00, 0x00};
+        private readonly byte[] _commonOffset = {0x18, 0x00, 0x00, 0x00};
 
         /// <summary>
         ///     Auto Note offset address
         /// </summary>
-        private static readonly byte[] AutoNoteOffset = {0x18, 0x00, 0x00, 0x1E};
+        private readonly byte[] _autoNoteOffset = {0x18, 0x00, 0x00, 0x1E};
 
         /// <summary>
         ///     VFX offset address
         /// </summary>
-        private static readonly byte[] VfxEffectsOffset = {0x18, 0x00, 0x01, 0x00};
+        private readonly byte[] _vfxEffectsOffset = {0x18, 0x00, 0x01, 0x00};
 
         /// <summary>
         ///     Common dump request
         /// </summary>
-        private static readonly byte[] CommonDumpRequest = {0x00, 0x00, 0x00, 0x1F};
+        private readonly byte[] _commonDumpRequest = {0x00, 0x00, 0x00, 0x1F};
 
         /// <summary>
         ///     VFX dump request
         /// </summary>
-        private static readonly byte[] VfxDumpRequest = { 0x00, 0x00, 0x00, 0x18 };
+        private readonly byte[] _vfxDumpRequest = {0x00, 0x00, 0x00, 0x18};
 
         /// <summary>
         ///     Expected common dump length
@@ -86,16 +95,6 @@ namespace JD_XI_Editor.Managers
 
         #endregion
 
-        #region Methods
-
-        /// <inheritdoc />
-        public ProgramCommonAndVocalEffectsManager()
-        {
-            _timer.Elapsed += OnTimerElapsed;
-        }
-
-        #endregion
-
         #region Callbacks
 
         /// <summary>
@@ -104,13 +103,8 @@ namespace JD_XI_Editor.Managers
         private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
             if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
-            {
                 _commonDump = e.Message;
-            }
-            else if (e.Message.Length == ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize)
-            {
-                _vfxDump = e.Message;
-            }
+            else if (e.Message.Length == ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize) _vfxDump = e.Message;
 
             _dumpCount++;
 
@@ -150,9 +144,10 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(CommonOffset, vfxPatch.Common.GetBytes()));
-                output.Send(SysExUtils.GetMessage(VfxEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
-                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }));
+                output.Send(SysExUtils.GetMessage(_commonOffset, vfxPatch.Common.GetBytes()));
+                output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
+                output.Send(SysExUtils.GetMessage(_autoNoteOffset,
+                    new[] {ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote)}));
             }
         }
 
@@ -161,7 +156,7 @@ namespace JD_XI_Editor.Managers
         {
             // Reset dump count counter
             _dumpCount = 0;
-            
+
             // Initialize input device
             _device = new InputDevice(inputDeviceId);
 
@@ -174,8 +169,8 @@ namespace JD_XI_Editor.Managers
             // Request data dump from device
             using (var output = new OutputDevice(outputDeviceId))
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(CommonOffset, CommonDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(VfxEffectsOffset, VfxDumpRequest));
+                output.Send(SysExUtils.GetRequestDumpMessage(_commonOffset, _commonDumpRequest));
+                output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
 
                 _timer.Start();
             }
@@ -190,7 +185,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(CommonOffset, common.GetBytes()));
+                output.Send(SysExUtils.GetMessage(_commonOffset, common.GetBytes()));
             }
         }
 
@@ -199,7 +194,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(VfxEffectsOffset, vocalFx.GetBytes()));
+                output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vocalFx.GetBytes()));
             }
         }
 
@@ -208,7 +203,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(value) }));
+                output.Send(SysExUtils.GetMessage(_autoNoteOffset, new[] {ByteUtils.BooleanToByte(value)}));
             }
         }
 

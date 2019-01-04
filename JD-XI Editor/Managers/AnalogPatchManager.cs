@@ -17,12 +17,12 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Address offset
         /// </summary>
-        private static readonly byte[] AddressOffset = {0x19, 0x42, 0x00, 0x00};
+        private readonly byte[] _addressOffset = {0x19, 0x42, 0x00, 0x00};
 
         /// <summary>
         ///     SysEx message length
         /// </summary>
-        private static readonly byte[] DumpRequest = {0x00, 0x00, 0x00, 0x40};
+        private readonly byte[] _dumpRequest = {0x00, 0x00, 0x00, 0x40};
 
         /// <summary>
         ///     Expected Dump Length
@@ -107,7 +107,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(AddressOffset, analogPatch.GetBytes()));
+                output.Send(SysExUtils.GetMessage(_addressOffset, analogPatch.GetBytes()));
             }
         }
 
@@ -125,7 +125,7 @@ namespace JD_XI_Editor.Managers
             // Request data dump from device
             using (var output = new OutputDevice(outputDeviceId))
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, DumpRequest));
+                output.Send(SysExUtils.GetRequestDumpMessage(_addressOffset, _dumpRequest));
                 _timer.Start();
             }
         }
