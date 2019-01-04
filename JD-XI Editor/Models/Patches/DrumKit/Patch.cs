@@ -16,14 +16,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             InitPartials();
 
             Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
-            // TODO: Partials property changed
         }
 
         /// <inheritdoc />
         public void Reset()
         {
             Common.Reset();
-            InitPartials();
+
+            foreach (var partial in Partials)
+            {
+                partial.Value.Reset();
+            }
         }
 
         /// <inheritdoc />
