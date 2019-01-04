@@ -1162,15 +1162,14 @@
                                TextAlignment="Center"
                                TextWrapping="Wrap" />
                 </StackPanel>
-                <!-- TODO: Check if that shouldn't be delay send level -->
                 <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"
                             Orientation="Vertical">
                     <knobControl:Knob Height="65" Width="65"
                                       ArcEndAngle="150" ArcStartAngle="-150"
                                       Minimum="0" Maximum="127"
                                       HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                      Value="{Binding Partial.Output.ChorusSendLevel}" />
-                    <TextBlock Text="Chorus Send Level"
+                                      Value="{Binding Partial.Output.DelaySendLevel}" />
+                    <TextBlock Text="Delay Send Level"
                                TextAlignment="Center"
                                TextWrapping="Wrap" />
                 </StackPanel>

@@ -9,7 +9,7 @@
       mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
-        <RowDefinition Height="25" />  <!-- TODO: Kit Level and Kit Name -->
+        <RowDefinition Height="25" />
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 

@@ -17,7 +17,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         public void Reset()
         {
             OutputLevel = 127;
-            ChorusSendLevel = 0;
+            DelaySendLevel = 0;
             ReverbSendLevel = 64;
             OutputAssign = OutputAssign.Reverb;
         }
@@ -28,7 +28,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             if (part is Output output)
             {
                 OutputLevel = output.OutputLevel;
-                ChorusSendLevel = output.ChorusSendLevel;
+                DelaySendLevel = output.DelaySendLevel;
                 ReverbSendLevel = output.ReverbSendLevel;
                 OutputAssign = output.OutputAssign;
             }
@@ -47,7 +47,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             }
 
             OutputLevel = data[0];
-            ChorusSendLevel = data[3];
+            DelaySendLevel = data[3];
             ReverbSendLevel = data[4];
             OutputAssign = (OutputAssign) data[5];
         }
@@ -60,7 +60,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) OutputLevel,
                 (byte) 0x00, //Reserve
                 (byte) 0x00, //Reserve
-                (byte) ChorusSendLevel,
+                (byte) DelaySendLevel,
                 (byte) ReverbSendLevel,
                 (byte) OutputAssign
             };
@@ -79,7 +79,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     Chorus send level
         /// </summary>
-        public int ChorusSendLevel { get; set; }
+        public int DelaySendLevel { get; set; }
 
         /// <summary>
         ///     Reverb send level
