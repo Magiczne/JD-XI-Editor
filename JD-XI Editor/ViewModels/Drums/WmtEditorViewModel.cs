@@ -7,11 +7,8 @@ namespace JD_XI_Editor.ViewModels.Drums
     {
         public WmtEditorViewModel(Partial partial)
         {
-            //TODO: WMT as array
-            Items.Add(new WmtViewModel(partial.Wmt1, "WMT1"));
-            Items.Add(new WmtViewModel(partial.Wmt2, "WMT2"));
-            Items.Add(new WmtViewModel(partial.Wmt3, "WMT3"));
-            Items.Add(new WmtViewModel(partial.Wmt4, "WMT4"));
+            for (var i = 0; i < partial.Wmts.Length; i++)
+                Items.Add(new WmtViewModel(partial.Wmts[i], $"WMT {i + 1}"));
         }
     }
 }

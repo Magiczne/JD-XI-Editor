@@ -19,10 +19,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Output = new Output();
             Expression = new Expression();
             VelocityControl = new VelocityControl();
-            Wmt1 = new Wmt.Wmt();
-            Wmt2 = new Wmt.Wmt();
-            Wmt3 = new Wmt.Wmt();
-            Wmt4 = new Wmt.Wmt();
+            Wmts = new[] { new Wmt.Wmt(), new Wmt.Wmt(), new Wmt.Wmt(), new Wmt.Wmt() };
             Pitch = new Pitch();
             Tvf = new Tvf();
             Tva = new Tva();
@@ -55,10 +52,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 Output.CopyFrom(p.Output);
                 Expression.CopyFrom(p.Expression);
                 VelocityControl.CopyFrom(p.VelocityControl);
-                Wmt1.CopyFrom(p.Wmt1);
-                Wmt2.CopyFrom(p.Wmt2);
-                Wmt3.CopyFrom(p.Wmt3);
-                Wmt4.CopyFrom(p.Wmt4);
+
+                for (var i = 0; i < p.Wmts.Length; i++)
+                    Wmts[i].CopyFrom(p.Wmts[i]);
+
                 Pitch.CopyFrom(p.Pitch);
                 Tvf.CopyFrom(p.Tvf);
                 Tva.CopyFrom(p.Tva);
@@ -84,10 +81,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Output.CopyFrom(data.Skip(22).Take(6).ToArray());
             Expression.CopyFrom(data.Skip(28).Take(4).ToArray());
             VelocityControl.CopyFrom(data.Skip(32).Take(1).ToArray());
-            Wmt1.CopyFrom(data.Skip(33).Take(29).ToArray());
-            Wmt2.CopyFrom(data.Skip(62).Take(29).ToArray());
-            Wmt3.CopyFrom(data.Skip(91).Take(29).ToArray());
-            Wmt4.CopyFrom(data.Skip(120).Take(29).ToArray());
+
+            for (var i = 0; i < Wmts.Length; i++)
+                Wmts[i].CopyFrom(data.Skip(33 + i * 29).Take(29).ToArray());
+
             Pitch.CopyFrom(data.Skip(149).Take(13).ToArray());
             Tvf.CopyFrom(data.Skip(162).Take(20).ToArray());
             Tva.CopyFrom(data.Skip(182).Take(11).ToArray());
@@ -103,10 +100,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Output.Reset();
             Expression.Reset();
             VelocityControl.Reset();
-            Wmt1.Reset();
-            Wmt2.Reset();
-            Wmt3.Reset();
-            Wmt4.Reset();
+
+            foreach (var wmt in Wmts)
+                wmt.Reset();
+
             Pitch.Reset();
             Tvf.Reset();
             Tva.Reset();
@@ -123,10 +120,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             bytes.AddRange(Amplifier.GetBytes());
             bytes.AddRange(Expression.GetBytes());
             bytes.AddRange(VelocityControl.GetBytes());
-            bytes.AddRange(Wmt1.GetBytes());
-            bytes.AddRange(Wmt2.GetBytes());
-            bytes.AddRange(Wmt3.GetBytes());
-            bytes.AddRange(Wmt4.GetBytes());
+
+            foreach (var wmt in Wmts)
+                bytes.AddRange(wmt.GetBytes());
+
             bytes.AddRange(Pitch.GetBytes());
             bytes.AddRange(Tvf.GetBytes());
             bytes.AddRange(Tva.GetBytes());
@@ -136,6 +133,11 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         #region Fields
+
+        /// <summary>
+        ///     WMT data
+        /// </summary>
+        public Wmt.Wmt[] Wmts { get; }
 
         #endregion
 
@@ -184,25 +186,25 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         ///     WMT 1
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt1 { get; }
+        public Wmt.Wmt Wmt1 => Wmts[0];
 
         /// <summary>
         ///     WMT 2
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt2 { get; }
+        public Wmt.Wmt Wmt2 => Wmts[1];
 
         /// <summary>
         ///     WMT 3
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt3 { get; }
+        public Wmt.Wmt Wmt3 => Wmts[2];
 
         /// <summary>
         ///     WMT 4
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt4 { get; }
+        public Wmt.Wmt Wmt4 => Wmts[3];
 
         /// <summary>
         ///     Pitch
