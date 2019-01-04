@@ -8,7 +8,7 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d">
     <Grid.RowDefinitions>
-        <RowDefinition Height="100" />
+        <RowDefinition Height="120" />
         <RowDefinition Height="235" />
         <RowDefinition Height="165" />
         <RowDefinition Height="165" />
@@ -17,7 +17,7 @@
 
     <!-- Basic, Assign, Expression -->
     <Grid Grid.Row="0"
-          VerticalAlignment="Top" HorizontalAlignment="Left">
+          HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160" />
             <ColumnDefinition Width="320" />
@@ -27,7 +27,7 @@
 
         <!-- Basic -->
         <GroupBox Grid.Column="0"
-                  Width="160" Height="95"
+                  Width="160" Height="115"
                   VerticalAlignment="Top" HorizontalAlignment="Right"
                   Header="Basic">
             <Grid>
@@ -52,7 +52,7 @@
 
         <!-- Assign -->
         <GroupBox Grid.Column="1"
-                  Width="310" Height="95"
+                  Width="310" Height="115"
                   VerticalAlignment="Top" HorizontalAlignment="Right"
                   Header="Assign">
             <Grid>
@@ -91,13 +91,14 @@
 
         <!-- Expression -->
         <GroupBox Grid.Column="2"
-                  Width="260" Height="95"
+                  Width="260" Height="115"
                   VerticalAlignment="Top" HorizontalAlignment="Right"
                   Header="Expression">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
@@ -113,9 +114,9 @@
                           Content="Receive Hold-1"
                           IsChecked="{Binding Partial.Expression.ReceiveHold1}" />
 
-                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                             Orientation="Vertical">
-                    <knobControl:Knob Height="40" Width="40"
+                    <knobControl:Knob Height="60" Width="60"
                                       ArcEndAngle="150" ArcStartAngle="-150"
                                       Minimum="0" Maximum="48"
                                       HorizontalAlignment="Center" HorizontalContentAlignment="Center"
@@ -129,13 +130,14 @@
 
         <!-- Others -->
         <GroupBox Grid.Column="3"
-                  Width="255"
+                  Width="255" Height="115"
                   VerticalAlignment="Top" HorizontalAlignment="Right"
                   Header="Other">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
@@ -147,9 +149,9 @@
                           Content="One Shot Mode"
                           IsChecked="{Binding Partial.Other.OneShotMode}" />
 
-                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                             Orientation="Vertical">
-                    <knobControl:Knob Height="40" Width="40"
+                    <knobControl:Knob Height="60" Width="60"
                                       ArcEndAngle="150" ArcStartAngle="-150"
                                       Minimum="0" Maximum="127"
                                       HorizontalAlignment="Center" HorizontalContentAlignment="Center"
@@ -162,42 +164,48 @@
         </GroupBox>
     </Grid>
 
-    <StackPanel Grid.Row="1"
-                VerticalAlignment="Top" HorizontalAlignment="Left"
-                Width="1050" Height="225"
-                Orientation="Vertical">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140" />
-                <ColumnDefinition Width="910" />
-            </Grid.ColumnDefinitions>
+    <!-- WMT Controls & WMT Editor -->
+    <Grid Grid.Row="1" 
+          VerticalAlignment="Top" HorizontalAlignment="Left"
+          Height="225">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="215" />
+            <ColumnDefinition Width="915" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="0"
-                        Orientation="Vertical">
-                <mah:ToggleSwitch OffLabel="WMT1" OnLabel="WMT1"
-                                  IsChecked="{Binding Partial.Wmt1.On}" />
-                <mah:ToggleSwitch OffLabel="WMT2" OnLabel="WMT2"
-                                  IsChecked="{Binding Partial.Wmt2.On}" />
-                <mah:ToggleSwitch OffLabel="WMT3" OnLabel="WMT3"
-                                  IsChecked="{Binding Partial.Wmt3.On}" />
-                <mah:ToggleSwitch OffLabel="WMT4" OnLabel="WMT4"
-                                  IsChecked="{Binding Partial.Wmt4.On}" />
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <mah:ToggleSwitch Content="WMT 1"
+                              IsChecked="{Binding Partial.Wmt1.On}" />
+            <mah:ToggleSwitch Content="WMT 2"
+                              IsChecked="{Binding Partial.Wmt2.On}" />
+            <mah:ToggleSwitch Content="WMT 3"
+                              IsChecked="{Binding Partial.Wmt3.On}" />
+            <mah:ToggleSwitch Content="WMT 4"
+                              IsChecked="{Binding Partial.Wmt4.On}" />
+        </StackPanel>
 
-                <Label Content="WMT Velocity Control: " />
-                <ComboBox Margin="0 0 5 0"
-                          SelectedValuePath="Value"
-                          DisplayMemberPath="Description"
-                          ItemsSource="{Binding Partial.VelocityControl.Control, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                          SelectedValue="{Binding Partial.VelocityControl.Control}" />
-            </StackPanel>
+        <Label Grid.Column="0" Grid.Row="1" 
+               VerticalAlignment="Bottom"
+               Content="WMT Velocity Control: " />
+        <ComboBox Grid.Column="0" Grid.Row="2" 
+                  VerticalAlignment="Bottom"
+                  Margin="0 0 5 0"
+                  SelectedValuePath="Value"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding Partial.VelocityControl.Control, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                  SelectedValue="{Binding Partial.VelocityControl.Control}" />
 
-            <ContentControl x:Name="WmtEditor"
-                            Grid.Column="1"
-                            VerticalAlignment="Top" HorizontalAlignment="Left"
-                            Width="910" Height="225"
-                            Margin="0 5 0 0" />
-        </Grid>
-    </StackPanel>
+        <ContentControl x:Name="WmtEditor"
+                        Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+                        VerticalAlignment="Top" HorizontalAlignment="Right"
+                        Width="910" Height="225"
+                        Margin="0 5 0 0" />
+    </Grid>
 
     <!-- TVF & TVF Envelope -->
     <Grid Grid.Row="2"
@@ -210,41 +218,23 @@
             <RowDefinition Height="165" />
         </Grid.RowDefinitions>
 
-        <!-- TVF -->
+        <!-- TVF Envelope -->
         <GroupBox Grid.Column="0"
                   Height="155" Width="685"
                   VerticalAlignment="Top"
                   Header="TVF Envelope">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="110" />
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="70" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0"
-                           VerticalAlignment="Top"
-                           ToolTip="Envelope Velocity Curve"
-                           Content="Velocity Curve: " />
-                    <ComboBox Grid.Row="1"
-                              VerticalAlignment="Top"
-                              SelectedValuePath="Value"
-                              DisplayMemberPath="Description"
-                              ItemsSource="{Binding Partial.Tvf.Envelope.VelocityCurve, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                              SelectedValue="{Binding Partial.Tvf.Envelope.VelocityCurve}" />
-                </Grid>
-
-                <Grid Grid.Column="1"
+                <Grid Grid.Column="0"
                       Width="120"
                       VerticalAlignment="Top" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
@@ -318,9 +308,9 @@
                              VerticalAlignment="Bottom"
                              Text="{Binding Partial.Tvf.Envelope.Time4, Mode=OneWay}" />
                 </Grid>
-                <Grid Grid.Column="2"
+                <Grid Grid.Column="1"
                       Width="150"
-                      HorizontalAlignment="Right">
+                      VerticalAlignment="Top" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="30" />
@@ -408,6 +398,26 @@
                              Text="{Binding Partial.Tvf.Envelope.Level4, Mode=OneWay}" />
                 </Grid>
 
+                <Grid Grid.Column="2" 
+                      Width="100"
+                      VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           VerticalAlignment="Top"
+                           ToolTip="Envelope Velocity Curve"
+                           Content="Velocity Curve: " />
+                    <ComboBox Grid.Row="1"
+                              VerticalAlignment="Top"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              ItemsSource="{Binding Partial.Tvf.Envelope.VelocityCurve, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                              SelectedValue="{Binding Partial.Tvf.Envelope.VelocityCurve}" />
+                </Grid>
+
                 <StackPanel Grid.Column="3" Grid.Row="0"
                             HorizontalAlignment="Right"
                             Orientation="Vertical">
@@ -458,7 +468,7 @@
             </Grid>
         </GroupBox>
 
-        <!-- TVF Envelope -->
+        <!-- TVF  -->
         <GroupBox Grid.Column="1"
                   Width="435" Height="155"
                   VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -551,57 +561,26 @@
     <!-- Amplifier & TVA Envelope -->
     <Grid Grid.Row="3">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="555" />
+            <ColumnDefinition Width="615" />
             <ColumnDefinition Width="515" />
         </Grid.ColumnDefinitions>
 
         <!-- TVA Envelope -->
         <GroupBox Grid.Column="0"
-                  Width="555"
+                  Width="615"
                   VerticalAlignment="Top"
                   Header="TVA Envelope">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="130" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="110" />
                     <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="70" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0"
-                           VerticalAlignment="Top"
-                           ToolTip="Envelope Mode"
-                           Content="Mode: " />
-                    <Label Grid.Row="2"
-                           VerticalAlignment="Top"
-                           ToolTip="Envelope Velocity Curve"
-                           Content="Velocity Curve: " />
-
-                    <ComboBox Grid.Column="0" Grid.Row="1"
-                              VerticalAlignment="Top"
-                              SelectedValuePath="Value"
-                              DisplayMemberPath="Description"
-                              ItemsSource="{Binding Partial.Amplifier.EnvelopeMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                              SelectedValue="{Binding Partial.Amplifier.EnvelopeMode}" />
-                    <ComboBox Grid.Column="0" Grid.Row="3"
-                              VerticalAlignment="Top"
-                              SelectedValuePath="Value"
-                              DisplayMemberPath="Description"
-                              ItemsSource="{Binding Partial.Tva.Envelope.VelocityCurve, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                              SelectedValue="{Binding Partial.Tva.Envelope.VelocityCurve}" />
-                </Grid>
-
-                <Grid Grid.Column="1"
+                <Grid Grid.Column="0"
                       Width="120"
                       HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
@@ -675,10 +654,12 @@
                              VerticalAlignment="Bottom"
                              Text="{Binding Partial.Tva.Envelope.Time4, Mode=OneWay}" />
                 </Grid>
-                <Grid Grid.Column="2"
-                      Width="90"
+                <Grid Grid.Column="1"
+                      Width="150"
                       HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="30" />
@@ -689,50 +670,83 @@
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0"
-                               TextAlignment="Center"
-                               VerticalAlignment="Top"
-                               Text="L1" />
                     <TextBlock Grid.Column="1" Grid.Row="0"
                                TextAlignment="Center"
                                VerticalAlignment="Top"
-                               Text="L2" />
+                               Text="L1" />
                     <TextBlock Grid.Column="2" Grid.Row="0"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="L2" />
+                    <TextBlock Grid.Column="3" Grid.Row="0"
                                TextAlignment="Center"
                                VerticalAlignment="Top"
                                Text="L3" />
 
-                    <Slider Grid.Column="0" Grid.Row="1"
-                            Orientation="Vertical"
-                            HorizontalAlignment="Center"
-                            Minimum="0"
-                            Maximum="127"
-                            Value="{Binding Partial.Tva.Envelope.Level1}" />
                     <Slider Grid.Column="1" Grid.Row="1"
                             Orientation="Vertical"
                             HorizontalAlignment="Center"
                             Minimum="0"
                             Maximum="127"
-                            Value="{Binding Partial.Tva.Envelope.Level2}" />
+                            Value="{Binding Partial.Tva.Envelope.Level1}" />
                     <Slider Grid.Column="2" Grid.Row="1"
+                            Orientation="Vertical"
+                            HorizontalAlignment="Center"
+                            Minimum="0"
+                            Maximum="127"
+                            Value="{Binding Partial.Tva.Envelope.Level2}" />
+                    <Slider Grid.Column="3" Grid.Row="1"
                             Orientation="Vertical"
                             HorizontalAlignment="Center"
                             Minimum="0"
                             Maximum="127"
                             Value="{Binding Partial.Tva.Envelope.Level3}" />
 
-                    <TextBox Grid.Column="0" Grid.Row="2"
-                             IsReadOnly="True"
-                             VerticalAlignment="Bottom"
-                             Text="{Binding Partial.Tva.Envelope.Level1, Mode=OneWay}" />
                     <TextBox Grid.Column="1" Grid.Row="2"
                              IsReadOnly="True"
                              VerticalAlignment="Bottom"
-                             Text="{Binding Partial.Tva.Envelope.Level2, Mode=OneWay}" />
+                             Text="{Binding Partial.Tva.Envelope.Level1, Mode=OneWay}" />
                     <TextBox Grid.Column="2" Grid.Row="2"
                              IsReadOnly="True"
                              VerticalAlignment="Bottom"
+                             Text="{Binding Partial.Tva.Envelope.Level2, Mode=OneWay}" />
+                    <TextBox Grid.Column="3" Grid.Row="2"
+                             IsReadOnly="True"
+                             VerticalAlignment="Bottom"
                              Text="{Binding Partial.Tva.Envelope.Level3, Mode=OneWay}" />
+                </Grid>
+
+                <Grid Grid.Column="2" 
+                      Width="100" 
+                      VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           VerticalAlignment="Top"
+                           ToolTip="Envelope Mode"
+                           Content="Mode: " />
+                    <Label Grid.Row="2"
+                           VerticalAlignment="Top"
+                           ToolTip="Envelope Velocity Curve"
+                           Content="Velocity Curve: " />
+
+                    <ComboBox Grid.Column="0" Grid.Row="1"
+                              VerticalAlignment="Top"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              ItemsSource="{Binding Partial.Amplifier.EnvelopeMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                              SelectedValue="{Binding Partial.Amplifier.EnvelopeMode}" />
+                    <ComboBox Grid.Column="0" Grid.Row="3"
+                              VerticalAlignment="Top"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              ItemsSource="{Binding Partial.Tva.Envelope.VelocityCurve, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                              SelectedValue="{Binding Partial.Tva.Envelope.VelocityCurve}" />
                 </Grid>
 
                 <StackPanel Grid.Column="3" Grid.Row="0"
@@ -878,7 +892,7 @@
     <Grid Grid.Row="4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="575" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="385" />
         </Grid.ColumnDefinitions>
 
         <!-- Pitch Envelope -->
@@ -1109,12 +1123,13 @@
 
         <!-- Output -->
         <GroupBox Grid.Column="1"
+                  Width="375"
                   VerticalAlignment="Stretch" HorizontalAlignment="Right"
                   Header="Output">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="75" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="70" />
                 </Grid.ColumnDefinitions>
@@ -1135,6 +1150,7 @@
                           SelectedValue="{Binding Partial.Output.OutputAssign}" />
 
                 <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+                            HorizontalAlignment="Right"
                             Orientation="Vertical">
                     <knobControl:Knob Height="65" Width="65"
                                       ArcEndAngle="150" ArcStartAngle="-150"
