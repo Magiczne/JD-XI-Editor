@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -43,7 +43,7 @@ namespace JD_XI_Editor.Managers
         }
 
         /// <inheritdoc />
-        public void DumpPartial(Patch patch, string key, int deviceId)
+        public void DumpPartial(Partial partial, int deviceId)
         {
             throw new NotImplementedException();
         }

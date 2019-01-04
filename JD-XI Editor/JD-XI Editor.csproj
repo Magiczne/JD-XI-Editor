@@ -131,6 +131,7 @@
     <Compile Include="Models\Enums\Digital\WaveVariation.cs" />
     <Compile Include="Models\Enums\DrumKit\AlternatePan.cs" />
     <Compile Include="Models\Enums\DrumKit\AssignType.cs" />
+    <Compile Include="Models\Enums\DrumKit\DrumKey.cs" />
     <Compile Include="Models\Enums\DrumKit\EnvelopeMode.cs" />
     <Compile Include="Models\Enums\DrumKit\FilterType.cs" />
     <Compile Include="Models\Enums\DrumKit\FxmWaveColor.cs" />

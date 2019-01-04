@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 using PropertyChanged;
 
@@ -11,8 +12,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
     internal class Partial : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
-        public Partial()
+        public Partial(DrumKey key)
         {
+            Key = key;
+
             Basic = new Basic();
             Assign = new Assign();
             Amplifier = new Amplifier();
@@ -132,16 +135,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             return bytes.ToArray();
         }
 
-        #region Fields
+        #region Properties
 
         /// <summary>
-        ///     WMT data
+        ///     Key that is assigned to partial
         /// </summary>
-        public Wmt.Wmt[] Wmts { get; }
-
-        #endregion
-
-        #region Properties
+        public DrumKey Key { get; }
 
         /// <inheritdoc />
         public int DumpLength { get; } = 323;
@@ -181,6 +180,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// </summary>
         [DoNotNotify]
         public VelocityControl VelocityControl { get; }
+
+        /// <summary>
+        ///     WMT data
+        /// </summary>
+        [DoNotNotify]
+        public Wmt.Wmt[] Wmts { get; }
 
         /// <summary>
         ///     WMT 1
