@@ -9,7 +9,7 @@
       mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
-        <RowDefinition Height="40" />  <!-- TODO: Kit Level and Kit Name -->
+        <RowDefinition Height="25" />  <!-- TODO: Kit Level and Kit Name -->
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -62,12 +62,34 @@
         </Button>
     </Grid>
 
-    <!-- TODO: Level & Name -->
     <Grid Grid.Row="1" Grid.Column="0">
-        <TextBlock Text="Level Name &amp; Level Kit Here" />
+        <StackPanel Orientation="Horizontal"
+                     HorizontalAlignment="Right">
+            <Label VerticalAlignment="Top"
+                   Content="Drum Kit name: " />
+            <TextBox VerticalAlignment="Top"
+                     MaxLength="12"
+                     Width="110"
+                     Text="{Binding Patch.Common.Name}" />
+
+            <Label VerticalAlignment="Top"
+                   Content="Level: " />
+            <Slider Width="110"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Minimum="0"
+                    Maximum="127"
+                    Value="{Binding Patch.Common.Level}" />
+            <TextBox Width="30" 
+                     Margin="5 0 0 0"
+                     VerticalAlignment="Top"
+                     IsReadOnly="True"
+                     Text="{Binding Patch.Common.Level, Mode=OneWay}" />
+        </StackPanel>
     </Grid>
 
     <!-- Partials -->
     <ContentControl x:Name="Editor"
-                    Grid.Row="2" />
+                    Grid.Row="2"
+                    VerticalAlignment="Top" />
 </Grid>

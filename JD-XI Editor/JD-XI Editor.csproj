@@ -256,6 +256,8 @@
     <Compile Include="ViewModels\Drums\DrumKitPartialEditorViewModel.cs" />
     <Compile Include="ViewModels\Drums\DrumKitPartialViewModel.cs" />
     <Compile Include="ViewModels\Drums\DrumKitTabViewModel.cs" />
+    <Compile Include="ViewModels\Drums\WmtEditorViewModel.cs" />
+    <Compile Include="ViewModels\Drums\WmtViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\BitCrusherViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\CompressorViewModel.cs" />
     <Compile Include="ViewModels\Effects\Assignable\DistortionViewModel.cs" />
@@ -294,6 +296,12 @@
     </Compile>
     <Compile Include="Views\Drums\DrumKitTabView.xaml.cs">
       <DependentUpon>DrumKitTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Drums\WmtEditorView.xaml.cs">
+      <DependentUpon>WmtEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Drums\WmtView.xaml.cs">
+      <DependentUpon>WmtView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Effects\Assignable\BitCrusherView.xaml.cs">
       <DependentUpon>BitCrusherView.xaml</DependentUpon>
@@ -408,6 +416,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Drums\DrumKitTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Drums\WmtEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Drums\WmtView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

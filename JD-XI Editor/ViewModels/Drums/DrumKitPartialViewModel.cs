@@ -9,6 +9,8 @@ namespace JD_XI_Editor.ViewModels.Drums
         {
             DisplayName = title;
             Partial = partial;
+
+            WmtEditor = new WmtEditorViewModel(partial);
         }
 
         #region Properties
@@ -17,6 +19,11 @@ namespace JD_XI_Editor.ViewModels.Drums
         ///     Partial
         /// </summary>
         public Partial Partial { get; }
+
+        /// <summary>
+        ///     WMT Editor
+        /// </summary>
+        public WmtEditorViewModel WmtEditor { get; }
 
         #endregion
     }
