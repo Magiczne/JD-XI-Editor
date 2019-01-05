@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -157,6 +157,15 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
+            var drumPatch = (Patch) patch;
+
+            using (var output = new OutputDevice(deviceId))
+            {
+                output.Send(SysExUtils.GetMessage(_commonAddressOffset, drumPatch.Common.GetBytes()));
+
+                //TODO: Partials
+            }
+
             throw new NotImplementedException();
         }
 
