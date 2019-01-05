@@ -141,8 +141,11 @@ namespace JD_XI_Editor.Managers
         {
             _timer.Stop();
 
-            _device.StopRecording();
-            _device.Dispose();
+            if (!_device.IsDisposed)
+            {
+                _device.StopRecording();
+                _device.Dispose();
+            }
 
             OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
         }
