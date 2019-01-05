@@ -163,10 +163,11 @@ namespace JD_XI_Editor.Managers
             {
                 output.Send(SysExUtils.GetMessage(_commonAddressOffset, drumPatch.Common.GetBytes()));
 
-                //TODO: Partials
+                foreach (var partial in drumPatch.Partials)
+                {
+                    output.Send(SysExUtils.GetMessage(PartialAddressOffset(partial.Key), partial.Value.GetBytes()));
+                }
             }
-
-            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
