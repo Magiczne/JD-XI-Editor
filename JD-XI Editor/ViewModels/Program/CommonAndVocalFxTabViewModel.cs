@@ -27,14 +27,15 @@ namespace JD_XI_Editor.ViewModels.Program
 
             Patch.Common.PropertyChanged += (sender, args) =>
             {
-                if (!(AutoSync && SelectedOutputDeviceId != -1)) return;
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
 
-                var manager = (IProgramCommonAndVocalEffectsManager) PatchManager;
-
-                if (args.PropertyName == nameof(Patch.Common.AutoNote))
-                    manager.SetAutoNote(Patch.Common.AutoNote, SelectedOutputDeviceId);
-                else
-                    manager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
+                    if (args.PropertyName == nameof(Patch.Common.AutoNote))
+                        manager.SetAutoNote(Patch.Common.AutoNote, SelectedOutputDeviceId);
+                    else
+                        manager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
+                }
             };
 
             Patch.VocalEffect.PropertyChanged += (sender, args) =>

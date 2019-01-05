@@ -27,8 +27,7 @@ namespace JD_XI_Editor.ViewModels.Digital
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);
 
-            //TODO: AutoSync not working
-            PropertyChanged += (sender, args) =>
+            Patch.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {

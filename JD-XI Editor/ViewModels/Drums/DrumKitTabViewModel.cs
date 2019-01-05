@@ -35,6 +35,8 @@ namespace JD_XI_Editor.ViewModels.Drums
             Patch = new Patch();
             Editor = new DrumKitPartialEditorViewModel(Patch);
 
+            // TODO: AutoSync dumping
+
             PatchManager.DataDumpReceived += (sender, args) =>
             {
                 if (args is DrumKitPatchDumpReceivedEventArgs eventArgs)
