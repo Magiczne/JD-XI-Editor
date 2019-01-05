@@ -74,7 +74,13 @@ namespace JD_XI_Editor.ViewModels.Effects
             PatchManager.DataDumpReceived += (sender, args) =>
             {
                 if (args is EffectsPatchDumpReceivedEventArgs eventArgs)
+                {
+                    AutoSync = false;
+
                     _patch.CopyFrom(eventArgs.Patch);
+
+                    AutoSync = true;
+                }
             };
 
             PatchManager.OperationTimedOut += (sender, args) =>

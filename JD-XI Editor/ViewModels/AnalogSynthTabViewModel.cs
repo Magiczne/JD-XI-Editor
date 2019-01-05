@@ -34,7 +34,13 @@ namespace JD_XI_Editor.ViewModels
             PatchManager.DataDumpReceived += (sender, args) =>
             {
                 if (args is AnalogPatchDumpReceivedEventArgs eventArgs)
+                {
+                    AutoSync = false;
+
                     Patch.CopyFrom(eventArgs.Patch);
+
+                    AutoSync = true;
+                }
             };
 
             PatchManager.OperationTimedOut += (sender, args) =>
