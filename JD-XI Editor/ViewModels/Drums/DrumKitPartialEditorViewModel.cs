@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.DrumKit;
+using JD_XI_Editor.Utils.Enums;
 
 namespace JD_XI_Editor.ViewModels.Drums
 {
@@ -9,7 +10,7 @@ namespace JD_XI_Editor.ViewModels.Drums
         {
             foreach (var partial in patch.Partials)
             {
-                Items.Add(new DrumKitPartialViewModel(partial.Value, partial.Key));
+                Items.Add(new DrumKitPartialViewModel(partial.Value, partial.Key.Description()));
             }
         }
     }

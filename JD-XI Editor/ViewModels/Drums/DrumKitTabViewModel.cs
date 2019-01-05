@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches.DrumKit;
 using JD_XI_Editor.ViewModels.Abstract;
 using MahApps.Metro.Controls.Dialogs;
@@ -36,9 +37,8 @@ namespace JD_XI_Editor.ViewModels.Drums
 
             PatchManager.DataDumpReceived += (sender, args) =>
             {
-                //TODO: Uncomment when done
-                //if (args is DrumKitPatchDumpReceivedEventArgs eventArgs)
-                //    Patch.CopyFrom(eventArgs.Patch);
+                if (args is DrumKitPatchDumpReceivedEventArgs eventArgs)
+                    Patch.CopyFrom(eventArgs.Patch);
             };
 
             PatchManager.OperationTimedOut += (sender, args) =>

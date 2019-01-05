@@ -143,7 +143,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         public DrumKey Key { get; }
 
         /// <inheritdoc />
-        public int DumpLength { get; } = 323;
+        public int DumpLength { get; } = 195;
 
         /// <summary>
         ///     Basic
