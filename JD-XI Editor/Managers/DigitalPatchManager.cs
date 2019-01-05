@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
@@ -8,6 +10,7 @@ using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
@@ -231,20 +234,35 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(CommonAddressOffset, _commonDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.First),
-                    _partialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Second),
-                    _partialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third),
-                    _partialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, _modifiersDumpRequest));
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
 
-                _timer.Start();
-            }
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    output.Send(SysExUtils.GetRequestDumpMessage(CommonAddressOffset, _commonDumpRequest));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.First),
+                        _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Second),
+                        _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third),
+                        _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, _modifiersDumpRequest));
+                    Thread.Sleep(50);
+
+                    _timer.Start();
+                }
+            });
         }
 
         #endregion

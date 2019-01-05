@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
@@ -6,6 +8,7 @@ using JD_XI_Editor.Models.Patches;
 using JD_XI_Editor.Models.Patches.Program;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
@@ -166,14 +169,23 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(_commonOffset, _commonDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
 
-                _timer.Start();
-            }
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    output.Send(SysExUtils.GetRequestDumpMessage(_commonOffset, _commonDumpRequest));
+
+                    Thread.Sleep(50);  
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
+
+                    _timer.Start();
+                }
+            });
         }
 
         #endregion

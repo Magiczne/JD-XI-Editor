@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
@@ -10,6 +12,7 @@ using JD_XI_Editor.Models.Patches.Program.Abstract;
 using JD_XI_Editor.Models.Patches.Program.Effects;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
@@ -200,21 +203,33 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1),
-                    EffectDumpRequest(Effect.Effect1)));
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2),
-                    EffectDumpRequest(Effect.Effect2)));
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
 
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay),
-                    EffectDumpRequest(Effect.Delay)));
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb),
-                    EffectDumpRequest(Effect.Reverb)));
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1),
+                        EffectDumpRequest(Effect.Effect1)));
+                    Thread.Sleep(50);
 
-                _timer.Start();
-            }
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2),
+                        EffectDumpRequest(Effect.Effect2)));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay),
+                        EffectDumpRequest(Effect.Delay)));
+                    Thread.Sleep(50);
+
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb),
+                        EffectDumpRequest(Effect.Reverb)));
+                    Thread.Sleep(50);
+
+                    _timer.Start();
+                }
+            });
         }
 
         #endregion

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers.Abstract;
@@ -122,12 +123,16 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(_addressOffset, _dumpRequest));
-                _timer.Start();
-            }
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    output.Send(SysExUtils.GetRequestDumpMessage(_addressOffset, _dumpRequest));
+
+                    _timer.Start();
+                }
+            });
         }
 
         #endregion
