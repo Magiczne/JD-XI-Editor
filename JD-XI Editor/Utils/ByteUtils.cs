@@ -64,7 +64,7 @@ namespace JD_XI_Editor.Utils
         /// </summary>
         public static bool BooleanFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
         {
-            return NumberFrom4MidiPackets(packets) - (int) offset > 0;
+            return NumberFrom4MidiPackets(packets, offset) > 0;
         }
 
         /// <summary>
