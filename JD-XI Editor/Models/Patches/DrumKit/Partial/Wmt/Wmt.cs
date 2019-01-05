@@ -92,9 +92,9 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
             On = ByteUtils.ByteToBoolean(data[0]);
 
             GroupType = data[1];
-            GroupId = ByteUtils.NumberFrom4MidiPackets(data.Skip(2).Take(4).ToArray());
-            LeftWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(6).Take(4).ToArray());
-            RightWave = (Wave)ByteUtils.NumberFrom4MidiPackets(data.Skip(10).Take(4).ToArray());
+            GroupId = ByteUtils.NumberFrom4MidiPackets(data.Skip(2).Take(4).ToArray(), ByteUtils.Offset.None);
+            LeftWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(6).Take(4).ToArray(), ByteUtils.Offset.None);
+            RightWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(10).Take(4).ToArray(), ByteUtils.Offset.None);
 
             WaveGain = (WaveGain) data[14];
             Fxm = ByteUtils.ByteToBoolean(data[15]);
