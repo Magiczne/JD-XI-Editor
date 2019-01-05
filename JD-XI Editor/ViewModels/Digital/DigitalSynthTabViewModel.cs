@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
@@ -22,6 +21,7 @@ namespace JD_XI_Editor.ViewModels.Digital
         public DigitalSynthTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, DigitalSynth synth)
             : base(eventAggregator, dialogCoordinator, new DigitalPatchManager(synth))
         {
+            //TODO: Take use of enum description
             DisplayName = synth == DigitalSynth.First ? "Digital Synth 1" : "Digital Synth 2";
 
             Patch = new Patch();

@@ -172,6 +172,10 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
+            // Start timer before running task, so we have timer on the same thread
+            // as the callbacks for timer and input device
+            _timer.Start();
+
             // Request data dump from device on separate thread
             Task.Run(() =>
             {
@@ -185,8 +189,6 @@ namespace JD_XI_Editor.Managers
                     Thread.Sleep(50);  
 
                     output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
-
-                    _timer.Start();
                 }
             });
         }
