@@ -96,7 +96,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             foreach (var key in EnumHelper.GetAllValuesAndDescriptions(typeof(DrumKey)))
             {
                 var partial = new Partial.Partial((DrumKey) key.Value);
-                partial.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Partials));
+                partial.PropertyChanged += (sender, args) => NotifyOfPropertyChange(partial.Key.ToString());
+
                 Partials.Add((DrumKey) key.Value, partial);
             }
         }

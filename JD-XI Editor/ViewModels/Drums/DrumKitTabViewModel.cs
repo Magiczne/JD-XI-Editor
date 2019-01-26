@@ -1,7 +1,10 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
+using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
+using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Models.Patches.DrumKit;
 using JD_XI_Editor.ViewModels.Abstract;
 using MahApps.Metro.Controls.Dialogs;
@@ -36,6 +39,23 @@ namespace JD_XI_Editor.ViewModels.Drums
             Editor = new DrumKitPartialEditorViewModel(Patch);
 
             // TODO: AutoSync dumping
+            Patch.PropertyChanged += (sender, args) =>
+            {
+                if (AutoSync && SelectedOutputDeviceId != -1)
+                {
+                    var drumPatchManager = (IDrumKitPatchManager) PatchManager;
+
+                    if (args.PropertyName == nameof(Patch.Common))
+                    {
+                        drumPatchManager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
+                    }
+                    else
+                    {
+                        var key = (DrumKey) Enum.Parse(typeof(DrumKey), args.PropertyName);
+                        drumPatchManager.DumpPartial(Patch.Partials[key], SelectedOutputDeviceId);
+                    }
+                }
+            };
 
             PatchManager.DataDumpReceived += (sender, args) =>
             {
