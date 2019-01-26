@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -20,6 +21,27 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Expression exp)
+            {
+                PitchBendRange = exp.PitchBendRange;
+                ReceiveExpression = exp.ReceiveExpression;
+                ReceiveHold1 = exp.ReceiveHold1;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new byte[]
@@ -32,6 +54,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Pitch bend range

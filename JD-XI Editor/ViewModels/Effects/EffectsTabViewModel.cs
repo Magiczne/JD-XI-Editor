@@ -1,8 +1,13 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.ViewModels.Abstract;
+using MahApps.Metro.Controls.Dialogs;
+using Sanford.Multimedia.Midi;
 using EffectPatch = JD_XI_Editor.Models.Patches.Program.Effects.Patch;
 
 
@@ -19,8 +24,8 @@ namespace JD_XI_Editor.ViewModels.Effects
         /// </summary>
         private readonly EffectPatch _patch;
 
-        public EffectsTabViewModel(IEventAggregator eventAggregator)
-            : base(eventAggregator, new EffectsPatchManager())
+        public EffectsTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
+            : base(eventAggregator, dialogCoordinator, new EffectsPatchManager())
         {
             DisplayName = "Effects";
 
@@ -65,6 +70,17 @@ namespace JD_XI_Editor.ViewModels.Effects
                     effectsPatchManager.DumpEffect(_patch.Reverb, Effect.Reverb, SelectedOutputDeviceId);
                 }
             };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is EffectsPatchDumpReceivedEventArgs eventArgs)
+                    _patch.CopyFrom(eventArgs.Patch);
+            };
+
+            PatchManager.OperationTimedOut += (sender, args) =>
+            {
+                ShowErrorMessage("Device is not responding, try again in a moment");
+            };
         }
 
         /// <summary>
@@ -88,9 +104,39 @@ namespace JD_XI_Editor.ViewModels.Effects
         public ReverbViewModel Reverb { get; }
 
         /// <inheritdoc />
+        public override void Read()
+        {
+            try
+            {
+                if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
+                    PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
+            }
+            catch (InputDeviceException)
+            {
+                ShowErrorMessage("Device selected as input is used by another application");
+            }
+            catch (OutputDeviceException)
+            {
+                ShowErrorMessage("Device selected as output is used by another application");
+            }
+            catch (InvalidDumpSizeException)
+            {
+                ShowErrorMessage("Data received from device is invalid");
+            }
+        }
+
+        /// <inheritdoc />
         public override void Dump()
         {
-            if (SelectedOutputDeviceId != -1) PatchManager.Dump(_patch, SelectedOutputDeviceId);
+            try
+            {
+                if (SelectedOutputDeviceId != -1)
+                    PatchManager.Dump(_patch, SelectedOutputDeviceId);
+            }
+            catch (OutputDeviceException)
+            {
+                ShowErrorMessage("Device selected as output is used by another application");
+            }
         }
 
         /// <inheritdoc />

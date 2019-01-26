@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Utils;
 
@@ -44,6 +47,99 @@ namespace JD_XI_Editor.Models.Patches.Digital
             WaveShape = 0;
             ToneCategory = Category.FxAndOther;
             UnisonSize = UnisonSize.Eight;
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common common)
+            {
+                Name = common.Name;
+                ToneLevel = common.ToneLevel;
+                Portamento = common.Portamento;
+                PortamentoTime = common.PortamentoTime;
+                Mono = common.Mono;
+                OctaveShift = common.OctaveShift;
+                PitchBendRangeUp = common.PitchBendRangeUp;
+                PitchBendRangeDown = common.PitchBendRangeDown;
+
+                PartialOneSwitch = common.PartialOneSwitch;
+                PartialTwoSwitch = common.PartialTwoSwitch;
+                PartialThreeSwitch = common.PartialThreeSwitch;
+                PartialOneSelect = common.PartialOneSelect;
+                PartialTwoSelect = common.PartialTwoSelect;
+                PartialThreeSelect = common.PartialThreeSelect;
+
+                Ring = common.Ring;
+                Unison = common.Unison;
+                PortamentoMode = common.PortamentoMode;
+                Legato = common.Legato;
+                AnalogFeel = common.AnalogFeel;
+                WaveShape = common.WaveShape;
+                ToneCategory = common.ToneCategory;
+                UnisonSize = common.UnisonSize;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            /**
+             * 12   -> SysEx header & address offset
+             * 12   -> Patch name
+             * 1    -> Tone level
+             * 5    -> Reserve
+             * 6    -> Portamento, Mono, OctaveShift, Pitch Bend
+             * 1    -> Reserve
+             * 6    -> Partial switches
+             * 1    -> Ring
+             * 14   -> Reserve
+             * 1    -> Unison
+             * 2    -> Reserve
+             * 2    -> Portamento mode, Legato
+             * 1    -> Reserve,
+             * 3    -> AnalogFeel, WaveShape, Tone Category
+             * 5    -> Reserve
+             * 1    -> Unison Size
+             * 3    -> Reserve
+             */
+
+            Name = Encoding.ASCII.GetString(data.Take(12).ToArray());
+            ToneLevel = data[12];
+            Portamento = ByteUtils.ByteToBoolean(data[18]);
+            PortamentoTime = data[19];
+            Mono = ByteUtils.ByteToBoolean(data[20]);
+            OctaveShift = data[21] - 64;
+            PitchBendRangeUp = data[22];
+            PitchBendRangeDown = data[23];
+
+            PartialOneSwitch = ByteUtils.ByteToBoolean(data[25]);
+            PartialOneSelect = ByteUtils.ByteToBoolean(data[26]);
+            PartialTwoSwitch = ByteUtils.ByteToBoolean(data[27]);
+            PartialTwoSelect = ByteUtils.ByteToBoolean(data[28]);
+            PartialThreeSwitch = ByteUtils.ByteToBoolean(data[29]);
+            PartialThreeSelect = ByteUtils.ByteToBoolean(data[30]);
+
+            Ring = ByteUtils.ByteToBoolean(data[31]);
+            Unison = ByteUtils.ByteToBoolean(data[46]);
+
+            PortamentoMode = (PortamentoMode)data[49];
+            Legato = ByteUtils.ByteToBoolean(data[50]);
+
+            AnalogFeel = data[52];
+            WaveShape = data[53];
+            ToneCategory = (Category)data[54];
+
+            UnisonSize = (UnisonSize) data[60];
         }
 
         /// <inheritdoc />
@@ -105,6 +201,9 @@ namespace JD_XI_Editor.Models.Patches.Digital
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 64;
 
         /// <summary>
         ///     Patch name

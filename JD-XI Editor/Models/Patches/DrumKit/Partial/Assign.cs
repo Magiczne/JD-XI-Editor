@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -19,6 +20,26 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Assign assign)
+            {
+                AssignType = assign.AssignType;
+                MuteGroup = assign.MuteGroup;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -29,6 +50,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Assign type

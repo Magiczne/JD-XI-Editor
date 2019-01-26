@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.Analog
@@ -26,6 +28,40 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common common)
+            {
+                Portamento = common.Portamento;
+                Legato = common.Legato;
+                PortamentoTime = common.PortamentoTime;
+                OctaveShift = common.OctaveShift;
+                PitchBendRangeUp = common.PitchBendRangeUp;
+                PitchBendRangeDown = common.PitchBendRangeDown;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Portamento = ByteUtils.ByteToBoolean(data[0]);
+            PortamentoTime = data[1];
+            Legato = ByteUtils.ByteToBoolean(data[2]);
+            OctaveShift = data[3] - 64;
+            PitchBendRangeUp = data[4];
+            PitchBendRangeDown = data[5];
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -41,6 +77,9 @@ namespace JD_XI_Editor.Models.Patches.Analog
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 7;
 
         /// <summary>
         ///     Portamento

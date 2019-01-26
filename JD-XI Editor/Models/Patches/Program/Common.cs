@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Program.VocalEffect;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.VocalEffect.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program
 {
@@ -32,6 +36,45 @@ namespace JD_XI_Editor.Models.Patches.Program
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Common c)
+            {
+                Name = c.Name;
+                Level = c.Level;
+                Tempo = c.Tempo;
+
+                VocalEffectType = c.VocalEffectType;
+                VocalEffectNumber = c.VocalEffectNumber;
+                VocalEffectPart = c.VocalEffectPart;
+
+                AutoNote = c.AutoNote;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Name = Encoding.ASCII.GetString(data.Take(12).ToArray());
+            Level = data[16];
+            Tempo = ByteUtils.NumberFrom4MidiPackets(data.Skip(17).Take(4).ToArray(), ByteUtils.Offset.None) / 100;
+
+            VocalEffectType = (Type) data[22];
+            VocalEffectNumber = (EffectNumber) data[28];
+            VocalEffectPart = (Part) data[29];
+            AutoNote = ByteUtils.ByteToBoolean(data[30]);
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             var bytes = new List<byte>();
@@ -43,9 +86,10 @@ namespace JD_XI_Editor.Models.Patches.Program
             bytes.AddRange(ByteUtils.RepeatReserve(4));
 
             bytes.Add((byte) Level);
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Tempo * 100, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Tempo * 100, ByteUtils.Offset.None));
             bytes.Add(0x00); // Reserve
 
+            //TODO: The hell with that ifs
             if (VocalEffectType != Type.Off)
             {
                 bytes.Add((byte) VocalEffectType);
@@ -62,6 +106,9 @@ namespace JD_XI_Editor.Models.Patches.Program
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 31;
 
         /// <summary>
         ///     Program Name

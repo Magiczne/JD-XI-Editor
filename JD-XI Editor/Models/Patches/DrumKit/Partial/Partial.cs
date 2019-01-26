@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Caliburn.Micro;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 using PropertyChanged;
@@ -39,6 +40,38 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Tvf.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Tvf));
             Tva.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Tva));
             Other.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Other));
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Partial p)
+            {
+                Basic.CopyFrom(p.Basic);
+                Assign.CopyFrom(p.Assign);
+                Amplifier.CopyFrom(p.Amplifier);
+                Output.CopyFrom(p.Output);
+                Expression.CopyFrom(p.Expression);
+                VelocityControl.CopyFrom(p.VelocityControl);
+                Wmt1.CopyFrom(p.Wmt1);
+                Wmt2.CopyFrom(p.Wmt2);
+                Wmt3.CopyFrom(p.Wmt3);
+                Wmt4.CopyFrom(p.Wmt4);
+                Pitch.CopyFrom(p.Pitch);
+                Tvf.CopyFrom(p.Tvf);
+                Tva.CopyFrom(p.Tva);
+                Other.CopyFrom(p.Other);
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
@@ -87,6 +120,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         #endregion
 
         #region Properties
+
+        /// TODO: Set
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Basic

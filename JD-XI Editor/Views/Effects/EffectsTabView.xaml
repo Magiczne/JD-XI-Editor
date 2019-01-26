@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:cal="http://www.caliburnproject.org">
+      xmlns:cal="http://www.caliburnproject.org"
+      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      dialogs:DialogParticipation.Register="{Binding}">
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
         <RowDefinition Height="*" />
@@ -51,12 +53,17 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
-        <!-- TODO: Hookup -->
         <Button Grid.Column="4" Grid.Row="0"
                 Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
                 Content="Force read"
                 IsEnabled="{Binding CanRead}"
-                Style="{StaticResource AccentedSquareButtonStyle}" />
+                Style="{StaticResource AccentedSquareButtonStyle}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Read" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
     </Grid>
 
     <!-- Effect 1 -->

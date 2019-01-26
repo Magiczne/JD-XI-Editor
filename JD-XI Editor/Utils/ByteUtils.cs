@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using BitConverter = System.BitConverter;
 
 namespace JD_XI_Editor.Utils
 {
-    internal static class ByteUtils
+    public static class ByteUtils
     {
         #region MyRegion
 
@@ -13,6 +15,14 @@ namespace JD_XI_Editor.Utils
         public static byte BooleanToByte(bool value)
         {
             return (byte) (value ? 0x1 : 0x0);
+        }
+        
+        /// <summary>
+        ///     Parse byte to boolean
+        /// </summary>
+        public static bool ByteToBoolean(byte value)
+        {
+            return value > 0x00;
         }
 
         /// <summary>
@@ -37,9 +47,30 @@ namespace JD_XI_Editor.Utils
         }
 
         /// <summary>
+        ///     Convert midi number packet consisting of four bytes to number
+        /// </summary>
+        public static int NumberFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
+        {
+            if (packets.Length != 4)
+            {
+                throw new ArgumentException("Packet should have 4 bytes of length");
+            }
+
+            return (packets[0] << 12 | packets[1] << 8 | packets[2] << 4 | packets[3]) - (int) offset;
+        }
+
+        /// <summary>
+        ///     Convert midi number packet consisting of four bytes to boolean
+        /// </summary>
+        public static bool BooleanFrom4MidiPackets(byte[] packets, Offset offset = Offset.EffectOffset)
+        {
+            return NumberFrom4MidiPackets(packets) - (int) offset > 0;
+        }
+
+        /// <summary>
         ///     Split number to 4 packets
         /// </summary>
-        public static byte[] NumberTo4Packets(int val, Offset offset = Offset.EffectOffset)
+        public static byte[] NumberTo4MidiPackets(int val, Offset offset = Offset.EffectOffset)
         {
             var value = val + (int) offset;
 
@@ -55,18 +86,18 @@ namespace JD_XI_Editor.Utils
         /// <summary>
         ///     Parse boolean to 4 packets
         /// </summary>
-        public static byte[] BooleanTo4Packets(bool val, Offset offset = Offset.EffectOffset)
+        public static byte[] BooleanTo4MidiPackets(bool val, Offset offset = Offset.EffectOffset)
         {
-            return NumberTo4Packets(val ? 0x1 : 0x0, offset);
+            return NumberTo4MidiPackets(BooleanToByte(val), offset);
         }
 
         /// <summary>
         ///     Generate 4 packets reserve
         /// </summary>
-        public static byte[] Repeat4PacketsReserve(int count, Offset offset = Offset.EffectOffset)
+        public static byte[] Repeat4MidiPacketsReserve(int count, Offset offset = Offset.EffectOffset)
         {
             var bytes = new List<byte>();
-            var value = NumberTo4Packets((int) offset);
+            var value = NumberTo4MidiPackets((int) offset);
 
             for (var i = 0; i < count; i++) bytes.AddRange(value);
 
@@ -75,18 +106,20 @@ namespace JD_XI_Editor.Utils
 
         #endregion
 
-        #region 2 Packet numbers
+        #region BitConverter Utils
 
         /// <summary>
-        ///     Split number to 2 packets
+        ///     Wrapper for <see cref="BitConverter.ToInt32">BitConverter.ToInt32</see>
+        ///     To automatically check for system endianness.
         /// </summary>
-        public static byte[] NumberTo2Packets(int value)
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        public static int ToInt32(byte[] value, int startIndex = 0)
         {
-            return new[]
-            {
-                (byte) ((value >> 4) & 0xF),
-                (byte) (value & 0xF)
-            };
+            return BitConverter.IsLittleEndian
+                ? BitConverter.ToInt32(value.Reverse().ToArray(), 0)
+                : BitConverter.ToInt32(value, 0);
         }
 
         #endregion

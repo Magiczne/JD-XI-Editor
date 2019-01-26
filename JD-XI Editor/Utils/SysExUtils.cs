@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Sanford.Multimedia.Midi;
 
@@ -17,7 +17,7 @@ namespace JD_XI_Editor.Utils
         private static readonly byte[] ModelId = {0x00, 0x00, 0x00, 0x0E};
 
         /// <summary>
-        ///     SysExHeader
+        ///     Header for dumping data to device
         /// </summary>
         public static IEnumerable<byte> Header => new byte[]
         {
@@ -28,19 +28,41 @@ namespace JD_XI_Editor.Utils
             ModelId[1],
             ModelId[2],
             ModelId[3],
-            0x12
+            0x12            // Magic number for sending data to device
         };
+
+        /// <summary>
+        ///     Header for requesting data from device
+        /// </summary>
+        public static IEnumerable<byte> RequestHeader => new byte[]
+        {
+            0xF0,
+            ProducerId,
+            0x10,
+            ModelId[0],
+            ModelId[1],
+            ModelId[2],
+            ModelId[3],
+            0x11            // Magic number for requesting dump from device
+        };
+
+        /// <summary>
+        ///     Size of the header and footer in the dump packet received from JD-XI
+        ///     12 bytes from header and address offset at the start of sysex message
+        ///     2 bytes from checksum and 0xF7 at the end of sysex message
+        /// </summary>
+        public const int DumpPaddingSize = 14;
 
         /// <summary>
         ///     Calculates the checksum for the event data
         /// </summary>
-        /// <param name="patchData">Patch data bytes</param>
-        /// <param name="addressOffset">Address offset bytes</param>
+        /// <param name="addressOffset">Address offset</param>
+        /// <param name="data">Data bytes</param>
         /// <returns>Checksum byte</returns>
-        public static byte CalculateChecksum(byte[] patchData, byte[] addressOffset)
+        public static byte CalculateChecksum(byte[] addressOffset, byte[] data)
         {
             var sum = addressOffset.Aggregate(0, (current, b) => current + b);
-            sum = patchData.Aggregate(sum, (current, b) => current + b);
+            sum = data.Aggregate(sum, (current, b) => current + b);
 
             var remainder = sum / 128;
             var checksum = 128 - remainder;
@@ -48,28 +70,56 @@ namespace JD_XI_Editor.Utils
             return (byte) checksum;
         }
 
+        //TODO: Unify that methods into one
         /// <summary>
         ///     Get sysex data for patch data and offset
         /// </summary>
-        public static byte[] GetSysexData(byte[] patchData, byte[] addressOffset)
+        public static byte[] GetSysexData(byte[] addressOffset, byte[] patchData)
         {
             var bytes = new List<byte>();
 
             bytes.AddRange(Header);
             bytes.AddRange(addressOffset);
             bytes.AddRange(patchData);
-            bytes.Add(CalculateChecksum(patchData, addressOffset));
+            bytes.Add(CalculateChecksum(addressOffset, patchData));
             bytes.Add(0xF7);
 
             return bytes.ToArray();
         }
 
         /// <summary>
-        ///     Get sysex message for specified data
+        ///     Get sysex data for specified patch
         /// </summary>
-        public static SysExMessage GetMessage(byte[] patchData, byte[] addressOffset)
+        public static byte[] GetRequestDumpData(byte[] addressOffset, byte[] expectedLength)
         {
-            return new SysExMessage(GetSysexData(patchData, addressOffset));
+            var bytes = new List<byte>();
+
+            bytes.AddRange(RequestHeader);
+
+            bytes.AddRange(addressOffset);
+            bytes.AddRange(expectedLength);
+            bytes.Add(CalculateChecksum(addressOffset, expectedLength));
+
+            bytes.Add(0xF7);
+
+            return bytes.ToArray();
+        }
+
+        //TODO: Unify methods into one
+        /// <summary>
+        ///     Get sysex message for specified patch data
+        /// </summary>
+        public static SysExMessage GetMessage(byte[] addressOffset, byte[] patchData)
+        {
+            return new SysExMessage(GetSysexData(addressOffset, patchData));
+        }
+
+        /// <summary>
+        ///     Get sysex message for requesting data dump from device
+        /// </summary>
+        public static SysExMessage GetRequestDumpMessage(byte[] addressOffset, byte[] expectedLength)
+        {
+            return new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
         }
     }
 }

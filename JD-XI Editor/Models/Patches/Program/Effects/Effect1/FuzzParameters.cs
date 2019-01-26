@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
-using JD_XI_Editor.Models.Enums.Program.Effects.Fuzz;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
+using Type = JD_XI_Editor.Models.Enums.Program.Effects.Fuzz.Type;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
 {
@@ -25,20 +28,53 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         }
 
         /// <inheritdoc />
+        public override void CopyFrom(IPatchPart part)
+        {
+            if (part is FuzzParameters p)
+            {
+                Type = p.Type;
+                Drive = p.Drive;
+                Presence = p.Presence;
+                Level = p.Level;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public override void CopyFrom(byte[] data)
+        {
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Level = ByteUtils.NumberFrom4MidiPackets(data.Take(4).ToArray());
+            Drive = ByteUtils.NumberFrom4MidiPackets(data.Skip(4).Take(4).ToArray());
+            Type = (Type) ByteUtils.NumberFrom4MidiPackets(data.Skip(8).Take(4).ToArray());
+            Presence = ByteUtils.NumberFrom4MidiPackets(data.Skip(12).Take(4).ToArray());
+        }
+
+        /// <inheritdoc />
         public override byte[] GetBytes()
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Level));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Drive));
-            bytes.AddRange(ByteUtils.NumberTo4Packets((byte) Type));
-            bytes.AddRange(ByteUtils.NumberTo4Packets(Presence));
-            bytes.AddRange(ByteUtils.Repeat4PacketsReserve(28));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Level));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Drive));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((byte) Type));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(Presence));
+            bytes.AddRange(ByteUtils.Repeat4MidiPacketsReserve(28));
 
             return bytes.ToArray();
         }
 
         #region Properties
+
+        /// <inheritdoc />
+        public override int DumpLength { get; } = 128;
 
         /// <summary>
         ///     Fuzz Type

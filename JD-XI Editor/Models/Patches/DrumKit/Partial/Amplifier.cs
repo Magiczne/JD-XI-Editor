@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
@@ -26,6 +27,32 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         /// <inheritdoc />
+        public void CopyFrom(IPatchPart part)
+        {
+            if (part is Amplifier amp)
+            {
+                Level = amp.Level;
+                CoarseTune = amp.CoarseTune;
+                FineTune = amp.FineTune;
+                RandomPitchDepth = amp.RandomPitchDepth;
+                Panorama = amp.Panorama;
+                RandomPanoramaDepth = amp.RandomPanoramaDepth;
+                AlternatePanoramaDepth = amp.AlternatePanoramaDepth;
+                EnvelopeMode = amp.EnvelopeMode;
+            }
+            else
+            {
+                throw new NotSupportedException("Copying from that type is not supported");
+            }
+        }
+
+        /// <inheritdoc />
+        public void CopyFrom(byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public byte[] GetBytes()
         {
             return new[]
@@ -42,6 +69,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         }
 
         #region Properties
+
+        //TODO: Init
+        /// <inheritdoc />
+        public int DumpLength { get; }
 
         /// <summary>
         ///     Level

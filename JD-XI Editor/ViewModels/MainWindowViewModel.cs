@@ -7,6 +7,7 @@ using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Digital;
 using JD_XI_Editor.ViewModels.Effects;
 using JD_XI_Editor.ViewModels.Program;
+using MahApps.Metro.Controls.Dialogs;
 using PropertyChanged;
 using Sanford.Multimedia.Midi;
 
@@ -15,21 +16,21 @@ namespace JD_XI_Editor.ViewModels
     internal sealed class MainWindowViewModel
         : Conductor<Screen>.Collection.OneActive
     {
-        public MainWindowViewModel(IEventAggregator eventAggregator)
+        public MainWindowViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
         {
             DisplayName = "JD-XI Editor";
 
             Items.AddRange(new List<Screen>
             {
                 new HomeTabViewModel(),
-                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.First),
-                new DigitalSynthTabViewModel(eventAggregator, DigitalSynth.Second),
+                new DigitalSynthTabViewModel(eventAggregator, dialogCoordinator, DigitalSynth.First),
+                new DigitalSynthTabViewModel(eventAggregator, dialogCoordinator, DigitalSynth.Second),
                 // TODO: Drums
-                new AnalogSynthTabViewModel(eventAggregator),
+                new AnalogSynthTabViewModel(eventAggregator, dialogCoordinator),
 
-                new EffectsTabViewModel(eventAggregator),
+                new EffectsTabViewModel(eventAggregator, dialogCoordinator),
 
-                new CommonAndVocalFxTabViewModel(eventAggregator)
+                new CommonAndVocalFxTabViewModel(eventAggregator, dialogCoordinator)
             });
             _eventAggregator = eventAggregator;
 

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using JD_XI_Editor.ViewModels;
+using MahApps.Metro.Controls.Dialogs;
 using SimpleInjector;
 
 namespace JD_XI_Editor.Bootstrap
@@ -27,7 +28,7 @@ namespace JD_XI_Editor.Bootstrap
         {
             ContainerInstance.Register<IWindowManager, WindowManager>();
             ContainerInstance.RegisterSingleton<IEventAggregator, EventAggregator>();
-            //ContainerInstance.RegisterSingleton<IDialogCoordinator, DialogCoordinator>();
+            ContainerInstance.RegisterSingleton<IDialogCoordinator, DialogCoordinator>();
 
             ContainerInstance.Verify();
         }

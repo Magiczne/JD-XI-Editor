@@ -1,10 +1,15 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
+using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.Digital;
 using JD_XI_Editor.Models.Patches.Digital;
 using JD_XI_Editor.ViewModels.Abstract;
+using MahApps.Metro.Controls.Dialogs;
+using Sanford.Multimedia.Midi;
 
 namespace JD_XI_Editor.ViewModels.Digital
 {
@@ -14,22 +19,21 @@ namespace JD_XI_Editor.ViewModels.Digital
         /// <summary>
         ///     Creates new instance of DigitalSynthTabViewModel
         /// </summary>
-        // ReSharper disable once SuggestBaseTypeForParameter
-        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, DigitalSynth synth)
-            : base(eventAggregator, new DigitalPatchManager(synth))
+        public DigitalSynthTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, DigitalSynth synth)
+            : base(eventAggregator, dialogCoordinator, new DigitalPatchManager(synth))
         {
             DisplayName = synth == DigitalSynth.First ? "Digital Synth 1" : "Digital Synth 2";
 
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);
 
+            //TODO: AutoSync not working
             PropertyChanged += (sender, args) =>
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
                     var digitalPatchManager = (IDigitalPatchManager) PatchManager;
 
-                    // ReSharper disable once SwitchStatementMissingSomeCases
                     switch (args.PropertyName)
                     {
                         case nameof(Patch.Common):
@@ -60,6 +64,17 @@ namespace JD_XI_Editor.ViewModels.Digital
                 if (args.PropertyName == nameof(Modifiers))
                     NotifyOfPropertyChange(nameof(IsEnvelopeLoopSyncNoteEnabled));
             };
+
+            PatchManager.DataDumpReceived += (sender, args) =>
+            {
+                if (args is DigitalPatchDumpReceivedEventArgs eventArgs)
+                    Patch.CopyFrom(eventArgs.Patch);
+            };
+
+            PatchManager.OperationTimedOut += (sender, args) =>
+            {
+                ShowErrorMessage("Device is not responding, try again in a moment");
+            };
         }
 
         #region Properties
@@ -81,10 +96,39 @@ namespace JD_XI_Editor.ViewModels.Digital
         #region Methods
 
         /// <inheritdoc />
+        public override void Read()
+        {
+            try
+            {
+                if (SelectedInputDeviceId != -1 && SelectedOutputDeviceId != -1)
+                    PatchManager.Read(SelectedInputDeviceId, SelectedOutputDeviceId);
+            }
+            catch (InputDeviceException)
+            {
+                ShowErrorMessage("Device selected as input is used by another application");
+            }
+            catch (OutputDeviceException)
+            {
+                ShowErrorMessage("Device selected as output is used by another application");
+            }
+            catch (InvalidDumpSizeException)
+            {
+                ShowErrorMessage("Data received from device is invalid");
+            }
+        }
+
+        /// <inheritdoc />
         public override void Dump()
         {
-            if (SelectedOutputDeviceId != -1)
-                PatchManager.Dump(Patch, SelectedOutputDeviceId);
+            try
+            {
+                if (SelectedOutputDeviceId != -1)
+                    PatchManager.Dump(Patch, SelectedOutputDeviceId);
+            }
+            catch (OutputDeviceException)
+            {
+                ShowErrorMessage("Device selected as output is used by another application");
+            }
         }
 
         /// <inheritdoc />
