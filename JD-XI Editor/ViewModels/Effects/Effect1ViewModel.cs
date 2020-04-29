@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Threading;
+using Caliburn.Micro;
 using JD_XI_Editor.Models.Enums.Program.Effects;
 using JD_XI_Editor.Models.Patches.Program.Effects.Effect1;
 using JD_XI_Editor.ViewModels.Effects.Assignable;
@@ -27,27 +28,27 @@ namespace JD_XI_Editor.ViewModels.Effects
                     switch (((BasicData) Patch.Basic).Type)
                     {
                         case Effect1Type.Thru:
-                            ActivateItem(ThruViewModel);
+                            ActivateItemAsync(ThruViewModel, default);
                             break;
 
                         case Effect1Type.Distortion:
-                            ActivateItem(DistortionViewModel);
+                            ActivateItemAsync(DistortionViewModel, default);
                             break;
 
                         case Effect1Type.Fuzz:
-                            ActivateItem(FuzzViewModel);
+                            ActivateItemAsync(FuzzViewModel, default);
                             break;
 
                         case Effect1Type.Compressor:
-                            ActivateItem(CompressorViewModel);
+                            ActivateItemAsync(CompressorViewModel, default);
                             break;
 
                         case Effect1Type.BitCrusher:
-                            ActivateItem(BitCrusherViewModel);
+                            ActivateItemAsync(BitCrusherViewModel, default);
                             break;
 
                         default:
-                            ActivateItem(ThruViewModel);
+                            ActivateItemAsync(ThruViewModel, default);
                             break;
                     }
             };

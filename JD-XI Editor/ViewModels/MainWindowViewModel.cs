@@ -105,7 +105,7 @@ namespace JD_XI_Editor.ViewModels
                 if (value != _selectedInputDeviceId)
                 {
                     _selectedInputDeviceId = value;
-                    _eventAggregator.PublishOnUIThread(new InputDeviceChangedEventArgs(_selectedInputDeviceId));
+                    _eventAggregator.PublishOnUIThreadAsync(new InputDeviceChangedEventArgs(_selectedInputDeviceId));
                     NotifyOfPropertyChange(nameof(SelectedInputDeviceId));
                 }
             }
@@ -128,7 +128,7 @@ namespace JD_XI_Editor.ViewModels
                 if (value != _selectedOutputDeviceId)
                 {
                     _selectedOutputDeviceId = value;
-                    _eventAggregator.PublishOnUIThread(new OutputDeviceChangedEventArgs(_selectedOutputDeviceId));
+                    _eventAggregator.PublishOnUIThreadAsync(new OutputDeviceChangedEventArgs(_selectedOutputDeviceId));
                     NotifyOfPropertyChange(nameof(SelectedOutputDeviceId));
                 }
             }

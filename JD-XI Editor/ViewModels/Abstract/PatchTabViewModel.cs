@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Managers.Abstract;
 using MahApps.Metro.Controls.Dialogs;
@@ -15,7 +17,7 @@ namespace JD_XI_Editor.ViewModels.Abstract
         protected PatchTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IPatchManager patchManager)
         {
             EventAggregator = eventAggregator;
-            EventAggregator.Subscribe(this);
+            EventAggregator.SubscribeOnPublishedThread(this);
 
             DialogCoordinator = dialogCoordinator;
 
@@ -101,27 +103,28 @@ namespace JD_XI_Editor.ViewModels.Abstract
 
         #endregion
 
-
         #region IHandle members
 
         /// <inheritdoc />
         /// <summary>
         ///     Handles the input device change
         /// </summary>
-        /// <param name="eventArgs"></param>
-        public void Handle(InputDeviceChangedEventArgs eventArgs)
+        public Task HandleAsync(InputDeviceChangedEventArgs message, CancellationToken cancellationToken)
         {
-            SelectedInputDeviceId = eventArgs.DeviceId;
+            SelectedInputDeviceId = message.DeviceId;
+
+            return Task.CompletedTask;
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Handles the output device change
         /// </summary>
-        /// <param name="eventArgs"></param>
-        public void Handle(OutputDeviceChangedEventArgs eventArgs)
+        public Task HandleAsync(OutputDeviceChangedEventArgs message, CancellationToken cancellationToken)
         {
-            SelectedOutputDeviceId = eventArgs.DeviceId;
+            SelectedOutputDeviceId = message.DeviceId;
+
+            return Task.CompletedTask;
         }
 
         #endregion

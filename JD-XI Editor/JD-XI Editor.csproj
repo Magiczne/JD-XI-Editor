@@ -423,7 +423,7 @@
     <Compile Include="Views\Program\CommonAndVocalFxTabView.xaml.cs">
       <DependentUpon>CommonAndVocalFxTabView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\Styles\CachedScrollableTabControl.xaml">
+    <Page Include="Resources\Styles\ScrollableTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -439,7 +439,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\SimpleCachedTabControl.xaml">
+    <Page Include="Resources\Styles\CachedTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
