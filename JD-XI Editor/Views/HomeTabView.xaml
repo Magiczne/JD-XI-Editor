@@ -1,19 +1,22 @@
 ﻿<Grid x:Class="JD_XI_Editor.Views.HomeTabView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
-      mc:Ignorable="d"
-      d:DesignHeight="600" d:DesignWidth="600">
-    <TextBlock Text="Roland JD-XI Patch Editor"
-               HorizontalAlignment="Center" VerticalAlignment="Center"
-               FontSize="45" />
+      d:DesignHeight="600"
+      d:DesignWidth="600"
+      mc:Ignorable="d">
+    <TextBlock HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="45"
+               Text="Roland JD-XI Patch Editor" />
 
-    <TextBlock FlowDirection="RightToLeft"
-               HorizontalAlignment="Right" VerticalAlignment="Bottom"
-               Padding="0 15 0 0">
-        Created by Michał "Magiczne" Kleszczyński <LineBreak />
+    <TextBlock Padding="0,15,0,0"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom"
+               FlowDirection="RightToLeft">
+        Created by Michał &quot;Magiczne&quot; Kleszczyński<LineBreak />
         <controls:ExternalHyperlink NavigateUri="https://github.com/Magiczne">
             https://github.com/Magiczne
         </controls:ExternalHyperlink>
