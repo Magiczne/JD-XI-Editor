@@ -1,11 +1,11 @@
 ﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.ReverbView"
           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
           xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
           xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
-          Style="{StaticResource MetroGroupBox}"
-          Header="Reverb">
+          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+          Header="Reverb"
+          Style="{StaticResource MahApps.Styles.GroupBox}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -18,57 +18,72 @@
             <RowDefinition Height="85" />
         </Grid.RowDefinitions>
 
-        <!-- TODO: Reverb.BasicData.Level ??? -->
-        <mah:ToggleSwitch Grid.Row="0" Grid.Column="1"
-                          Margin="0 0 -5 0"
+        <!--  TODO: Reverb.BasicData.Level ???  -->
+        <mah:ToggleSwitch Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="0,0,-5,0"
                           VerticalAlignment="Top"
-                          IsChecked="{Binding Patch.Basic.On}" />
+                          IsOn="{Binding Patch.Basic.On}" />
 
-        <Label Grid.Row="1" Grid.Column="0"
+        <Label Grid.Row="1"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Type:" />
-        <ComboBox Grid.Row="1" Grid.Column="1"
+        <ComboBox Grid.Row="1"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   IsEnabled="{Binding Patch.Basic.On}"
                   ItemsSource="{Binding Patch.Parameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding Patch.Parameters.Type}" />
+                  SelectedValue="{Binding Patch.Parameters.Type}"
+                  SelectedValuePath="Value" />
 
-        <Label Grid.Row="2" Grid.Column="0"
+        <Label Grid.Row="2"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="HF Damp:"
                ToolTip="High Frequency Damp" />
-        <ComboBox Grid.Row="2" Grid.Column="1"
+        <ComboBox Grid.Row="2"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   IsEnabled="{Binding Patch.Basic.On}"
                   ItemsSource="{Binding Patch.Parameters.HfDamp, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding Patch.Parameters.HfDamp}" />
+                  SelectedValue="{Binding Patch.Parameters.HfDamp}"
+                  SelectedValuePath="Value" />
 
-        <StackPanel Grid.Column="0" Grid.Row="3"
-                    Margin="0 5 0 0"
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="0,5,0,0"
                     Orientation="Vertical">
-            <knobControl:Knob Height="65" Width="65"
-                              ArcEndAngle="150" ArcStartAngle="-150"
-                              Minimum="0" Maximum="127"
-                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                              Value="{Binding Patch.Parameters.Time}"
-                              IsEnabled="{Binding Patch.Basic.On}" />
+            <knobControl:Knob Width="65"
+                              Height="65"
+                              HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              ArcEndAngle="150"
+                              ArcStartAngle="-150"
+                              IsEnabled="{Binding Patch.Basic.On}"
+                              Maximum="127"
+                              Minimum="0"
+                              Value="{Binding Patch.Parameters.Time}" />
             <TextBlock Text="Time"
                        TextAlignment="Center"
                        TextWrapping="Wrap" />
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="3"
-                    Margin="0 5 0 0"
+        <StackPanel Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0,5,0,0"
                     Orientation="Vertical">
-            <knobControl:Knob Height="65" Width="65"
-                              ArcEndAngle="150" ArcStartAngle="-150"
-                              Minimum="0" Maximum="127"
-                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                              Value="{Binding Patch.Parameters.Level}"
-                              IsEnabled="{Binding Patch.Basic.On}" />
+            <knobControl:Knob Width="65"
+                              Height="65"
+                              HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              ArcEndAngle="150"
+                              ArcStartAngle="-150"
+                              IsEnabled="{Binding Patch.Basic.On}"
+                              Maximum="127"
+                              Minimum="0"
+                              Value="{Binding Patch.Parameters.Level}" />
             <TextBlock Text="Level"
                        TextAlignment="Center"
                        TextWrapping="Wrap" />

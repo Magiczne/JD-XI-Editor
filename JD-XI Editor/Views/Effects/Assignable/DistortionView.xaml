@@ -3,8 +3,8 @@
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
           xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
-          Style="{StaticResource MetroGroupBox}"
-          Header="Distortion">
+          Header="Distortion"
+          Style="{StaticResource MahApps.Styles.GroupBox}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -15,52 +15,65 @@
             <RowDefinition Height="85" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0"
+        <Label Grid.Row="0"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Effect Type:" />
-        <ComboBox Grid.Row="0" Grid.Column="1"
+        <ComboBox Grid.Row="0"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding DistortionParameters.Type, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding DistortionParameters.Type}" />
+                  SelectedValue="{Binding DistortionParameters.Type}"
+                  SelectedValuePath="Value" />
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
-              Margin="0 5 0 0">
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding DistortionParameters.Level}" />
                 <TextBlock Text="Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Column="1"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding DistortionParameters.Drive}" />
                 <TextBlock Text="Drive"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Column="2"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding DistortionParameters.Presence}" />
                 <TextBlock Text="Presence"
                            TextAlignment="Center"

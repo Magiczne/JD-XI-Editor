@@ -1,11 +1,11 @@
 ﻿<GroupBox x:Class="JD_XI_Editor.Views.Effects.Assignable.CompressorView"
           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
           xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
+          xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
           xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-          Style="{StaticResource MetroGroupBox}"
-          Header="Compressor">
+          Header="Compressor"
+          Style="{StaticResource MahApps.Styles.GroupBox}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -22,124 +22,159 @@
             <RowDefinition Height="105" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0"
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
                     Orientation="Vertical">
-            <knobControl:Knob Height="65" Width="65"
-                              ArcEndAngle="150" ArcStartAngle="-150"
-                              Minimum="0" Maximum="127"
-                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <knobControl:Knob Width="65"
+                              Height="65"
+                              HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              ArcEndAngle="150"
+                              ArcStartAngle="-150"
+                              Maximum="127"
+                              Minimum="0"
                               Value="{Binding CompressorParameters.Level}" />
             <TextBlock Text="Level"
                        TextAlignment="Center"
                        TextWrapping="Wrap" />
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="0"
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
                     Orientation="Vertical">
-            <knobControl:Knob Height="65" Width="65"
-                              ArcEndAngle="150" ArcStartAngle="-150"
-                              Minimum="0" Maximum="127"
-                              HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <knobControl:Knob Width="65"
+                              Height="65"
+                              HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              ArcEndAngle="150"
+                              ArcStartAngle="-150"
+                              Maximum="127"
+                              Minimum="0"
                               Value="{Binding CompressorParameters.Threshold}" />
             <TextBlock Text="Threshold"
                        TextAlignment="Center"
                        TextWrapping="Wrap" />
         </StackPanel>
 
-        <Label Grid.Row="1" Grid.Column="0"
+        <Label Grid.Row="1"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Ratio:" />
-        <ComboBox Grid.Row="1" Grid.Column="1"
+        <ComboBox Grid.Row="1"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding CompressorParameters.Ratio, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding CompressorParameters.Ratio}" />
+                  SelectedValue="{Binding CompressorParameters.Ratio}"
+                  SelectedValuePath="Value" />
 
-        <Label Grid.Row="2" Grid.Column="0"
+        <Label Grid.Row="2"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Attack:" />
-        <ComboBox Grid.Row="2" Grid.Column="1"
+        <ComboBox Grid.Row="2"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding CompressorParameters.Attack, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding CompressorParameters.Attack}" />
+                  SelectedValue="{Binding CompressorParameters.Attack}"
+                  SelectedValuePath="Value" />
 
-        <Label Grid.Row="3" Grid.Column="0"
+        <Label Grid.Row="3"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Release:" />
-        <ComboBox Grid.Row="3" Grid.Column="1"
+        <ComboBox Grid.Row="3"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
                   ItemsSource="{Binding CompressorParameters.Release, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                  SelectedValue="{Binding CompressorParameters.Release}" />
+                  SelectedValue="{Binding CompressorParameters.Release}"
+                  SelectedValuePath="Value" />
 
-        <!-- Sidechain controls -->
-        <mah:ToggleSwitch Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                          Margin="0 0 -5 0"
+        <!--  Sidechain controls  -->
+        <mah:ToggleSwitch Grid.Row="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          Margin="0,0,-5,0"
                           VerticalAlignment="Top"
-                          OnLabel="Sidechain" OffLabel="Sidechain"
-                          IsChecked="{Binding CompressorParameters.Sidechain}" />
+                          IsOn="{Binding CompressorParameters.Sidechain}"
+                          OffContent="Sidechain"
+                          OnContent="Sidechain" />
 
-        <CheckBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+        <CheckBox Grid.Row="5"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   Content="Synchronization"
                   IsChecked="{Binding CompressorParameters.SidechainSync}"
                   IsEnabled="{Binding CompressorParameters.Sidechain}" />
 
-        <Label Grid.Row="6" Grid.Column="0"
+        <Label Grid.Row="6"
+               Grid.Column="0"
                VerticalAlignment="Top"
                Content="Note:" />
-        <ComboBox Grid.Row="6" Grid.Column="1"
+        <ComboBox Grid.Row="6"
+                  Grid.Column="1"
                   VerticalAlignment="Top"
-                  SelectedValuePath="Value"
                   DisplayMemberPath="Description"
+                  IsEnabled="{Binding CompressorParameters.Sidechain}"
                   ItemsSource="{Binding CompressorParameters.SidechainNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                   SelectedValue="{Binding CompressorParameters.SidechainNote}"
-                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
+                  SelectedValuePath="Value" />
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
-              Margin="0 5 0 0">
+        <Grid Grid.Row="7"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="60" Maximum="1000" Unit="ms"
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}"
                                   LabelFontSize="40"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainTime}"
-                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
+                                  Maximum="1000"
+                                  Minimum="60"
+                                  Unit="ms"
+                                  Value="{Binding CompressorParameters.SidechainTime}" />
                 <TextBlock Text="Sidechain Time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Column="1"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainRelease}"
-                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}"
+                                  Maximum="127"
+                                  Minimum="0"
+                                  Value="{Binding CompressorParameters.SidechainRelease}" />
                 <TextBlock Text="Sidechain Release"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Column="2"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                                  Value="{Binding CompressorParameters.SidechainLevel}"
-                                  IsEnabled="{Binding CompressorParameters.Sidechain}" />
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  IsEnabled="{Binding CompressorParameters.Sidechain}"
+                                  Maximum="127"
+                                  Minimum="0"
+                                  Value="{Binding CompressorParameters.SidechainLevel}" />
                 <TextBlock Text="Sidechain Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />

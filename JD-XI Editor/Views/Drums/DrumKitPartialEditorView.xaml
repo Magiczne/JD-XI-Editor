@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:JD_XI_Editor.Controls" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              MaxWidth="1140">
-    <controls:CachedTabControl x:Name="Items" 
-                               Padding="5" 
-                               Style="{StaticResource CachedScrollableTabControl}" />
+    <mah:MetroTabControl x:Name="Items"
+                         Padding="5"
+                         Style="{StaticResource CachedScrollableTabControl}" />
 </UserControl>
