@@ -15,7 +15,7 @@
     <TextBlock Padding="0,15,0,0"
                HorizontalAlignment="Right"
                VerticalAlignment="Bottom"
-               FlowDirection="RightToLeft">
+               TextAlignment="Right">
         Created by Michał &quot;Magiczne&quot; Kleszczyński<LineBreak />
         <controls:ExternalHyperlink NavigateUri="https://github.com/Magiczne">
             https://github.com/Magiczne

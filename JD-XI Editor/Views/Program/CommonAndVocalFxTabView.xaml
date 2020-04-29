@@ -49,7 +49,7 @@
                           Width="150"
                           Height="35"
                           HorizontalAlignment="Right"
-                          VerticalAlignment="Top"
+                          VerticalAlignment="Center"
                           IsOn="{Binding AutoSync}"
                           OffContent="Auto Sync"
                           OnContent="Auto Sync" />
@@ -159,37 +159,48 @@
             <ComboBox Grid.Row="4"
                       Grid.Column="0"
                       Grid.ColumnSpan="2"
+                      Margin="4,0,4,0"
                       VerticalAlignment="Top"
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Patch.Common.VocalEffectType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
                       SelectedValue="{Binding Patch.Common.VocalEffectType}"
                       SelectedValuePath="Value" />
 
-            <!--<Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+            <!--  TODO: Enable this  -->
+            <!--<Label Grid.Row="5"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
                    VerticalAlignment="Top"
                    Content="Vocal Effect Number: " />
-            <ComboBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
+            <ComboBox Grid.Row="6"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
-                      SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Patch.Common.VocalEffectNumber, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.VocalEffectNumber}" />
+                      SelectedValue="{Binding Patch.Common.VocalEffectNumber}"
+                      SelectedValuePath="Value" />
 
-            <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+            <Label Grid.Row="7"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
                    VerticalAlignment="Top"
                    Content="Vocal Effect Part: " />
-            <ComboBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+            <ComboBox Grid.Row="8"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
-                      SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Patch.Common.VocalEffectPart, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.VocalEffectPart}" />-->
+                      SelectedValue="{Binding Patch.Common.VocalEffectPart}"
+                      SelectedValuePath="Value" />-->
 
             <CheckBox Grid.Row="9"
-                      Grid.Column="1"
+                      Grid.Column="0"
+                      Margin="4,0,0,0"
                       VerticalAlignment="Top"
                       Content="Auto Note"
-                      FlowDirection="RightToLeft"
+                      FlowDirection="LeftToRight"
                       IsChecked="{Binding Patch.Common.AutoNote}" />
         </Grid>
     </GroupBox>

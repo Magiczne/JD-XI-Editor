@@ -95,7 +95,7 @@
         <mah:ToggleSwitch Grid.Row="4"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
-                          Margin="0,0,-5,0"
+                          Margin="4,0,0,0"
                           VerticalAlignment="Top"
                           IsOn="{Binding CompressorParameters.Sidechain}"
                           OffContent="Sidechain"
@@ -104,6 +104,7 @@
         <CheckBox Grid.Row="5"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
+                  Margin="4,0,0,0"
                   VerticalAlignment="Top"
                   Content="Synchronization"
                   IsChecked="{Binding CompressorParameters.SidechainSync}"
@@ -145,7 +146,7 @@
                                   Minimum="60"
                                   Unit="ms"
                                   Value="{Binding CompressorParameters.SidechainTime}" />
-                <TextBlock Text="Sidechain Time"
+                <TextBlock Text="Sidechain  Time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>

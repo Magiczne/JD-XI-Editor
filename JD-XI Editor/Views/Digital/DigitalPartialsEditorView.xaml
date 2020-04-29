@@ -4,5 +4,10 @@
              xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls">
     <mahapps:MetroTabControl x:Name="Items"
                              Padding="5"
-                             Style="{StaticResource SimpleCachedTabControl}" />
+                             Background="{StaticResource Background}"
+                             KeepVisualTreeInMemoryWhenChangingTabs="True">
+        <mahapps:MetroTabControl.Resources>
+            <Style BasedOn="{StaticResource SimpleTabItem}" TargetType="{x:Type mahapps:MetroTabItem}" />
+        </mahapps:MetroTabControl.Resources>
+    </mahapps:MetroTabControl>
 </UserControl>

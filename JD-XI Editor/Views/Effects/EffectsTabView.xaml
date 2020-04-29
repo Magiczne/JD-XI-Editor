@@ -45,7 +45,7 @@
                                Width="150"
                                Height="35"
                                HorizontalAlignment="Right"
-                               VerticalAlignment="Top"
+                               VerticalAlignment="Center"
                                IsOn="{Binding AutoSync}"
                                OffContent="Auto Sync"
                                OnContent="Auto Sync" />

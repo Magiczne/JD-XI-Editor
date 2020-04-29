@@ -423,15 +423,7 @@
     <Compile Include="Views\Program\CommonAndVocalFxTabView.xaml.cs">
       <DependentUpon>CommonAndVocalFxTabView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\Styles\ScrollableTabControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\Accent\JDXICrimson.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\Colors.xaml">
+    <Page Include="Resources\Styles\Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -439,11 +431,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\CachedTabControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\SimpleTabControl.xaml">
+    <Page Include="Resources\Styles\SimpleTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

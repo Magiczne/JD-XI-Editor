@@ -46,6 +46,7 @@
                                  Padding="10,0,0,0"
                                  mahapps:TabControlHelper.Underlined="TabPanel"
                                  IsSynchronizedWithCurrentItem="True"
+                                 KeepVisualTreeInMemoryWhenChangingTabs="True"
                                  TabStripPlacement="Left" />
     </Grid>
 </mahapps:MetroWindow>
