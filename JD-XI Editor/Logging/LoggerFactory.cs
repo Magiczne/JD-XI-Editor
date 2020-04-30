@@ -10,6 +10,7 @@ namespace JD_XI_Editor.Logging
             {
                 Loggers =
                 {
+                    EventLogger.GetForClass(type),
                     FileLogger.GetForClass(type)
                 }
             };

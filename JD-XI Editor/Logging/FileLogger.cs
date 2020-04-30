@@ -6,18 +6,12 @@ namespace JD_XI_Editor.Logging
     public class FileLogger : BaseLogger
     {
         /// <summary>
-        /// Type
-        /// </summary>
-        private readonly string _type;
-
-        /// <summary>
         /// Absolute path to directory with logs
         /// </summary>
         private readonly string _logPath;
 
-        protected FileLogger(Type type)
+        protected FileLogger(Type type) : base(type)
         {
-            _type = type.Name;
             _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
 
             if (!Directory.Exists(_logPath))
@@ -34,16 +28,13 @@ namespace JD_XI_Editor.Logging
 
             using (var writer = File.AppendText(filePath))
             {
-                writer.WriteLine($"{now:g} [{_type}][{level}] {message}");
+                writer.WriteLine($"{now:g} [{Type}][{level}] {message}");
             }
         }
 
         /// <summary>
         /// Get logger instance for specified class
         /// </summary>
-        public static FileLogger GetForClass(Type type)
-        {
-            return new FileLogger(type);
-        }
+        public static FileLogger GetForClass(Type type) => new FileLogger(type);
     }
 }

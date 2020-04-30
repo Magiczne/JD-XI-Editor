@@ -1,7 +1,16 @@
-﻿namespace JD_XI_Editor.Logging
+﻿using System;
+
+namespace JD_XI_Editor.Logging
 {
     public abstract class BaseLogger : ILogger
     {
+        /// <summary>
+        /// Type
+        /// </summary>
+        protected readonly string Type;
+
+        protected BaseLogger(Type type) => Type = type.Name;
+
         /// <inheritdoc cref="ILogger.Log" />
         public abstract void Log(LogLevel level, string message);
 
