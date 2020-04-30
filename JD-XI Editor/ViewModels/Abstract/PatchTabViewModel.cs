@@ -9,8 +9,7 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
-    internal abstract class PatchTabViewModel
-        : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
+    internal abstract class PatchTabViewModel : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
     {
         /// <inheritdoc />
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using System;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
@@ -17,8 +16,6 @@ namespace JD_XI_Editor.ViewModels.Program
         /// <summary>
         ///     Create new instance of CommonAndVocalFxTabViewModel
         /// </summary>
-        /// <param name="eventAggregator"></param>
-        /// <param name="dialogCoordinator"></param>
         public CommonAndVocalFxTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
             : base(eventAggregator, dialogCoordinator, new ProgramCommonAndVocalEffectsManager())
         {
@@ -31,12 +28,18 @@ namespace JD_XI_Editor.ViewModels.Program
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
-                    var manager = (IProgramCommonAndVocalEffectsManager)PatchManager;
+                    var manager = (IProgramCommonAndVocalEffectsManager) PatchManager;
 
                     if (args.PropertyName == nameof(Patch.Common.AutoNote))
+                    {
                         manager.SetAutoNote(Patch.Common.AutoNote, SelectedOutputDeviceId);
+                        Logger.AutoSync($"Common.{args.PropertyName} changed");
+                    }
                     else
+                    {
                         manager.DumpCommon(Patch.Common, SelectedOutputDeviceId);
+                        Logger.AutoSync($"Common.{args.PropertyName} changed - dumping common");
+                    }
                 }
             };
 
@@ -46,6 +49,8 @@ namespace JD_XI_Editor.ViewModels.Program
                 {
                     var manager = (IProgramCommonAndVocalEffectsManager) PatchManager;
                     manager.DumpVocalEffects(Patch.VocalEffect, SelectedOutputDeviceId);
+
+                    Logger.AutoSync($"VocalEffect.{args.PropertyName} changed");
                 }
             };
 
@@ -56,6 +61,7 @@ namespace JD_XI_Editor.ViewModels.Program
                     AutoSync = false;
 
                     Patch.CopyFrom(eventArgs.Patch);
+                    Logger.DataDump("Received data dump");
 
                     AutoSync = true;
                 }
@@ -63,6 +69,7 @@ namespace JD_XI_Editor.ViewModels.Program
 
             PatchManager.OperationTimedOut += (sender, args) =>
             {
+                Logger.Error("Device is not responding");
                 ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
@@ -82,14 +89,17 @@ namespace JD_XI_Editor.ViewModels.Program
             }
             catch (InputDeviceException)
             {
+                Logger.Error("Device selected as input is used by another application");
                 ShowErrorMessage("Device selected as input is used by another application");
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
             catch (InvalidDumpSizeException)
             {
+                Logger.Error("Data received from device is invalid");
                 ShowErrorMessage("Data received from device is invalid");
             }
         }
@@ -104,6 +114,7 @@ namespace JD_XI_Editor.ViewModels.Program
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
         }
@@ -112,6 +123,7 @@ namespace JD_XI_Editor.ViewModels.Program
         public override void InitPatch()
         {
             Patch.Reset();
+            Logger.Info("Loaded init patch");
         }
     }
 }

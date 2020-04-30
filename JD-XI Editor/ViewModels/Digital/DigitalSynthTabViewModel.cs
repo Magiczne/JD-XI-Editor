@@ -59,6 +59,8 @@ namespace JD_XI_Editor.ViewModels.Digital
                                 SelectedOutputDeviceId);
                             break;
                     }
+
+                    Logger.AutoSync($"{args.PropertyName} changed");
                 }
 
                 if (args.PropertyName == nameof(Modifiers))
@@ -72,6 +74,7 @@ namespace JD_XI_Editor.ViewModels.Digital
                     AutoSync = false;
 
                     Patch.CopyFrom(eventArgs.Patch);
+                    Logger.DataDump("Received data dump");
 
                     AutoSync = true;
                 }
@@ -79,6 +82,7 @@ namespace JD_XI_Editor.ViewModels.Digital
 
             PatchManager.OperationTimedOut += (sender, args) =>
             {
+                Logger.Error("Device is not responding");
                 ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
@@ -111,14 +115,17 @@ namespace JD_XI_Editor.ViewModels.Digital
             }
             catch (InputDeviceException)
             {
+                Logger.Error("Device selected as input is used by another application");
                 ShowErrorMessage("Device selected as input is used by another application");
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
             catch (InvalidDumpSizeException)
             {
+                Logger.Error("Data received from device is invalid");
                 ShowErrorMessage("Data received from device is invalid");
             }
         }
@@ -133,6 +140,7 @@ namespace JD_XI_Editor.ViewModels.Digital
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
         }
@@ -141,6 +149,7 @@ namespace JD_XI_Editor.ViewModels.Digital
         public override void InitPatch()
         {
             Patch.Reset();
+            Logger.Info("Loaded init patch");
         }
 
         #endregion
