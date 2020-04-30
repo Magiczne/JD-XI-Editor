@@ -84,7 +84,6 @@ namespace JD_XI_Editor.Managers
 
         #region Methods
 
-        /// <inheritdoc />
         public DrumKitPatchManager()
         {
             _timer.Elapsed += OnTimerElapsed;
@@ -107,16 +106,20 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
+            switch (e.Message.Length)
             {
-                _commonDump = e.Message;
-            }
-            else if (e.Message.Length == ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize)
-            {
-                // At 11 byte we have partial identifier, so we check value at that byte
-                var key = (DrumKey) e.Message[10];
+                case ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize:
+                    _commonDump = e.Message;
+                    break;
 
-                _partialsDump[key] = e.Message;
+                case ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize:
+                {
+                    // At 11 byte we have partial identifier, so we check value at that byte
+                    var key = (DrumKey) e.Message[10];
+
+                    _partialsDump[key] = e.Message;
+                    break;
+                }
             }
 
             _dumpCount++;
@@ -165,7 +168,9 @@ namespace JD_XI_Editor.Managers
 
                 foreach (var partial in drumPatch.Partials)
                 {
+                    var bytes = partial.Value.GetBytes();
                     output.Send(SysExUtils.GetMessage(PartialAddressOffset(partial.Key), partial.Value.GetBytes()));
+                    return;
                 }
             }
         }

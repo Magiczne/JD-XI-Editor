@@ -43,7 +43,7 @@ namespace JD_XI_Editor.ViewModels.Drums
             {
                 if (AutoSync && SelectedOutputDeviceId != -1)
                 {
-                    var drumPatchManager = (IDrumKitPatchManager) PatchManager;
+                    var drumPatchManager = (IDrumKitPatchManager)PatchManager;
 
                     if (args.PropertyName == nameof(Patch.Common))
                     {
