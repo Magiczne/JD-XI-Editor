@@ -5,8 +5,17 @@
                      xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      Title="Debug"
-                     Width="450"
+                     Width="800"
                      Height="800"
                      mc:Ignorable="d">
-    <ListView />
+    <DataGrid x:Name="Messages"
+              AutoGenerateColumns="False"
+              IsReadOnly="True">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Time, StringFormat={}{0:d/MM/yyyy HH:mm:ss}}" Header="Time" />
+            <DataGridTextColumn Binding="{Binding Level}" Header="Log level" />
+            <DataGridTextColumn Binding="{Binding Class}" Header="Class" />
+            <DataGridTextColumn Binding="{Binding Message}" Header="Message" />
+        </DataGrid.Columns>
+    </DataGrid>
 </mahapps:MetroWindow>

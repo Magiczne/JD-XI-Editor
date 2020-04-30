@@ -82,7 +82,7 @@ namespace JD_XI_Editor.ViewModels
         /// </summary>
         public void OpenDebugWindow()
         {
-            _windowManager.ShowWindowAsync(new DebugWindowViewModel());
+            _windowManager.ShowWindowAsync(new DebugWindowViewModel(_eventAggregator));
         }
 
         #endregion
