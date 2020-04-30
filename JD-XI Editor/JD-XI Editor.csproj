@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\PropertyChanged.Fody.3.2.8\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.3.2.8\build\PropertyChanged.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -314,6 +314,7 @@
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\DebugWindowViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalPartialsEditorViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalPartialViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalSynthTabViewModel.cs" />
@@ -342,6 +343,9 @@
     <Compile Include="ViewModels\Program\CommonAndVocalFxTabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DebugWindowView.xaml.cs">
+      <DependentUpon>DebugWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Digital\DigitalPartialsEditorView.xaml.cs">
       <DependentUpon>DigitalPartialsEditorView.xaml</DependentUpon>
@@ -440,6 +444,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnalogSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DebugWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
