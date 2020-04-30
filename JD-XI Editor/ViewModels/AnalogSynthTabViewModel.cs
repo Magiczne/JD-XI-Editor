@@ -1,5 +1,6 @@
-﻿using Caliburn.Micro;
+using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.Analog;
@@ -21,7 +22,10 @@ namespace JD_XI_Editor.ViewModels
             : base(eventAggregator, dialogCoordinator, new AnalogPatchManager())
         {
             DisplayName = "Analog Synth";
+            InitLogger(typeof(AnalogSynthTabViewModel));
+
             Patch = new Patch();
+
             Patch.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync)

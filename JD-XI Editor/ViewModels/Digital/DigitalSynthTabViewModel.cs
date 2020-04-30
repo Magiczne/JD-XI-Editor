@@ -23,6 +23,7 @@ namespace JD_XI_Editor.ViewModels.Digital
         {
             //TODO: Take use of enum description
             DisplayName = synth == DigitalSynth.First ? "Digital Synth 1" : "Digital Synth 2";
+            InitLogger(typeof(AnalogSynthTabViewModel));
 
             Patch = new Patch();
             Editor = new DigitalPartialsEditorViewModel(Patch);

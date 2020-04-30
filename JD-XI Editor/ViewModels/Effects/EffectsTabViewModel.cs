@@ -28,6 +28,7 @@ namespace JD_XI_Editor.ViewModels.Effects
             : base(eventAggregator, dialogCoordinator, new EffectsPatchManager())
         {
             DisplayName = "Effects";
+            InitLogger(typeof(AnalogSynthTabViewModel));
 
             _patch = new EffectPatch();
             Effect1 = new Effect1ViewModel(_patch.Effect1);

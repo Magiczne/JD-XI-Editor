@@ -23,6 +23,8 @@ namespace JD_XI_Editor.ViewModels.Program
             : base(eventAggregator, dialogCoordinator, new ProgramCommonAndVocalEffectsManager())
         {
             DisplayName = "Program Common & VocalFX";
+            InitLogger(typeof(AnalogSynthTabViewModel));
+
             Patch = new CommonAndVocalEffectPatch();
 
             Patch.Common.PropertyChanged += (sender, args) =>
