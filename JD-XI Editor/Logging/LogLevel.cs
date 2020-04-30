@@ -2,6 +2,8 @@
 {
     public enum LogLevel
     {
+        AutoSync,
+        DataDump,
         Error,
         Info
     }

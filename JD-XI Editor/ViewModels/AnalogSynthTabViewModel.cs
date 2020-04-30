@@ -1,6 +1,5 @@
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
-using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.Analog;
@@ -29,8 +28,11 @@ namespace JD_XI_Editor.ViewModels
             Patch.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync)
+                {
                     Dump();
-
+                    Logger.AutoSync($"{args.PropertyName} changed");
+                }
+                    
                 if (args.PropertyName == nameof(Patch.Oscillator))
                     NotifyOfPropertyChange(nameof(IsPulseWidthEnabled));
             };
@@ -42,6 +44,7 @@ namespace JD_XI_Editor.ViewModels
                     AutoSync = false;
 
                     Patch.CopyFrom(eventArgs.Patch);
+                    Logger.DataDump("Received data dump");
 
                     AutoSync = true;
                 }
@@ -49,6 +52,7 @@ namespace JD_XI_Editor.ViewModels
 
             PatchManager.OperationTimedOut += (sender, args) =>
             {
+                Logger.Error("Device is not responding");
                 ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
@@ -79,14 +83,17 @@ namespace JD_XI_Editor.ViewModels
             }
             catch (InputDeviceException)
             {
+                Logger.Error("Device selected as input is used by another application");
                 ShowErrorMessage("Device selected as input is used by another application");
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
             catch (InvalidDumpSizeException)
             {
+                Logger.Error("Data received from device is invalid");
                 ShowErrorMessage("Data received from device is invalid");
             }
         }
@@ -101,6 +108,7 @@ namespace JD_XI_Editor.ViewModels
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
         }
@@ -109,6 +117,7 @@ namespace JD_XI_Editor.ViewModels
         public override void InitPatch()
         {
             Patch.Reset();
+            Logger.Info("Loaded init patch");
         }
 
         #endregion
