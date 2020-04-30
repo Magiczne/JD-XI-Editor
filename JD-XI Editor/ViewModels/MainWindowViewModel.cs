@@ -58,8 +58,8 @@ namespace JD_XI_Editor.ViewModels
             for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
                 outputDevices.Add(new MidiOutputDeviceInfo(OutputDeviceBase.GetDeviceCapabilities(i)));
 
-            _logger.Log(LogLevel.Info, $"Found {inputDevices.Count} input devices");
-            _logger.Log(LogLevel.Info, $"Found {outputDevices.Count} output devices");
+            _logger.Info($"Found {inputDevices.Count} input devices");
+            _logger.Info($"Found {outputDevices.Count} output devices");
 
             InputDevices = inputDevices;
             OutputDevices = outputDevices;
@@ -71,10 +71,10 @@ namespace JD_XI_Editor.ViewModels
             SelectedOutputDeviceId = jdXiOutput == null ? -1 : OutputDevices.IndexOf(jdXiOutput);
 
             if (jdXiInput != null)
-                _logger.Log(LogLevel.Info, $"JD-XI Input device found (ID: {SelectedInputDeviceId}");
+                _logger.Info($"JD-XI Input device found (ID: {SelectedInputDeviceId})");
 
             if (jdXiOutput != null)
-                _logger.Log(LogLevel.Info, $"JD-XI Output device found (ID: {SelectedOutputDeviceId})");
+                _logger.Info($"JD-XI Output device found (ID: {SelectedOutputDeviceId})");
         }
 
         /// <summary>
