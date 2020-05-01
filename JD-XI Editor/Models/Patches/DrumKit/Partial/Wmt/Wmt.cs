@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
@@ -118,42 +119,33 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            return new[]
+            var bytes = new List<byte>
             {
                 ByteUtils.BooleanToByte(On),
-                (byte) GroupType,
-
-                (byte) ((GroupId >> 12) & 0xF),
-                (byte) ((GroupId >> 8) & 0xF),
-                (byte) ((GroupId >> 4) & 0xF),
-                (byte) (GroupId & 0xF),
-
-                (byte) (((int) LeftWave >> 12) & 0xF),
-                (byte) (((int) LeftWave >> 8) & 0xF),
-                (byte) (((int) LeftWave >> 4) & 0xF),
-                (byte) ((int) LeftWave & 0xF),
-
-                (byte) (((int) RightWave >> 12) & 0xF),
-                (byte) (((int) RightWave >> 8) & 0xF),
-                (byte) (((int) RightWave >> 4) & 0xF),
-                (byte) ((int) RightWave & 0xF),
-
-                (byte) WaveGain,
-                ByteUtils.BooleanToByte(Fxm),
-                (byte) FxmColor,
-                (byte) FxmDepth,
-                ByteUtils.BooleanToByte(TempoSync),
-                (byte) (CoarseTune + 64),
-                (byte) (FineTune + 64),
-                (byte) (Panorama + 64),
-                ByteUtils.BooleanToByte(RandomPanorama),
-                (byte) AlternatePanorama,
-                (byte) Level,
-                (byte) VelocityRangeLower,
-                (byte) VelocityRangeUpper,
-                (byte) VelocityFadeWidthLower,
-                (byte) VelocityFadeWidthUpper
+                (byte) GroupType
             };
+
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(GroupId, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) LeftWave, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) RightWave, ByteUtils.Offset.None));
+
+            bytes.Add((byte) WaveGain);
+            bytes.Add(ByteUtils.BooleanToByte(Fxm));
+            bytes.Add((byte) FxmColor);
+            bytes.Add((byte) FxmDepth);
+            bytes.Add(ByteUtils.BooleanToByte(TempoSync));
+            bytes.Add((byte) (CoarseTune + 64));
+            bytes.Add((byte) (FineTune + 64));
+            bytes.Add((byte) (Panorama + 64));
+            bytes.Add(ByteUtils.BooleanToByte(RandomPanorama));
+            bytes.Add((byte) AlternatePanorama);
+            bytes.Add((byte) Level);
+            bytes.Add((byte) VelocityRangeLower);
+            bytes.Add((byte) VelocityRangeUpper);
+            bytes.Add((byte) VelocityFadeWidthLower);
+            bytes.Add((byte) VelocityFadeWidthUpper);
+
+            return bytes.ToArray();
         }
 
         #region Properties
