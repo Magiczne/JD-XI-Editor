@@ -207,12 +207,45 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <mah:ToggleSwitch Content="WMT 1" IsOn="{Binding Partial.Wmt1.On}" />
-            <mah:ToggleSwitch Content="WMT 2" IsOn="{Binding Partial.Wmt2.On}" />
-            <mah:ToggleSwitch Content="WMT 3" IsOn="{Binding Partial.Wmt3.On}" />
-            <mah:ToggleSwitch Content="WMT 4" IsOn="{Binding Partial.Wmt4.On}" />
-        </StackPanel>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <mah:ToggleSwitch Grid.Row="0"
+                              Grid.Column="0"
+                              Content="WMT 1"
+                              IsEnabled="False"
+                              IsOn="{Binding Partial.Wmt1.On}" />
+            <mah:ToggleSwitch Grid.Row="0"
+                              Grid.Column="1"
+                              Content="WMT 2"
+                              IsEnabled="False"
+                              IsOn="{Binding Partial.Wmt2.On}" />
+            <mah:ToggleSwitch Grid.Row="1"
+                              Grid.Column="0"
+                              Content="WMT 3"
+                              IsEnabled="False"
+                              IsOn="{Binding Partial.Wmt3.On}" />
+            <mah:ToggleSwitch Grid.Row="1"
+                              Grid.Column="1"
+                              Content="WMT 4"
+                              IsEnabled="False"
+                              IsOn="{Binding Partial.Wmt4.On}" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       TextWrapping="Wrap">
+                These switches are disabled, because for some reason synchronization is working only from device to software :(<LineBreak />
+                Reading from device will still result in these switches updating.</TextBlock>
+        </Grid>
 
         <ContentControl x:Name="WmtEditor"
                         Grid.Row="0"
