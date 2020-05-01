@@ -899,9 +899,10 @@
                                       Maximum="63"
                                       Minimum="-63"
                                       Value="{Binding Partial.Tva.Envelope.VelocitySensitivity}" />
-                    <TextBlock Text="Envelope Velocity Sensitivity"
-                               TextAlignment="Center"
-                               TextWrapping="Wrap" />
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap">
+                        Level<LineBreak />
+                        Velocity<LineBreak />
+                        Sensitivity</TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="0"
                             Grid.Column="4"
