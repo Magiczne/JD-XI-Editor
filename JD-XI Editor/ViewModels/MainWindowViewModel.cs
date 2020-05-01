@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Logging;
@@ -82,7 +83,13 @@ namespace JD_XI_Editor.ViewModels
         /// </summary>
         public void OpenDebugWindow()
         {
-            _windowManager.ShowWindowAsync(new DebugWindowViewModel(_eventAggregator));
+            if (!DebugWindowViewModel.IsShown)
+            {
+                _windowManager.ShowWindowAsync(new DebugWindowViewModel(_eventAggregator), null, new Dictionary<string, object>
+                {
+                    { "ShowInTaskbar", false }
+                });
+            }
         }
 
         #endregion

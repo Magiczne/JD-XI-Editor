@@ -7,6 +7,8 @@ namespace JD_XI_Editor.ViewModels
 {
     internal class DebugWindowViewModel : Screen, IHandle<LogMessage>
     {
+        public static bool IsShown = false;
+
         public BindableCollection<LogMessage> Messages { get; set; } = new BindableCollection<LogMessage>();
 
         public DebugWindowViewModel(IEventAggregator eventAggregator)
