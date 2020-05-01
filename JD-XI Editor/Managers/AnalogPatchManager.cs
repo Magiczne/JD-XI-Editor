@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -40,6 +41,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private InputDevice _device;
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
         #endregion
 
         #region Events
@@ -59,6 +65,7 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         public AnalogPatchManager()
         {
+            _logger = LoggerFactory.FullSet(typeof(AnalogPatchManager));
             _timer.Elapsed += OnTimerElapsed;
         }
 
@@ -77,11 +84,12 @@ namespace JD_XI_Editor.Managers
             _device.Dispose();
 
             var actualLength = e.Message.Length - SysExUtils.DumpPaddingSize;
-
             if (actualLength != ExpectedDumpLength)
             {
                 throw new InvalidDumpSizeException(ExpectedDumpLength, actualLength);
             }
+
+            _logger.Receive("Received Patch");
 
             DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(e.Message)));
         }
@@ -111,6 +119,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch");
                 output.Send(SysExUtils.GetMessage(_addressOffset, analogPatch.GetBytes()));
             }
         }
@@ -135,6 +144,7 @@ namespace JD_XI_Editor.Managers
             {
                 using (var output = new OutputDevice(outputDeviceId))
                 {
+                    _logger.Send("Request Patch");
                     output.Send(SysExUtils.GetRequestDumpMessage(_addressOffset, _dumpRequest));
                 }
             });
