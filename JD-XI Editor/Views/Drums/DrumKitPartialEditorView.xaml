@@ -4,8 +4,7 @@
              xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
              MaxWidth="1140">
     <mahapps:MetroTabControl x:Name="Items"
-                             Margin="0,5,0,0"
-                             Padding="5"
+                             Padding="0,5,0,0"
                              KeepVisualTreeInMemoryWhenChangingTabs="True">
         <mahapps:MetroTabControl.Resources>
             <Style BasedOn="{StaticResource SimpleTabItem}" TargetType="{x:Type mahapps:MetroTabItem}" />
