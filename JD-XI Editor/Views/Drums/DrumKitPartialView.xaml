@@ -1,4 +1,4 @@
-﻿<Grid x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialView"
+<Grid x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
@@ -181,8 +181,8 @@
                                       HorizontalContentAlignment="Center"
                                       ArcEndAngle="150"
                                       ArcStartAngle="-150"
-                                      Maximum="127"
-                                      Minimum="0"
+                                      Maximum="63"
+                                      Minimum="-64"
                                       Value="{Binding Partial.Other.RelativeLevel}" />
                     <TextBlock Text="Relative Level"
                                TextAlignment="Center"
