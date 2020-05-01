@@ -12,9 +12,39 @@
               AutoGenerateColumns="False"
               IsReadOnly="True">
         <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Time, StringFormat={}{0:d/MM/yyyy HH:mm:ss}}" Header="Time" />
-            <DataGridTextColumn Binding="{Binding Level}" Header="Log level" />
             <DataGridTextColumn Binding="{Binding Class}" Header="Class" />
+            <DataGridTextColumn Binding="{Binding Time, StringFormat={}{0:d/MM/yyyy HH:mm:ss.ffff}}" Header="Time" />
+            <DataGridTextColumn Binding="{Binding Level}" Header="Log level">
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="AutoSync">
+                                <Setter Property="Foreground" Value="Cyan" />
+                            </Trigger>
+
+                            <Trigger Property="Text" Value="DataDump">
+                                <Setter Property="Foreground" Value="Peru" />
+                            </Trigger>
+
+                            <Trigger Property="Text" Value="Error">
+                                <Setter Property="Foreground" Value="OrangeRed" />
+                            </Trigger>
+
+                            <Trigger Property="Text" Value="Info">
+                                <Setter Property="Foreground" Value="DeepSkyBlue" />
+                            </Trigger>
+
+                            <Trigger Property="Text" Value="Receive">
+                                <Setter Property="Foreground" Value="YellowGreen" />
+                            </Trigger>
+
+                            <Trigger Property="Text" Value="Send">
+                                <Setter Property="Foreground" Value="Green" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+            </DataGridTextColumn>
             <DataGridTextColumn Binding="{Binding Message}" Header="Message" />
         </DataGrid.Columns>
     </DataGrid>

@@ -6,7 +6,7 @@
         DataDump,
         Error,
         Info,
-        Send,
-        Receive
+        Receive,
+        Send
     }
 }

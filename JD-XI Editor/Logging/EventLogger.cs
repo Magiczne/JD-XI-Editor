@@ -17,9 +17,9 @@ namespace JD_XI_Editor.Logging
         }
 
         /// <inheritdoc cref="ILogger.Log" />
-        public override void Log(LogLevel level, string message)
+        public override async void Log(LogLevel level, string message)
         {
-            _aggregator.PublishOnBackgroundThreadAsync(new LogMessage
+            await _aggregator.PublishOnBackgroundThreadAsync(new LogMessage
             {
                 Class = Type,
                 Level = level,
