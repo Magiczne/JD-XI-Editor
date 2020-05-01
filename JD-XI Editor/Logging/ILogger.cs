@@ -1,4 +1,4 @@
-﻿namespace JD_XI_Editor.Logging
+namespace JD_XI_Editor.Logging
 {
     public interface ILogger
     {
@@ -32,5 +32,17 @@
         /// </summary>
         /// <param name="message">Message to be logged</param>
         void Error(string message);
+
+        /// <summary>
+        /// Log with <see cref="LogLevel.Send" /> level.
+        /// </summary>
+        /// <param name="message">Message to be logged</param>
+        void Send(string message);
+
+        /// <summary>
+        /// Log with <see cref="LogLevel.Receive" /> level.
+        /// </summary>
+        /// <param name="message">Message to be logged</param>
+        void Receive(string message);
     }
 }

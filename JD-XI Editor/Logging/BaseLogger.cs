@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace JD_XI_Editor.Logging
 {
@@ -25,5 +25,11 @@ namespace JD_XI_Editor.Logging
 
         /// <inheritdoc cref="ILogger.Error" />
         public void Error(string message) => Log(LogLevel.Error, message);
+
+        /// <inheritdoc cref="ILogger.Send" />
+        public void Send(string message) => Log(LogLevel.Send, message);
+
+        /// <inheritdoc cref="ILogger.Receive" />
+        public void Receive(string message) => Log(LogLevel.Receive, message);
     }
 }

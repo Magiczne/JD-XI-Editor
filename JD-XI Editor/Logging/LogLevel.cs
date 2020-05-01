@@ -5,6 +5,8 @@
         AutoSync,
         DataDump,
         Error,
-        Info
+        Info,
+        Send,
+        Receive
     }
 }
