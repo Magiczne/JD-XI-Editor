@@ -28,6 +28,9 @@ Digital synth editor
 ![Analog Synth Editor](/screenshots/analog.png?raw=true)
 Analog synth editor
 
+![Drumkit Editor](/screenshots/drumkit.png?raw=true)
+Drumkit editor
+
 ![Effects Editor](/screenshots/effects.png?raw=true)
 Effects editor
 
