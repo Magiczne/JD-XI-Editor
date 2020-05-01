@@ -20,5 +20,8 @@
         <controls:ExternalHyperlink NavigateUri="https://github.com/Magiczne">
             https://github.com/Magiczne
         </controls:ExternalHyperlink>
+        <LineBreak />
+        Version:
+        <TextBlock Text="{Binding Version}" />
     </TextBlock>
 </Grid>
