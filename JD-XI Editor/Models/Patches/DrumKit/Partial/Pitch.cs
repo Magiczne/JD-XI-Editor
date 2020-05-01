@@ -68,11 +68,11 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Envelope.Time3 = data[6];
             Envelope.Time4 = data[7];
 
-            Envelope.Level0 = data[8];
-            Envelope.Level1 = data[9];
-            Envelope.Level2 = data[10];
-            Envelope.Level3 = data[11];
-            Envelope.Level4 = data[12];
+            Envelope.Level0 = data[8] - 64;
+            Envelope.Level1 = data[9] - 64;
+            Envelope.Level2 = data[10] - 64;
+            Envelope.Level3 = data[11] - 64;
+            Envelope.Level4 = data[12] - 64;
         }
 
         /// <inheritdoc />
