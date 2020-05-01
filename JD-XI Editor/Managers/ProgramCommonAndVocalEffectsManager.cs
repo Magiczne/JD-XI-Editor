@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -12,32 +15,42 @@ namespace JD_XI_Editor.Managers
 {
     internal class ProgramCommonAndVocalEffectsManager : IProgramCommonAndVocalEffectsManager
     {
+        #region Methods
+
+        public ProgramCommonAndVocalEffectsManager()
+        {
+            _logger = LoggerFactory.FullSet(typeof(ProgramCommonAndVocalEffectsManager));
+            _timer.Elapsed += OnTimerElapsed;
+        }
+
+        #endregion
+
         #region Fields
 
         /// <summary>
         ///     Program common offset address
         /// </summary>
-        private static readonly byte[] CommonOffset = {0x18, 0x00, 0x00, 0x00};
+        private readonly byte[] _commonOffset = {0x18, 0x00, 0x00, 0x00};
 
         /// <summary>
         ///     Auto Note offset address
         /// </summary>
-        private static readonly byte[] AutoNoteOffset = {0x18, 0x00, 0x00, 0x1E};
+        private readonly byte[] _autoNoteOffset = {0x18, 0x00, 0x00, 0x1E};
 
         /// <summary>
         ///     VFX offset address
         /// </summary>
-        private static readonly byte[] VfxEffectsOffset = {0x18, 0x00, 0x01, 0x00};
+        private readonly byte[] _vfxEffectsOffset = {0x18, 0x00, 0x01, 0x00};
 
         /// <summary>
         ///     Common dump request
         /// </summary>
-        private static readonly byte[] CommonDumpRequest = {0x00, 0x00, 0x00, 0x1F};
+        private readonly byte[] _commonDumpRequest = {0x00, 0x00, 0x00, 0x1F};
 
         /// <summary>
         ///     VFX dump request
         /// </summary>
-        private static readonly byte[] VfxDumpRequest = { 0x00, 0x00, 0x00, 0x18 };
+        private readonly byte[] _vfxDumpRequest = {0x00, 0x00, 0x00, 0x18};
 
         /// <summary>
         ///     Expected common dump length
@@ -74,6 +87,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private SysExMessage _vfxDump;
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
         #endregion
 
         #region Events
@@ -86,16 +104,6 @@ namespace JD_XI_Editor.Managers
 
         #endregion
 
-        #region Methods
-
-        /// <inheritdoc />
-        public ProgramCommonAndVocalEffectsManager()
-        {
-            _timer.Elapsed += OnTimerElapsed;
-        }
-
-        #endregion
-
         #region Callbacks
 
         /// <summary>
@@ -103,13 +111,17 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
+            switch (e.Message.Length)
             {
-                _commonDump = e.Message;
-            }
-            else if (e.Message.Length == ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize)
-            {
-                _vfxDump = e.Message;
+                case ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize:
+                    _logger.Receive("Received Patch.Common");
+                    _commonDump = e.Message;
+                    break;
+
+                case ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize:
+                    _vfxDump = e.Message;
+                    _logger.Receive("Received Patch.VocalEffect");
+                    break;
             }
 
             _dumpCount++;
@@ -133,8 +145,11 @@ namespace JD_XI_Editor.Managers
         {
             _timer.Stop();
 
-            _device.StopRecording();
-            _device.Dispose();
+            if (!_device.IsDisposed)
+            {
+                _device.StopRecording();
+                _device.Dispose();
+            }
 
             OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
         }
@@ -150,9 +165,14 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(CommonOffset, vfxPatch.Common.GetBytes()));
-                output.Send(SysExUtils.GetMessage(VfxEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
-                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote) }));
+                _logger.DataDump("Dumping Patch.Common");
+                output.Send(SysExUtils.GetMessage(_commonOffset, vfxPatch.Common.GetBytes()));
+
+                _logger.DataDump("Dumping Patch.VocalEffect");
+                output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
+
+                _logger.DataDump("Dumping Patch.Common.AutoNote");
+                output.Send(SysExUtils.GetMessage(_autoNoteOffset, new[] {ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote)}));
             }
         }
 
@@ -161,7 +181,7 @@ namespace JD_XI_Editor.Managers
         {
             // Reset dump count counter
             _dumpCount = 0;
-            
+
             // Initialize input device
             _device = new InputDevice(inputDeviceId);
 
@@ -171,14 +191,27 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
-            {
-                output.Send(SysExUtils.GetRequestDumpMessage(CommonOffset, CommonDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(VfxEffectsOffset, VfxDumpRequest));
+            // Start timer before running task, so we have timer on the same thread
+            // as the callbacks for timer and input device
+            _timer.Start();
 
-                _timer.Start();
-            }
+            // Request data dump from device on separate thread
+            Task.Run(() =>
+            {
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
+
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    _logger.Send("Request Patch.Common");
+                    output.Send(SysExUtils.GetRequestDumpMessage(_commonOffset, _commonDumpRequest));
+
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Patch.VocalEffect");
+                    output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
+                }
+            });
         }
 
         #endregion
@@ -190,7 +223,8 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(CommonOffset, common.GetBytes()));
+                _logger.DataDump("Dumping Patch.Common");
+                output.Send(SysExUtils.GetMessage(_commonOffset, common.GetBytes()));
             }
         }
 
@@ -199,7 +233,8 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(VfxEffectsOffset, vocalFx.GetBytes()));
+                _logger.DataDump("Dumping Patch.VocalEffect");
+                output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vocalFx.GetBytes()));
             }
         }
 
@@ -208,7 +243,8 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(AutoNoteOffset, new[] { ByteUtils.BooleanToByte(value) }));
+                _logger.DataDump("Dumping Patch.Common.AutoNote");
+                output.Send(SysExUtils.GetMessage(_autoNoteOffset, new[] {ByteUtils.BooleanToByte(value)}));
             }
         }
 

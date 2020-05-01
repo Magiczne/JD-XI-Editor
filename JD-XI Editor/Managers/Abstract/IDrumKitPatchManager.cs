@@ -1,4 +1,5 @@
 ﻿using JD_XI_Editor.Models.Patches.DrumKit;
+using JD_XI_Editor.Models.Patches.DrumKit.Partial;
 
 namespace JD_XI_Editor.Managers.Abstract
 {
@@ -12,6 +13,6 @@ namespace JD_XI_Editor.Managers.Abstract
         /// <summary>
         ///     Dump partial sysex frame
         /// </summary>
-        void DumpPartial(Patch patch, string key, int deviceId);
+        void DumpPartial(Partial partial, int deviceId);
     }
 }

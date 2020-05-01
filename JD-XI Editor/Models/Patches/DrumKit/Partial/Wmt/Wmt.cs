@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Utils;
@@ -82,55 +85,73 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            On = ByteUtils.ByteToBoolean(data[0]);
+
+            GroupType = data[1];
+            GroupId = ByteUtils.NumberFrom4MidiPackets(data.Skip(2).Take(4).ToArray(), ByteUtils.Offset.None);
+            LeftWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(6).Take(4).ToArray(), ByteUtils.Offset.None);
+            RightWave = (Wave) ByteUtils.NumberFrom4MidiPackets(data.Skip(10).Take(4).ToArray(), ByteUtils.Offset.None);
+
+            WaveGain = (WaveGain) data[14];
+            Fxm = ByteUtils.ByteToBoolean(data[15]);
+            FxmColor = (FxmWaveColor) data[16];
+            FxmDepth = data[17];
+            TempoSync = ByteUtils.ByteToBoolean(data[18]);
+
+            CoarseTune = data[19] - 64;
+            FineTune = data[20] - 64;
+            Panorama = data[21] - 64;
+            RandomPanorama = ByteUtils.ByteToBoolean(data[22]);
+            AlternatePanorama = (AlternatePan) data[23];
+
+            Level = data[24];
+            VelocityRangeLower = data[25];
+            VelocityRangeUpper = data[26];
+            VelocityFadeWidthLower = data[27];
+            VelocityFadeWidthUpper = data[28];
         }
 
         /// <inheritdoc />
         public byte[] GetBytes()
         {
-            return new[]
+            var bytes = new List<byte>
             {
                 ByteUtils.BooleanToByte(On),
-                (byte) GroupType,
-
-                (byte) ((GroupId >> 12) & 0xF),
-                (byte) ((GroupId >> 8) & 0xF),
-                (byte) ((GroupId >> 4) & 0xF),
-                (byte) (GroupId & 0xF),
-
-                (byte) (((int) LeftWave >> 12) & 0xF),
-                (byte) (((int) LeftWave >> 8) & 0xF),
-                (byte) (((int) LeftWave >> 4) & 0xF),
-                (byte) ((int) LeftWave & 0xF),
-
-                (byte) (((int) RightWave >> 12) & 0xF),
-                (byte) (((int) RightWave >> 8) & 0xF),
-                (byte) (((int) RightWave >> 4) & 0xF),
-                (byte) ((int) RightWave & 0xF),
-
-                (byte) WaveGain,
-                ByteUtils.BooleanToByte(Fxm),
-                (byte) FxmColor,
-                (byte) FxmDepth,
-                ByteUtils.BooleanToByte(TempoSync),
-                (byte) (CoarseTune + 64),
-                (byte) (FineTune + 64),
-                (byte) (Panorama + 64),
-                ByteUtils.BooleanToByte(RandomPanorama),
-                (byte) AlternatePanorama,
-                (byte) Level,
-                (byte) VelocityRangeLower,
-                (byte) VelocityRangeUpper,
-                (byte) VelocityFadeWidthLower,
-                (byte) VelocityFadeWidthUpper
+                (byte) GroupType
             };
+
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets(GroupId, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) LeftWave, ByteUtils.Offset.None));
+            bytes.AddRange(ByteUtils.NumberTo4MidiPackets((int) RightWave, ByteUtils.Offset.None));
+
+            bytes.Add((byte) WaveGain);
+            bytes.Add(ByteUtils.BooleanToByte(Fxm));
+            bytes.Add((byte) FxmColor);
+            bytes.Add((byte) FxmDepth);
+            bytes.Add(ByteUtils.BooleanToByte(TempoSync));
+            bytes.Add((byte) (CoarseTune + 64));
+            bytes.Add((byte) (FineTune + 64));
+            bytes.Add((byte) (Panorama + 64));
+            bytes.Add(ByteUtils.BooleanToByte(RandomPanorama));
+            bytes.Add((byte) AlternatePanorama);
+            bytes.Add((byte) Level);
+            bytes.Add((byte) VelocityRangeLower);
+            bytes.Add((byte) VelocityRangeUpper);
+            bytes.Add((byte) VelocityFadeWidthLower);
+            bytes.Add((byte) VelocityFadeWidthUpper);
+
+            return bytes.ToArray();
         }
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 29;
 
         /// <summary>
         ///     Switch

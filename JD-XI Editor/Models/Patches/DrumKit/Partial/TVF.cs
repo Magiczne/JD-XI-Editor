@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.DrumKit;
 using PropertyChanged;
 
@@ -66,7 +67,34 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Type = (FilterType) data[0];
+            Cutoff = data[1];
+            CutoffVelocityCurve = (VelocityCurve) data[2];
+            CutoffVelocitySensitivity = data[3] - 64;
+            Resonance = data[4];
+            ResonanceVelocitySensitivity = data[5] - 64;
+
+            Envelope.Depth = data[6] - 64;
+            Envelope.VelocityCurve = (VelocityCurve) data[7];
+            Envelope.VelocitySensitivity = data[8] - 64;
+            Envelope.Time1VelocitySensitivity = data[9] - 64;
+            Envelope.Time4VelocitySensitivity = data[10] - 64;
+
+            Envelope.Time1 = data[11];
+            Envelope.Time2 = data[12];
+            Envelope.Time3 = data[13];
+            Envelope.Time4 = data[14];
+
+            Envelope.Level0 = data[15];
+            Envelope.Level1 = data[16];
+            Envelope.Level2 = data[17];
+            Envelope.Level3 = data[18];
+            Envelope.Level4 = data[19];
         }
 
         /// <inheritdoc />
@@ -102,9 +130,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 20;
 
         /// <summary>
         ///     Type

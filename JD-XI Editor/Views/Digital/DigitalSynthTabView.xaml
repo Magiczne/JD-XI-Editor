@@ -1,16 +1,16 @@
 ﻿<Grid x:Class="JD_XI_Editor.Views.Digital.DigitalSynthTabView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+      xmlns:cal="http://www.caliburnproject.org"
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:cal="http://www.caliburnproject.org"
-      mc:Ignorable="d"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-      dialogs:DialogParticipation.Register="{Binding}">
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      dialogs:DialogParticipation.Register="{Binding}"
+      mc:Ignorable="d">
     <Grid.RowDefinitions>
         <RowDefinition Height="40" />
         <RowDefinition Height="165" />
@@ -26,7 +26,9 @@
         <ColumnDefinition Width="110" />
     </Grid.ColumnDefinitions>
 
-    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+    <Grid Grid.Row="0"
+          Grid.Column="0"
+          Grid.ColumnSpan="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="235" />
             <ColumnDefinition Width="*" />
@@ -35,37 +37,46 @@
             <ColumnDefinition Width="110" />
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0"
-                Height="35" VerticalAlignment="Top"
-                Content="Init patch"
-                Style="{StaticResource AccentedSquareButtonStyle}">
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Height="35"
+                VerticalAlignment="Top"
+                Content="Init patch">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <cal:ActionMessage MethodName="InitPatch" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
-        <controls:ToggleSwitch Grid.Row="0" Grid.Column="2"
-                               Width="150" Height="35"
-                               VerticalAlignment="Top" HorizontalAlignment="Right"
-                               OnLabel="Auto Sync" OffLabel="Auto Sync"
-                               IsChecked="{Binding AutoSync}" />
-        <Button Grid.Column="3" Grid.Row="0"
-                Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
+        <controls:ToggleSwitch Grid.Row="0"
+                               Grid.Column="2"
+                               Width="150"
+                               Height="35"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               IsOn="{Binding AutoSync}"
+                               OffContent="Auto Sync"
+                               OnContent="Auto Sync" />
+        <Button Grid.Row="0"
+                Grid.Column="3"
+                Height="35"
+                Margin="5,0,0,0"
+                VerticalAlignment="Top"
                 Content="Force dump"
-                IsEnabled="{Binding CanDump}"
-                Style="{StaticResource AccentedSquareButtonStyle}">
+                IsEnabled="{Binding CanDump}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <cal:ActionMessage MethodName="Dump" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
-        <Button Grid.Column="4" Grid.Row="0"
-                Height="35" Margin="5 0 0 0" VerticalAlignment="Top"
+        <Button Grid.Row="0"
+                Grid.Column="4"
+                Height="35"
+                Margin="5,0,0,0"
+                VerticalAlignment="Top"
                 Content="Force read"
-                IsEnabled="{Binding CanRead}"
-                Style="{StaticResource AccentedSquareButtonStyle}">
+                IsEnabled="{Binding CanRead}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <cal:ActionMessage MethodName="Read" />
@@ -74,8 +85,10 @@
         </Button>
     </Grid>
 
-    <!-- Common -->
-    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+    <!--  Common  -->
+    <GroupBox Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="5"
               Height="155"
               VerticalAlignment="Top"
               Header="Common">
@@ -101,195 +114,291 @@
                 <ColumnDefinition Width="70" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0"
+            <Label Grid.Row="0"
+                   Grid.Column="0"
                    VerticalAlignment="Top"
                    Content="Patch name: " />
-            <TextBox MaxLength="12"
-                     Grid.Column="0" Grid.Row="1"
-                     VerticalAlignment="Top"
-                     Margin="0 0 5 0"
-                     Text="{Binding Patch.Common.Name}" />
-            <Label Grid.Column="0" Grid.Row="2"
-                   VerticalAlignment="Top"
-                   Content="Category:" />
-            <ComboBox Grid.Column="0" Grid.Row="3"
-                      Margin="0 0 5 0"
-                      VerticalAlignment="Top"
-                      SelectedValuePath="Value"
-                      DisplayMemberPath="Description"
-                      ItemsSource="{Binding Patch.Common.ToneCategory, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.ToneCategory}" />
 
-            <CheckBox Grid.Column="1" Grid.Row="0"
+            <CheckBox Grid.Row="0"
+                      Grid.Column="1"
+                      Margin="0,0,5,0"
                       VerticalAlignment="Top"
-                      Margin="0 0 5 0"
                       Content="Mono"
                       IsChecked="{Binding Patch.Common.Mono}" />
-            <CheckBox Grid.Column="1" Grid.Row="1"
-                      VerticalAlignment="Top"
-                      Margin="0 0 5 0"
-                      Content="Ring"
-                      IsChecked="{Binding Patch.Common.Ring}" />
-            <CheckBox Grid.Column="1" Grid.Row="2"
-                      VerticalAlignment="Top"
-                      Margin="0 0 5 0"
-                      Content="Unison"
-                      IsChecked="{Binding Patch.Common.Unison}" />
-            <ComboBox Grid.Row="3" Grid.Column="1"
-                      Margin="0 0 5 0"
-                      VerticalAlignment="Top"
-                      SelectedValuePath="Value"
-                      DisplayMemberPath="Description"
-                      ToolTip="Unison size"
-                      IsEnabled="{Binding Patch.Common.Unison}"
-                      ItemsSource="{Binding Patch.Common.UnisonSize, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.UnisonSize}" />
 
-            <CheckBox Grid.Column="2" Grid.Row="0"
+            <CheckBox Grid.Row="0"
+                      Grid.Column="2"
+                      Margin="0,0,5,0"
                       VerticalAlignment="Top"
-                      Margin="0 0 5 0"
                       Content="Legato"
                       IsChecked="{Binding Patch.Common.Legato}" />
-            <CheckBox Grid.Row="1" Grid.Column="2"
-                      VerticalAlignment="Top"
-                      Margin="0 0 5 0"
-                      Content="Portamento"
-                      IsChecked="{Binding Patch.Common.Portamento}" />
-            <ComboBox Grid.Row="2" Grid.Column="2"
-                      Margin="0 0 5 0"
-                      VerticalAlignment="Top"
-                      SelectedValuePath="Value"
-                      DisplayMemberPath="Description"
-                      ToolTip="Portamento mode"
-                      IsEnabled="{Binding Patch.Common.Portamento}"
-                      ItemsSource="{Binding Patch.Common.PortamentoMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Common.PortamentoMode}" />
-            <CheckBox Grid.Row="3" Grid.Column="2"
-                      Content="Chromatic Port."
-                      ToolTip="Chromatic Portamento"
-                      IsEnabled="{Binding Patch.Common.Portamento}"
-                      IsChecked="{Binding Patch.Modifiers.ChromaticPortamento}" />
 
-            <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="3"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
                                   IsEnabled="{Binding Patch.Common.Portamento}"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.PortamentoTime}" />
                 <TextBlock Text="Portamento time"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="4"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.ToneLevel}" />
-                <TextBlock Text="Tone 
-                           Level"
+                <TextBlock Text="Tone                             Level"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="5" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="5"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.AnalogFeel}" />
-                <TextBlock Text="Analog
-                           Feel"
+                <TextBlock Text="Analog                            Feel"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="6" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="6"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.WaveShape}" />
-                <TextBlock Text="Wave 
-                           Shape"
+                <TextBlock Text="Wave                             Shape"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="7" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="7"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="-3" Maximum="3"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="3"
+                                  Minimum="-3"
                                   Value="{Binding Patch.Common.OctaveShift}" />
-                <TextBlock Text="Octave 
-                           shift"
+                <TextBlock Text="Octave                             shift"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="8" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="8"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="24"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.PitchBendRangeUp}" />
-                <TextBlock Text="PB Range
-                           Up"
+                <TextBlock Text="PB Range                            Up"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="9" Grid.RowSpan="4"
+            <StackPanel Grid.Row="0"
+                        Grid.RowSpan="4"
+                        Grid.Column="9"
                         Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="24"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="24"
+                                  Minimum="0"
                                   Value="{Binding Patch.Common.PitchBendRangeDown}" />
-                <TextBlock Text="PB Range 
-                           Down"
+                <TextBlock Text="PB Range                             Down"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
+            <TextBox Grid.Row="1"
+                     Grid.Column="0"
+                     Margin="0,0,5,0"
+                     VerticalAlignment="Top"
+                     MaxLength="12"
+                     Text="{Binding Patch.Common.Name}" />
+            <CheckBox Grid.Row="1"
+                      Grid.Column="1"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      Content="Ring"
+                      IsChecked="{Binding Patch.Common.Ring}" />
+            <CheckBox Grid.Row="1"
+                      Grid.Column="2"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      Content="Portamento"
+                      IsChecked="{Binding Patch.Common.Portamento}" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Content="Category:" />
+            <CheckBox Grid.Row="2"
+                      Grid.Column="1"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      Content="Unison"
+                      IsChecked="{Binding Patch.Common.Unison}" />
+            <ComboBox Grid.Row="2"
+                      Grid.Column="2"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      DisplayMemberPath="Description"
+                      IsEnabled="{Binding Patch.Common.Portamento}"
+                      ItemsSource="{Binding Patch.Common.PortamentoMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.PortamentoMode}"
+                      SelectedValuePath="Value"
+                      ToolTip="Portamento mode" />
+            <ComboBox Grid.Row="3"
+                      Grid.Column="0"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      DisplayMemberPath="Description"
+                      ItemsSource="{Binding Patch.Common.ToneCategory, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.ToneCategory}"
+                      SelectedValuePath="Value" />
+            <ComboBox Grid.Row="3"
+                      Grid.Column="1"
+                      Margin="0,0,5,0"
+                      VerticalAlignment="Top"
+                      DisplayMemberPath="Description"
+                      IsEnabled="{Binding Patch.Common.Unison}"
+                      ItemsSource="{Binding Patch.Common.UnisonSize, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
+                      SelectedValue="{Binding Patch.Common.UnisonSize}"
+                      SelectedValuePath="Value"
+                      ToolTip="Unison size" />
+            <CheckBox Grid.Row="3"
+                      Grid.Column="2"
+                      Content="Chromatic Port."
+                      IsChecked="{Binding Patch.Modifiers.ChromaticPortamento}"
+                      IsEnabled="{Binding Patch.Common.Portamento}"
+                      ToolTip="Chromatic Portamento" />
         </Grid>
     </GroupBox>
 
-    <!-- Partial switches -->
-    <GroupBox Grid.Row="2" Grid.Column="0"
+    <!--  Partial switches  -->
+    <GroupBox Grid.Row="2"
+              Grid.Column="0"
               Height="225"
               VerticalAlignment="Top"
               Header="Partials">
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Height="Auto"
+                   VerticalAlignment="Center"
+                   Content="Partial 1"
+                   FontSize="18"
+                   FontWeight="Bold" />
             <controls:ToggleSwitch Grid.Row="0"
-                                   Header="Partial 1"
-                                   IsChecked="{Binding Patch.Common.PartialOneSwitch}" />
+                                   Grid.Column="1"
+                                   Width="50"
+                                   HorizontalAlignment="Right"
+                                   IsOn="{Binding Patch.Common.PartialOneSwitch}"
+                                   OffContent=""
+                                   OnContent="" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Height="Auto"
+                   VerticalAlignment="Center"
+                   Content="Partial 2"
+                   FontSize="18"
+                   FontWeight="Bold" />
             <controls:ToggleSwitch Grid.Row="1"
-                                   Header="Partial 2"
-                                   IsChecked="{Binding Patch.Common.PartialTwoSwitch}" />
+                                   Grid.Column="1"
+                                   Width="50"
+                                   HorizontalAlignment="Right"
+                                   IsOn="{Binding Patch.Common.PartialTwoSwitch}"
+                                   OffContent=""
+                                   OnContent="" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Height="Auto"
+                   VerticalAlignment="Center"
+                   Content="Partial 3"
+                   FontSize="18"
+                   FontWeight="Bold" />
             <controls:ToggleSwitch Grid.Row="2"
-                                   Header="Partial 3"
-                                   IsChecked="{Binding Patch.Common.PartialThreeSwitch}" />
+                                   Grid.Column="1"
+                                   Width="50"
+                                   HorizontalAlignment="Right"
+                                   IsOn="{Binding Patch.Common.PartialThreeSwitch}"
+                                   OffContent=""
+                                   OnContent="" />
         </Grid>
     </GroupBox>
 
-    <GroupBox Grid.Row="3" Grid.Column="0" Grid.RowSpan="2"
-              VerticalAlignment="Top"
+    <ContentControl x:Name="Editor"
+                    Grid.Row="2"
+                    Grid.RowSpan="3"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="4"
+                    Margin="10,0,0,0" />
+
+    <GroupBox Grid.Row="3"
+              Grid.RowSpan="2"
+              Grid.Column="0"
               Height="225"
+              VerticalAlignment="Top"
               Header="Modifiers">
         <Grid>
             <Grid.RowDefinitions>
@@ -306,66 +415,98 @@
                 <ColumnDefinition Width="70" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
-                   VerticalAlignment="Top" HorizontalContentAlignment="Center"
-                   Content="Envelope" FontWeight="Bold" />
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   VerticalAlignment="Top"
+                   HorizontalContentAlignment="Center"
+                   Content="Envelope"
+                   FontWeight="Bold" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
                    VerticalAlignment="Top"
                    Content="Loop Mode" />
-            <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+            <Label Grid.Row="1"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="2"
                    VerticalAlignment="Top"
                    Content="Loop Sync Note" />
-            <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                      Margin="0 0 5 0"
+            <ComboBox Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Margin="0,0,5,0"
                       VerticalAlignment="Top"
-                      SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       ItemsSource="{Binding Patch.Modifiers.EnvelopeLoopMode, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopMode}" />
-            <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                      SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopMode}"
+                      SelectedValuePath="Value" />
+            <ComboBox Grid.Row="2"
+                      Grid.Column="2"
+                      Grid.ColumnSpan="2"
                       VerticalAlignment="Top"
-                      ToolTip="Envelope Loop Synchronization Note"
-                      SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       IsEnabled="{Binding IsEnvelopeLoopSyncNoteEnabled}"
                       ItemsSource="{Binding Patch.Modifiers.EnvelopeLoopSyncNote, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                      SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopSyncNote}" />
+                      SelectedValue="{Binding Patch.Modifiers.EnvelopeLoopSyncNote}"
+                      SelectedValuePath="Value"
+                      ToolTip="Envelope Loop Synchronization Note" />
 
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
-                   VerticalAlignment="Top" HorizontalContentAlignment="Center"
-                   Content="Time Interval Sensitivity" FontWeight="Bold" />
-            <StackPanel Grid.Row="4" Grid.Column="0"
-                        ToolTip="Atack Time Interval Sensitivity"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   VerticalAlignment="Top"
+                   HorizontalContentAlignment="Center"
+                   Content="Time Interval Sensitivity"
+                   FontWeight="Bold" />
+            <StackPanel Grid.Row="4"
+                        Grid.Column="0"
+                        Orientation="Vertical"
+                        ToolTip="Atack Time Interval Sensitivity">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Modifiers.AttackTimeIntervalSensitivity}" />
                 <TextBlock Text="Attack"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
-                        ToolTip="Release Time Interval Sensitivity"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <StackPanel Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Orientation="Vertical"
+                        ToolTip="Release Time Interval Sensitivity">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Modifiers.ReleaseTimeIntervalSensitivity}" />
                 <TextBlock Text="Release"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
             </StackPanel>
-            <StackPanel Grid.Row="4" Grid.Column="3"
-                        ToolTip="Portamento Time Interval Sensitivity"
-                        Orientation="Vertical">
-                <knobControl:Knob Height="65" Width="65"
-                                  ArcEndAngle="150" ArcStartAngle="-150"
-                                  Minimum="0" Maximum="127"
-                                  HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+            <StackPanel Grid.Row="4"
+                        Grid.Column="3"
+                        Orientation="Vertical"
+                        ToolTip="Portamento Time Interval Sensitivity">
+                <knobControl:Knob Width="65"
+                                  Height="65"
+                                  HorizontalAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  ArcEndAngle="150"
+                                  ArcStartAngle="-150"
                                   IsEnabled="{Binding Patch.Common.Portamento}"
+                                  Maximum="127"
+                                  Minimum="0"
                                   Value="{Binding Patch.Modifiers.PortamentoTimeIntervalSensitivity}" />
                 <TextBlock Text="Portamento"
                            TextAlignment="Center"
@@ -373,8 +514,4 @@
             </StackPanel>
         </Grid>
     </GroupBox>
-
-    <ContentControl x:Name="Editor"
-                    Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4"
-                    Margin="10 0 0 0" />
 </Grid>

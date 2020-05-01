@@ -1,6 +1,9 @@
-﻿using System;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -22,29 +25,19 @@ namespace JD_XI_Editor.Managers
         private readonly DigitalSynth _synthNumber;
 
         /// <summary>
-        ///     Common address offset
-        /// </summary>
-        private byte[] CommonAddressOffset => new byte[] { 0x19, (byte)_synthNumber, 0x00, 0x00 };
-
-        /// <summary>
         ///     Common SysEx message length
         /// </summary>
-        private static byte[] CommonDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x40 };
+        private readonly byte[] _commonDumpRequest = {0x00, 0x00, 0x00, 0x40};
 
         /// <summary>
         ///     Partial SysEx message length
         /// </summary>
-        private static byte[] PartialDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x3D };
-
-        /// <summary>
-        ///     Modifiers address offset
-        /// </summary>
-        private byte[] ModifiersAddressOffset => new byte[] { 0x19, (byte)_synthNumber, 0x50, 0x00 };
+        private readonly byte[] _partialDumpRequest = {0x00, 0x00, 0x00, 0x3D};
 
         /// <summary>
         ///     Modifiers SysEx message length
         /// </summary>
-        private static byte[] ModifiersDumpRequest => new byte[] { 0x00, 0x00, 0x00, 0x25 };
+        private readonly byte[] _modifiersDumpRequest = {0x00, 0x00, 0x00, 0x25};
 
         /// <summary>
         ///     Expected Common Dump Length
@@ -91,6 +84,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private SysExMessage _modifiersDump;
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private ILogger _logger;
+
         #endregion
 
         #region Events
@@ -105,9 +103,9 @@ namespace JD_XI_Editor.Managers
 
         #region Methods
 
-        /// <inheritdoc />
         public DigitalPatchManager(DigitalSynth synthNumber)
         {
+            _logger = LoggerFactory.FullSet(typeof(DigitalPatchManager));
             _synthNumber = synthNumber;
             _timer.Elapsed += OnTimerElapsed;
         }
@@ -117,8 +115,18 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private byte[] PartialAddressOffset(DigitalPartial partial)
         {
-            return new byte[] { 0x19, (byte)_synthNumber, (byte)partial, 0x00 };
+            return new byte[] {0x19, (byte) _synthNumber, (byte) partial, 0x00};
         }
+
+        /// <summary>
+        ///     Common address offset
+        /// </summary>
+        private byte[] CommonAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x00, 0x00};
+
+        /// <summary>
+        ///     Modifiers address offset
+        /// </summary>
+        private byte[] ModifiersAddressOffset => new byte[] {0x19, (byte) _synthNumber, 0x50, 0x00};
 
         #endregion
 
@@ -129,40 +137,49 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
+            switch (e.Message.Length)
             {
-                _commonDump = e.Message;
-            }
-            else if (e.Message.Length == ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize)
-            {
-                // At 11 byte we have partial number, so we check value at that byte
-                var partial = (DigitalPartial) e.Message[10];
+                case ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize:
+                    _logger.Receive("Received Patch.Common");
+                    _commonDump = e.Message;
+                    break;
 
-                switch (partial)
+                case ExpectedModifiersDumpLength + SysExUtils.DumpPaddingSize:
+                    _logger.Receive("Received Patch.Modifiers");
+                    _modifiersDump = e.Message;
+                    break;
+
+                case ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize:
                 {
-                    case DigitalPartial.First:
-                        _partialsDump[0] = e.Message;
-                        break;
+                    // At 11 byte we have partial number, so we check value at that byte
+                    var partial = (DigitalPartial) e.Message[10];
 
-                    case DigitalPartial.Second:
-                        _partialsDump[1] = e.Message;
+                    switch (partial)
+                    {
+                        case DigitalPartial.First:
+                            _logger.Receive($"Received Patch.PartialOne");
+                            _partialsDump[0] = e.Message;
+                            break;
 
-                        break;
-                    case DigitalPartial.Third:
-                        _partialsDump[2] = e.Message;
-                        break;
+                        case DigitalPartial.Second:
+                            _logger.Receive($"Received Patch.PartialTwo");
+                            _partialsDump[1] = e.Message;
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(partial), partial, null);
+                        case DigitalPartial.Third:
+                            _logger.Receive($"Received Patch.PartialThree");
+                            _partialsDump[2] = e.Message;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(partial), partial, null);
+                    }
+
+                    break;
                 }
-            }
-            else if (e.Message.Length == ExpectedModifiersDumpLength + SysExUtils.DumpPaddingSize)
-            {
-                _modifiersDump = e.Message;
-            }
-            else
-            {
-                throw new InvalidDumpSizeException();
+
+                default:
+                    throw new InvalidDumpSizeException();
             }
 
             _dumpCount++;
@@ -187,8 +204,11 @@ namespace JD_XI_Editor.Managers
         {
             _timer.Stop();
 
-            _device.StopRecording();
-            _device.Dispose();
+            if (!_device.IsDisposed)
+            {
+                _device.StopRecording();
+                _device.Dispose();
+            }
 
             OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
         }
@@ -200,16 +220,23 @@ namespace JD_XI_Editor.Managers
         /// <inheritdoc />
         public void Dump(IPatch patch, int deviceId)
         {
-            var digitalPatch = (Patch)patch;
+            var digitalPatch = (Patch) patch;
 
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(CommonAddressOffset, digitalPatch.Common.GetBytes()));
 
+                _logger.DataDump("Dumping Patch.PartialOne");
                 output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.First), digitalPatch.PartialOne.GetBytes()));
+
+                _logger.DataDump("Dumping Patch.PartialTwo");
                 output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.Second), digitalPatch.PartialTwo.GetBytes()));
+
+                _logger.DataDump("Dumping Patch.PartialThree");
                 output.Send(SysExUtils.GetMessage(PartialAddressOffset(DigitalPartial.Third), digitalPatch.PartialThree.GetBytes()));
 
+                _logger.DataDump("Dumping Patch.Modifiers");
                 output.Send(SysExUtils.GetMessage(ModifiersAddressOffset, digitalPatch.Modifiers.GetBytes()));
             }
         }
@@ -229,17 +256,39 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
-            {
-                output.Send(SysExUtils.GetRequestDumpMessage(CommonAddressOffset, CommonDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.First), PartialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Second), PartialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third), PartialDumpRequest));
-                output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, ModifiersDumpRequest));
+            // Start timer before running task, so we have timer on the same thread
+            // as the callbacks for timer and input device
+            _timer.Start();
 
-                _timer.Start();
-            }
+            // Request data dump from device on separate thread
+            Task.Run(() =>
+            {
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
+
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    _logger.Send("Request Patch.Common");
+                    output.Send(SysExUtils.GetRequestDumpMessage(CommonAddressOffset, _commonDumpRequest));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Patch.PartialOne");
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.First), _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Patch.PartialTwo");
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Second), _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Patch.PartialThree");
+                    output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(DigitalPartial.Third), _partialDumpRequest));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Patch.Modifiers");
+                    output.Send(SysExUtils.GetRequestDumpMessage(ModifiersAddressOffset, _modifiersDumpRequest));
+                    Thread.Sleep(50);
+                }
+            });
         }
 
         #endregion
@@ -251,6 +300,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(CommonAddressOffset, common.GetBytes()));
             }
         }
@@ -260,6 +310,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump($"Dumping Patch.Partial[{partialNumber}]");
                 output.Send(SysExUtils.GetMessage(PartialAddressOffset(partialNumber), partial.GetBytes()));
             }
         }
@@ -269,6 +320,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Modifiers");
                 output.Send(SysExUtils.GetMessage(ModifiersAddressOffset, modifiers.GetBytes()));
             }
         }

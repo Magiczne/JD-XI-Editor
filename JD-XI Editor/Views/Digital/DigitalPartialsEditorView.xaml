@@ -1,7 +1,13 @@
 ﻿<UserControl x:Class="JD_XI_Editor.Views.Digital.DigitalPartialsEditorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:JD_XI_Editor.Controls">
-    <controls:CachedTabControl x:Name="Items" Padding="5"
-                               Style="{StaticResource SimpleCachedTabControl}" />
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls">
+    <mahapps:MetroTabControl x:Name="Items"
+                             Padding="5"
+                             Background="{StaticResource Background}"
+                             KeepVisualTreeInMemoryWhenChangingTabs="True">
+        <mahapps:MetroTabControl.Resources>
+            <Style BasedOn="{StaticResource SimpleTabItem}" TargetType="{x:Type mahapps:MetroTabItem}" />
+        </mahapps:MetroTabControl.Resources>
+    </mahapps:MetroTabControl>
 </UserControl>

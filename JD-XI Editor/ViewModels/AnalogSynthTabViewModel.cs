@@ -1,4 +1,4 @@
-﻿using Caliburn.Micro;
+using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Events;
@@ -21,12 +21,18 @@ namespace JD_XI_Editor.ViewModels
             : base(eventAggregator, dialogCoordinator, new AnalogPatchManager())
         {
             DisplayName = "Analog Synth";
+            InitLogger(typeof(AnalogSynthTabViewModel));
+
             Patch = new Patch();
+
             Patch.PropertyChanged += (sender, args) =>
             {
                 if (AutoSync)
+                {
                     Dump();
-
+                    Logger.AutoSync($"{args.PropertyName} changed");
+                }
+                    
                 if (args.PropertyName == nameof(Patch.Oscillator))
                     NotifyOfPropertyChange(nameof(IsPulseWidthEnabled));
             };
@@ -34,11 +40,19 @@ namespace JD_XI_Editor.ViewModels
             PatchManager.DataDumpReceived += (sender, args) =>
             {
                 if (args is AnalogPatchDumpReceivedEventArgs eventArgs)
+                {
+                    AutoSync = false;
+
                     Patch.CopyFrom(eventArgs.Patch);
+                    Logger.DataDump("Received data dump");
+
+                    AutoSync = true;
+                }
             };
 
             PatchManager.OperationTimedOut += (sender, args) =>
             {
+                Logger.Error("Device is not responding");
                 ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
@@ -69,14 +83,17 @@ namespace JD_XI_Editor.ViewModels
             }
             catch (InputDeviceException)
             {
+                Logger.Error("Device selected as input is used by another application");
                 ShowErrorMessage("Device selected as input is used by another application");
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
             catch (InvalidDumpSizeException)
             {
+                Logger.Error("Data received from device is invalid");
                 ShowErrorMessage("Data received from device is invalid");
             }
         }
@@ -91,6 +108,7 @@ namespace JD_XI_Editor.ViewModels
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
         }
@@ -99,6 +117,7 @@ namespace JD_XI_Editor.ViewModels
         public override void InitPatch()
         {
             Patch.Reset();
+            Logger.Info("Loaded init patch");
         }
 
         #endregion
