@@ -39,6 +39,17 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Kind="Bug" />
+                    <TextBlock Margin="4,0,0,0" Text="Debug Window" />
+                </StackPanel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="OpenDebugWindow" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </mahapps:WindowCommands>
     </mahapps:MetroWindow.RightWindowCommands>
     <Grid Margin="5">

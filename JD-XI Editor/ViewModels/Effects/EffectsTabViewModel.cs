@@ -28,6 +28,7 @@ namespace JD_XI_Editor.ViewModels.Effects
             : base(eventAggregator, dialogCoordinator, new EffectsPatchManager())
         {
             DisplayName = "Effects";
+            InitLogger(typeof(EffectsTabViewModel));
 
             _patch = new EffectPatch();
             Effect1 = new Effect1ViewModel(_patch.Effect1);
@@ -41,6 +42,8 @@ namespace JD_XI_Editor.ViewModels.Effects
                 {
                     var effectsPatchManager = (IEffectsPatchManager) PatchManager;
                     effectsPatchManager.DumpEffect(_patch.Effect1, Effect.Effect1, SelectedOutputDeviceId);
+
+                    Logger.AutoSync($"Effect1.{args.PropertyName} changed");
                 }
             };
 
@@ -50,6 +53,8 @@ namespace JD_XI_Editor.ViewModels.Effects
                 {
                     var effectsPatchManager = (IEffectsPatchManager) PatchManager;
                     effectsPatchManager.DumpEffect(_patch.Effect2, Effect.Effect2, SelectedOutputDeviceId);
+
+                    Logger.AutoSync($"Effect2.{args.PropertyName} changed");
                 }
             };
 
@@ -59,6 +64,8 @@ namespace JD_XI_Editor.ViewModels.Effects
                 {
                     var effectsPatchManager = (IEffectsPatchManager) PatchManager;
                     effectsPatchManager.DumpEffect(_patch.Delay, Effect.Delay, SelectedOutputDeviceId);
+
+                    Logger.AutoSync($"Delay.{args.PropertyName} changed");
                 }
             };
 
@@ -68,6 +75,8 @@ namespace JD_XI_Editor.ViewModels.Effects
                 {
                     var effectsPatchManager = (IEffectsPatchManager) PatchManager;
                     effectsPatchManager.DumpEffect(_patch.Reverb, Effect.Reverb, SelectedOutputDeviceId);
+
+                    Logger.AutoSync($"Reverb.{args.PropertyName} changed");
                 }
             };
 
@@ -78,6 +87,7 @@ namespace JD_XI_Editor.ViewModels.Effects
                     AutoSync = false;
 
                     _patch.CopyFrom(eventArgs.Patch);
+                    Logger.DataDump("Received data dump");
 
                     AutoSync = true;
                 }
@@ -85,6 +95,7 @@ namespace JD_XI_Editor.ViewModels.Effects
 
             PatchManager.OperationTimedOut += (sender, args) =>
             {
+                Logger.Error("Device is not responding");
                 ShowErrorMessage("Device is not responding, try again in a moment");
             };
         }
@@ -119,14 +130,17 @@ namespace JD_XI_Editor.ViewModels.Effects
             }
             catch (InputDeviceException)
             {
+                Logger.Error("Device selected as input is used by another application");
                 ShowErrorMessage("Device selected as input is used by another application");
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
             catch (InvalidDumpSizeException)
             {
+                Logger.Error("Data received from device is invalid");
                 ShowErrorMessage("Data received from device is invalid");
             }
         }
@@ -141,6 +155,7 @@ namespace JD_XI_Editor.ViewModels.Effects
             }
             catch (OutputDeviceException)
             {
+                Logger.Error("Device selected as output is used by another application");
                 ShowErrorMessage("Device selected as output is used by another application");
             }
         }
@@ -149,6 +164,7 @@ namespace JD_XI_Editor.ViewModels.Effects
         public override void InitPatch()
         {
             _patch.Reset();
+            Logger.Info("Loaded init patch");
         }
     }
 }

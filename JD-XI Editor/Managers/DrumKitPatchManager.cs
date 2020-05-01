@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Enums.DrumKit;
@@ -48,7 +49,7 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Timer used to determine timeouts when reading data from device
         /// </summary>
-        private readonly Timer _timer = new Timer(4000);
+        private readonly Timer _timer = new Timer(5000);
 
         /// <summary>
         ///     Device instance
@@ -70,6 +71,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private readonly Dictionary<DrumKey, SysExMessage> _partialsDump = new Dictionary<DrumKey, SysExMessage>();
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
         #endregion
 
         #region Events
@@ -86,6 +92,7 @@ namespace JD_XI_Editor.Managers
 
         public DrumKitPatchManager()
         {
+            _logger = LoggerFactory.FullSet(typeof(DrumKitPatchManager));
             _timer.Elapsed += OnTimerElapsed;
         }
 
@@ -110,14 +117,15 @@ namespace JD_XI_Editor.Managers
             {
                 case ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize:
                     _commonDump = e.Message;
+                    _logger.Receive("Received Patch.Common");
                     break;
 
                 case ExpectedPartialDumpLength + SysExUtils.DumpPaddingSize:
                 {
                     // At 11 byte we have partial identifier, so we check value at that byte
                     var key = (DrumKey) e.Message[10];
-
                     _partialsDump[key] = e.Message;
+                    _logger.Receive($"Received Patch.Partials[{key}]");
                     break;
                 }
             }
@@ -131,9 +139,8 @@ namespace JD_XI_Editor.Managers
                 _device.StopRecording();
                 _device.Dispose();
 
-                DataDumpReceived?.Invoke(this, new DrumKitPatchDumpReceivedEventArgs(
-                    new Patch(_commonDump, _partialsDump)    
-                ));
+                DataDumpReceived?.Invoke(this, 
+                    new DrumKitPatchDumpReceivedEventArgs(new Patch(_commonDump, _partialsDump)));
             }
         }
 
@@ -164,13 +171,13 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(_commonAddressOffset, drumPatch.Common.GetBytes()));
 
                 foreach (var partial in drumPatch.Partials)
                 {
-                    var bytes = partial.Value.GetBytes();
+                    _logger.DataDump($"Dumping Patch.Partial[{partial.Key}]");
                     output.Send(SysExUtils.GetMessage(PartialAddressOffset(partial.Key), partial.Value.GetBytes()));
-                    return;
                 }
             }
         }
@@ -206,6 +213,7 @@ namespace JD_XI_Editor.Managers
 
                 using (var output = new OutputDevice(outputDeviceId))
                 {
+                    _logger.Send("Request Patch.Common");
                     output.Send(SysExUtils.GetRequestDumpMessage(_commonAddressOffset, _commonDumpRequest));
 
                     Thread.Sleep(50);
@@ -214,6 +222,7 @@ namespace JD_XI_Editor.Managers
                     {
                         var key = (DrumKey) vdPair.Value;
 
+                        _logger.Send($"Request Patch.Partial[{key}]");
                         output.Send(SysExUtils.GetRequestDumpMessage(PartialAddressOffset(key), _partialDumpRequest));
 
                         Thread.Sleep(50);
@@ -231,6 +240,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(_commonAddressOffset, common.GetBytes()));
             }
         }
@@ -240,6 +250,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump($"Dumping Patch.Partial[{partial.Key}]");
                 output.Send(SysExUtils.GetMessage(PartialAddressOffset(partial.Key), partial.GetBytes()));
             }
         }

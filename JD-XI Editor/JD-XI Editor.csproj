@@ -163,6 +163,14 @@
     <Compile Include="Events\OutputDeviceChangedEventArgs.cs" />
     <Compile Include="Exceptions\InvalidDumpSizeException.cs" />
     <Compile Include="Exceptions\PatchNotConvertibleIntoBytes.cs" />
+    <Compile Include="Logging\BaseLogger.cs" />
+    <Compile Include="Logging\EventLogger.cs" />
+    <Compile Include="Logging\LogMessage.cs" />
+    <Compile Include="Logging\CompositeLogger.cs" />
+    <Compile Include="Logging\FileLogger.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\LoggerFactory.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Managers\Abstract\IProgramCommonAndVocalEffectsManager.cs" />
     <Compile Include="Managers\DigitalPatchManager.cs" />
     <Compile Include="Managers\DrumKitPatchManager.cs" />
@@ -314,6 +322,7 @@
     <Compile Include="Utils\Enums\ValueDescription.cs" />
     <Compile Include="Utils\SysExUtils.cs" />
     <Compile Include="ViewModels\AnalogSynthTabViewModel.cs" />
+    <Compile Include="ViewModels\DebugWindowViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalPartialsEditorViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalPartialViewModel.cs" />
     <Compile Include="ViewModels\Digital\DigitalSynthTabViewModel.cs" />
@@ -342,6 +351,9 @@
     <Compile Include="ViewModels\Program\CommonAndVocalFxTabViewModel.cs" />
     <Compile Include="Views\AnalogSynthTabView.xaml.cs">
       <DependentUpon>AnalogSynthTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DebugWindowView.xaml.cs">
+      <DependentUpon>DebugWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Digital\DigitalPartialsEditorView.xaml.cs">
       <DependentUpon>DigitalPartialsEditorView.xaml</DependentUpon>
@@ -440,6 +452,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnalogSynthTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DebugWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

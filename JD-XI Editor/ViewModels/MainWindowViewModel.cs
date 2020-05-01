@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Events;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Models;
 using JD_XI_Editor.ViewModels.Digital;
@@ -14,12 +15,15 @@ using Sanford.Multimedia.Midi;
 
 namespace JD_XI_Editor.ViewModels
 {
-    internal sealed class MainWindowViewModel
-        : Conductor<Screen>.Collection.OneActive
+    internal sealed class MainWindowViewModel : Conductor<Screen>.Collection.OneActive
     {
-        public MainWindowViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator)
+        public MainWindowViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IWindowManager windowManager)
         {
             DisplayName = "JD-XI Editor";
+
+            _eventAggregator = eventAggregator;
+            _windowManager = windowManager;
+            _logger = LoggerFactory.FullSet(typeof(MainWindowViewModel));
 
             Items.AddRange(new List<Screen>
             {
@@ -34,7 +38,6 @@ namespace JD_XI_Editor.ViewModels
 
                 new CommonAndVocalFxTabViewModel(eventAggregator, dialogCoordinator)
             });
-            _eventAggregator = eventAggregator;
 
             GetMidiDevices();
         }
@@ -55,14 +58,31 @@ namespace JD_XI_Editor.ViewModels
             for (var i = 0; i < OutputDeviceBase.DeviceCount; i++)
                 outputDevices.Add(new MidiOutputDeviceInfo(OutputDeviceBase.GetDeviceCapabilities(i)));
 
+            _logger.Info($"Found {inputDevices.Count} input devices");
+            _logger.Info($"Found {outputDevices.Count} output devices");
+
             InputDevices = inputDevices;
             OutputDevices = outputDevices;
 
             var jdXiInput = InputDevices.FirstOrDefault(d => d.Name == "JD-Xi");
             var jdXiOutput = OutputDevices.FirstOrDefault(d => d.Name == "JD-Xi");
-
+            
             SelectedInputDeviceId = jdXiInput == null ? -1 : InputDevices.IndexOf(jdXiInput);
             SelectedOutputDeviceId = jdXiOutput == null ? -1 : OutputDevices.IndexOf(jdXiOutput);
+
+            if (jdXiInput != null)
+                _logger.Info($"JD-XI Input device found (ID: {SelectedInputDeviceId})");
+
+            if (jdXiOutput != null)
+                _logger.Info($"JD-XI Output device found (ID: {SelectedOutputDeviceId})");
+        }
+
+        /// <summary>
+        /// Open debugging window
+        /// </summary>
+        public void OpenDebugWindow()
+        {
+            _windowManager.ShowWindowAsync(new DebugWindowViewModel(_eventAggregator));
         }
 
         #endregion
@@ -70,17 +90,27 @@ namespace JD_XI_Editor.ViewModels
         #region Fields
 
         /// <summary>
-        ///     Event aggregator instance
+        /// Event aggregator instance
         /// </summary>
         private readonly IEventAggregator _eventAggregator;
 
         /// <summary>
-        ///     Selected input device ID
+        /// Window manager instance
+        /// </summary>
+        private readonly IWindowManager _windowManager;
+
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
+        /// <summary>
+        /// Selected input device ID
         /// </summary>
         private int _selectedInputDeviceId;
 
         /// <summary>
-        ///     Selected output device ID
+        /// Selected output device ID
         /// </summary>
         private int _selectedOutputDeviceId;
 

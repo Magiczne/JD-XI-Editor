@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -16,9 +17,9 @@ namespace JD_XI_Editor.Managers
     {
         #region Methods
 
-        /// <inheritdoc />
         public ProgramCommonAndVocalEffectsManager()
         {
+            _logger = LoggerFactory.FullSet(typeof(ProgramCommonAndVocalEffectsManager));
             _timer.Elapsed += OnTimerElapsed;
         }
 
@@ -86,6 +87,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private SysExMessage _vfxDump;
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
         #endregion
 
         #region Events
@@ -105,9 +111,18 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private void OnSysExMessageReceived(object sender, SysExMessageEventArgs e)
         {
-            if (e.Message.Length == ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize)
-                _commonDump = e.Message;
-            else if (e.Message.Length == ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize) _vfxDump = e.Message;
+            switch (e.Message.Length)
+            {
+                case ExpectedCommonDumpLength + SysExUtils.DumpPaddingSize:
+                    _logger.Receive("Received Patch.Common");
+                    _commonDump = e.Message;
+                    break;
+
+                case ExpectedVfxDumpLength + SysExUtils.DumpPaddingSize:
+                    _vfxDump = e.Message;
+                    _logger.Receive("Received Patch.VocalEffect");
+                    break;
+            }
 
             _dumpCount++;
 
@@ -150,10 +165,14 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(_commonOffset, vfxPatch.Common.GetBytes()));
+
+                _logger.DataDump("Dumping Patch.VocalEffect");
                 output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vfxPatch.VocalEffect.GetBytes()));
-                output.Send(SysExUtils.GetMessage(_autoNoteOffset,
-                    new[] {ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote)}));
+
+                _logger.DataDump("Dumping Patch.Common.AutoNote");
+                output.Send(SysExUtils.GetMessage(_autoNoteOffset, new[] {ByteUtils.BooleanToByte(vfxPatch.Common.AutoNote)}));
             }
         }
 
@@ -184,10 +203,12 @@ namespace JD_XI_Editor.Managers
 
                 using (var output = new OutputDevice(outputDeviceId))
                 {
+                    _logger.Send("Request Patch.Common");
                     output.Send(SysExUtils.GetRequestDumpMessage(_commonOffset, _commonDumpRequest));
 
-                    Thread.Sleep(50);  
+                    Thread.Sleep(50);
 
+                    _logger.Send("Request Patch.VocalEffect");
                     output.Send(SysExUtils.GetRequestDumpMessage(_vfxEffectsOffset, _vfxDumpRequest));
                 }
             });
@@ -202,6 +223,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common");
                 output.Send(SysExUtils.GetMessage(_commonOffset, common.GetBytes()));
             }
         }
@@ -211,6 +233,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.VocalEffect");
                 output.Send(SysExUtils.GetMessage(_vfxEffectsOffset, vocalFx.GetBytes()));
             }
         }
@@ -220,6 +243,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Patch.Common.AutoNote");
                 output.Send(SysExUtils.GetMessage(_autoNoteOffset, new[] {ByteUtils.BooleanToByte(value)}));
             }
         }
