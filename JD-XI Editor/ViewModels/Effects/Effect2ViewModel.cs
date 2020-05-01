@@ -27,27 +27,27 @@ namespace JD_XI_Editor.ViewModels.Effects
                     switch (((BasicData) Patch.Basic).Type)
                     {
                         case Effect2Type.Thru:
-                            ActivateItem(ThruViewModel);
+                            ActivateItemAsync(ThruViewModel, default);
                             break;
 
                         case Effect2Type.Flanger:
-                            ActivateItem(FlangerViewModel);
+                            ActivateItemAsync(FlangerViewModel, default);
                             break;
 
                         case Effect2Type.Phaser:
-                            ActivateItem(PhaserViewModel);
+                            ActivateItemAsync(PhaserViewModel, default);
                             break;
 
                         case Effect2Type.RingMod:
-                            ActivateItem(RingModulationViewModel);
+                            ActivateItemAsync(RingModulationViewModel, default);
                             break;
 
                         case Effect2Type.Slicer:
-                            ActivateItem(SlicerViewModel);
+                            ActivateItemAsync(SlicerViewModel, default);
                             break;
 
                         default:
-                            ActivateItem(ThruViewModel);
+                            ActivateItemAsync(ThruViewModel, default);
                             break;
                     }
             };

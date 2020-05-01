@@ -1,45 +1,63 @@
 ﻿<mahapps:MetroWindow x:Class="JD_XI_Editor.Views.MainWindowView"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
-                     xmlns:controls="clr-namespace:JD_XI_Editor.Controls"
-                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                      xmlns:cal="http://www.caliburnproject.org"
-                     mc:Ignorable="d"
-                     SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     ResizeMode="NoResize"
+                     SizeToContent="WidthAndHeight"
+                     mc:Ignorable="d">
     <mahapps:MetroWindow.RightWindowCommands>
         <mahapps:WindowCommands>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Input Device" />
-                <ComboBox Width="150" Height="30"
+                <ComboBox Width="150"
+                          Height="30"
                           DisplayMemberPath="Name"
                           ItemsSource="{Binding InputDevices}"
                           SelectedIndex="{Binding SelectedInputDeviceId}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Output Device" />
-                <ComboBox Width="150" Height="30"
+                <ComboBox Width="150"
+                          Height="30"
                           DisplayMemberPath="Name"
                           ItemsSource="{Binding OutputDevices}"
                           SelectedIndex="{Binding SelectedOutputDeviceId}" />
             </StackPanel>
-            <Button Content="Refresh Devices">
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Kind="Refresh" />
+                    <TextBlock Margin="4,0,0,0" Text="Refresh Devices" />
+                </StackPanel>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <cal:ActionMessage MethodName="GetMidiDevices" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Kind="Bug" />
+                    <TextBlock Margin="4,0,0,0" Text="Debug Window" />
+                </StackPanel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="OpenDebugWindow" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </mahapps:WindowCommands>
     </mahapps:MetroWindow.RightWindowCommands>
     <Grid Margin="5">
-        <controls:CachedTabControl x:Name="Items"
-                                   Padding="10 0 0 0"
-                                   IsSynchronizedWithCurrentItem="True"
-                                   TabStripPlacement="Left"
-                                   mahapps:TabControlHelper.Underlined="TabPanel"
-                                   Style="{StaticResource CachedMetroTabControl}" />
+        <mahapps:MetroTabControl x:Name="Items"
+                                 Padding="10,0,0,0"
+                                 mahapps:TabControlHelper.Underlined="TabPanel"
+                                 IsSynchronizedWithCurrentItem="True"
+                                 KeepVisualTreeInMemoryWhenChangingTabs="True"
+                                 TabStripPlacement="Left" />
     </Grid>
 </mahapps:MetroWindow>

@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Utils;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -38,7 +39,14 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            PitchBendRange = data[0];
+            ReceiveExpression = ByteUtils.ByteToBoolean(data[1]);
+            ReceiveHold1 = ByteUtils.ByteToBoolean(data[2]);
         }
 
         /// <inheritdoc />
@@ -55,9 +63,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 4;
 
         /// <summary>
         ///     Pitch bend range

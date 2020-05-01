@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
@@ -16,7 +17,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         public void Reset()
         {
             OutputLevel = 127;
-            ChorusSendLevel = 0;
+            DelaySendLevel = 0;
             ReverbSendLevel = 64;
             OutputAssign = OutputAssign.Reverb;
         }
@@ -27,7 +28,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             if (part is Output output)
             {
                 OutputLevel = output.OutputLevel;
-                ChorusSendLevel = output.ChorusSendLevel;
+                DelaySendLevel = output.DelaySendLevel;
                 ReverbSendLevel = output.ReverbSendLevel;
                 OutputAssign = output.OutputAssign;
             }
@@ -40,7 +41,15 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            OutputLevel = data[0];
+            DelaySendLevel = data[3];
+            ReverbSendLevel = data[4];
+            OutputAssign = (OutputAssign) data[5];
         }
 
         /// <inheritdoc />
@@ -51,7 +60,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 (byte) OutputLevel,
                 (byte) 0x00, //Reserve
                 (byte) 0x00, //Reserve
-                (byte) ChorusSendLevel,
+                (byte) DelaySendLevel,
                 (byte) ReverbSendLevel,
                 (byte) OutputAssign
             };
@@ -59,9 +68,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 6;
 
         /// <summary>
         ///     Output level
@@ -71,7 +79,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <summary>
         ///     Chorus send level
         /// </summary>
-        public int ChorusSendLevel { get; set; }
+        public int DelaySendLevel { get; set; }
 
         /// <summary>
         ///     Reverb send level

@@ -1,6 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches;
@@ -17,12 +19,12 @@ namespace JD_XI_Editor.Managers
         /// <summary>
         ///     Address offset
         /// </summary>
-        private static readonly byte[] AddressOffset = {0x19, 0x42, 0x00, 0x00};
+        private readonly byte[] _addressOffset = {0x19, 0x42, 0x00, 0x00};
 
         /// <summary>
         ///     SysEx message length
         /// </summary>
-        private static readonly byte[] DumpRequest = {0x00, 0x00, 0x00, 0x40};
+        private readonly byte[] _dumpRequest = {0x00, 0x00, 0x00, 0x40};
 
         /// <summary>
         ///     Expected Dump Length
@@ -38,6 +40,11 @@ namespace JD_XI_Editor.Managers
         ///     Device instance
         /// </summary>
         private InputDevice _device;
+
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
 
         #endregion
 
@@ -58,6 +65,7 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         public AnalogPatchManager()
         {
+            _logger = LoggerFactory.FullSet(typeof(AnalogPatchManager));
             _timer.Elapsed += OnTimerElapsed;
         }
 
@@ -76,11 +84,12 @@ namespace JD_XI_Editor.Managers
             _device.Dispose();
 
             var actualLength = e.Message.Length - SysExUtils.DumpPaddingSize;
-
             if (actualLength != ExpectedDumpLength)
             {
                 throw new InvalidDumpSizeException(ExpectedDumpLength, actualLength);
             }
+
+            _logger.Receive("Received Patch");
 
             DataDumpReceived?.Invoke(this, new AnalogPatchDumpReceivedEventArgs(new Patch(e.Message)));
         }
@@ -92,8 +101,11 @@ namespace JD_XI_Editor.Managers
         {
             _timer.Stop();
 
-            _device.StopRecording();
-            _device.Dispose();
+            if (!_device.IsDisposed)
+            {
+                _device.StopRecording();
+                _device.Dispose();
+            }
 
             OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
         }
@@ -107,7 +119,8 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
-                output.Send(SysExUtils.GetMessage(AddressOffset, analogPatch.GetBytes()));
+                _logger.DataDump("Dumping Patch");
+                output.Send(SysExUtils.GetMessage(_addressOffset, analogPatch.GetBytes()));
             }
         }
 
@@ -122,12 +135,19 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Start timer before running task, so we have timer on the same thread
+            // as the callbacks for timer and input device
+            _timer.Start();
+
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(AddressOffset, DumpRequest));
-                _timer.Start();
-            }
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    _logger.Send("Request Patch");
+                    output.Send(SysExUtils.GetRequestDumpMessage(_addressOffset, _dumpRequest));
+                }
+            });
         }
 
         #endregion

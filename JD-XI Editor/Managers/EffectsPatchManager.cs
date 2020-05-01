@@ -1,7 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Enums;
 using JD_XI_Editor.Managers.Events;
@@ -10,6 +13,7 @@ using JD_XI_Editor.Models.Patches.Program.Abstract;
 using JD_XI_Editor.Models.Patches.Program.Effects;
 using JD_XI_Editor.Utils;
 using Sanford.Multimedia.Midi;
+using Timer = System.Timers.Timer;
 
 namespace JD_XI_Editor.Managers
 {
@@ -37,6 +41,11 @@ namespace JD_XI_Editor.Managers
         /// </summary>
         private readonly Dictionary<Effect, SysExMessage> _dataDumps = new Dictionary<Effect, SysExMessage>();
 
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        private readonly ILogger _logger;
+
         #endregion
 
         #region Events
@@ -51,9 +60,9 @@ namespace JD_XI_Editor.Managers
 
         #region Methods
 
-        /// <inheritdoc />
         public EffectsPatchManager()
         {
+            _logger = LoggerFactory.FullSet(typeof(EffectsPatchManager));
             _timer.Elapsed += OnTimerElapsed;
         }
 
@@ -118,24 +127,15 @@ namespace JD_XI_Editor.Managers
             // At 11 byte we have effect type, so we check value there
             var effect = (Effect) e.Message[10];
 
-            switch (effect)
+            var expectedDumpLength = ExpectedDumpLength(effect) + SysExUtils.DumpPaddingSize;
+            var actualDumpLength = e.Message.Length;
+            if (actualDumpLength != expectedDumpLength)
             {
-                case Effect.Effect1:
-                case Effect.Effect2:
-                case Effect.Delay:
-                case Effect.Reverb:
-                    var expectedDumpLength = ExpectedDumpLength(effect) + SysExUtils.DumpPaddingSize;
-                    var actualDumpLength = e.Message.Length;
-
-                    if (actualDumpLength != expectedDumpLength)
-                    {
-                        throw new InvalidDumpSizeException(expectedDumpLength, actualDumpLength);
-                    }
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+                throw new InvalidDumpSizeException(expectedDumpLength, actualDumpLength);
             }
+
+            _logger.Receive($"Received {effect}");
+
 
             _dataDumps.Add(effect, e.Message);
 
@@ -159,8 +159,11 @@ namespace JD_XI_Editor.Managers
         {
             _timer.Stop();
 
-            _device.StopRecording();
-            _device.Dispose();
+            if (!_device.IsDisposed)
+            {
+                _device.StopRecording();
+                _device.Dispose();
+            }
 
             OperationTimedOut?.Invoke(this, new TimeoutException("Read data operation timed out"));
         }
@@ -176,10 +179,16 @@ namespace JD_XI_Editor.Managers
 
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump("Dumping Effect 1");
                 output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Effect1), effectPatch.Effect1.GetBytes()));
+
+                _logger.DataDump("Dumping Effect 2");
                 output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Effect2), effectPatch.Effect2.GetBytes()));
 
+                _logger.DataDump("Dumping Delay");
                 output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Delay), effectPatch.Delay.GetBytes()));
+
+                _logger.DataDump("Dumping Reverb");
                 output.Send(SysExUtils.GetMessage(EffectOffset(Effect.Reverb), effectPatch.Reverb.GetBytes()));
             }
         }
@@ -200,21 +209,35 @@ namespace JD_XI_Editor.Managers
             // Start recording input from device
             _device.StartRecording();
 
-            // Request data dump from device
-            using (var output = new OutputDevice(outputDeviceId))
+            // Start timer before running task, so we have timer on the same thread
+            // as the callbacks for timer and input device
+            _timer.Start();
+
+            // Request data dump from device on separate thread
+            Task.Run(() =>
             {
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1),
-                    EffectDumpRequest(Effect.Effect1)));
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2),
-                    EffectDumpRequest(Effect.Effect2)));
+                // Need to make 50ms delay between requests to ensure
+                // that device will not hung up
 
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay),
-                    EffectDumpRequest(Effect.Delay)));
-                output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb),
-                    EffectDumpRequest(Effect.Reverb)));
+                using (var output = new OutputDevice(outputDeviceId))
+                {
+                    _logger.Send("Request Effect 1");
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect1), EffectDumpRequest(Effect.Effect1)));
+                    Thread.Sleep(50);
 
-                _timer.Start();
-            }
+                    _logger.Send("Request Effect 2");
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Effect2), EffectDumpRequest(Effect.Effect2)));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Delay");
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Delay), EffectDumpRequest(Effect.Delay)));
+                    Thread.Sleep(50);
+
+                    _logger.Send("Request Reverb");
+                    output.Send(SysExUtils.GetRequestDumpMessage(EffectOffset(Effect.Reverb), EffectDumpRequest(Effect.Reverb)));
+                    Thread.Sleep(50);
+                }
+            });
         }
 
         #endregion
@@ -226,6 +249,7 @@ namespace JD_XI_Editor.Managers
         {
             using (var output = new OutputDevice(deviceId))
             {
+                _logger.DataDump($"Dumping {effect}");
                 output.Send(SysExUtils.GetMessage(EffectOffset(effect), patch.GetBytes()));
             }
         }

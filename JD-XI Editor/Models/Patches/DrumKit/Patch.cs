@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Models.Enums.DrumKit;
+using JD_XI_Editor.Utils.Enums;
 using PropertyChanged;
+using Sanford.Multimedia.Midi;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit
 {
@@ -12,17 +16,30 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         public Patch()
         {
             Common = new Common();
-            Partials = new Dictionary<string, Partial.Partial>();
+            Partials = new Dictionary<DrumKey, Partial.Partial>();
             InitPartials();
 
             Common.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Common));
         }
 
         /// <inheritdoc />
+        /// <summary>
+        ///     Creates new instance of Patch using sysex dumps
+        /// </summary>
+        public Patch(SysExMessage common, Dictionary<DrumKey, SysExMessage> partials) : this()
+        {
+            CopyFrom(common, partials);
+        }
+
+        /// <inheritdoc />
         public void Reset()
         {
             Common.Reset();
-            InitPartials();
+
+            foreach (var partial in Partials)
+            {
+                partial.Value.Reset();
+            }
         }
 
         /// <inheritdoc />
@@ -43,6 +60,26 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
             }
         }
 
+        /// <summary>
+        ///     Copy data from sysex dumps
+        /// </summary>
+        /// <param name="common"></param>
+        /// <param name="partials"></param>
+        public void CopyFrom(SysExMessage common, Dictionary<DrumKey, SysExMessage> partials)
+        {
+            // Skipping 12 bytes from front because it's header and address offset
+            // Skipping 2 bytes from end because it's checksum and sysex footer
+
+            var commonBytes = common.GetBytes().Skip(12).ToArray();
+            Common.CopyFrom(commonBytes.Take(commonBytes.Length - 2).ToArray());
+
+            foreach (var partial in partials)
+            {
+                var bytes = partial.Value.GetBytes().Skip(12).ToArray();
+                Partials[partial.Key].CopyFrom(bytes.Take(bytes.Length - 2).ToArray());
+            }
+        }
+
         /// <inheritdoc />
         public byte[] GetBytes()
         {
@@ -54,55 +91,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         /// </summary>
         private void InitPartials()
         {
-            Partials.Clear();
-
-            var keys = new List<string>
+            foreach (var key in EnumHelper.GetAllValuesAndDescriptions(typeof(DrumKey)))
             {
-                "BD1",
-                "RIM",
-                "BD2",
-                "CLAP",
-                "BD3",
-                "SD1",
-                "CHH",
-                "SD2",
-                "PHH",
-                "SD3",
-                "OHH",
-                "SD4",
-                "TOM1",
-                "PRC1",
-                "TOM2",
-                "PRC2",
-                "TOM3",
-                "PRC3",
-                "CYM1",
-                "PRC4",
-                "CYM2",
-                "PRC5",
-                "CYM3",
-                "HIT",
-                "OTH1",
-                "OTH2",
-                "D4",
-                "D#4",
-                "E4",
-                "F4",
-                "F#4",
-                "G4",
-                "G#4",
-                "A4",
-                "A#4",
-                "B4",
-                "C5",
-                "C#5"
-            };
+                var partial = new Partial.Partial((DrumKey) key.Value);
+                partial.PropertyChanged += (sender, args) => NotifyOfPropertyChange(partial.Key.ToString());
 
-            foreach (var key in keys)
-            {
-                var partial = new Partial.Partial();
-                partial.PropertyChanged += (sender, args) => NotifyOfPropertyChange(nameof(Partials));
-                Partials.Add(key, partial);
+                Partials.Add((DrumKey) key.Value, partial);
             }
         }
 
@@ -118,7 +112,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         ///     Partials
         /// </summary>
         [DoNotNotify]
-        public Dictionary<string, Partial.Partial> Partials { get; }
+        public Dictionary<DrumKey, Partial.Partial> Partials { get; }
 
         #endregion
     }

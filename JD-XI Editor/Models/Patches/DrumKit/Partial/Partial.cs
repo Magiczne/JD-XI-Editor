@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
+using JD_XI_Editor.Models.Enums.DrumKit;
 using JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt;
 using PropertyChanged;
 
@@ -9,18 +12,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
     internal class Partial : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
-        public Partial()
+        public Partial(DrumKey key)
         {
+            Key = key;
+
             Basic = new Basic();
             Assign = new Assign();
             Amplifier = new Amplifier();
             Output = new Output();
             Expression = new Expression();
             VelocityControl = new VelocityControl();
-            Wmt1 = new Wmt.Wmt();
-            Wmt2 = new Wmt.Wmt();
-            Wmt3 = new Wmt.Wmt();
-            Wmt4 = new Wmt.Wmt();
+            Wmts = new[] { new Wmt.Wmt(), new Wmt.Wmt(), new Wmt.Wmt(), new Wmt.Wmt() };
             Pitch = new Pitch();
             Tvf = new Tvf();
             Tva = new Tva();
@@ -53,10 +55,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 Output.CopyFrom(p.Output);
                 Expression.CopyFrom(p.Expression);
                 VelocityControl.CopyFrom(p.VelocityControl);
-                Wmt1.CopyFrom(p.Wmt1);
-                Wmt2.CopyFrom(p.Wmt2);
-                Wmt3.CopyFrom(p.Wmt3);
-                Wmt4.CopyFrom(p.Wmt4);
+
+                for (var i = 0; i < p.Wmts.Length; i++)
+                    Wmts[i].CopyFrom(p.Wmts[i]);
+
                 Pitch.CopyFrom(p.Pitch);
                 Tvf.CopyFrom(p.Tvf);
                 Tva.CopyFrom(p.Tva);
@@ -71,7 +73,25 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Basic.CopyFrom(data.Take(12).ToArray());
+            Assign.CopyFrom(data.Skip(12).Take(2).ToArray());
+            Amplifier.CopyFrom(data.Skip(14).Take(8).ToArray());
+            Output.CopyFrom(data.Skip(22).Take(6).ToArray());
+            Expression.CopyFrom(data.Skip(28).Take(4).ToArray());
+            VelocityControl.CopyFrom(data.Skip(32).Take(1).ToArray());
+
+            for (var i = 0; i < Wmts.Length; i++)
+                Wmts[i].CopyFrom(data.Skip(33 + i * 29).Take(29).ToArray());
+
+            Pitch.CopyFrom(data.Skip(149).Take(13).ToArray());
+            Tvf.CopyFrom(data.Skip(162).Take(20).ToArray());
+            Tva.CopyFrom(data.Skip(182).Take(11).ToArray());
+            Other.CopyFrom(data.Skip(193).Take(2).ToArray());
         }
 
         /// <inheritdoc />
@@ -83,10 +103,10 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             Output.Reset();
             Expression.Reset();
             VelocityControl.Reset();
-            Wmt1.Reset();
-            Wmt2.Reset();
-            Wmt3.Reset();
-            Wmt4.Reset();
+
+            foreach (var wmt in Wmts)
+                wmt.Reset();
+
             Pitch.Reset();
             Tvf.Reset();
             Tva.Reset();
@@ -98,32 +118,33 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(Basic.GetBytes());
-            bytes.AddRange(Assign.GetBytes());
-            bytes.AddRange(Amplifier.GetBytes());
-            bytes.AddRange(Expression.GetBytes());
-            bytes.AddRange(VelocityControl.GetBytes());
-            bytes.AddRange(Wmt1.GetBytes());
-            bytes.AddRange(Wmt2.GetBytes());
-            bytes.AddRange(Wmt3.GetBytes());
-            bytes.AddRange(Wmt4.GetBytes());
-            bytes.AddRange(Pitch.GetBytes());
-            bytes.AddRange(Tvf.GetBytes());
-            bytes.AddRange(Tva.GetBytes());
-            bytes.AddRange(Other.GetBytes());
+            bytes.AddRange(Basic.GetBytes());               //  12 bytes
+            bytes.AddRange(Assign.GetBytes());              //   2 bytes
+            bytes.AddRange(Amplifier.GetBytes());           //   8 bytes
+            bytes.AddRange(Output.GetBytes());              //   6 bytes
+            bytes.AddRange(Expression.GetBytes());          //   4 bytes (3 + 1 reserve)
+            bytes.AddRange(VelocityControl.GetBytes());     //   1 byte
+
+            foreach (var wmt in Wmts)
+                bytes.AddRange(wmt.GetBytes());             // 116 bytes (29 bytes each)
+
+            bytes.AddRange(Pitch.GetBytes());               //  13 bytes
+            bytes.AddRange(Tvf.GetBytes());                 //  20 bytes
+            bytes.AddRange(Tva.GetBytes());                 //  11 bytes
+            bytes.AddRange(Other.GetBytes());               //   2 bytes
 
             return bytes.ToArray();
         }
 
-        #region Fields
-
-        #endregion
-
         #region Properties
 
-        /// TODO: Set
+        /// <summary>
+        ///     Key that is assigned to partial
+        /// </summary>
+        public DrumKey Key { get; }
+
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 195;
 
         /// <summary>
         ///     Basic
@@ -162,28 +183,34 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         public VelocityControl VelocityControl { get; }
 
         /// <summary>
+        ///     WMT data
+        /// </summary>
+        [DoNotNotify]
+        public Wmt.Wmt[] Wmts { get; }
+
+        /// <summary>
         ///     WMT 1
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt1 { get; }
+        public Wmt.Wmt Wmt1 => Wmts[0];
 
         /// <summary>
         ///     WMT 2
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt2 { get; }
+        public Wmt.Wmt Wmt2 => Wmts[1];
 
         /// <summary>
         ///     WMT 3
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt3 { get; }
+        public Wmt.Wmt Wmt3 => Wmts[2];
 
         /// <summary>
         ///     WMT 4
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt4 { get; }
+        public Wmt.Wmt Wmt4 => Wmts[3];
 
         /// <summary>
         ///     Pitch

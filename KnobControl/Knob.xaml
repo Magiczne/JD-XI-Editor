@@ -1,37 +1,39 @@
 ﻿<UserControl x:Class="KnobControl.Knob"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
     <Grid>
         <Viewbox Stretch="Uniform">
             <Grid x:Name="KnobGrid">
                 <Ellipse Grid.RowSpan="2"
+                         Width="200"
+                         Height="200"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
-                         Width="200" Height="200"
                          Fill="Transparent"
-                         Stroke="Black"
-                         MouseWheel="OnMouseWheel"
                          MouseDown="OnMouseDown"
                          MouseMove="OnMouseMove"
-                         MouseUp="OnMouseUp" />
-                <ed:Arc StartAngle="{Binding Path=ArcStartAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        EndAngle="{Binding Path=CalculatedEndAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Stroke="{Binding Path=ArcStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                        Stretch="None"
+                         MouseUp="OnMouseUp"
+                         MouseWheel="OnMouseWheel"
+                         Stroke="Black" />
+                <ed:Arc EndAngle="{Binding Path=CalculatedEndAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         IsHitTestVisible="False"
+                        StartAngle="{Binding Path=ArcStartAngle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stretch="None"
+                        Stroke="{Binding Path=ArcStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         StrokeThickness="30" />
                 <TextBlock HorizontalAlignment="Center"
-                           Text="{Binding Path=LabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"
-                           TextAlignment="Center"
                            FontFamily="{Binding Path=LabelFont, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                            FontSize="{Binding Path=LabelFontSize, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                           IsHitTestVisible="False" />
+                           IsHitTestVisible="False"
+                           Text="{Binding Path=LabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                           TextAlignment="Center" />
             </Grid>
         </Viewbox>
     </Grid>

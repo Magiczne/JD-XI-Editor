@@ -61,7 +61,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("Copying from byte array is not supported");
         }
 
         /// <inheritdoc />
@@ -74,9 +74,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        /// TODO: Set
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 0;
 
         /// <summary>
         ///     Depth

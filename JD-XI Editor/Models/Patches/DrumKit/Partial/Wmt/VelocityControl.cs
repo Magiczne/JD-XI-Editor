@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
 namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
@@ -11,15 +12,6 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         {
             Reset();
         }
-
-        /// TODO: Set
-        /// <inheritdoc />
-        public int DumpLength { get; }
-
-        /// <summary>
-        ///     Velocity control
-        /// </summary>
-        public WmtVelocityControl Control { get; set; }
 
         /// <inheritdoc />
         public void Reset()
@@ -43,7 +35,12 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Control = (WmtVelocityControl) data[0];
         }
 
         /// <inheritdoc />
@@ -54,5 +51,17 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
                 (byte) Control
             };
         }
+
+        #region Properties
+
+        /// <inheritdoc />
+        public int DumpLength { get; } = 1;
+
+        /// <summary>
+        ///     Velocity control
+        /// </summary>
+        public WmtVelocityControl Control { get; set; }
+
+        #endregion
     }
 }

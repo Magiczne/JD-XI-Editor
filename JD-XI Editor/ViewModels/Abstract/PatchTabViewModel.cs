@@ -1,12 +1,15 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Caliburn.Micro;
 using JD_XI_Editor.Events;
+using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
-    internal abstract class PatchTabViewModel
-        : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
+    internal abstract class PatchTabViewModel : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
     {
         /// <inheritdoc />
         /// <summary>
@@ -15,11 +18,10 @@ namespace JD_XI_Editor.ViewModels.Abstract
         protected PatchTabViewModel(IEventAggregator eventAggregator, IDialogCoordinator dialogCoordinator, IPatchManager patchManager)
         {
             EventAggregator = eventAggregator;
-            EventAggregator.Subscribe(this);
-
             DialogCoordinator = dialogCoordinator;
-
             PatchManager = patchManager;
+
+            EventAggregator.SubscribeOnPublishedThread(this);
 
             AutoSync = true;
         }
@@ -38,6 +40,15 @@ namespace JD_XI_Editor.ViewModels.Abstract
         ///     Reset patch to initial state
         /// </summary>
         public abstract void InitPatch();
+
+        /// <summary>
+        /// Init logger
+        /// </summary>
+        /// <param name="type"></param>
+        public void InitLogger(Type type)
+        {
+            Logger = LoggerFactory.FullSet(type);
+        }
 
         #region Error handling
 
@@ -59,19 +70,24 @@ namespace JD_XI_Editor.ViewModels.Abstract
         #region Fields
 
         /// <summary>
-        ///     Event aggregator instance
+        /// Event aggregator instance
         /// </summary>
         protected IEventAggregator EventAggregator;
 
         /// <summary>
-        ///     Dialog coordinator instance
+        /// Dialog coordinator instance
         /// </summary>
         protected IDialogCoordinator DialogCoordinator;
 
         /// <summary>
-        ///     Patch manager
+        /// Patch manager
         /// </summary>
         protected IPatchManager PatchManager;
+
+        /// <summary>
+        /// Logger instance
+        /// </summary>
+        protected ILogger Logger;
 
         #endregion
 
@@ -101,27 +117,28 @@ namespace JD_XI_Editor.ViewModels.Abstract
 
         #endregion
 
-
         #region IHandle members
 
         /// <inheritdoc />
         /// <summary>
         ///     Handles the input device change
         /// </summary>
-        /// <param name="eventArgs"></param>
-        public void Handle(InputDeviceChangedEventArgs eventArgs)
+        public Task HandleAsync(InputDeviceChangedEventArgs message, CancellationToken cancellationToken)
         {
-            SelectedInputDeviceId = eventArgs.DeviceId;
+            SelectedInputDeviceId = message.DeviceId;
+
+            return Task.CompletedTask;
         }
 
         /// <inheritdoc />
         /// <summary>
         ///     Handles the output device change
         /// </summary>
-        /// <param name="eventArgs"></param>
-        public void Handle(OutputDeviceChangedEventArgs eventArgs)
+        public Task HandleAsync(OutputDeviceChangedEventArgs message, CancellationToken cancellationToken)
         {
-            SelectedOutputDeviceId = eventArgs.DeviceId;
+            SelectedOutputDeviceId = message.DeviceId;
+
+            return Task.CompletedTask;
         }
 
         #endregion

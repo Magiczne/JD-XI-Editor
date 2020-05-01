@@ -12,6 +12,6 @@ namespace JD_XI_Editor.Managers.Events
         /// <summary>
         ///     Patch object
         /// </summary>
-        public CommonAndVocalEffectPatch Patch;
+        public CommonAndVocalEffectPatch Patch { get; }
     }
 }

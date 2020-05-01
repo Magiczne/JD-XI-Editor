@@ -1,5 +1,6 @@
 ﻿using System;
 using Caliburn.Micro;
+using JD_XI_Editor.Exceptions;
 using JD_XI_Editor.Models.Enums.Common;
 using JD_XI_Editor.Models.Enums.DrumKit;
 
@@ -49,7 +50,19 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         /// <inheritdoc />
         public void CopyFrom(byte[] data)
         {
-            throw new NotImplementedException();
+            if (data.Length != DumpLength)
+            {
+                throw new InvalidDumpSizeException(DumpLength, data.Length);
+            }
+
+            Level = data[0];
+            CoarseTune = (NotePitch) data[1];
+            FineTune = data[2] - 64;
+            RandomPitchDepth = (RandomPitchDepth) data[3];
+            Panorama = data[4] - 64;
+            RandomPanoramaDepth = data[5];
+            AlternatePanoramaDepth = data[6] - 64;
+            EnvelopeMode = (EnvelopeMode) data[7];
         }
 
         /// <inheritdoc />
@@ -70,9 +83,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
 
         #region Properties
 
-        //TODO: Init
         /// <inheritdoc />
-        public int DumpLength { get; }
+        public int DumpLength { get; } = 8;
 
         /// <summary>
         ///     Level
