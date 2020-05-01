@@ -16,6 +16,11 @@ namespace JD_XI_Editor.ViewModels
             eventAggregator.SubscribeOnBackgroundThread(this);
         }
 
+        public void Clear()
+        {
+            Messages.Clear();
+        }
+
         public Task HandleAsync(LogMessage message, CancellationToken cancellationToken)
         {
             Messages.Add(message);
