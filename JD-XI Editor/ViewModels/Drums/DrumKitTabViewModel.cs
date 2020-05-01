@@ -34,7 +34,7 @@ namespace JD_XI_Editor.ViewModels.Drums
             : base(eventAggregator, dialogCoordinator, new DrumKitPatchManager())
         {
             DisplayName = "Drums";
-            InitLogger(typeof(AnalogSynthTabViewModel));
+            InitLogger(typeof(DrumKitTabViewModel));
 
             Patch = new Patch();
             Editor = new DrumKitPartialEditorViewModel(Patch);
