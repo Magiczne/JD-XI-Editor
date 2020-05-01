@@ -75,10 +75,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
 
             foreach (var partial in partials)
             {
-                var key = partial.Key;
                 var bytes = partial.Value.GetBytes().Skip(12).ToArray();
-
-                Partials[key].CopyFrom(bytes.Take(bytes.Length - 2).ToArray());
+                Partials[partial.Key].CopyFrom(bytes.Take(bytes.Length - 2).ToArray());
             }
         }
 

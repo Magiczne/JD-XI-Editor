@@ -110,7 +110,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial.Wmt
 
             Level = data[24];
             VelocityRangeLower = data[25];
-            VelocityFadeWidthUpper = data[26];
+            VelocityRangeUpper = data[26];
             VelocityFadeWidthLower = data[27];
             VelocityFadeWidthUpper = data[28];
         }
