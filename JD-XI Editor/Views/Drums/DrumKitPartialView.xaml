@@ -1,4 +1,4 @@
-<Grid x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialView"
+﻿<Grid x:Class="JD_XI_Editor.Views.Drums.DrumKitPartialView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:converters="clr-namespace:JD_XI_Editor.Utils.Converters"
@@ -1298,8 +1298,8 @@
                                       HorizontalContentAlignment="Center"
                                       ArcEndAngle="150"
                                       ArcStartAngle="-150"
-                                      Maximum="63"
-                                      Minimum="-63"
+                                      Maximum="12"
+                                      Minimum="-12"
                                       Value="{Binding Partial.Pitch.Envelope.Depth}" />
                     <TextBlock Text="Envelope Depth"
                                TextAlignment="Center"
