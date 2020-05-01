@@ -118,19 +118,20 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         {
             var bytes = new List<byte>();
 
-            bytes.AddRange(Basic.GetBytes());
-            bytes.AddRange(Assign.GetBytes());
-            bytes.AddRange(Amplifier.GetBytes());
-            bytes.AddRange(Expression.GetBytes());
-            bytes.AddRange(VelocityControl.GetBytes());
+            bytes.AddRange(Basic.GetBytes());               //  12 bytes
+            bytes.AddRange(Assign.GetBytes());              //   2 bytes
+            bytes.AddRange(Amplifier.GetBytes());           //   8 bytes
+            bytes.AddRange(Output.GetBytes());              //   6 bytes
+            bytes.AddRange(Expression.GetBytes());          //   4 bytes (3 + 1 reserve)
+            bytes.AddRange(VelocityControl.GetBytes());     //   1 byte
 
             foreach (var wmt in Wmts)
-                bytes.AddRange(wmt.GetBytes());
+                bytes.AddRange(wmt.GetBytes());             // 116 bytes (29 bytes each)
 
-            bytes.AddRange(Pitch.GetBytes());
-            bytes.AddRange(Tvf.GetBytes());
-            bytes.AddRange(Tva.GetBytes());
-            bytes.AddRange(Other.GetBytes());
+            bytes.AddRange(Pitch.GetBytes());               //  13 bytes
+            bytes.AddRange(Tvf.GetBytes());                 //  20 bytes
+            bytes.AddRange(Tva.GetBytes());                 //  11 bytes
+            bytes.AddRange(Other.GetBytes());               //   2 bytes
 
             return bytes.ToArray();
         }
