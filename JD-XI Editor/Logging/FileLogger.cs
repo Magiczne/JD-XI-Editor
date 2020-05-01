@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace JD_XI_Editor.Logging
 {
@@ -9,6 +10,11 @@ namespace JD_XI_Editor.Logging
         /// Absolute path to directory with logs
         /// </summary>
         private readonly string _logPath;
+
+        /// <summary>
+        /// File lock
+        /// </summary>
+        private readonly ReaderWriterLockSlim _fileLock = new ReaderWriterLockSlim();
 
         protected FileLogger(Type type) : base(type)
         {
@@ -24,11 +30,20 @@ namespace JD_XI_Editor.Logging
         public override void Log(LogLevel level, string message)
         {
             var now = DateTime.Now;
-            var filePath = Path.Combine(_logPath, $"{now:yyyy-MM-dd}.txt");
+            var filePath = Path.Combine(_logPath, $"{now:yyyy-MM-dd}.{Type}.txt");
 
-            using (var writer = File.AppendText(filePath))
+            _fileLock.EnterWriteLock();
+
+            try
             {
-                writer.WriteLine($"{now:g} [{Type}][{level}] {message}");
+                using (var writer = File.AppendText(filePath))
+                {
+                    writer.WriteLine($"{now:g} [{level}] {message}");
+                }
+            }
+            finally
+            {
+                _fileLock.ExitWriteLock();
             }
         }
 
