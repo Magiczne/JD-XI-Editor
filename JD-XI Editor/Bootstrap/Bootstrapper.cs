@@ -36,7 +36,7 @@ namespace JD_XI_Editor.Bootstrap
         /// <inheritdoc />
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<MainWindowViewModel>();
+            DisplayRootViewForAsync<MainWindowViewModel>();
         }
 
         /// <inheritdoc />
