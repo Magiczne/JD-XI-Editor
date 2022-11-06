@@ -119,8 +119,7 @@ namespace JD_XI_Editor.Utils
         /// </summary>
         public static SysExMessage GetRequestDumpMessage(byte[] addressOffset, byte[] expectedLength)
         {
-            var msg = new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
-            return msg;
+            return new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
         }
     }
 }
