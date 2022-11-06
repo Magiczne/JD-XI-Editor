@@ -64,7 +64,7 @@ namespace JD_XI_Editor.Utils
             var sum = addressOffset.Aggregate(0, (current, b) => current + b);
             sum = data.Aggregate(sum, (current, b) => current + b);
 
-            var remainder = sum / 128;
+            var remainder = sum % 128;
             var checksum = 128 - remainder;
 
             return (byte) checksum;
@@ -119,7 +119,8 @@ namespace JD_XI_Editor.Utils
         /// </summary>
         public static SysExMessage GetRequestDumpMessage(byte[] addressOffset, byte[] expectedLength)
         {
-            return new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
+            var msg = new SysExMessage(GetRequestDumpData(addressOffset, expectedLength));
+            return msg;
         }
     }
 }
