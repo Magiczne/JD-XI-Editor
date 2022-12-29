@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:bootstrap="clr-namespace:JD_XI_Editor.Bootstrap"
-             xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl">
+             xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -55,6 +56,10 @@
             </Style>
 
             <Style BasedOn="{StaticResource MahApps.Styles.Slider.Flat}" TargetType="{x:Type Slider}" />
+
+            <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}" TargetType="{x:Type controls:ToggleSwitch}">
+                <Setter Property="MinWidth" Value="0" />
+            </Style>
 
             <Style BasedOn="{StaticResource StandardTextBox}" TargetType="{x:Type TextBox}">
                 <Setter Property="Height" Value="25" />
