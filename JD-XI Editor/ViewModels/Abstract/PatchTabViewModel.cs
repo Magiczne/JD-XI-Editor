@@ -27,6 +27,16 @@ namespace JD_XI_Editor.ViewModels.Abstract
         }
 
         /// <summary>
+        ///     Load patch from file
+        /// </summary>
+        public abstract void LoadPatch();
+
+        /// <summary>
+        ///     Save patch to file
+        /// </summary>
+        public abstract void SavePatch();
+
+        /// <summary>
         ///     Read data from device
         /// </summary>
         public abstract void Read();

@@ -7,6 +7,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:knobControl="clr-namespace:KnobControl;assembly=KnobControl"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       dialogs:DialogParticipation.Register="{Binding}"
@@ -48,6 +49,36 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Orientation="Horizontal" 
+                    VerticalAlignment="Top">
+            <Button Height="35" 
+                    Width="35"
+                    Margin="5,0,0,0" 
+                    ToolTip="Save patch to file">
+                <iconPacks:PackIconModern Kind="DiskDownload" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="SavePatch" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+
+            <Button Height="35" 
+                    Width="35"
+                    Margin="5,0,0,0" 
+                    ToolTip="Load patch from file">
+                <iconPacks:PackIconModern Kind="DiskUpload" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="LoadPatch" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </StackPanel>
+
         <controls:ToggleSwitch Grid.Row="0"
                                Grid.Column="2"
                                Width="150"

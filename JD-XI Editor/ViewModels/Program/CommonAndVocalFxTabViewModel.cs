@@ -80,6 +80,18 @@ namespace JD_XI_Editor.ViewModels.Program
         public CommonAndVocalEffectPatch Patch { get; }
 
         /// <inheritdoc />
+        public override void LoadPatch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public override void SavePatch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public override void Read()
         {
             try
