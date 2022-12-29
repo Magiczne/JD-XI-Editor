@@ -6,9 +6,9 @@ namespace JD_XI_Editor.Events
     {
         /// <inheritdoc />
         /// <summary>
-        ///     Creates new isntance of InputDeviceChangedEventArgs
+        ///     Creates new instance of InputDeviceChangedEventArgs
         /// </summary>
-        /// <param name="device"></param>
+        /// <param name="device">Device ID</param>
         public InputDeviceChangedEventArgs(int device)
         {
             DeviceId = device;
