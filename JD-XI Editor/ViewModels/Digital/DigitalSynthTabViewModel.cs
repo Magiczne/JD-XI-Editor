@@ -108,7 +108,12 @@ namespace JD_XI_Editor.ViewModels.Digital
         /// <inheritdoc />
         public override void LoadPatch()
         {
-            throw new System.NotImplementedException();
+            var result = Serializer.Deserialize<Patch>();
+
+            if (result.Success)
+            {
+                Patch.CopyFrom(result.Patch);
+            }
         }
 
         /// <inheritdoc />
