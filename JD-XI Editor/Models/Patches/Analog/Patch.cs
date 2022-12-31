@@ -146,37 +146,37 @@ namespace JD_XI_Editor.Models.Patches.Analog
         ///     LFO
         /// </summary>
         [DoNotNotify]
-        public Lfo Lfo { get; }
+        public Lfo Lfo { get; set; }
 
         /// <summary>
         ///     Oscillator
         /// </summary>
         [DoNotNotify]
-        public Oscillator Oscillator { get; }
+        public Oscillator Oscillator { get; set; }
 
         /// <summary>
         ///     Filter (Low Pass)
         /// </summary>
         [DoNotNotify]
-        public Filter Filter { get; }
+        public Filter Filter { get; set; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
         [DoNotNotify]
-        public Amplifier Amplifier { get; }
+        public Amplifier Amplifier { get; set; }
 
         /// <summary>
         ///     Common
         /// </summary>
         [DoNotNotify]
-        public Common Common { get; }
+        public Common Common { get; set; }
 
         /// <summary>
         ///     Lfo Mod Control
         /// </summary>
         [DoNotNotify]
-        public LfoModControl LfoModControl { get; }
+        public LfoModControl LfoModControl { get; set; }
 
         #endregion
     }

@@ -132,7 +132,7 @@ namespace JD_XI_Editor.Models.Patches.Digital
         ///     Envelope
         /// </summary>
         [DoNotNotify]
-        public Adsr Envelope { get; }
+        public Adsr Envelope { get; set; }
 
         /// <summary>
         ///     Envelope depth

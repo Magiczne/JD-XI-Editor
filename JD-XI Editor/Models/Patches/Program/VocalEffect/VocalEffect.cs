@@ -83,19 +83,19 @@ namespace JD_XI_Editor.Models.Patches.Program.VocalEffect
         ///     Common
         /// </summary>
         [DoNotNotify]
-        public Common Common { get; }
+        public Common Common { get; set; }
 
         /// <summary>
         ///     Auto Pitch
         /// </summary>
         [DoNotNotify]
-        public AutoPitch AutoPitch { get; }
+        public AutoPitch AutoPitch { get; set; }
 
         /// <summary>
         ///     Vocoder
         /// </summary>
         [DoNotNotify]
-        public Vocoder Vocoder { get; }
+        public Vocoder Vocoder { get; set; }
 
         #endregion
     }

@@ -57,7 +57,9 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
                 VelocityControl.CopyFrom(p.VelocityControl);
 
                 for (var i = 0; i < p.Wmts.Length; i++)
+                {
                     Wmts[i].CopyFrom(p.Wmts[i]);
+                }
 
                 Pitch.CopyFrom(p.Pitch);
                 Tvf.CopyFrom(p.Tvf);
@@ -86,7 +88,9 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             VelocityControl.CopyFrom(data.Skip(32).Take(1).ToArray());
 
             for (var i = 0; i < Wmts.Length; i++)
+            {
                 Wmts[i].CopyFrom(data.Skip(33 + i * 29).Take(29).ToArray());
+            }
 
             Pitch.CopyFrom(data.Skip(149).Take(13).ToArray());
             Tvf.CopyFrom(data.Skip(162).Take(20).ToArray());
@@ -105,7 +109,9 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             VelocityControl.Reset();
 
             foreach (var wmt in Wmts)
+            {
                 wmt.Reset();
+            }
 
             Pitch.Reset();
             Tvf.Reset();
@@ -126,7 +132,9 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             bytes.AddRange(VelocityControl.GetBytes());     //   1 byte
 
             foreach (var wmt in Wmts)
+            {
                 bytes.AddRange(wmt.GetBytes());             // 116 bytes (29 bytes each)
+            }
 
             bytes.AddRange(Pitch.GetBytes());               //  13 bytes
             bytes.AddRange(Tvf.GetBytes());                 //  20 bytes
@@ -150,91 +158,107 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         ///     Basic
         /// </summary>
         [DoNotNotify]
-        public Basic Basic { get; }
+        public Basic Basic { get; set; }
 
         /// <summary>
         ///     Assign
         /// </summary>
         [DoNotNotify]
-        public Assign Assign { get; }
+        public Assign Assign { get; set; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
         [DoNotNotify]
-        public Amplifier Amplifier { get; }
+        public Amplifier Amplifier { get; set; }
 
         /// <summary>
         ///     Output
         /// </summary>
         [DoNotNotify]
-        public Output Output { get; }
+        public Output Output { get; set; }
 
         /// <summary>
         ///     Expression
         /// </summary>
         [DoNotNotify]
-        public Expression Expression { get; }
+        public Expression Expression { get; set; }
 
         /// <summary>
         ///     WMT Velocity control
         /// </summary>
         [DoNotNotify]
-        public VelocityControl VelocityControl { get; }
+        public VelocityControl VelocityControl { get; set; }
 
         /// <summary>
         ///     WMT data
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt[] Wmts { get; }
+        public Wmt.Wmt[] Wmts { get; set; }
 
         /// <summary>
         ///     WMT 1
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt1 => Wmts[0];
+        public Wmt.Wmt Wmt1
+        {
+            get => Wmts[0];
+            set => Wmts[0] = value;
+        }
 
         /// <summary>
         ///     WMT 2
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt2 => Wmts[1];
+        public Wmt.Wmt Wmt2
+        {
+            get => Wmts[1];
+            set => Wmts[1] = value;
+        }
 
         /// <summary>
         ///     WMT 3
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt3 => Wmts[2];
+        public Wmt.Wmt Wmt3 
+        {
+            get => Wmts[2]; 
+            set => Wmts[2] = value;
+        }
 
         /// <summary>
         ///     WMT 4
         /// </summary>
         [DoNotNotify]
-        public Wmt.Wmt Wmt4 => Wmts[3];
+        public Wmt.Wmt Wmt4 
+        {
+            get => Wmts[3]; 
+            set => Wmts[3] = value;
+        }
 
         /// <summary>
         ///     Pitch
         /// </summary>
         [DoNotNotify]
-        public Pitch Pitch { get; }
+        public Pitch Pitch { get; set; }
 
         /// <summary>
         ///     TVF
         /// </summary>
         [DoNotNotify]
-        public Tvf Tvf { get; }
+        public Tvf Tvf { get; set; }
 
         /// <summary>
         ///     TVA
         /// </summary>
         [DoNotNotify]
-        public Tva Tva { get; }
+        public Tva Tva { get; set; }
 
         /// <summary>
         ///     Other
         /// </summary>
         [DoNotNotify]
-        public Other Other { get; }
+        public Other Other { get; set; }
 
         #endregion
     }

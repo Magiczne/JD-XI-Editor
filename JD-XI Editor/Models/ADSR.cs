@@ -6,6 +6,16 @@ namespace JD_XI_Editor.Models
     {
         /// <inheritdoc />
         /// <summary>
+        ///     Create new empty instance of ADSR.
+        ///     Required for deserialization.
+        /// </summary>
+        public Adsr()
+        {
+            Set(0, 0, 0, 0);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
         ///     Create new instance of ADSR
         /// </summary>
         /// <param name="attack">Attack</param>

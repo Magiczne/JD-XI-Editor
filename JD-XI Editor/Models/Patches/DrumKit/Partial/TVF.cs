@@ -167,7 +167,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         ///     Envelope
         /// </summary>
         [DoNotNotify]
-        public Envelope Envelope { get; }
+        public Envelope Envelope { get; set; }
 
         #endregion
     }

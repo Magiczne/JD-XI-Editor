@@ -101,13 +101,13 @@ namespace JD_XI_Editor.Models.Patches.Program
         ///     Program common
         /// </summary>
         [DoNotNotify]
-        public Common Common { get; }
+        public Common Common { get; set; }
 
         /// <summary>
         ///     Program Vocal Effect
         /// </summary>
         [DoNotNotify]
-        public VocalEffect.VocalEffect VocalEffect { get; }
+        public VocalEffect.VocalEffect VocalEffect { get; set; }
 
         #endregion
     }

@@ -102,31 +102,43 @@ namespace JD_XI_Editor.Models.Patches.Digital
         ///     Common
         /// </summary>
         [DoNotNotify]
-        public Common Common { get; }
+        public Common Common { get; set; }
 
         /// <summary>
         ///     Partial #1
         /// </summary>
         [DoNotNotify]
-        public Partial PartialOne => _partials[0];
+        public Partial PartialOne
+        {
+            get => _partials[0];
+            set => _partials[0] = value;
+        }
 
         /// <summary>
         ///     Partial #2
         /// </summary>
         [DoNotNotify]
-        public Partial PartialTwo => _partials[1];
+        public Partial PartialTwo
+        {
+            get => _partials[1];
+            set => _partials[1] = value;
+        }
 
         /// <summary>
         ///     Partial #3
         /// </summary>
         [DoNotNotify]
-        public Partial PartialThree => _partials[2];
+        public Partial PartialThree
+        {
+            get => _partials[2];
+            set => _partials[2] = value;
+        }
 
         /// <summary>
         ///     Modifiers
         /// </summary>
         [DoNotNotify]
-        public Modifiers Modifiers { get; }
+        public Modifiers Modifiers { get; set; }
 
         #endregion
     }

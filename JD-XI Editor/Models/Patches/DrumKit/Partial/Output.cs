@@ -58,8 +58,8 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
             return new[]
             {
                 (byte) OutputLevel,
-                (byte) 0x00, //Reserve
-                (byte) 0x00, //Reserve
+                (byte) 0x00, // Reserve
+                (byte) 0x00, // Reserve
                 (byte) DelaySendLevel,
                 (byte) ReverbSendLevel,
                 (byte) OutputAssign

@@ -99,7 +99,7 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
         ///     TVA Envelope
         /// </summary>
         [DoNotNotify]
-        public Envelope Envelope { get; }
+        public Envelope Envelope { get; set; }
 
         /// <inheritdoc />
         public int DumpLength { get; } = 11;

@@ -106,13 +106,13 @@ namespace JD_XI_Editor.Models.Patches.DrumKit
         ///     Common
         /// </summary>
         [DoNotNotify]
-        public Common Common { get; }
+        public Common Common { get; set; }
 
         /// <summary>
         ///     Partials
         /// </summary>
         [DoNotNotify]
-        public Dictionary<DrumKey, Partial.Partial> Partials { get; }
+        public Dictionary<DrumKey, Partial.Partial> Partials { get; set; }
 
         #endregion
     }

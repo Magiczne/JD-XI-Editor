@@ -115,43 +115,43 @@ namespace JD_XI_Editor.Models.Patches.Digital
         ///     Oscillator
         /// </summary>
         [DoNotNotify]
-        public Oscillator Oscillator { get; }
+        public Oscillator Oscillator { get; set; }
 
         /// <summary>
         ///     Filter
         /// </summary>
         [DoNotNotify]
-        public Filter Filter { get; }
+        public Filter Filter { get; set; }
 
         /// <summary>
         ///     Amplifier
         /// </summary>
         [DoNotNotify]
-        public Amplifier Amplifier { get; }
+        public Amplifier Amplifier { get; set; }
 
         /// <summary>
         ///     LFO
         /// </summary>
         [DoNotNotify]
-        public Lfo Lfo { get; }
+        public Lfo Lfo { get; set; }
 
         /// <summary>
         ///     Mod LFO
         /// </summary>
         [DoNotNotify]
-        public ModLfo ModLfo { get; }
+        public ModLfo ModLfo { get; set; }
 
         /// <summary>
         ///     Aftertouch
         /// </summary>
         [DoNotNotify]
-        public Aftertouch Aftertouch { get; }
+        public Aftertouch Aftertouch { get; set; }
 
         /// <summary>
         ///     Misc data
         /// </summary>
         [DoNotNotify]
-        public Other Other { get; }
+        public Other Other { get; set; }
 
         #endregion
     }
