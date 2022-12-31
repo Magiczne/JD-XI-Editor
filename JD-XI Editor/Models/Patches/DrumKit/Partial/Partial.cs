@@ -12,6 +12,16 @@ namespace JD_XI_Editor.Models.Patches.DrumKit.Partial
     internal class Partial : PropertyChangedBase, IPatchPart
     {
         /// <inheritdoc />
+        /// <summary>
+        ///     Required only for deserialization.
+        ///     Do not use explicitly.
+        /// </summary>
+        public Partial()
+        {
+            Key = DrumKey.Bd1;
+        }
+
+        /// <inheritdoc />
         public Partial(DrumKey key)
         {
             Key = key;

@@ -20,6 +20,7 @@ namespace JD_XI_Editor.Serializing
 
             _serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                .WithTypeInspector(inspector => new DrumKitPartialInspector(inspector))
                 .WithTypeInspector(inspector => new PatchPartInspector(inspector))
                 .WithTypeInspector(inspector => new PropertyChangedBaseInspector(inspector))
                 .Build();
