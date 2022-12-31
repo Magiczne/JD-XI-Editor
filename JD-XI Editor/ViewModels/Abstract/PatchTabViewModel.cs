@@ -5,12 +5,18 @@ using Caliburn.Micro;
 using JD_XI_Editor.Events;
 using JD_XI_Editor.Logging;
 using JD_XI_Editor.Managers.Abstract;
+using JD_XI_Editor.Serializing;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace JD_XI_Editor.ViewModels.Abstract
 {
     internal abstract class PatchTabViewModel : Screen, IHandle<InputDeviceChangedEventArgs>, IHandle<OutputDeviceChangedEventArgs>
     {
+        /// <summary>
+        ///     Patch serializer
+        /// </summary>
+        protected readonly PatchSerializer Serializer;
+
         /// <inheritdoc />
         /// <summary>
         ///     Creates new instance of TabViewModel
@@ -20,6 +26,7 @@ namespace JD_XI_Editor.ViewModels.Abstract
             EventAggregator = eventAggregator;
             DialogCoordinator = dialogCoordinator;
             PatchManager = patchManager;
+            Serializer = new PatchSerializer();
 
             EventAggregator.SubscribeOnPublishedThread(this);
 
