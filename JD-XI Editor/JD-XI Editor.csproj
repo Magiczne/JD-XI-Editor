@@ -225,6 +225,10 @@
     <Compile Include="Models\Patches\Program\VocalEffect\Vocoder.cs" />
     <Compile Include="Models\Patches\Sys\Common.cs" />
     <Compile Include="Models\Patches\Sys\Controller.cs" />
+    <Compile Include="Serializing\DeserializationResult.cs" />
+    <Compile Include="Serializing\PatchSerializer.cs" />
+    <Compile Include="Serializing\Inspectors\PropertyChangedBaseInspector.cs" />
+    <Compile Include="Serializing\Inspectors\PatchPartInspector.cs" />
     <Compile Include="Utils\ByteUtils.cs" />
     <Compile Include="Utils\Converters\BooleanAndConverter.cs" />
     <Compile Include="Utils\Converters\BooleanOrConverter.cs" />
@@ -539,6 +543,9 @@
     </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.5.4</Version>
+    </PackageReference>
+    <PackageReference Include="YamlDotNet">
+      <Version>12.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
