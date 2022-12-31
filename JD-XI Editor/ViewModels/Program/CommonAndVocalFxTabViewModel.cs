@@ -82,7 +82,12 @@ namespace JD_XI_Editor.ViewModels.Program
         /// <inheritdoc />
         public override void LoadPatch()
         {
-            throw new System.NotImplementedException();
+            var result = Serializer.Deserialize<CommonAndVocalEffectPatch>();
+
+            if (result.Success)
+            {
+                Patch.CopyFrom(result.Patch);
+            }
         }
 
         /// <inheritdoc />
