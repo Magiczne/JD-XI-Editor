@@ -87,25 +87,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects
         ///     Effect 1
         /// </summary>
         [DoNotNotify]
-        public Effect1.Patch Effect1 { get; }
+        public Effect1.Patch Effect1 { get; set; }
 
         /// <summary>
         ///     Effect 2
         /// </summary>
         [DoNotNotify]
-        public Effect2.Patch Effect2 { get; }
+        public Effect2.Patch Effect2 { get; set; }
 
         /// <summary>
         ///     Delay patch
         /// </summary>
         [DoNotNotify]
-        public Delay.Patch Delay { get; }
+        public Delay.Patch Delay { get; set; }
 
         /// <summary>
         ///     Reverb patch
         /// </summary>
         [DoNotNotify]
-        public Reverb.Patch Reverb { get; }
+        public Reverb.Patch Reverb { get; set; }
 
         #endregion
     }

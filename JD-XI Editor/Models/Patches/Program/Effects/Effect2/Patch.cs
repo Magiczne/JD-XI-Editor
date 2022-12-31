@@ -98,25 +98,25 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
         ///     Flanger parameters
         /// </summary>
         [DoNotNotify]
-        public FlangerParameters FlangerParameters { get; }
+        public FlangerParameters FlangerParameters { get; set; }
 
         /// <summary>
         ///     Phaser parameters
         /// </summary>
         [DoNotNotify]
-        public PhaserParameters PhaserParameters { get; }
+        public PhaserParameters PhaserParameters { get; set; }
 
         /// <summary>
         ///     Ring Modulation parameters
         /// </summary>
         [DoNotNotify]
-        public RingModulationParameters RingModulationParameters { get; }
+        public RingModulationParameters RingModulationParameters { get; set; }
 
         /// <summary>
         ///     Slicer paremeters
         /// </summary>
         [DoNotNotify]
-        public SlicerParameters SlicerParameters { get; }
+        public SlicerParameters SlicerParameters { get; set; }
 
         #endregion
     }

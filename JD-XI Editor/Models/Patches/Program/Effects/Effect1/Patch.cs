@@ -98,31 +98,31 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect1
         ///     Thru effect parameters
         /// </summary>
         [DoNotNotify]
-        public ThruEffectParameters ThruEffectParameters { get; }
+        public ThruEffectParameters ThruEffectParameters { get; set; }
 
         /// <summary>
         ///     Distortion parameters
         /// </summary>
         [DoNotNotify]
-        public DistortionParameters DistortionParameters { get; }
+        public DistortionParameters DistortionParameters { get; set; }
 
         /// <summary>
         ///     Fuzz parameters
         /// </summary>
         [DoNotNotify]
-        public FuzzParameters FuzzParameters { get; }
+        public FuzzParameters FuzzParameters { get; set; }
 
         /// <summary>
         ///     Compressor parameters
         /// </summary>
         [DoNotNotify]
-        public CompressorParameters CompressorParameters { get; }
+        public CompressorParameters CompressorParameters { get; set; }
 
         /// <summary>
         ///     Bit crusher parameters
         /// </summary>
         [DoNotNotify]
-        public BitCrusherParameters BitCrusherParameters { get; }
+        public BitCrusherParameters BitCrusherParameters { get; set; }
 
         #endregion
     }
