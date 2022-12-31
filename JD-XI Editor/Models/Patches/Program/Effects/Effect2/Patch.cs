@@ -10,7 +10,7 @@ using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
 {
-    internal class Patch : EffectPatch
+    internal class Patch : EffectPatch<BasicData, EffectParameters>
     {
         /// <inheritdoc />
         /// <summary>
@@ -31,7 +31,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Effects.Effect2
             {
                 if (args.PropertyName == nameof(BasicData.Type))
                 {
-                    switch (((BasicData) Basic).Type)
+                    switch (Basic.Type)
                     {
                         case Effect2Type.Thru:
                             Parameters = thruEffectParameters;

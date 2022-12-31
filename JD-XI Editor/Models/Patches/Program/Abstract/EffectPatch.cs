@@ -5,7 +5,10 @@ using PropertyChanged;
 
 namespace JD_XI_Editor.Models.Patches.Program.Abstract
 {
-    internal abstract class EffectPatch : PropertyChangedBase, IPatch
+    internal abstract class EffectPatch<TBasicData, TParameters> 
+        : PropertyChangedBase, IPatch 
+        where TBasicData : IPatchPart
+        where TParameters : EffectParameters
     {
         /// <inheritdoc />
         public void Reset()
@@ -17,7 +20,7 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
         /// <inheritdoc />
         public void CopyFrom(IPatch patch)
         {
-            if (patch is EffectPatch ep)
+            if (patch is EffectPatch<TBasicData, TParameters> ep)
             {
                 Basic.CopyFrom(ep.Basic);
                 Parameters.CopyFrom(ep.Parameters);
@@ -47,13 +50,13 @@ namespace JD_XI_Editor.Models.Patches.Program.Abstract
         ///     Basic Data
         /// </summary>
         [DoNotNotify]
-        public IPatchPart Basic { get; protected set; }
+        public TBasicData Basic { get; set; }
 
         /// <summary>
         ///     Delay parameters
         /// </summary>
         [DoNotNotify]
-        public EffectParameters Parameters { get; protected set; }
+        public TParameters Parameters { get; set; }
 
         #endregion
     }

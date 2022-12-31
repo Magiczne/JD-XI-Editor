@@ -5,7 +5,7 @@ using JD_XI_Editor.Models.Patches.Program.Abstract;
 
 namespace JD_XI_Editor.Models.Patches.Program.Effects.Reverb
 {
-    internal class Patch : EffectPatch
+    internal class Patch : EffectPatch<BasicData, Parameters>
     {
         /// <inheritdoc />
         /// <summary>

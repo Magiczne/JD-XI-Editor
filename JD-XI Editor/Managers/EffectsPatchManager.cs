@@ -245,7 +245,9 @@ namespace JD_XI_Editor.Managers
         #region IEffectsPatchManager
 
         /// <inheritdoc />
-        public void DumpEffect(EffectPatch patch, Effect effect, int deviceId)
+        public void DumpEffect<TBasicData, TParameters>(EffectPatch<TBasicData, TParameters> patch, Effect effect, int deviceId) 
+            where TBasicData : IPatchPart
+            where TParameters : EffectParameters
         {
             using (var output = new OutputDevice(deviceId))
             {
