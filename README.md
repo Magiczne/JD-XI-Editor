@@ -12,14 +12,13 @@ Work in progress:
 
 Plans:
 - Arpeggiator
-- Saving patches to file
-- Loading patches from file
 
 # Capabilities
 - Editing patches on the fly
 - Auto-Sync when editing 
 - Reading data from device
 - "Init Patch" button
+- Saving and loading patches to file
 
 # Screenshots
 ![Digital Synth Editor](/screenshots/digital.png?raw=true)
