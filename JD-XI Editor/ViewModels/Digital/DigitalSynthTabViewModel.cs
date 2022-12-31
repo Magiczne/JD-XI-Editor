@@ -114,7 +114,7 @@ namespace JD_XI_Editor.ViewModels.Digital
         /// <inheritdoc />
         public override void SavePatch()
         {
-            throw new System.NotImplementedException();
+            Serializer.Serialize(Patch);
         }
 
         /// <inheritdoc />
