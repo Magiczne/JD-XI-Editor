@@ -123,7 +123,12 @@ namespace JD_XI_Editor.ViewModels.Effects
         /// <inheritdoc />
         public override void LoadPatch()
         {
-            throw new System.NotImplementedException();
+            var result = Serializer.Deserialize<EffectPatch>();
+
+            if (result.Success)
+            {
+                _patch.CopyFrom(result.Patch);
+            }
         }
 
         /// <inheritdoc />

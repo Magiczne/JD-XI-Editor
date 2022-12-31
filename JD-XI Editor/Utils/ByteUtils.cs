@@ -99,7 +99,10 @@ namespace JD_XI_Editor.Utils
             var bytes = new List<byte>();
             var value = NumberTo4MidiPackets((int) offset);
 
-            for (var i = 0; i < count; i++) bytes.AddRange(value);
+            for (var i = 0; i < count; i++)
+            {
+                bytes.AddRange(value);
+            }
 
             return bytes.ToArray();
         }
