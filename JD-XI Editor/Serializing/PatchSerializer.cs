@@ -2,6 +2,7 @@
 using JD_XI_Editor.Serializing.Inspectors;
 using Microsoft.Win32;
 using System.IO;
+using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -56,11 +57,18 @@ namespace JD_XI_Editor.Serializing
             {
                 using (var reader = new StreamReader(openFileDialog.FileName))
                 {
-                    return new DeserializationResult<T>(true, _deserializer.Deserialize<T>(reader));
+                    try
+                    {
+                        return new DeserializationResult<T>(DeserializationStatus.Success, _deserializer.Deserialize<T>(reader));
+                    } 
+                    catch (YamlException)
+                    {
+                        return new DeserializationResult<T>(DeserializationStatus.InvalidFormat, default);
+                    }
                 }
             }
 
-            return new DeserializationResult<T>(false, default);
+            return new DeserializationResult<T>(DeserializationStatus.NothingLoaded, default);
         }
     }
 }

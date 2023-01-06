@@ -4,6 +4,7 @@ using JD_XI_Editor.Managers;
 using JD_XI_Editor.Managers.Abstract;
 using JD_XI_Editor.Managers.Events;
 using JD_XI_Editor.Models.Patches.Program;
+using JD_XI_Editor.Serializing;
 using JD_XI_Editor.ViewModels.Abstract;
 using MahApps.Metro.Controls.Dialogs;
 using Sanford.Multimedia.Midi;
@@ -84,9 +85,17 @@ namespace JD_XI_Editor.ViewModels.Program
         {
             var result = Serializer.Deserialize<CommonAndVocalEffectPatch>();
 
-            if (result.Success)
+            if (result.Status == DeserializationStatus.Success)
             {
                 Patch.CopyFrom(result.Patch);
+            }
+            else if (result.Status == DeserializationStatus.InvalidFormat)
+            {
+                DialogCoordinator.ShowMessageAsync(this, "Error", "File was saved for another patch type or is corrupted", MessageDialogStyle.Affirmative, new MetroDialogSettings
+                {
+                    AnimateHide = false,
+                    AnimateShow = false
+                });
             }
         }
 

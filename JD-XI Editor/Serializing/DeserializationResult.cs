@@ -4,13 +4,13 @@ namespace JD_XI_Editor.Serializing
 {
     internal class DeserializationResult<T> where T : IPatch
     {
-        public bool Success { get; }
+        public DeserializationStatus Status { get; }
 
         public T Patch { get; }
 
-        public DeserializationResult(bool success, T patch)
+        public DeserializationResult(DeserializationStatus status, T patch)
         {
-            Success = success;
+            Status = status;
             Patch = patch;
         }
     }

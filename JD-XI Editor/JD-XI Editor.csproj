@@ -226,6 +226,7 @@
     <Compile Include="Models\Patches\Sys\Common.cs" />
     <Compile Include="Models\Patches\Sys\Controller.cs" />
     <Compile Include="Serializing\DeserializationResult.cs" />
+    <Compile Include="Serializing\DeserializationStatus.cs" />
     <Compile Include="Serializing\Inspectors\DrumKitPartialInspector.cs" />
     <Compile Include="Serializing\PatchSerializer.cs" />
     <Compile Include="Serializing\Inspectors\PropertyChangedBaseInspector.cs" />
