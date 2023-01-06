@@ -31,7 +31,8 @@ namespace JD_XI_Editor.Serializing
             var saveFileDialog = new SaveFileDialog
             {
                 AddExtension = true,
-                DefaultExt = "yml"
+                DefaultExt = "yml",
+                Filter = "JD-XI Editor patch file|*.yml"
             };
 
             if (saveFileDialog.ShowDialog() == true)
@@ -47,7 +48,8 @@ namespace JD_XI_Editor.Serializing
         {
             var openFileDialog = new OpenFileDialog
             {
-                DefaultExt = "yml"
+                DefaultExt = "yml",
+                Filter = "JD-XI Editor patch file|*.yml"
             };
 
             if (openFileDialog.ShowDialog() == true)
