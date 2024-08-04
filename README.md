@@ -8,9 +8,7 @@ Patches that can be edited via software right now:
 - Effects
 - Program Common & Vocal Effects
 
-Work in progress:
-
-Plans:
+Not supported:
 - Arpeggiator
 
 # Capabilities
